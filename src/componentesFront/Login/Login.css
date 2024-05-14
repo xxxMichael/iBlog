@@ -1,0 +1,140 @@
+body {
+  background-color: #333;
+  margin: 0;
+  padding: 0;
+} 
+.login-panel {
+  border-radius: 80px; /* Redondea todas las esquinas con un radio de 10px */
+  height: auto; /* Cambiar la altura a 'auto' para que se ajuste automáticamente al contenido */
+  margin: 0 auto; /* Centrar horizontalmente */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: url('images/fondoLogin.gif');
+  background-color: #333;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  height: 70vh;
+  width: 70vw;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.my-atropos {
+  height: 80vh;
+  width: 70vw;
+}
+
+.centered-div {
+  color: #333;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.centered-content {
+  position: relative;
+  top: 1000px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.login-panel h1 {
+  color: #fff;
+  font-size: 36px;
+  margin-bottom: 20px;
+  text-align: center; /* Centra el texto del h1 */
+}
+
+.mountain-background {
+  width: 100%;
+  height: 100px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.mountain-background img {
+  width: 100%;
+  height: auto;
+}
+
+.options {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.option {
+  background-color: #291f1f9f;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.option:hover {
+  background-color: #333;
+  color: #fff;
+}
+
+.registration-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px; /* Espacio entre los elementos */
+  align-items: center;
+  justify-items: center;
+  margin-top: 20px;
+}
+
+.registration-form h2 {
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Alinea los elementos a la izquierda */
+  width: 80%; /* Ancho del contenedor del input */
+}
+
+.form-group label {
+  color: #fff;
+}
+
+.form-group input {
+  background-color: #291f1f9f;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px 0;
+  border-radius: 5px;
+  width: 100%; /* Ancho del input */
+}
+
+.form-group input::placeholder {
+  color: #fff;
+}
+
+button[type="submit"] {
+  background-color: #291f1f9f;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #333;
+}

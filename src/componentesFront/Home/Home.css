@@ -1,0 +1,22 @@
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    height: 100vh; /* Ocupar toda la altura vertical del viewport */
+  }
+  
+  .left-panel, .right-panel {
+    width: 200px; /* Ancho fijo de los paneles izquierdo y derecho */
+    background-color: #f0f0f0;
+    padding: 20px;
+  }
+  
+  .main-panel {
+    flex: 1; /* El panel principal ocupa todo el espacio restante */
+    overflow-y: auto; /* Habilitar scroll vertical si es necesario */
+    padding: 20px;
+  }
+  
+  .scrollable-content {
+    height: 100%; /* Ocupar todo el espacio disponible */
+  }
