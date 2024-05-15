@@ -5,7 +5,7 @@ import { GoogleLogin } from "react-google-login";
 function LoginwGmail({ handleBackToLoginClick }) {
   const [loginSuccessful, setLoginSuccessful] = useState(false);
   const clientID =
-    "545268428713-io34r3mhfjri0jpvt4v7tn9frsi022so.apps.googleusercontent.com";
+    "374694067267-nvjhqgd23dpitnvqi0epsmvb7c80hm9c.apps.googleusercontent.com";
   const [user, setUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null); // Initialize errorMessage to null
