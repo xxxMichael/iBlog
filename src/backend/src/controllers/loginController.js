@@ -13,7 +13,7 @@ module.exports.login = (req, res) => {
             if (err) {
                 return res.status(500).send(err);
             }
-            if (result.length > 0) {
+            if (result && result.length > 0) {
                 const token = jwt.sign({ username: result[0].username }, "stack", { expiresIn: '2m' });
                 return res.send({ token });
             } else {
