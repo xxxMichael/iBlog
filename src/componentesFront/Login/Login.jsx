@@ -23,7 +23,7 @@ const Login = () => {
       password: password,
     };
     try {
-      const response = await fetch("http://ec2-54-94-110-73.sa-east-1.compute.amazonaws.com/login", {
+      const response = await fetch("http://ec2-54-94-110-73.sa-east-1.compute.amazonaws.com:3000/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

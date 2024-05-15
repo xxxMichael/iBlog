@@ -32,13 +32,13 @@ body {
   transform: translate(-50%, -50%);
 }
 
-/*.centered-content {
+.centered-content {
   position: relative;
   top: 1000px;
   left: 10%;
   transform: translate(-50%, -50%);
   text-align: center;
-}*/
+}
 
 .login-panel h1 {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
