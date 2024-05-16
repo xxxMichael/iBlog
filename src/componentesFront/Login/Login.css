@@ -2,7 +2,7 @@ body {
   background-color: #333;
   margin: 0;
   padding: 0;
-} 
+}
 .login-panel {
   border-radius: 80px; /* Redondea todas las esquinas con un radio de 10px */
   height: auto; /* Cambiar la altura a 'auto' para que se ajuste automáticamente al contenido */
@@ -10,7 +10,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-image: url('images/fondo2.gif');
+  background-image: url("images/fondo2.gif");
   background-color: #333;
   padding: 20px;
   border-radius: 5px;
@@ -21,8 +21,6 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 }
-
-
 
 .centered-div {
   color: #333;
@@ -41,7 +39,7 @@ body {
 }
 
 .login-panel h1 {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #fff;
   font-size: 350%;
   margin-bottom: 20px;
@@ -66,7 +64,9 @@ body {
   justify-content: center;
   margin-bottom: 20px;
 }
-.btnSEmail, .btnLGmail, .btnSGmail{
+.btnSEmail,
+.btnLGmail,
+.btnSGmail {
   font-size: 1rem;
   padding: 0.5em 1em;
   background-color: #ffff;
@@ -148,18 +148,19 @@ button[type="submit"]:hover {
   background-color: #333;
 }
 
-.input{
-  width: 200px;
+.input {
+  width: 275px;
   height: 45px;
   border: none;
   outline: none;
+  margin-top: 20px;
   padding: 0px 7px;
   border-radius: 6px;
   color: #fff;
   font-size: 15px;
   background-color: transparent;
-  box-shadow: 3px 3px 10px rgba(0,0,0,1),
-  -1px -1px 6px rgba(255, 255, 255, 0.4);
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 1),
+    -1px -1px 6px rgba(255, 255, 255, 0.4);
 }
 .container1 {
   display: flex;
@@ -168,7 +169,7 @@ button[type="submit"]:hover {
   position: relative;
   color: white;
 }
-.container1 .label1, .label2 {
+/*.container1 .label1, .label2 {
   font-size: 15px;
   padding-left: 10px;
   position: absolute;
@@ -183,5 +184,120 @@ input:focus {
   -1px -1px 6px rgba(255, 255, 255, 0.4),
   inset 3px 3px 10px rgba(0,0,0,1),
   inset -1px -1px 6px rgba(255, 255, 255, 0.4);
+}*/
+
+.titulo {
+  text-align: left;
+  font-family: Arial Black;
+  font-weight: bold;
+  font-size: 30px;
+  color: #fff;
+  text-shadow: 0 1px 0 #ddd, 0 2px 0 #ccc, 0 3px 0 #bbb, 0 4px 0 #aaa,
+    0 5px 0 #acacac, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1),
+    0 1px 3px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.2),
+    0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.2),
+    0 20px 20px rgba(0, 0, 0, 0.15);
+}
+.button {
+  -webkit-appearance: none;
+  appearance: none;
+  position: relative;
+  border-width: 0;
+  margin-top: 20px;
+  padding: 0 8px 12px;
+  min-width: 10em;
+  box-sizing: border-box;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
 }
 
+.button-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 0;
+  padding: 8px 16px;
+  transform: translateY(0);
+  text-align: center;
+  color: #fff;
+  text-shadow: 0 -1px rgba(0, 0, 0, 0.25);
+  transition-property: transform;
+  transition-duration: 0.2s;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.button:active .button-top {
+  transform: translateY(6px);
+}
+
+.button-top::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  border-radius: 4px;
+  width: 100%;
+  height: 100%;
+  box-sizing: content-box;
+  background-image: radial-gradient(#cd3f64, #9d3656);
+  text-align: center;
+  color: #fff;
+  box-shadow: inset 0 0 0px 1px rgba(255, 255, 255, 0.2),
+    0 1px 2px 1px rgba(255, 255, 255, 0.2);
+  transition-property: border-radius, padding, width, transform;
+  transition-duration: 0.2s;
+}
+
+.button:active .button-top::after {
+  border-radius: 6px;
+  padding: 0 2px;
+}
+
+.button-bottom {
+  position: absolute;
+  z-index: -1;
+  bottom: 4px;
+  left: 4px;
+  border-radius: 8px / 16px 16px 8px 8px;
+  padding-top: 6px;
+  width: calc(100% - 8px);
+  height: calc(100% - 10px);
+  box-sizing: content-box;
+  background-color: #803;
+  background-image: radial-gradient(
+      4px 8px at 4px calc(100% - 8px),
+      rgba(255, 255, 255, 0.25),
+      transparent
+    ),
+    radial-gradient(
+      4px 8px at calc(100% - 4px) calc(100% - 8px),
+      rgba(255, 255, 255, 0.25),
+      transparent
+    ),
+    radial-gradient(16px at -4px 0, white, transparent),
+    radial-gradient(16px at calc(100% + 4px) 0, white, transparent);
+  box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.5),
+    inset 0 -1px 3px 3px rgba(0, 0, 0, 0.4);
+  transition-property: border-radius, padding-top;
+  transition-duration: 0.2s;
+}
+
+.button:active .button-bottom {
+  border-radius: 10px 10px 8px 8px / 8px;
+  padding-top: 0;
+}
+
+.button-base {
+  position: absolute;
+  z-index: -2;
+  top: 4px;
+  left: 0;
+  border-radius: 12px;
+  width: 100%;
+  height: calc(100% - 4px);
+  background-color: rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 1px 0 rgba(255, 255, 255, 0.75),
+    inset 0 2px 2px rgba(0, 0, 0, 0.25);
+}
