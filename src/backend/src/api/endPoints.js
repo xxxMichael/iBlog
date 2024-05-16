@@ -9,6 +9,7 @@ router.get('/ping', ping);
 
 router.post('/loginwGmail', loginwGmail);
 router.post('/checkUsername', checkUsername);
+router.post('/verfRegistro', verfRegistro);
 
 router.post('/login', login);
 module.exports= router;

@@ -1,5 +1,4 @@
 const connection = require('../models/db');
-const jwt = require('jsonwebtoken');
 
 module.exports.login = (req, res) => {
     const { correoElectronico, password } = req.body;

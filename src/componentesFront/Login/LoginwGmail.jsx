@@ -3,18 +3,16 @@ import { gapi } from "gapi-script";
 import { GoogleLogin } from "react-google-login";
 
 function LoginwGmail({ handleBackToLoginClick }) {
-  const [loginSuccessful, setLoginSuccessful] = useState(false);
   const clientID =
-    "374694067267-nvjhqgd23dpitnvqi0epsmvb7c80hm9c.apps.googleusercontent.com";
-  const [user, setUser] = useState({});
-  const [loggedIn, setLoggedIn] = useState(false);
+    "799659145752-cgsgfheos3279f3b0ec30abdn42pffkt.apps.googleusercontent.com";
+  const [user, setUser] = useState(null); // Initially, no user is logged in
   const [errorMessage, setErrorMessage] = useState(null); // Initialize errorMessage to null
 
-  const handleLogin = () => {
+  const handleLogin = (user) => {
     const data = {
       email: user.email,
     };
-    fetch("http://localhost:3000/loginwGmail", {
+    fetch("http://localhost:3000/loginWGmail", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -27,10 +25,15 @@ function LoginwGmail({ handleBackToLoginClick }) {
         if (result.token) {
           localStorage.setItem("token", result.token);
           console.log(result.token);
-          setLoginSuccessful(true);
+          setErrorMessage({
+            message: "Redirigiendo a Home...",
+            type: "success",
+          }); // Set error message
+          setTimeout(function () {
+            location.reload();
+          }, 500);
         } else {
           console.log("sin usuario");
-          setLoginSuccessful(false);
           setErrorMessage({
             message: "Usuario no encontrado  Por favor registrese",
             type: "error",
@@ -45,20 +48,16 @@ function LoginwGmail({ handleBackToLoginClick }) {
         }); // Set error message
       });
   };
+
   const onSuccess = (response) => {
-    handleLogin();
     setUser(response.profileObj);
-    // setLoggedIn(true);
   };
 
   const onFailure = (response) => {
     console.log("Something went wrong");
   };
 
-  const handleLogout = () => {
-    setUser({});
-    setLoggedIn(false);
-  };
+  
 
   useEffect(() => {
     function start() {
@@ -68,6 +67,12 @@ function LoginwGmail({ handleBackToLoginClick }) {
     }
     gapi.load("client:auth2", start);
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      handleLogin(user);
+    }
+  }, [user]); // Only run handleLogin when user state changes
 
   useEffect(() => {
     // Clear error message after 3.5 seconds
@@ -81,17 +86,14 @@ function LoginwGmail({ handleBackToLoginClick }) {
   return (
     <div className="center">
       <h1>Login with Google</h1>
-
       <div className="btn">
-        {!loggedIn ? (
-          <GoogleLogin
-            clientId={clientID}
-            onSuccess={onSuccess}
-            onFailure={onFailure}
-            buttonText="Continue with Google"
-            cookiePolicy={"single_host_origin"}
-          />
-        ) : null}
+        <GoogleLogin
+          clientId={clientID}
+          onSuccess={onSuccess}
+          onFailure={onFailure}
+          buttonText="Continue with Google"
+          cookiePolicy={"single_host_origin"}
+        />
       </div>
       <button onClick={handleBackToLoginClick}>Back to Login</button>
 

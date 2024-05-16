@@ -11,6 +11,8 @@ module.exports.loginwGmail = (req, res) => {
                 res.send(err);
             }
             if (result !== undefined) {
+                console.log(result.email);
+
                 if (result.length > 0) {
                     const token = jwt.sign({ username: result[0].username }, "stack", { expiresIn: '2m' })
                     res.send({ token });

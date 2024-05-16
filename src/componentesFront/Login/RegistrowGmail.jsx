@@ -56,7 +56,7 @@ function RegistrowGmail({ handleBackToLoginClick }) {
       password: password
     };
 
-    fetch("http://localhost:3000/loginwGmail", {
+    fetch("http://localhost:3000/loginwgamil", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
