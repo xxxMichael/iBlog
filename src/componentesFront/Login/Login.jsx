@@ -4,8 +4,8 @@ import Atropos from "atropos/react";
 import "./Login.css";
 import "atropos/css";
 import Home from "../Home/Home";
-import Registro from "../Login/Registro"; 
-import LoginwGmail from "../Login/LoginwGmail"; 
+import Registro from "../Login/Registro";
+import LoginwGmail from "../Login/LoginwGmail";
 import RegistroGmail from "../Login/RegistrowGmail";
 
 const Login = () => {
@@ -49,7 +49,7 @@ const Login = () => {
       setLoginSuccessful(false); // Maneja el fallo de la solicitud de inicio de sesión
     }
   };
-  
+
   const handleSignUpClick = () => {
     setShowSignUpForm(true);
   };
@@ -86,12 +86,12 @@ const Login = () => {
                   handleSignUp={handleSignUp}
                 />
               ) : showLoginWithGmail ? (
-                <LoginwGmail 
+                <LoginwGmail
                   handleBackToLoginClick={handleBackToLoginClick}
                   handleLogin={handleLogin}
                 />
               ) : showSignWithGmail ? (
-                <RegistroGmail 
+                <RegistroGmail
                   handleBackToLoginClick={handleBackToLoginClick}
                   handleSignUp={handleSignUp}
                 />
@@ -110,22 +110,28 @@ const Login = () => {
                     </button>
                   </div>
                   <div className="inputs" data-atropos-offset="6">
-                    <input
-                      onChange={(event) => {
-                        setUsername(event.target.value);
-                      }}
-                      placeholder="Username"
-                      type="text"
-                      id="username"
-                    />
-                    <input
-                      onChange={(event) => {
-                        setPassword(event.target.value);
-                      }}
-                      type="password"
-                      placeholder="Password"
-                      id="password"
-                    />
+                    <div className="container1">
+                      <input
+                        onChange={(event) => {
+                          setUsername(event.target.value);
+                        }}
+                        placeholder="Usuario"
+                        type="text"
+                        id="txtusername"
+                        className="input"
+                      />
+                    </div>
+                    <div className="container1">
+                      <input
+                        onChange={(event) => {
+                          setPassword(event.target.value);
+                        }}
+                        type="password"
+                        placeholder="Password"
+                        id="txtpassword"
+                        className="input"
+                      />
+                    </div>
                     <button type="submit" onClick={handleLogin}>
                       Login
                     </button>
