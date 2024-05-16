@@ -10,7 +10,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-image: url("images/fondo2.gif");
+  background-image: url("images/fondo1.gif");
   background-color: #333;
   padding: 20px;
   border-radius: 5px;
@@ -133,7 +133,7 @@ body {
   color: #fff;
 }
 
-button[type="submit"] {
+/*button[type="submit"] {
   background-color: #291f1f9f;
   color: #ffffff;
   border: none;
@@ -146,7 +146,7 @@ button[type="submit"] {
 
 button[type="submit"]:hover {
   background-color: #333;
-}
+}*/
 
 .input {
   width: 275px;
@@ -156,9 +156,9 @@ button[type="submit"]:hover {
   margin-top: 20px;
   padding: 0px 7px;
   border-radius: 6px;
-  color: #fff;
+  color: black;
   font-size: 15px;
-  background-color: transparent;
+  /*background-color: transparent;*/
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 1),
     -1px -1px 6px rgba(255, 255, 255, 0.4);
 }
@@ -169,22 +169,6 @@ button[type="submit"]:hover {
   position: relative;
   color: white;
 }
-/*.container1 .label1, .label2 {
-  font-size: 15px;
-  padding-left: 10px;
-  position: absolute;
-  top: 13px;
-  transition: 0.3s;
-  pointer-events: none;
-}
-input:focus {
-  border: 2px solid transparent;
-  color: #fff;
-  box-shadow: 3px 3px 10px rgba(0,0,0,1),
-  -1px -1px 6px rgba(255, 255, 255, 0.4),
-  inset 3px 3px 10px rgba(0,0,0,1),
-  inset -1px -1px 6px rgba(255, 255, 255, 0.4);
-}*/
 
 .titulo {
   text-align: left;
@@ -210,6 +194,12 @@ input:focus {
   background: transparent;
   font: inherit;
   cursor: pointer;
+}
+.button-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: px;
 }
 
 .button-top {

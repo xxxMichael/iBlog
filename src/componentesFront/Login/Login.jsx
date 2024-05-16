@@ -97,7 +97,7 @@ const Login = () => {
                 />
               ) : (
                 <>
-                  <h1 className="titulo" data-atropos-offset="7">Bienvenido A ¡Blog</h1>
+                  <h1 className="titulo" data-atropos-offset="7">BIENVENIDO A ¡BLOG</h1>
                   <div className="options" data-atropos-offset="5">
                     <button className="btnSEmail" onClick={handleSignUpClick}>
                       Sign up with email
@@ -132,15 +132,15 @@ const Login = () => {
                         className="input"
                       />
                     </div>
-                    <div className="contenedorbtnInicio">
+                    <div className="button-container">
                       <button type="button" onClick={handleLogin} className="button">
                         <div className="button-top">LOGIN</div>
                         <div className="button-bottom"></div>
                         <div className="button-base"></div>
                       </button>
                     </div>
-                    <a href='' className="enlaceContraseña">Forgot password</a>
                   </div>
+                  <a href='' className="enlaceContraseña">Forgot password</a>
                 </>
               )}
             </div>
