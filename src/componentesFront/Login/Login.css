@@ -66,7 +66,18 @@ body {
   justify-content: center;
   margin-bottom: 20px;
 }
-
+.btnSEmail, .btnLGmail, .btnSGmail{
+  font-size: 1rem;
+  padding: 0.5em 1em;
+  background-color: #ffff;
+  border: 2px solid lightpink;
+  border-radius: 1em;
+  color: #020202;
+  font-weight: bolder;
+  transition: cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.4s;
+  box-shadow: -5px 5px 0px 0px violet;
+  margin-right: 10px;
+}
 .option {
   background-color: #291f1f9f;
   color: #ffffff;

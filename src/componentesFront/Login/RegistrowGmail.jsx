@@ -20,7 +20,7 @@ function RegistrowGmail({ handleBackToLoginClick }) {
   useEffect(() => {
     function checkUsernameExists() {
       if (username.trim().length >= 4) {
-        fetch("http://ec2-54-94-110-73.sa-east-1.compute.amazonaws.com:3000/checkUsername", {
+        fetch("http://localhost:3000/checkUsername", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -56,7 +56,7 @@ function RegistrowGmail({ handleBackToLoginClick }) {
       password: password
     };
 
-    fetch("http://ec2-54-94-110-73.sa-east-1.compute.amazonaws.com:3000/loginwGmail", {
+    fetch("http://localhost:3000/loginwGmail", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

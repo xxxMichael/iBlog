@@ -23,7 +23,7 @@ const Login = () => {
       password: password,
     };
     try {
-      const response = await fetch("http://ec2-54-94-110-73.sa-east-1.compute.amazonaws.com:3000/login", {
+      const response = await fetch("http://localhost:3000/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -99,16 +99,15 @@ const Login = () => {
                 <>
                   <h1 data-atropos-offset="7">Bienvenido A ¡Blog</h1>
                   <div className="options" data-atropos-offset="5">
-                    <button className="option" onClick={handleSignUpClick}>
+                    <button className="btnSEmail" onClick={handleSignUpClick}>
                       Sign up with email
                     </button>
-                    <button className="option" onClick={handleLoginWithGmailClick}>
+                    <button className="btnLGmail" onClick={handleLoginWithGmailClick}>
                       Login with Gmail
                     </button>
-                    <button className="option" onClick={handleSignnWithGmailClick}>
+                    <button className="btnSGmail" onClick={handleSignnWithGmailClick}>
                       Sign up with Gmail
                     </button>
-                    <button className="option">Forgot password</button>
                   </div>
                   <div className="inputs" data-atropos-offset="6">
                     <input
@@ -130,6 +129,7 @@ const Login = () => {
                     <button type="submit" onClick={handleLogin}>
                       Login
                     </button>
+                    <button className="btnRContra">Forgot password</button>
                   </div>
                 </>
               )}
