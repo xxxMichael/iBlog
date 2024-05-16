@@ -1,9 +1,9 @@
 /* eslint-disable no-undef */
 const mysql = require('mysql2');
 const connection = mysql.createConnection({
-    host: 'dbappwebposts.cb6sqegycy1o.us-east-1.rds.amazonaws.com',
-    user: 'admin',
-    password: 'MRC58252',
-    database: 'blogmodelamiento'
+    host: 'bairqdsqayr6niqkwas3-mysql.services.clever-cloud.com',
+    user: 'uedxx9ar8zv6biqd',
+    password: 'r1IllM7XbBUkcaeyg4xr',
+    database: 'bairqdsqayr6niqkwas3'
 });
 module.exports = connection;
