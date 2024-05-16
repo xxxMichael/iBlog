@@ -6,7 +6,7 @@ import "./regwgmail.css"; // Importa tu archivo CSS aquí
 function RegistrowGmail({ handleBackToLoginClick }) {
   const [loginSuccessful, setLoginSuccessful] = useState(false);
   const clientID =
-    "374694067267-nvjhqgd23dpitnvqi0epsmvb7c80hm9c.apps.googleusercontent.com";
+  "799659145752-cgsgfheos3279f3b0ec30abdn42pffkt.apps.googleusercontent.com";
   const [user, setUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null); // Initialize errorMessage to null
@@ -83,9 +83,35 @@ function RegistrowGmail({ handleBackToLoginClick }) {
   };
 
   const onSuccess = (response) => {
-    setUser(response.profileObj);
-    setShowLoginForm(true);
+    fetch("http://localhost:3000/verfRegistro", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ correoElectronico: response.profileObj.email }), // Asegúrate de enviar el correo electrónico correctamente
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message === 'Usuario existente') {
+          alert('Usuario ya existe.');
+          // No mostramos el formulario de login
+          setShowLoginForm(false);
+        } else if (data.message === 'El usuario está pendiente de autenticación') {
+          alert('El usuario está pendiente de verificación.');
+          // No mostramos el formulario de login
+          setShowLoginForm(false);
+        } else {
+          setUser(response.profileObj);
+          setShowLoginForm(true); // Solo mostramos el formulario de login si el usuario no existe y no está pendiente de verificación
+        }
+      })  
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        alert('Error en el servidor. Intente nuevamente más tarde.');
+        setShowLoginForm(false); // No mostramos el formulario de login en caso de error
+      });
   };
+  
 
   const onFailure = (response) => {
     console.log("Something went wrong");

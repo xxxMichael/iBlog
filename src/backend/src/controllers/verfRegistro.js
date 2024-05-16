@@ -1,6 +1,6 @@
 const connection = require('../models/db');
 
-module.exports.login = (req, res) => {
+module.exports.verfRegistro = (req, res) => {
     const { correoElectronico, password } = req.body;
     console.log(correoElectronico, password);
     

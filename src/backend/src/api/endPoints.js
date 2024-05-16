@@ -4,6 +4,7 @@ const { ping } = require('../controllers/pinController');
 const {login}= require('../controllers/loginController');
 const {loginwGmail}= require('../controllers/loginwGmail');
 const {checkUsername}= require('../controllers/checkUsername');
+const {verfRegistro}= require('../controllers/verfRegistro');
 
 router.get('/ping', ping);
 
