@@ -7,7 +7,7 @@ function LoginwGmail({ handleBackToLoginClick }) {
     "799659145752-cgsgfheos3279f3b0ec30abdn42pffkt.apps.googleusercontent.com";
   const [user, setUser] = useState(null); // Initially, no user is logged in
   const [errorMessage, setErrorMessage] = useState(null); // Initialize errorMessage to null
-
+  
   const handleLogin = (user) => {
     const data = {
       email: user.email,

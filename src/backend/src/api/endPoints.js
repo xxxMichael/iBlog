@@ -5,8 +5,10 @@ const {login}= require('../controllers/loginController');
 const {loginwGmail}= require('../controllers/loginwGmail');
 const {checkUsername}= require('../controllers/checkUsername');
 const {verfRegistro}= require('../controllers/verfRegistro');
+const {registrarGmail}= require('../controllers/registrarGmail');
 
 router.get('/ping', ping);
+router.post('/registrarGmail', registrarGmail);
 
 router.post('/loginwGmail', loginwGmail);
 router.post('/checkUsername', checkUsername);

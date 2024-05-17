@@ -6,7 +6,7 @@ import "./regwgmail.css"; // Importa tu archivo CSS aquí
 function RegistrowGmail({ handleBackToLoginClick }) {
   const [loginSuccessful, setLoginSuccessful] = useState(false);
   const clientID =
-  "799659145752-cgsgfheos3279f3b0ec30abdn42pffkt.apps.googleusercontent.com";
+    "799659145752-cgsgfheos3279f3b0ec30abdn42pffkt.apps.googleusercontent.com";
   const [user, setUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null); // Initialize errorMessage to null
@@ -46,17 +46,22 @@ function RegistrowGmail({ handleBackToLoginClick }) {
 
   const handleLogin = () => {
     if (password !== confirmPassword) {
-      setErrorMessage({ message: "Las contraseñas no coinciden", type: "error" });
+      setErrorMessage({
+        message: "Las contraseñas no coinciden",
+        type: "error",
+      });
       return;
     }
-
+  
     const data = {
       email: user.email,
       username: username,
-      password: password
+      password: password,
+      nombre: user.name,
+      apellido: user.last_name
     };
-
-    fetch("http://localhost:3000/loginwgamil", {
+  
+    fetch("http://localhost:3000/registrarGmail", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -65,22 +70,25 @@ function RegistrowGmail({ handleBackToLoginClick }) {
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log(result.token);
-        if (result.token) {
-          localStorage.setItem("token", result.token);
-          console.log(result.token);
-          setLoginSuccessful(true);
+        if (result.success) {
+          console.log('User inserted successfully:', result);
+          window.location.reload(); // Recarga la página
         } else {
-          console.log("sin usuario");
-          setLoginSuccessful(false);
-          setErrorMessage({ message: 'Usuario no encontrado. Por favor regístrese.', type: 'error' }); // Set error message
+          setErrorMessage({
+            message: result.message || 'Error al insertar el usuario',
+            type: "error",
+          });
         }
       })
       .catch((err) => {
         console.error(err);
-        setErrorMessage({ message: 'Error interno del servidor', type: 'error' }); // Set error message
+        setErrorMessage({
+          message: 'Error interno del servidor',
+          type: "error",
+        });
       });
   };
+  
 
   const onSuccess = (response) => {
     fetch("http://localhost:3000/verfRegistro", {
@@ -92,34 +100,31 @@ function RegistrowGmail({ handleBackToLoginClick }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data.message === 'Usuario existente') {
-          alert('Usuario ya existe.');
+        if (data.message === "Usuario existente") {
+          alert("Usuario ya existe.");
           // No mostramos el formulario de login
           setShowLoginForm(false);
-        } else if (data.message === 'El usuario está pendiente de autenticación') {
-          alert('El usuario está pendiente de verificación.');
+        } else if (
+          data.message === "El usuario está pendiente de autenticación"
+        ) {
+          alert("El usuario está pendiente de verificación.");
           // No mostramos el formulario de login
           setShowLoginForm(false);
         } else {
+          console.log(data.message);
           setUser(response.profileObj);
           setShowLoginForm(true); // Solo mostramos el formulario de login si el usuario no existe y no está pendiente de verificación
         }
-      })  
+      })
       .catch((error) => {
         console.error("Error fetching data:", error);
-        alert('Error en el servidor. Intente nuevamente más tarde.');
+        alert("Error en el servidor. Intente nuevamente más tarde.");
         setShowLoginForm(false); // No mostramos el formulario de login en caso de error
       });
   };
-  
 
   const onFailure = (response) => {
     console.log("Something went wrong");
-  };
-
-  const handleLogout = () => {
-    setUser({});
-    setLoggedIn(false);
   };
 
   useEffect(() => {
@@ -159,23 +164,40 @@ function RegistrowGmail({ handleBackToLoginClick }) {
       {showLoginForm && (
         <div className="container">
           <div className="input-container">
-            <p style={{ backgroundColor: "green",color: "white"}}>Por favor ingresa estos datos para terminar el registro de tu cuenta:</p>
+            <p style={{ backgroundColor: "green", color: "white" }}>
+              Por favor ingresa estos datos para terminar el registro de tu
+              cuenta:
+            </p>
             <input
               type="text"
               placeholder="Username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
-            {username.trim().length >= 4 && usernameAvailable && ( // Muestra el mensaje "username disponible" solo si el nombre de usuario tiene al menos 4 caracteres y está disponible
-              <p style={{  backgroundColor: "green",color: "white", margin: "5px 0", fontSize: "14px" }}>
-                ¡Username disponible!
-              </p>
-            )}
+            {username.trim().length >= 4 &&
+              usernameAvailable && ( // Muestra el mensaje "username disponible" solo si el nombre de usuario tiene al menos 4 caracteres y está disponible
+                <p
+                  style={{
+                    backgroundColor: "green",
+                    color: "white",
+                    margin: "5px 0",
+                    fontSize: "14px",
+                  }}
+                >
+                  ¡Username disponible!
+                </p>
+              )}
             {usernameExists && ( // Muestra el mensaje de error si el nombre de usuario ya existe
-             <p style={{ backgroundColor: "red", color: "white", margin: "5px 0", fontSize: "14px" }}>
-             ¡El nombre de usuario ya existe!
-           </p>
-           
+              <p
+                style={{
+                  backgroundColor: "red",
+                  color: "white",
+                  margin: "5px 0",
+                  fontSize: "14px",
+                }}
+              >
+                ¡El nombre de usuario ya existe!
+              </p>
             )}
           </div>
           <div className="input-container">
@@ -193,15 +215,35 @@ function RegistrowGmail({ handleBackToLoginClick }) {
             />
           </div>
           <div className="btn-container">
-            <button onClick={handleLogin} disabled={!usernameAvailable || username.trim().length < 4 || !password || password !== confirmPassword}>Register</button>
+            <button
+              onClick={handleLogin}
+              disabled={
+                !usernameAvailable ||
+                username.trim().length < 4 ||
+                !password ||
+                password !== confirmPassword
+              }
+            >
+              Register
+            </button>
           </div>
         </div>
       )}
 
-      <button onClick={handleBackToLoginClick} disabled={showLoginForm} style={{ marginTop: "10px" }}>Back to Login</button>
+      <button
+        onClick={handleBackToLoginClick}
+        disabled={showLoginForm}
+        style={{ marginTop: "10px" }}
+      >
+        Back to Login
+      </button>
 
       {errorMessage && ( // Show error message if it exists
-        <div className={errorMessage.type === "error" ? "error-message" : "success-message"}>
+        <div
+          className={
+            errorMessage.type === "error" ? "error-message" : "success-message"
+          }
+        >
           {errorMessage.message}
         </div>
       )}
