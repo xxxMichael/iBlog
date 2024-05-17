@@ -180,8 +180,9 @@ button[type="submit"]:hover {
   text-align: left;
   font-family: Arial Black;
   font-weight: bold;
-  font-size: 30px;
+  font-size: 28px;
   margin-top: 0px;
+  margin-right: 5px;
   color: #fff;
   text-shadow: 0 1px 0 #ddd, 0 2px 0 #ccc, 0 3px 0 #bbb, 0 4px 0 #aaa,
     0 5px 0 #acacac, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1),
@@ -300,9 +301,9 @@ button[type="submit"]:hover {
 }
 /* inspired form gumroad website */
 .buttonRC {
-  --bg: #000;
-  --hover-bg: #ff90e8;
-  --hover-text: #000;
+  --bg: rgb(8, 8, 39);
+  --hover-bg: rgb(9, 31, 146);
+  --hover-text: #ffff;
   color: #fff;
   margin-top: 25px;
   cursor: pointer;
