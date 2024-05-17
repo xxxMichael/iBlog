@@ -67,16 +67,22 @@ body {
 .btnSEmail,
 .btnLGmail,
 .btnSGmail {
+  cursor: pointer;
   font-size: 1rem;
   padding: 0.5em 1em;
   background-color: #ffff;
-  border: 2px solid lightpink;
+  border: 2px solid rgb(9, 44, 90);
   border-radius: 1em;
   color: #020202;
   font-weight: bolder;
   transition: cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.4s;
-  box-shadow: -5px 5px 0px 0px violet;
+  box-shadow: -5px 5px 0px 0px rgb(9, 44, 90);
   margin-right: 10px;
+}
+.btnSEmail:hover,
+.btnLGmail:hover,
+.btnSGmail:hover {
+  transform: translate(5px, -5px);
 }
 .option {
   background-color: #291f1f9f;
@@ -175,6 +181,7 @@ button[type="submit"]:hover {
   font-family: Arial Black;
   font-weight: bold;
   font-size: 30px;
+  margin-top: 0px;
   color: #fff;
   text-shadow: 0 1px 0 #ddd, 0 2px 0 #ccc, 0 3px 0 #bbb, 0 4px 0 #aaa,
     0 5px 0 #acacac, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1),
@@ -231,7 +238,7 @@ button[type="submit"]:hover {
   width: 100%;
   height: 100%;
   box-sizing: content-box;
-  background-image: radial-gradient(#cd3f64, #9d3656);
+  background-image: radial-gradient(rgb(9, 44, 90), rgb(9, 44, 90));
   text-align: center;
   color: #fff;
   box-shadow: inset 0 0 0px 1px rgba(255, 255, 255, 0.2),
@@ -255,7 +262,7 @@ button[type="submit"]:hover {
   width: calc(100% - 8px);
   height: calc(100% - 10px);
   box-sizing: content-box;
-  background-color: #803;
+  background-color: rgb(9, 44, 90);
   background-image: radial-gradient(
       4px 8px at 4px calc(100% - 8px),
       rgba(255, 255, 255, 0.25),
@@ -290,4 +297,30 @@ button[type="submit"]:hover {
   background-color: rgba(0, 0, 0, 0.15);
   box-shadow: 0 1px 1px 0 rgba(255, 255, 255, 0.75),
     inset 0 2px 2px rgba(0, 0, 0, 0.25);
+}
+/* inspired form gumroad website */
+.buttonRC {
+  --bg: #000;
+  --hover-bg: #ff90e8;
+  --hover-text: #000;
+  color: #fff;
+  margin-top: 25px;
+  cursor: pointer;
+  border: 1px solid var(--bg);
+  border-radius: 4px;
+  padding: 0.8em 2em;
+  background: var(--bg);
+  transition: 0.2s;
+}
+
+.buttonRC:hover {
+  color: var(--hover-text);
+  transform: translate(-0.25rem, -0.25rem);
+  background: var(--hover-bg);
+  box-shadow: 0.25rem 0.25rem var(--bg);
+}
+
+.buttonRC:active {
+  transform: translate(0);
+  box-shadow: none;
 }
