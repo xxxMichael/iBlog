@@ -12,23 +12,19 @@ module.exports.verfRegistro = (req, res) => {
             console.log("dentro try antes if error");
             if (err) {
                 console.log(err);
-                console.log("primer if error");
 
                 return res.status(500).send(err);
 
             }
             console.log("despues if error ante del if result autenticado");
             if (resultAutenticado.length > 0) {
-                console.log("dentrodel if result autenticado");
                 return res.send({ message: 'Usuario existente' });
             }
             connection.query(consultaNoAutenticado, [correoElectronico], (err, resultNoAutenticado) => {
                 if (err) {
-                    console.log("segundo if errror");
                     return res.status(500).send(err);
 
                 }
-                console.log("despues del if 2 err ");
                 if (resultNoAutenticado.length > 0) {
                     console.log("segundo if resultado autenticado");
 

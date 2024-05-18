@@ -52,15 +52,17 @@ function RegistrowGmail({ handleBackToLoginClick }) {
       });
       return;
     }
-  
+
     const data = {
       email: user.email,
       username: username,
       password: password,
       nombre: user.name,
-      apellido: user.last_name
+      apellido: user.last_name,
     };
-    console.log(data);
+
+    console.log("Data to be sent to the server:", data);
+
     fetch("http://localhost:3000/registrarGmail", {
       method: "POST",
       headers: {
@@ -71,11 +73,19 @@ function RegistrowGmail({ handleBackToLoginClick }) {
       .then((response) => response.json())
       .then((result) => {
         if (result.success) {
-          console.log('User inserted successfully:', result);
-          window.location.reload(); // Recarga la página
+          console.log("User inserted successfully:", result);
+          setErrorMessage({
+            message:
+              "Usuario registrado exitosamente. Por favor, inicie sesión.",
+            type: "success",
+          });
+          // Optionally, redirect to login page after a short delay
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000); // Redirect or reload after 2 seconds
         } else {
           setErrorMessage({
-            message: result.message || 'Error al insertar el usuario',
+            message: result.message || "Error al insertar el usuario",
             type: "error",
           });
         }
@@ -83,12 +93,11 @@ function RegistrowGmail({ handleBackToLoginClick }) {
       .catch((err) => {
         console.error(err);
         setErrorMessage({
-          message: 'Error interno del servidor',
+          message: "Error interno del servidor",
           type: "error",
         });
       });
   };
-  
 
   const onSuccess = (response) => {
     fetch("http://localhost:3000/verfRegistro", {
@@ -214,6 +223,21 @@ function RegistrowGmail({ handleBackToLoginClick }) {
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </div>
+          {errorMessage && ( // Show error message if it exists
+            <div
+              style={{
+                backgroundColor:
+                  errorMessage.type === "error" ? "red" : "green",
+                padding: "10px",
+                borderRadius: "5px",
+                margin: "10px 0",
+                color: "white",
+                textAlign: "center",
+              }}
+            >
+              {errorMessage.message}
+            </div>
+          )}
           <div className="btn-container">
             <button
               onClick={handleLogin}
@@ -237,16 +261,6 @@ function RegistrowGmail({ handleBackToLoginClick }) {
       >
         Back to Login
       </button>
-
-      {errorMessage && ( // Show error message if it exists
-        <div
-          className={
-            errorMessage.type === "error" ? "error-message" : "success-message"
-          }
-        >
-          {errorMessage.message}
-        </div>
-      )}
     </div>
   );
 }
