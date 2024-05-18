@@ -1,25 +1,15 @@
 const connection = require('../models/db');
 
-module.exports.registrarGmail = (data) => {
+module.exports.registrarGmail = (req) => {
+  const { email, username, password , nombre,apellido } = req.body;
+
     const query = `
     INSERT INTO usuarioAutenticado (nombre, apellido, username, email, contra, fechaRegistro, rol, fechaNac, pais)
-    VALUES (?, ?, ?, ?, ?, CURRENT_DATE, 'Bronce', ?, ?)
+    VALUES (?, ?, ?, ?, ?, CURRENT_DATE, 'Bronce', null, null)
   `;
-  const values = [
-    data.nombre,
-    data.apellido,
-    data.username,
-    data.email,
-    data.password, // Asegúrate de almacenar una versión hasheada de la contraseña
-    data.fechaNac || null, // Ajusta según tus necesidades si tienes la fecha de nacimiento
-    data.pais || null // Ajusta según tus necesidades si tienes el país
-  ];
-  console.log(data.nombre,
-    data.apellido,
-    data.username,
-    data.email,
-    data.password);
-  connection.query(query, values, (err, result) => {
+
+
+  connection.query(query,  [nombre, apellido, username,email,password ], (err, result) => {
     if (err) {
       console.error('Error inserting user:', err);
       return;

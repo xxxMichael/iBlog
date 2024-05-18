@@ -60,7 +60,7 @@ function RegistrowGmail({ handleBackToLoginClick }) {
       nombre: user.name,
       apellido: user.last_name
     };
-  
+    console.log(data);
     fetch("http://localhost:3000/registrarGmail", {
       method: "POST",
       headers: {
