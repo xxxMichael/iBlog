@@ -1,7 +1,7 @@
 import Login from "../Login/Login.jsx";
 import Home from "../Home/Home.jsx";
 
-function parseJwt (token) {
+export function parseJwt(token) {
     const base64Url = token.split('.')[1];
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
     const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
