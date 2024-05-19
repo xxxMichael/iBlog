@@ -166,121 +166,76 @@ const Registro = ({ handleBackToLoginClick, handleSignUp }) => {
   };
 
   return (
-    <form className="registration-form" onSubmit={handleSignUpSubmit}>
-      <h2>Registrar por email</h2>
-      <div className="form-group">
-        <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          placeholder="Ingrese su correo electrónico"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="password">Contraseña:</label>
-        <input
-          type="password"
-          id="password"
-          placeholder="Ingrese su contraseña"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="confirmPassword">Confirmar Contraseña:</label>
-        <input
-          type="password"
-          id="confirmPassword"
-          placeholder="Confirme su contraseña"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="firstName">Nombre:</label>
-        <input
-          type="text"
-          id="firstName"
-          placeholder="Ingrese su nombre"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-          required
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="lastName">Apellido:</label>
-        <input
-          type="text"
-          id="lastName"
-          placeholder="Ingrese su apellido"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-          required
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="username">Nombre de usuario:</label>
-        <input
-          type="text"
-          id="username"
-          placeholder="Ingrese su nombre de usuario"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="dob">Fecha de nacimiento:</label>
-        <input
-          type="date"
-          id="dob"
-          placeholder="Ingrese su fecha de nacimiento"
-          value={dob}
-          onChange={(e) => setDob(e.target.value)}
-          required
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="country">País:</label>
-        <select
-          id="country"
-          value={country}
-          onChange={(e) => setCountry(e.target.value)}
-          required
-        >
-          <option value="">Seleccione su país</option>
-          <option value="Argentina">Argentina</option>
-          <option value="Bolivia">Bolivia</option>
-          <option value="Chile">Chile</option>
-          <option value="Colombia">Colombia</option>
-          <option value="Costa Rica">Costa Rica</option>
-          <option value="Cuba">Cuba</option>
-          <option value="Dominicana">República Dominicana</option>
-          <option value="Ecuador">Ecuador</option>
-          <option value="El Salvador">El Salvador</option>
-          <option value="Guatemala">Guatemala</option>
-          <option value="Honduras">Honduras</option>
-          <option value="México">México</option>
-          <option value="Nicaragua">Nicaragua</option>
-          <option value="Panamá">Panamá</option>
-          <option value="Paraguay">Paraguay</option>
-          <option value="Perú">Perú</option>
-          <option value="Puerto Rico">Puerto Rico</option>
-          <option value="Uruguay">Uruguay</option>
-          <option value="Venezuela">Venezuela</option>
-        </select>
-      </div>
-      <button type="submit">Registrarse</button>
-      <button type="button" onClick={handleBackToLoginClick}>
-        Regresar a inicio de sesión
-      </button>
+    <div className="Registro_C">
+      <h1 className="titulo">REGISTRO</h1>
+      <form className="registration-form" onSubmit={handleSignUpSubmit}>
+        <div className="input-column">
+          <div className="inputBox">
+            <input required type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <span>Gmail</span>
+          </div>
+          <div className="inputBox">
+            <input required type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <span>Password</span>
+          </div>
+          <div className="inputBox">
+            <input required type="text" id="firstName" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+            <span>Name</span>
+          </div>
+          <div className="inputBox">
+            <input required type="password" id="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+            <span>Confirm Password</span>
+          </div>
+          <div className="inputBox">
+            <input required type="text" id="lastName" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+            <span>Lastname</span>
+          </div>
+          <div className="inputBox">
+            <input required type="text" id="username" value={username} onChange={(e) => setUsername(e.target.value)} />
+            <span>Username</span>
+          </div>
+          <div className="inputBox">
+            <input className="fecha" required type="date" id="dob" value={dob} onChange={(e) => setDob(e.target.value)} />
+            <span>Birthdate</span>
+          </div>
+          <div className="inputBox">
+            <select
+              id="country"
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
+              required
+            >
+              <option value="">Seleccione su país</option>
+              <option value="Argentina">Argentina</option>
+              <option value="Bolivia">Bolivia</option>
+              <option value="Chile">Chile</option>
+              <option value="Colombia">Colombia</option>
+              <option value="Costa Rica">Costa Rica</option>
+              <option value="Cuba">Cuba</option>
+              <option value="Dominicana">República Dominicana</option>
+              <option value="Ecuador">Ecuador</option>
+              <option value="El Salvador">El Salvador</option>
+              <option value="Guatemala">Guatemala</option>
+              <option value="Honduras">Honduras</option>
+              <option value="México">México</option>
+              <option value="Nicaragua">Nicaragua</option>
+              <option value="Panamá">Panamá</option>
+              <option value="Paraguay">Paraguay</option>
+              <option value="Perú">Perú</option>
+              <option value="Puerto Rico">Puerto Rico</option>
+              <option value="Uruguay">Uruguay</option>
+              <option value="Venezuela">Venezuela</option>
+            </select>
+          </div>
+        </div>
+        <div className="button-container">
+          <button className="btnRegisterE">
+            <span>Register</span><i></i>
+          </button>
+        </div>
+      </form>
       {isVisible && (
-        <div
+        <div className="mensageError"
           style={{
             backgroundColor: getColor(),
             padding: "10px",
@@ -293,7 +248,10 @@ const Registro = ({ handleBackToLoginClick, handleSignUp }) => {
           {errorMessage.message}
         </div>
       )}
-    </form>
+      <button className="btnRegresoLogin" onClick={handleBackToLoginClick}>
+        Regresar a inicio de sesión
+      </button>
+    </div>
   );
 };
 

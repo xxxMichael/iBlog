@@ -37,7 +37,6 @@ body {
   left: 10%;
   transform: translate(-50%, -50%);
   text-align: center;
-
 }
 
 .login-panel h1 {
@@ -141,21 +140,6 @@ body {
   color: #fff;
 }
 
-/*button[type="submit"] {
-  background-color: #291f1f9f;
-  color: #ffffff;
-  border: none;
-  padding: 10px 20px;
-  margin-top: 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-button[type="submit"]:hover {
-  background-color: #333;
-}*/
-
 .input {
   width: 275px;
   height: 45px;
@@ -170,6 +154,15 @@ button[type="submit"]:hover {
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 1),
     -1px -1px 6px rgba(255, 255, 255, 0.4);
 }
+.input:focus {
+  color: black;
+  /*background-color: #212121;*/
+  outline-color: rgb(9, 44, 90);
+  box-shadow: -3px -3px 15px rgb(10, 10, 125);
+  transition: 0.1s;
+  transition-property: box-shadow;
+}
+
 .container1 {
   display: flex;
   flex-direction: column;
@@ -325,4 +318,161 @@ button[type="submit"]:hover {
 .buttonRC:active {
   transform: translate(0);
   box-shadow: none;
+}
+
+.inputBox {
+  position: relative;
+  margin-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inputBox input {
+  padding: 6px 10px;
+  outline: none;
+  background: white;
+  border-radius: 6px;
+  color: black;
+  border: 1px solid rgb(9, 44, 90);
+  font-size: 1em;
+}
+
+.inputBox span {
+  position: absolute;
+  left: 0;
+  padding: 15px 20px;
+  pointer-events: none;
+  font-size: 1em;
+  transition: 0.4s cubic-bezier(0.05, 0.81, 0, 0.93);
+  color: rgb(9, 44, 90);
+  letter-spacing: 0.1em;
+  margin: -8px;
+}
+
+.inputBox input:focus ~ span,
+.inputBox input:valid ~ span {
+  font-size: 0.7em;
+  transform: translateX(18px) translateY(-1px);
+  padding: 0 5px;
+  border-radius: 2px;
+  background: #ffff;
+  letter-spacing: 0em;
+  border: 1px solid rgb(9, 44, 90);
+}
+
+.inputBox input:invalid {
+  color: transparent; /* Hace que el texto del input sea transparente cuando es inválido */
+}
+
+.inputBox input:focus {
+  color: black;
+  background: white;
+}
+
+.btnRegisterE {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 8px 20px;
+  transition: 0.5s;
+  position: relative;
+  font-size: 17px;
+  background: white;
+  border: 2px solid rgb(9, 44, 90);
+  color: black;
+  margin-top: 0;
+  cursor: pointer;
+}
+
+.btnRegisterE:hover {
+  letter-spacing: 0.25em;
+  background: rgb(9, 44, 90);
+  color: black;
+  box-shadow: 0 0 45px rgb(29, 118, 233);
+}
+
+.btnRegisterE::before {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  background: white;
+}
+
+.btnRegisterE span {
+  position: relative;
+  z-index: 1;
+}
+
+.btnRegisterE i {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.btnRegisterE i::before {
+  content: "";
+  position: absolute;
+  border: 2px solid rgb(9, 44, 90);
+  width: 7px;
+  height: 4px;
+  top: -5px;
+  left: 80%;
+  background: black;
+  transform: translateX(-50%);
+  transition: 0.5s;
+}
+
+.btnRegisterE:hover i::before {
+  width: 20px;
+  left: 20%;
+}
+
+.btnRegisterE i::after {
+  content: "";
+  position: absolute;
+  border: 2px solid rgb(9, 44, 90);
+  width: 7px;
+  height: 4px;
+  bottom: -5px;
+  left: 20%;
+  background: black;
+  transform: translateX(-50%);
+  transition: 0.5s;
+}
+
+.btnRegisterE:hover i::after {
+  width: 20px;
+  left: 80%;
+}
+
+.Registro_C {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centra horizontalmente los elementos */
+  height: 100vh; /* Ajusta la altura del contenedor para ocupar toda la altura de la ventana */
+}
+
+.btnRegresoLogin {
+  margin-top: 15px;
+}
+
+.registration-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-column {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px; /* Espacio entre columnas */
+}
+
+.fecha,
+select {
+  width: 85%; /* Asegura que ocupen todo el ancho del contenedor */
+} 
+
+select{
+  height: 100%;
 }
