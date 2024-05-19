@@ -20,6 +20,7 @@ body {
   background-position: center bottom;
   background-repeat: no-repeat;
   background-size: cover;
+  overflow: hidden;
 }
 
 .centered-div {
@@ -36,6 +37,7 @@ body {
   left: 10%;
   transform: translate(-50%, -50%);
   text-align: center;
+
 }
 
 .login-panel h1 {

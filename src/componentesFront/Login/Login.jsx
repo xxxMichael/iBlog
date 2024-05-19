@@ -78,7 +78,7 @@ const Login = () => {
         <Home />
       ) : (
         <div className="centered-div" id="app">
-          <Atropos activeOffset={15} shadowScale={25}>
+          <Atropos activeOffset={15} shadowScale={0}>
             <div className="login-panel">
               {showSignUpForm ? (
                 <Registro
@@ -98,7 +98,6 @@ const Login = () => {
               ) : (
                 <>
                   <h1 className="titulo" data-atropos-offset="7">BIENVENIDO A ¡BLOG</h1>
-
                   <div className="options" data-atropos-offset="9">
                     <button className="btnSEmail" onClick={handleSignUpClick}>
                       Sign up with email
