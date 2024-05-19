@@ -227,7 +227,7 @@ const Registro = ({ handleBackToLoginClick, handleSignUp }) => {
         });
       });
   };
-  const isButtonDisabled = !usernameAvailable || username.trim().length < 4 || !emailAvailable || email.trim().length === 0 || !password || password !== confirmPassword;
+  const isButtonDisabled = !usernameAvailable || username.trim().length < 4 || !emailAvailable || email.trim().length === 0 ;
 
   return (
     <div className="Registro_C">

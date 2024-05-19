@@ -19,14 +19,13 @@ const AutenticarUser = () => {
         body: JSON.stringify({ codigo }), // Enviar el código como JSON
       });
       console.log(response.ok);
-      // Verificar si la solicitud fue exitosa (código de respuesta 200)
       if (response.ok) {
         setTimeout(() => {
           alert("Autenticación exitosa. Por favor, inicie sesión.");
-          window.location.reload(); // Recargar la página
+          window.location.reload(); 
         }, 3000);
       } else {
-        alert("Autenticación fallida"); // Mostrar alerta en caso de fallo
+        alert("Autenticación fallida"); 
       }
     } catch (error) {
       console.error("Error al realizar la solicitud:", error);
