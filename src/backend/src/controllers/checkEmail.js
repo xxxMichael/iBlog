@@ -1,12 +1,11 @@
 const connection = require('../models/db')
 
-module.exports.checkUsername = (req, res) => {
-    const { username } = req.body; // Obtén el nombre de usuario del cuerpo de la solicitud
-    console.log(username);
+module.exports.checkEmail = (req, res) => {
+    const { email } = req.body; // Obtén el nombre de usuario del cuerpo de la solicitud
   
-    const consulta = 'SELECT username FROM usuarioAutenticado WHERE username = ?';
+    const consulta = 'SELECT email FROM usuarioAutenticado WHERE email = ?';
     try {
-      connection.query(consulta, [username], (err, result) => {
+      connection.query(consulta, [email], (err, result) => {
         if (err) {
           console.error(err);
           res.status(500).json({ error: 'Error interno del servidor' });
