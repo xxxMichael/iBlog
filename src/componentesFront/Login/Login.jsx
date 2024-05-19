@@ -98,6 +98,7 @@ const Login = () => {
               ) : (
                 <>
                   <h1 className="titulo" data-atropos-offset="7">BIENVENIDO A ¡BLOG</h1>
+
                   <div className="options" data-atropos-offset="9">
                     <button className="btnSEmail" onClick={handleSignUpClick}>
                       Sign up with email

@@ -1,13 +1,15 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { gapi } from "gapi-script";
 import { GoogleLogin } from "react-google-login";
 
+// eslint-disable-next-line react/prop-types
 function LoginwGmail({ handleBackToLoginClick }) {
   const clientID =
     "799659145752-cgsgfheos3279f3b0ec30abdn42pffkt.apps.googleusercontent.com";
   const [user, setUser] = useState(null); // Initially, no user is logged in
   const [errorMessage, setErrorMessage] = useState(null); // Initialize errorMessage to null
-  
+
   const handleLogin = (user) => {
     const data = {
       email: user.email,
@@ -57,7 +59,7 @@ function LoginwGmail({ handleBackToLoginClick }) {
     console.log("Something went wrong");
   };
 
-  
+
 
   useEffect(() => {
     function start() {
@@ -85,8 +87,8 @@ function LoginwGmail({ handleBackToLoginClick }) {
 
   return (
     <div className="center">
-      <h1>Login with Google</h1>
-      <div className="btn">
+      <h1 className="titulo">LOGIN WITH GOOGLE</h1>
+      <div className="btnG">
         <GoogleLogin
           clientId={clientID}
           onSuccess={onSuccess}
@@ -95,9 +97,10 @@ function LoginwGmail({ handleBackToLoginClick }) {
           cookiePolicy={"single_host_origin"}
         />
       </div>
-      <button onClick={handleBackToLoginClick}>Back to Login</button>
+      
+      <button className='btnRegreso' onClick={handleBackToLoginClick}>Back to Login</button>
 
-      {errorMessage && ( // Show error message if it exists
+      {errorMessage && ( // Show error message if it exists|
         <div
           style={{
             backgroundColor: errorMessage.type === "error" ? "red" : "green",
@@ -112,6 +115,7 @@ function LoginwGmail({ handleBackToLoginClick }) {
         </div>
       )}
     </div>
+
   );
 }
 
