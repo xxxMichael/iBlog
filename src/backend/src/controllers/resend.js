@@ -69,24 +69,24 @@ margin: 0 auto 20px;
           <body>
               <div id="contenedor-encabezado">
                   <div id="logo-izquierdo">
-                      <img
-                      src="file://${path.join(__dirname, '../../../componentesFront/Login/images/logohd.png')}"
-                      alt=""
-                        width="80"
-                        height="80"
-                      />
+                  <img
+                  src="https://logopond.com/logos/422ac4960d4fe3bcd511d0b135d4bb6d.png"
+                  alt=""
+                  width="80"
+                  height="80"
+              />
                   </div>
                   <div id="texto-central">
                       <h2>PLATAFORMA Social</h2>
                       <h3>¡Blog</h3>
                   </div>
                   <div id="logo-derecho">
-                      <img
-                      src="file://${path.join(__dirname, '../../../componentesFront/Login/images/logohd.png')}"
-                      alt="."
-                        width="80"
-                        height="64"
-                      />
+                  <img
+                  src="https://logopond.com/logos/422ac4960d4fe3bcd511d0b135d4bb6d.png"
+                  alt=""
+                  width="80"
+                  height="80"
+              />
                   </div>
               </div>
                     <h1>Bienvenido a ¡Blog</h1>
