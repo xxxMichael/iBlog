@@ -15,7 +15,8 @@
     "jsonwebtoken": "^9.0.2",
     "mysql": "^2.18.1",
     "mysql2": "^3.9.7",
-    "require": "^2.4.20"
+    "require": "^2.4.20",
+    "resend": "^3.2.0"
   },
   "description": ""
 }
