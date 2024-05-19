@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Atropos from "atropos/react";
 import "./Login.css";
 import "atropos/css";
@@ -15,13 +15,55 @@ const Login = () => {
   const [showSignWithGmail, setshowSignWithGmail] = useState(false);
   const [showLoginWithGmail, setShowLoginWithGmail] = useState(false);
   const [loginSuccessful, setLoginSuccessful] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [isVisible, setIsVisible] = useState(false);
+  useEffect(() => {
+    let timer;
 
+    if (errorMessage) {
+      setIsVisible(true);
+      timer = setTimeout(() => {
+        setIsVisible(false);
+      }, 3500);
+    } else {
+      setIsVisible(false);
+    }
+
+    return () => {
+      if (timer) {
+        clearTimeout(timer);
+      }
+    };
+  }, [errorMessage]);
+
+  const getColor = () => {
+    if (errorMessage && errorMessage.type === "error") {
+      return "red";
+    } else if (errorMessage && errorMessage.type === "success") {
+      return "green";
+    } else {
+      return "black";
+    }
+  };
   const handleLogin = async (e) => {
     e.preventDefault();
     const data = {
       username: username,
       password: password,
     };
+    if (username === "") {
+      setErrorMessage({
+        message: "Ingrese un nombre de Usuario o Correo",
+        type: "error",
+      });
+      return;
+    } else if (password === "") {
+      setErrorMessage({
+        message: "Ingrese una Contraseña",
+        type: "error",
+      });
+      return;
+    }
     try {
       const response = await fetch("http://localhost:3000/login", {
         method: "POST",
@@ -32,7 +74,11 @@ const Login = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        setErrorMessage({
+          message: "Usuario no encontrado (verifica tu nombre o contraseña)",
+          type: "error",
+        });
+        return;
       }
 
       const result = await response.json();
@@ -42,10 +88,18 @@ const Login = () => {
         localStorage.setItem("token", result.token);
         setLoginSuccessful(true);
       } else {
+        setErrorMessage({
+          message: result.message || "Error al obtener el token",
+          type: "error",
+        });
         setLoginSuccessful(false);
       }
     } catch (error) {
       console.error('Fetch failed:', error.message);
+      setErrorMessage({
+        message: "Error interno del servidor",
+        type: "error",
+      });
       setLoginSuccessful(false); // Maneja el fallo de la solicitud de inicio de sesión
     }
   };
@@ -141,6 +195,20 @@ const Login = () => {
                     </div>
                   </div>
                   <button data-atropos-offset="10" className="buttonRC">Recuperar Contraseña</button>
+                  {isVisible && (
+                    <div data-atropos-offset="7" className="mensageError"
+                      style={{
+                        backgroundColor: getColor(),
+                        padding: "10px",
+                        borderRadius: "5px",
+                        margin: "10px 0",
+                        color: "white",
+                        textAlign: "center",
+                      }}
+                    >
+                      {errorMessage.message}
+                    </div>
+                  )}
                 </>
               )}
             </div>
