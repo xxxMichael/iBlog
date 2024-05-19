@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const AutenticarUser = () => {
-  const [codigo, setCodigo] = useState('');
+  const [codigo, setCodigo] = useState("");
 
   const handleChange = (event) => {
     setCodigo(event.target.value);
@@ -11,10 +11,10 @@ const AutenticarUser = () => {
     event.preventDefault();
     console.log(codigo);
     try {
-      const response = await fetch('http://localhost:3000/verificarUser', {
-        method: 'POST',
+      const response = await fetch("http://localhost:3000/verificarUser", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ codigo }), // Enviar el código como JSON
       });
@@ -22,14 +22,14 @@ const AutenticarUser = () => {
       // Verificar si la solicitud fue exitosa (código de respuesta 200)
       if (response.ok) {
         setTimeout(() => {
-            alert("Autenticación exitosa. Por favor, inicie sesión.");
-            window.location.reload(); // Recargar la página
-          }, 3000);
+          alert("Autenticación exitosa. Por favor, inicie sesión.");
+          window.location.reload(); // Recargar la página
+        }, 3000);
       } else {
         alert("Autenticación fallida"); // Mostrar alerta en caso de fallo
       }
     } catch (error) {
-      console.error('Error al realizar la solicitud:', error);
+      console.error("Error al realizar la solicitud:", error);
     }
   };
 
@@ -38,6 +38,11 @@ const AutenticarUser = () => {
       <div className="modal-content">
         <h2>Autenticación de Usuario</h2>
         <form onSubmit={handleSubmit}>
+          <h2>
+            Se ha enviado un código de confirmación al correo ingresado, <br />
+            por favor revisa el apartado de spam <br />
+            si no se encuentra en el buzón principal e ingrésalo.
+          </h2>
           <label htmlFor="codigo">Ingrese el código de verificación:</label>
           <input
             type="text"
