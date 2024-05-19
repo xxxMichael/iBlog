@@ -115,16 +115,54 @@ const Registro = ({ handleBackToLoginClick, handleSignUp }) => {
       return;
     }
 
-    // Enviar datos al manejador de registro
-    handleSignUp({
+    // Enviar datos al servidor para registrar el usuario
+    const data = {
       email,
-      password,
-      firstName,
-      lastName,
       username,
-      dob,
-      country,
-    });
+      password,
+      nombre: firstName,
+      apellido: lastName,
+      pais: country,
+      fechaNac: dob,
+    };
+
+    fetch("http://localhost:3000/registroNormal", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        if (result.success) {
+          setErrorMessage({
+            message: "Registro exitoso. Por favor, inicie sesión.",
+            type: "success",
+          });
+          // Optionally, clear the form fields
+          setEmail("");
+          setPassword("");
+          setConfirmPassword("");
+          setFirstName("");
+          setLastName("");
+          setUsername("");
+          setDob("");
+          setCountry("");
+        } else {
+          setErrorMessage({
+            message: result.message || "Error al registrar el usuario.",
+            type: "error",
+          });
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        setErrorMessage({
+          message: "Error interno del servidor.",
+          type: "error",
+        });
+      });
   };
 
   return (
