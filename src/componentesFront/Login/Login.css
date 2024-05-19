@@ -544,3 +544,118 @@ select {
 .btnRegresoLogin:active {
   transform: translate(2px, 2px);
 }
+.btnG {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  align-items: center;
+  height: 10vh;
+  width: 100vh;
+}
+GoogleLogin {
+  position: center;
+}
+
+.CentroGmail {
+  align-items: center;
+  display: flexbox;
+}
+
+.btnContainerG {
+  display: flex;
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
+  margin-bottom: 20px; /* Espacio entre los botones */
+}
+.btnG {
+  display: flex;
+  justify-content: center; /* Centrar horizontalmente */
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+}
+.btnregistroG.disabled {
+  position: relative;
+  width: 10em;
+  height: 2em;
+  text-align: center;
+  font-family: poppins;
+  font-size: 17px;
+  font-weight: 300;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: black;
+  cursor: pointer;
+  background-color:rgb(34, 33, 33);
+  border: none;
+  transition: color 0.2s linear, box-shadow 0.3s linear,
+    background-color 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.btnregistroG.enabled {
+  position: relative;
+  width: 10em;
+  height: 2em;
+  text-align: center;
+  font-family: poppins;
+  font-size: 17px;
+  font-weight: 300;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: #fff;
+  cursor: pointer;
+  background-color: rgba(3, 3, 3, 0.5);
+  border: none;
+  transition: color 0.2s linear, box-shadow 0.3s linear,
+    background-color 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.btnregistroG.enabled:focus,
+.btnregistroG.enabled:hover {
+  box-shadow: 0 0 110px #fff;
+  background-color: rgba(255, 255, 255, 0.4);
+  color: #111;
+  font-weight: 500;
+}
+.btnregistroG.disabled:focus,
+.btnregistroG.disabled:hover {
+  box-shadow: 0 0 110px black;
+  background-color: #111;
+  color: #111;
+  font-weight: 500;
+}
+
+
+.btnregistroG.enabled:focus:before,
+.btnregistroG.enabled:hover:before,
+.btnregistroG.enabled:focus:after,
+.btnregistroG.enabled:hover:after {
+  width: 100%;
+  left: 0%;
+}
+
+.btnregistroG.enabled:before,
+.btnregistroG.enabled:after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  left: 50%;
+  width: 0%;
+  height: 2px;
+  background-color: #fff;
+  transition: width, left, 250ms cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.btnregistroG.enabled:before {
+  top: -2px;
+}
+
+.btnregistroG.enabled:after {
+  bottom: -2px;
+}

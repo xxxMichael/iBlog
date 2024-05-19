@@ -156,33 +156,37 @@ function RegistrowGmail({ handleBackToLoginClick }) {
 
   return (
     <div className="center">
-      <h1>Register with Google</h1>
-
-      <div className="btn">
-        {!loggedIn && !showLoginForm ? (
-          <GoogleLogin
-            clientId={clientID}
-            onSuccess={onSuccess}
-            onFailure={onFailure}
-            buttonText="Continue with Google"
-            cookiePolicy={"single_host_origin"}
-          />
-        ) : null}
+      <h1 data-atropos-offset="7" className="titulo">Register with Google</h1>
+      <div className="btnContainerG">
+        <button data-atropos-offset="20" className="btnRegresoLogin" onClick={handleBackToLoginClick} >
+          <div className="sign"><svg viewBox="0 0 512 512"><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path></svg></div>
+          <div className="text">Return to Login</div>
+        </button>
       </div>
-
+      <div data-atropos-offset="7" className="btnContainerG">
+        <div className="btn">
+          {!loggedIn && !showLoginForm ? (
+            <GoogleLogin
+              clientId={clientID}
+              onSuccess={onSuccess}
+              onFailure={onFailure}
+              buttonText="Continue with Google"
+              cookiePolicy={"single_host_origin"}
+            />
+          ) : null}
+        </div>
+      </div>
       {showLoginForm && (
         <div className="container">
           <div className="input-container">
-            <p style={{ backgroundColor: "green", color: "white" }}>
+            <p data-atropos-offset="5" style={{ backgroundColor: "green", color: "white" }}>
               Por favor ingresa estos datos para terminar el registro de tu
               cuenta:
             </p>
-            <input
-              type="text"
-              placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
+            <div data-atropos-offset="7" className="inputBox">
+              <input required type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+              <span>Username</span>
+            </div>
             {username.trim().length >= 4 &&
               usernameAvailable && ( // Muestra el mensaje "username disponible" solo si el nombre de usuario tiene al menos 4 caracteres y está disponible
                 <p
@@ -209,19 +213,13 @@ function RegistrowGmail({ handleBackToLoginClick }) {
               </p>
             )}
           </div>
-          <div className="input-container">
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <input
-              type="password"
-              placeholder="Confirm Password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
+          <div data-atropos-offset="7" className="inputBox">
+            <input required type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <span>Password</span>
+          </div>
+          <div data-atropos-offset="7" className="inputBox">
+            <input required type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+            <span>Confirm Password</span>
           </div>
           {errorMessage && ( // Show error message if it exists
             <div
@@ -238,29 +236,17 @@ function RegistrowGmail({ handleBackToLoginClick }) {
               {errorMessage.message}
             </div>
           )}
-          <div className="btn-container">
+          <div data-atropos-offset="5" className="button-container">
             <button
+              className={`btnregistroG ${(!usernameAvailable || username.trim().length < 4 || !password || password !== confirmPassword) ? 'disabled' : 'enabled'}`}
               onClick={handleLogin}
-              disabled={
-                !usernameAvailable ||
-                username.trim().length < 4 ||
-                !password ||
-                password !== confirmPassword
-              }
+              disabled={!usernameAvailable || username.trim().length < 4 || !password || password !== confirmPassword}
             >
               Register
             </button>
           </div>
         </div>
       )}
-
-      <button
-        onClick={handleBackToLoginClick}
-        disabled={showLoginForm}
-        style={{ marginTop: "10px" }}
-      >
-        Back to Login
-      </button>
     </div>
   );
 }
