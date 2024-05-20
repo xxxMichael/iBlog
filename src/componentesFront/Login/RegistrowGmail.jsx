@@ -45,6 +45,20 @@ function RegistrowGmail({ handleBackToLoginClick }) {
   }, [username]);
 
   const handleLogin = () => {
+    if (password.length < 6) {
+      setErrorMessage({
+        message: "Las contraseña es muy corta",
+        type: "error",
+      });
+      return;
+    }
+    if (password.length > 20) {
+      setErrorMessage({
+        message: "Las contraseña es muy larga",
+        type: "error",
+      });
+      return;
+    }
     if (password !== confirmPassword) {
       setErrorMessage({
         message: "Las contraseñas no coinciden",
@@ -74,8 +88,6 @@ function RegistrowGmail({ handleBackToLoginClick }) {
       .then((result) => {
         if (result.success) {
           console.log("User inserted successfully:", result);
-          document.getElementById("mensajeIngreso").style.display = "none";
-          document.getElementById("btnSalir").style.display = "none";
           setErrorMessage({
             message:
               "Usuario registrado exitosamente. Por favor, inicie sesión.",
@@ -212,15 +224,11 @@ function RegistrowGmail({ handleBackToLoginClick }) {
       {showLoginForm && (
         <div className="container">
           <div className="input-container">
-            <p id="mensajeIngreso" data-atropos-offset="5" style={{ backgroundColor: "green", color: "white" }}>
-              Por favor ingresa estos datos para terminar el registro de tu
-              cuenta:
-            </p>
             <div data-atropos-offset="7" className="inputBox">
-              <input required type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+              <input required className="inputRL" type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
               <span>Username</span>
             </div>
-            {username.trim().length >= 4 &&
+            {username.trim().length >= 4 && username.trim().length <= 20 &&
               usernameAvailable && ( // Muestra el mensaje "username disponible" solo si el nombre de usuario tiene al menos 4 caracteres y está disponible
                 <p
                   style={{
@@ -247,12 +255,27 @@ function RegistrowGmail({ handleBackToLoginClick }) {
             )}
           </div>
           <div data-atropos-offset="7" className="inputBox">
-            <input required type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <input required type="password" className="inputRL" value={password} onChange={(e) => setPassword(e.target.value)} />
             <span>Password</span>
           </div>
           <div data-atropos-offset="7" className="inputBox">
-            <input required type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+            <input required type="password" className="inputRL" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
             <span>Confirm Password</span>
+          </div>
+          <div data-atropos-offset="5" className="button-container">
+            <button
+              className={`btnregistroG ${(!usernameAvailable || username.trim().length < 4 || !password || password !== confirmPassword
+                || password.length < 6 || password.length > 20 || username.trim().length >20) ? 'disabled' : 'enabled'}`}
+              onClick={handleLogin}
+              disabled={!usernameAvailable || username.trim().length < 4 || !password || !confirmPassword || password !== confirmPassword
+                || password.length < 6 || password.length > 20 || username.trim().length >20}
+            >
+              Register
+            </button>
+            <div className="tooltip">
+              <div className="icon">i</div>
+              <div className="tooltiptext">Username mayor a 4 y menor a 20, Password mayor a 6 y menor a 20, password coincidan</div>
+            </div>
           </div>
           <div data-atropos-offset="7" className="inputBox">
             {errorMessage && ( // Show error message if it exists
@@ -270,15 +293,6 @@ function RegistrowGmail({ handleBackToLoginClick }) {
                 {errorMessage.message}
               </div>
             )}
-          </div>
-          <div data-atropos-offset="5" className="button-container">
-            <button
-              className={`btnregistroG ${(!usernameAvailable || username.trim().length < 4 || !password || password !== confirmPassword) ? 'disabled' : 'enabled'}`}
-              onClick={handleLogin}
-              disabled={!usernameAvailable || username.trim().length < 4 || !password || password !== confirmPassword}
-            >
-              Register
-            </button>
           </div>
         </div>
       )}

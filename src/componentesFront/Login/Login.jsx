@@ -103,7 +103,12 @@ const Login = () => {
       setLoginSuccessful(false); // Maneja el fallo de la solicitud de inicio de sesión
     }
   };
-
+  const mostrarContraseña = () => {
+    const password = document.getElementById("txtpassword");
+    const togglePassword = document.getElementById('togglePassword');
+    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
+  }
   const handleSignUpClick = () => {
     setShowSignUpForm(true);
   };
@@ -176,15 +181,18 @@ const Login = () => {
                       />
                     </div>
                     <div className="container1">
-                      <input
-                        onChange={(event) => {
-                          setPassword(event.target.value);
-                        }}
-                        type="password"
-                        placeholder="Password"
-                        id="txtpassword"
-                        className="input"
-                      />
+                      <div className="password_container">
+                        <input
+                          onChange={(event) => {
+                            setPassword(event.target.value);
+                          }}
+                          type="password"
+                          placeholder="Password"
+                          id="txtpassword"
+                          className="input"
+                        />
+                        <span id="togglePassword" onClick={mostrarContraseña} className="toggle-password">🔒</span>
+                      </div>
                     </div>
                     <div className="button-container">
                       <button type="button" onClick={handleLogin} className="button">

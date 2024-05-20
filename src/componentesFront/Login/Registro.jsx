@@ -227,7 +227,7 @@ const Registro = ({ handleBackToLoginClick, handleSignUp }) => {
         });
       });
   };
-  const isButtonDisabled = !usernameAvailable || username.trim().length < 4 || !emailAvailable || email.trim().length === 0 ;
+  const isButtonDisabled = !usernameAvailable || username.trim().length < 4 || !emailAvailable || email.trim().length === 0;
 
   return (
     <div className="Registro_C">
@@ -246,30 +246,18 @@ const Registro = ({ handleBackToLoginClick, handleSignUp }) => {
                 <input required type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
                 <span>Gmail</span>
                 {email.trim().length > 0 &&
-                  emailAvailable && ( // Muestra el mensaje "email disponible" solo si el correo electrónico está disponible
+                  emailExists && ( // Muestra el mensaje de error si el correo electrónico ya existe
                     <p
                       style={{
-                        backgroundColor: "green",
+                        backgroundColor: "red",
                         color: "white",
                         margin: "5px 0",
                         fontSize: "14px",
                       }}
                     >
-                      ¡Email disponible!
+                      ¡Email ya registrado!
                     </p>
                   )}
-                {emailExists && ( // Muestra el mensaje de error si el correo electrónico ya existe
-                  <p
-                    style={{
-                      backgroundColor: "red",
-                      color: "white",
-                      margin: "5px 0",
-                      fontSize: "14px",
-                    }}
-                  >
-                    ¡Email registrado!
-                  </p>
-                )}
               </div>
               <div data-atropos-offset="7" className="inputBox">
                 <input required type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
@@ -291,30 +279,18 @@ const Registro = ({ handleBackToLoginClick, handleSignUp }) => {
                 <input required type="text" id="username" value={username} onChange={(e) => setUsername(e.target.value)} />
                 <span>Username</span>
                 {username.trim().length >= 4 &&
-                  usernameAvailable && ( // Muestra el mensaje "username disponible" solo si el nombre de usuario tiene al menos 4 caracteres y está disponible
+                  usernameExists && ( // Muestra el mensaje de error si el nombre de usuario ya existe
                     <p
                       style={{
-                        backgroundColor: "green",
+                        backgroundColor: "red",
                         color: "white",
                         margin: "5px 0",
                         fontSize: "14px",
                       }}
                     >
-                      ¡Username disponible!
+                      ¡El nombre de usuario ya existe!
                     </p>
                   )}
-                {usernameExists && ( // Muestra el mensaje de error si el nombre de usuario ya existe
-                  <p
-                    style={{
-                      backgroundColor: "red",
-                      color: "white",
-                      margin: "5px 0",
-                      fontSize: "14px",
-                    }}
-                  >
-                    ¡El nombre de usuario ya existe!
-                  </p>
-                )}
               </div>
               <div data-atropos-offset="7" className="inputBox">
                 <input className="fecha" required type="date" id="dob" value={dob} onChange={(e) => setDob(e.target.value)} />
@@ -351,7 +327,7 @@ const Registro = ({ handleBackToLoginClick, handleSignUp }) => {
               </div>
             </div>
             <div data-atropos-offset="5" className="button-container">
-            <button
+              <button
                 className={`btnRegisterE ${isButtonDisabled ? 'disabled' : 'enabled'}`}
                 style={{
                   backgroundColor: isButtonDisabled ? 'red' : 'initial', // Rojo si está deshabilitado

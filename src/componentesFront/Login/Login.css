@@ -592,7 +592,7 @@ GoogleLogin {
   text-transform: uppercase;
   color: black;
   cursor: pointer;
-  background-color:rgb(34, 33, 33);
+  background-color: rgb(34, 33, 33);
   border: none;
   transition: color 0.2s linear, box-shadow 0.3s linear,
     background-color 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -631,7 +631,6 @@ GoogleLogin {
   font-weight: 500;
 }
 
-
 .btnregistroG.enabled:focus:before,
 .btnregistroG.enabled:hover:before,
 .btnregistroG.enabled:focus:after,
@@ -659,3 +658,74 @@ GoogleLogin {
 .btnregistroG.enabled:after {
   bottom: -2px;
 }
+.password_container {
+  position: relative;
+  display: inline-block;
+}
+.toggle-password {
+  position: absolute;
+  color: #020202;
+  right: 10px;
+  top: 60%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  user-select: none; /* Para evitar seleccionar el texto del icono */
+  font-size: 1.2em; /* Ajusta el tamaño del icono según tus necesidades */
+}
+.tooltip {
+  position: absolute;
+  left: 80%;
+  top: 20%;
+  display: inline-block;
+  cursor: pointer;
+  font-family: "Arial", sans-serif;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltiptext {
+  visibility: hidden;
+  width: 200px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 10px;
+  position: absolute;
+  z-index: 1;
+  top: 125%;
+  left: 50%;
+  margin-left: -100px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  margin-left: -10px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: transparent transparent #333 transparent;
+}
+
+.tooltip .icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: #4caf50;
+  color: #fff;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 20px;
+}
+
+.inputRL{
+ position: static;
+}
+
