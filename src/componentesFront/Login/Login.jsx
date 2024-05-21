@@ -7,6 +7,7 @@ import Home from "../Home/Home";
 import Registro from "../Login/Registro";
 import LoginwGmail from "../Login/LoginwGmail";
 import RegistroGmail from "../Login/RegistrowGmail";
+import RecuperarContrasena from "../Login/RecuperarContra"; // Importa el componente de recuperación de contraseña
 
 const Login = () => {
   const [password, setPassword] = useState("");
@@ -14,9 +15,11 @@ const Login = () => {
   const [showSignUpForm, setShowSignUpForm] = useState(false);
   const [showSignWithGmail, setshowSignWithGmail] = useState(false);
   const [showLoginWithGmail, setShowLoginWithGmail] = useState(false);
+  const [showRecuperarContrasena, setShowRecuperarContra] = useState(false); // Nuevo estado para recuperación de contraseña
   const [loginSuccessful, setLoginSuccessful] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
+
   useEffect(() => {
     let timer;
 
@@ -45,6 +48,7 @@ const Login = () => {
       return "black";
     }
   };
+
   const handleLogin = async (e) => {
     e.preventDefault();
     const data = {
@@ -111,7 +115,8 @@ const Login = () => {
   const handleBackToLoginClick = () => {
     setShowSignUpForm(false);
     setShowLoginWithGmail(false);
-    setshowSignWithGmail(false); // Asegúrate de ocultar también el formulario de registro con Gmail al volver al login
+    setshowSignWithGmail(false);
+    setShowRecuperarContra(false); // Asegúrate de ocultar también el formulario de recuperación de contraseña al volver al login
   };
 
   const handleSignUp = (e) => {
@@ -124,6 +129,10 @@ const Login = () => {
 
   const handleSignnWithGmailClick = () => {
     setshowSignWithGmail(true);
+  };
+
+  const handleRecuperarContralick = () => {
+    setShowRecuperarContra(true); // Mostrar el componente de recuperación de contraseña
   };
 
   return (
@@ -149,18 +158,22 @@ const Login = () => {
                   handleBackToLoginClick={handleBackToLoginClick}
                   handleSignUp={handleSignUp}
                 />
+              ) : showRecuperarContrasena ? ( // Mostrar el componente de recuperación de contraseña
+                <RecuperarContrasena
+                  handleBackToLoginClick={handleBackToLoginClick}
+                />
               ) : (
                 <>
                   <h1 className="titulo" data-atropos-offset="7">BIENVENIDO A ¡BLOG</h1>
                   <div className="options" data-atropos-offset="9">
                     <button className="btnSEmail" onClick={handleSignUpClick}>
-                      Sign up with email
+                      Register with email
                     </button>
                     <button className="btnLGmail" onClick={handleLoginWithGmailClick}>
                       Login with Gmail
                     </button>
                     <button className="btnSGmail" onClick={handleSignnWithGmailClick}>
-                      Sign up with Gmail
+                      Register with Gmail
                     </button>
                   </div>
                   <div className="inputs" data-atropos-offset="6">
@@ -194,7 +207,9 @@ const Login = () => {
                       </button>
                     </div>
                   </div>
-                  <button data-atropos-offset="10" className="buttonRC">Recuperar Contraseña</button>
+                  <button data-atropos-offset="10" onClick={handleRecuperarContralick} className="buttonRC">
+                    Recuperar Contraseña
+                  </button>
                   {isVisible && (
                     <div data-atropos-offset="7" className="mensageError"
                       style={{
