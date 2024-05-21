@@ -17,9 +17,9 @@ const Login = () => {
   const [loginSuccessful, setLoginSuccessful] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
+
   useEffect(() => {
     let timer;
-
     if (errorMessage) {
       setIsVisible(true);
       timer = setTimeout(() => {
@@ -28,7 +28,6 @@ const Login = () => {
     } else {
       setIsVisible(false);
     }
-
     return () => {
       if (timer) {
         clearTimeout(timer);
