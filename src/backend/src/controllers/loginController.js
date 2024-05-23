@@ -14,7 +14,7 @@ module.exports.login = (req, res) => {
                 return res.status(500).send(err);
             }
             if (result && result.length > 0) {
-                const token = jwt.sign({ username: result[0].username }, "stack", { expiresIn: '2m' });
+                const token = jwt.sign({ username: result[0].username }, "stack", { expiresIn: '1d' });
                 return res.send({ token });
             } else {
                 console.log('usuario incorrecto');

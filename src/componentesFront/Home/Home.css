@@ -1,22 +1,158 @@
+body {
+  background-color: rgb(14, 17, 19);
+}
+.contenedorPrincipal {
+  display: flex;
+  height: 100vh; /* Establece la altura al 100% del viewport */
+}
+.barra-navegacion {
+  border-bottom: 1px solid rgb(62, 65, 66);
+  background: transparent;
+  backdrop-filter: blur(10px);
+  height: 80px;
+  align-items: center;
+  background-color: rgb(14, 17, 19);
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  z-index: 1;
+  align-items: center;
+}
+.logo-container {
+  margin-left: 10px; /* Un poco de margen a la izquierda */
+}
 
-.container {
-    display: flex;
-    justify-content: space-between;
-    height: 100vh; /* Ocupar toda la altura vertical del viewport */
-  }
-  
-  .left-panel, .right-panel {
-    width: 200px; /* Ancho fijo de los paneles izquierdo y derecho */
-    background-color: #999494;
-    padding: 20px;
-  }
-  
-  .main-panel {
-    flex: 1; /* El panel principal ocupa todo el espacio restante */
-    overflow-y: auto; /* Habilitar scroll vertical si es necesario */
-    padding: 20px;
-  }
-  
-  .scrollable-content {
-    height: 100%; /* Ocupar todo el espacio disponible */
-  }
+.logo-container img {
+  margin-top: 0; /* Sin margen arriba */
+}
+.contDerecho {
+  margin-top: calc(10px + 70px);
+  border: 1px solid black;
+  flex: 0 0 auto; /* El elemento no se expandirá, mantendrá su tamaño original */
+  background-color: rgb(0, 0, 0); /* Color de fondo del contenido izquierdo */
+  width: 25%;
+  border-radius: 5%;
+  position: fixed;
+  color: black;
+  top: 5%;
+  right: 5%;
+  bottom: 35%;
+}
+.contIzquierdo {
+  border-right: 1px solid rgb(62, 65, 66);
+  margin-top: calc(10px + 70px);
+  flex: 0 0 auto;
+  background-color: rgb(14, 17, 19);
+  width: 20%;
+  color: black;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  overflow-y: auto;
+  flex-direction: column;
+}
+.contIzquierdo li {
+  margin-top: 25px;
+  cursor: pointer;
+}
+.contCentral {
+  flex: 0 0 auto; /* El elemento ocupará todo el espacio restante */
+  background-color: rgb(14, 17, 19); /* Color de fondo del contenido central */
+  width: 50%;
+  overflow-y: auto; /* Habilita el scroll vertical cuando el contenido es más largo que el contenedor */
+  height: 100%;
+  margin-left: 25%;
+}
+
+.cont {
+  display: flex; /* Establece el contenedor como un contenedor flex */
+}
+.buscador {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+.iconoBuscar {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 25%;
+  left: 15px; /* Ajusta la distancia del icono al borde izquierdo del contenedor */
+}
+.inputB {
+  padding-left: 35px; /* Ajusta el padding izquierdo para dejar espacio para el icono */
+  height: 35px;
+  width: 35%;
+  border-radius: 20px;
+  margin-left: 25%;
+  font-size: 15px;
+}
+.btnInicioSesion {
+  background-color: rgb(174, 44, 0);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  margin-right: 20px;
+  width: 10%;
+  height: 40%;
+  text-align: center;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.btnNav {
+  color: white;
+  padding-left: 5%;
+  font-size: 20px;
+  margin-bottom: 5%;
+  text-decoration: none;
+  border-radius: 10px;
+  display: flex; /* Para alinear el icono y el texto */
+  align-items: center; /* Centra verticalmente los elementos */
+}
+.btnNav:hover {
+  background-color: rgb(24, 28, 31);
+}
+.icon {
+  padding-right: 7%;
+}
+.contNav {
+  display: flex;
+  position: relative;
+  flex-direction: column; /* Organiza los elementos verticalmente */
+  margin-top: 6%;
+  border-bottom: 1px solid rgb(62, 65, 66);
+  width: 80%;
+}
+.tituloDerecho {
+  color: rgb(139, 162, 173);
+}
+.contenidoD {
+  display: flex;
+  font-size: 15px;
+  position: relative;
+  flex-direction: column; /* Organiza los elementos verticalmente */
+  margin-top: 3%;
+  margin-left: 2%;
+  width: 80%;
+}
+.contenedorImagen {
+  margin-top: 8%;
+  color: white;
+  display: flex;
+}
+.contenedorImagen label {
+  margin-left: 8%;
+  color: white;
+  margin-top: 5%;
+}
+.contenedorImagen img {
+  border-radius: 100%;
+}

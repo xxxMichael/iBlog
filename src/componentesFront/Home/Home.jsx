@@ -1,6 +1,9 @@
 import './Home.css';
 import { useEffect, useState } from 'react'; // Importa useEffect y useState
 import { parseJwt } from '../Main/Main'; // Asegúrate de importar la función parseJwt desde el archivo correcto
+import { Link, Router } from 'react-router-dom';
+import { FaSearch } from 'react-icons/fa';
+import { FaHome, FaUser } from 'react-icons/fa';
 
 const Home = () => {
     // Estado para almacenar la información del usuario decodificada
@@ -18,37 +21,101 @@ const Home = () => {
     }, []); // El efecto se ejecuta solo una vez al montar el componente
 
     return (
-        <div className="container">
-            <div className="left-panel">
-                <h2>Categorias</h2>
-                <button> categoria1 </button>
-                <button> categoria2 </button>
-                <button> categoria3 </button>
-            </div>
-            <div className="main-panel">
-                <h2>POSTS Y PROYECTOS</h2>
-                <div className="scrollable-content">
-                    <div className="image-container">
-                        <img
-                            src="../Login" // URL de la imagen
-                            alt="Ejemplo" // Texto alternativo para accesibilidad
-                            className="image"
-                        />
+        <>
+            <div className='contedorPrincipal'>
+                <div className='barra-navegacion'>
+                    <div className="logo-container">
+                        <img src="src\componentesFront\Login\images\logoApp1.png" />
+                    </div>
+                    <div className="buscador">
+                        <input className='inputB' type="text" placeholder="Search" />
+                        <FaSearch className="iconoBuscar" />
+                    </div>
+                    <div className='btnInicioSesion'>
+                        Iniciar Sesión
                     </div>
                 </div>
-            </div>
-            <div className="right-panel">
-                <h2>Panel Derecho</h2>
-                <p>Contenido estable a la derecha</p>
-                {/* Muestra la información del usuario si está disponible */}
-                {userData && (
-                    <div>
-                        <p>Usuario: {userData.username}</p>
-                        {/* Agrega más campos según la estructura de tu token */}
+                <div className='cont'>
+                    <div className='contIzquierdo'>
+                        <div className='contNav'>
+                            <Link className='btnNav' to="/"><FaHome size={25} className='icon' /> Home</Link>
+                            <Link className='btnNav' to="/perfil"><FaUser size={25} className='icon' /> Perfil</Link>
+                        </div>
+                        <div className='contCategorias'>
+                            <button id="botonPrincipal">Categorias</button>
+                            
+                        </div>
                     </div>
-                )}
-            </div>
-        </div>
+                    <div className='contCentral'>
+                        Contenedor Central<br />
+                        Contenedor Central<br />
+                        Contenedor Central<br />
+                        Contenedor Central<br />
+                        Contenedor Central<br />
+                        Contenedor Central<br />                        Contenedor Central<br />
+                        Contenedor Central<br />
+                        Contenedor Central<br />                        Contenedor Central<br />
+                        Contenedor Central<br />
+                        Contenedor Central<br />                        Contenedor Central<br />
+                        Contenedor Central<br />
+                        Contenedor Central<br />                        Contenedor Central<br />
+                        Contenedor Central<br />
+                        Contenedor Central<br />                        Contenedor Central<br />
+                        Contenedor Central<br />
+                        Contenedor Central<br />                        Contenedor Central<br />
+                        Contenedor Central<br />
+                        Contenedor Central<br />                        Contenedor Central<br />
+                        Contenedor Central<br />
+                        Contenedor Central<br />                        Contenedor Central<br />
+                        Contenedor Central<br />
+                        Contenedor Central<br />                        Contenedor Central<br />
+                        Contenedor Central<br />
+                        Contenedor Central<br />                        Contenedor Central<br />
+                        Contenedor Central<br />
+                        Contenedor Central<br />                        Contenedor Central<br />
+                        Contenedor Central<br />
+                        Contenedor Central<br />
+                    </div>
+                    <div className='contDerecho'>
+                        <div className='contenidoD'>
+                            <div className='tituloDerecho'> DESARROLLADORES: </div>
+                            <div className='contenedorImagen'>
+                                <img
+                                    src={"src/componentesFront/Login/images/iconoMichael.png"}
+                                    alt="Miniatura"
+                                    style={{ width: '50px', height: '50px' }} // Establece el tamaño deseado
+                                />
+                                <label>
+                                    Michael Chavez
+                                </label>
+                            </div>
+                            <div className='contenedorImagen'>
+                                <img
+                                    src={"src/componentesFront/Login/images/perfilD.jpg"}
+                                    alt="Miniatura"
+                                    style={{ width: '50px', height: '50px' }} // Establece el tamaño deseado
+                                />
+                                <label>
+                                    David Giler
+                                </label>
+                            </div>
+                            <div className='contenedorImagen'>
+                                <img
+                                    src={""}
+                                    alt="Miniatura"
+                                    style={{ width: '50px', height: '50px' }} // Establece el tamaño deseado
+                                />
+                                <label>
+                                    Kevin Peñafiel
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div >
+        </>
+
     );
 }
 
