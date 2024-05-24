@@ -10,12 +10,14 @@ const {registroNormal}= require('../controllers/registroNormal');
 const {verificarUser}= require('../controllers/verificarUser');
 const {checkEmail}= require('../controllers/checkEmail');
 const {emailController}= require('../controllers/emailController');
+const {actualizarContra}= require('../controllers/actualizarContra');
 
 router.get('/ping', ping);
 router.post('/registrarGmail', registrarGmail);
 router.post('/registroNormal', registroNormal);
 router.post('/checkEmail', checkEmail);
 router.post('/emailController', emailController);
+router.post('/actualizarContra', actualizarContra);
 
 router.post('/loginwGmail', loginwGmail);
 router.post('/checkUsername', checkUsername);

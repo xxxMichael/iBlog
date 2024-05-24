@@ -5,21 +5,31 @@ const RecuperarContra = ({ handleBackToLoginClick }) => {
   const [emailExists, setEmailExists] = useState(false);
   const [emailAvailable, setEmailAvailable] = useState(true);
   const [message, setMessage] = useState("");
+  const [showVerification, setShowVerification] = useState(false);
+  const [verificationCode, setVerificationCode] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [emailSent, setEmailSent] = useState(false);
+  const [codeCorrect, setCodeCorrect] = useState(false);
+  const [passwordsMatch, setPasswordsMatch] = useState(false);
+  const [sendingEmail, setSendingEmail] = useState(false); // Estado de carga para enviar el correo
+  const [updatingPassword, setUpdatingPassword] = useState(false); // Estado de carga para actualizar la contraseña
+  const [verificationError, setVerificationError] = useState(""); // Mensaje de error para código de verificación
+  const [passwordError, setPasswordError] = useState(""); // Mensaje de error para contraseñas
 
   useEffect(() => {
-    // Verificar la disponibilidad del email solo si contiene ".com"
     if (email.includes(".com")) {
       fetch("http://localhost:3000/checkEmail", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email }), // Envía el email en el cuerpo de la solicitud
+        body: JSON.stringify({ email }),
       })
         .then((response) => response.json())
         .then((data) => {
           setEmailExists(data.exists);
-          setEmailAvailable(!data.exists); // Actualiza el estado para indicar si el email está disponible
+          setEmailAvailable(!data.exists);
         })
         .catch((error) => {
           console.error("Error fetching data:", error);
@@ -28,10 +38,31 @@ const RecuperarContra = ({ handleBackToLoginClick }) => {
       setEmailExists(false);
       setEmailAvailable(false);
     }
-  }, [email]); // Este efecto se activará cada vez que el valor de "email" cambie
+  }, [email]);
+
+  useEffect(() => {
+    // Verificar si las contraseñas coinciden
+    if (newPassword === confirmPassword) {
+      setPasswordsMatch(true);
+    } else {
+      setPasswordsMatch(false);
+    }
+  }, [newPassword, confirmPassword]);
 
   const handleChange = (event) => {
     setEmail(event.target.value);
+  };
+
+  const handleVerificationChange = (event) => {
+    setVerificationCode(event.target.value);
+  };
+
+  const handleNewPasswordChange = (event) => {
+    setNewPassword(event.target.value);
+  };
+
+  const handleConfirmPasswordChange = (event) => {
+    setConfirmPassword(event.target.value);
   };
 
   const handleSubmit = async (event) => {
@@ -42,6 +73,7 @@ const RecuperarContra = ({ handleBackToLoginClick }) => {
     }
 
     try {
+      setSendingEmail(true); // Activar el estado de carga
       const response = await fetch("http://localhost:3000/emailController", {
         method: "POST",
         headers: {
@@ -53,12 +85,60 @@ const RecuperarContra = ({ handleBackToLoginClick }) => {
       const data = await response.json();
       if (response.ok) {
         setMessage(`Código de recuperación enviado a ${email}`);
+        localStorage.setItem("verificationCode", data.code);
+        setShowVerification(true);
+        setEmailSent(true);
       } else {
         setMessage(`Error: ${data.message}`);
       }
     } catch (error) {
       console.error("Error al realizar la solicitud:", error);
-      setMessage("Error al realizar la solicitud. Por favor, intenta de nuevo.");
+      setMessage(
+        "Error al realizar la solicitud. Por favor, intenta de nuevo."
+      );
+    } finally {
+      setSendingEmail(false); // Desactivar el estado de carga
+    }
+  };
+
+  const handleVerificationSubmit = async (event) => {
+    event.preventDefault();
+    const storedCode = localStorage.getItem("verificationCode");
+  
+    if (verificationCode !== storedCode) {
+      setVerificationError("El código de verificación es incorrecto.");
+      return;
+    }
+
+    setVerificationError(""); // Limpiar el mensaje de error
+
+    try {
+      setUpdatingPassword(true); // Activar el estado de carga
+      const response = await fetch("http://localhost:3000/actualizarContra", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, newPassword }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setMessage("Contraseña actualizada con éxito.");
+        localStorage.removeItem("verificationCode");
+        setTimeout(() => {
+          setShowVerification(false);
+        }, 3000);
+      } else {
+        setMessage(`Error: ${data.message}`);
+      }
+    } catch (error) {
+      console.error("Error al realizar la solicitud:", error);
+      setMessage(
+        "Error al realizar la solicitud. Por favor, intenta de nuevo."
+      );
+    } finally {
+      setUpdatingPassword(false); // Desactivar el estado de carga
     }
   };
 
@@ -66,55 +146,127 @@ const RecuperarContra = ({ handleBackToLoginClick }) => {
     <div className="modal" style={styles.modal}>
       <div className="modal-content" style={styles.modalContent}>
         <h2>Recuperar Contraseña</h2>
-        <form onSubmit={handleSubmit} style={styles.form}>
-          <label htmlFor="email" style={styles.label}>
-            Ingrese el correo asociado a su cuenta:
-          </label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={handleChange}
-            required
-            style={styles.input}
-          />
+        {!emailSent && (
+          <form onSubmit={handleSubmit} style={styles.form}>
+            <label htmlFor="email" style={styles.label}>
+              Ingrese el correo asociado a su cuenta:
+            </label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={handleChange}
+              required
+              style={styles.input}
+            />
 
-          {email.trim().length > 0 && emailAvailable && (
-            <p
+            {email.trim().length > 0 && emailAvailable && (
+              <p
+                style={{
+                  backgroundColor: "red",
+                  color: "white",
+                  margin: "5px 0",
+                  fontSize: "14px",
+                }}
+              >
+                ¡Este Email no se encuentra registrado!
+              </p>
+            )}
+            {message && (
+              <p
+                style={{
+                  backgroundColor: emailExists ? "green" : "red",
+                  color: "white",
+                  margin: "5px 0",
+                  fontSize: "14px",
+                }}
+              >
+                {message}
+              </p>
+            )}
+            <button
+              type="submit"
               style={{
-                backgroundColor: "red",
-                color: "white",
-                margin: "5px 0",
-                fontSize: "14px",
+                ...styles.button,
+                backgroundColor: emailAvailable ? "gray" : "#007BFF",
+                cursor: emailAvailable ? "not-allowed" : "pointer",
+              }}
+              disabled={emailAvailable || sendingEmail} // Deshabilitar el botón cuando se envía el correo
+            >
+              {sendingEmail ? "Enviando..." : "Enviar"}
+            </button>
+          </form>
+        )}
+
+        {showVerification && (
+          <form onSubmit={handleVerificationSubmit} style={styles.form}>
+            <label htmlFor="verificationCode" style={styles.label}>
+              Ingrese el código de verificación:
+            </label>
+            <input
+              type="text"
+              id="verificationCode"
+              value={verificationCode}
+              onChange={handleVerificationChange}
+              required
+              style={styles.input}
+            />
+            {verificationError && (
+              <p style={{ color: "red", margin: "5px 0" }}>
+                {verificationError}
+              </p>
+            )}
+            <label htmlFor="newPassword" style={styles.label}>
+              Nueva contraseña:
+            </label>
+            <input
+              type="password"
+              id="newPassword"
+              value={newPassword}
+              onChange={handleNewPasswordChange}
+              required
+              style={styles.input}
+            />
+            <label htmlFor="confirmPassword" style={styles.label}>
+              Confirmar nueva contraseña:
+            </label>
+            <input
+              type="password"
+              id="confirmPassword"
+              value={confirmPassword}
+              onChange={handleConfirmPasswordChange}
+              required
+              style={styles.input}
+            />
+            {passwordError && (
+              <p style={{ color: "red", margin: "5px 0" }}>{passwordError}</p>
+            )}
+            <button
+              type="submit"
+              style={{
+                ...styles.button,
+                backgroundColor: "blue",
+                cursor: "pointer",
               }}
             >
-              ¡Este Email no se encuentra registrado!
-            </p>
-          )}
-          {message && (
-            <p
-              style={{
-                backgroundColor: emailExists ? "green" : "red",
-                color: "white",
-                margin: "5px 0",
-                fontSize: "14px",
-              }}
-            >
-              {message}
-            </p>
-          )}
-          <button
-            type="submit"
+              {updatingPassword ? "Actualizando..." : "Actualizar Contraseña"}
+            </button>
+          </form>
+        )}
+
+        {message && !showVerification && (
+          <p
             style={{
-              ...styles.button,
-              backgroundColor: emailAvailable ? "gray" : "#007BFF",
-              cursor: emailAvailable ? "not-allowed" : "pointer",
+              backgroundColor: "green",
+              color: "white",
+              margin: "5px 0",
+              fontSize: "14px",
             }}
-            disabled={emailAvailable}
           >
-            Enviar
-          </button>
-        </form>
+            {message}
+          </p>
+        )}
+
         <div className="btnContainerG">
           <button
             id="btnSalir"
@@ -177,4 +329,3 @@ const styles = {
 };
 
 export default RecuperarContra;
-
