@@ -8,6 +8,17 @@ import Categorias from './Categorias'; // Importar el componente Categorias
 const Home = () => {
     // Estado para almacenar la información del usuario decodificada
     const [userData, setUserData] = useState(null);
+    let buttonText = "";
+    let direct = null;
+    const token = localStorage.getItem('token');
+    const tokenExistAndStillValid = token && parseJwt(token).exp * 1000 > Date.now();
+    if (tokenExistAndStillValid) {
+        buttonText = 'Crear Posts';
+        direct = '/posts';
+    } else {
+        buttonText = 'Iniciar Sesion';
+        direct = '/login';
+    }
 
     useEffect(() => {
         // Obtiene el token del almacenamiento local
@@ -31,9 +42,7 @@ const Home = () => {
                         <input className='inputB' type="text" placeholder="Search" />
                         <FaSearch className="iconoBuscar" />
                     </div>
-                    <div className='btnInicioSesion'>
-                        Iniciar Sesión
-                    </div>
+                    <Link className='btnInicioSesion' id='btnP' to={direct}>{buttonText}</Link>
                 </div>
                 <div className='cont'>
                     <div className='contIzquierdo'>
@@ -42,14 +51,39 @@ const Home = () => {
                             <Link className='btnNav' to="/perfil"><FaUser size={25} className='icon' /> Perfil</Link>
                         </div>
                         <div className='contCategorias'>
-                                 <label> Categorias:</label>                               
-                                {/* Incorporar el componente Categorias */}
-                            <Categorias />
+                            <button id="botonPrincipal">Categorias</button>
+                            
                         </div>
                     </div>
                     <div className='contCentral'>
                         Contenedor Central<br />
-                        {/* Añadir más contenido aquí */}
+                        Contenedor Central<br />
+                        Contenedor Central<br />
+                        Contenedor Central<br />
+                        Contenedor Central<br />
+                        Contenedor Central<br />                        Contenedor Central<br />
+                        Contenedor Central<br />
+                        Contenedor Central<br />                        Contenedor Central<br />
+                        Contenedor Central<br />
+                        Contenedor Central<br />                        Contenedor Central<br />
+                        Contenedor Central<br />
+                        Contenedor Central<br />                        Contenedor Central<br />
+                        Contenedor Central<br />
+                        Contenedor Central<br />                        Contenedor Central<br />
+                        Contenedor Central<br />
+                        Contenedor Central<br />                        Contenedor Central<br />
+                        Contenedor Central<br />
+                        Contenedor Central<br />                        Contenedor Central<br />
+                        Contenedor Central<br />
+                        Contenedor Central<br />                        Contenedor Central<br />
+                        Contenedor Central<br />
+                        Contenedor Central<br />                        Contenedor Central<br />
+                        Contenedor Central<br />
+                        Contenedor Central<br />                        Contenedor Central<br />
+                        Contenedor Central<br />
+                        Contenedor Central<br />                        Contenedor Central<br />
+                        Contenedor Central<br />
+                        Contenedor Central<br />
                     </div>
                     <div className='contDerecho'>
                         <div className='contenidoD'>
