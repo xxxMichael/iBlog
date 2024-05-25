@@ -10,15 +10,16 @@ const RecuperarContra = ({ handleBackToLoginClick }) => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [emailSent, setEmailSent] = useState(false);
-  const [codeCorrect, setCodeCorrect] = useState(false);
-  const [passwordsMatch, setPasswordsMatch] = useState(false);
+  const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [sendingEmail, setSendingEmail] = useState(false); // Estado de carga para enviar el correo
   const [updatingPassword, setUpdatingPassword] = useState(false); // Estado de carga para actualizar la contraseña
   const [verificationError, setVerificationError] = useState(""); // Mensaje de error para código de verificación
   const [passwordError, setPasswordError] = useState(""); // Mensaje de error para contraseñas
+  const [validEmailFormat, setValidEmailFormat] = useState(false); // Control de formato de email válido
 
   useEffect(() => {
     if (email.includes(".com")) {
+      setValidEmailFormat(true);
       fetch("http://localhost:3000/checkEmail", {
         method: "POST",
         headers: {
@@ -35,6 +36,7 @@ const RecuperarContra = ({ handleBackToLoginClick }) => {
           console.error("Error fetching data:", error);
         });
     } else {
+      setValidEmailFormat(false);
       setEmailExists(false);
       setEmailAvailable(false);
     }
@@ -46,6 +48,14 @@ const RecuperarContra = ({ handleBackToLoginClick }) => {
       setPasswordsMatch(true);
     } else {
       setPasswordsMatch(false);
+    }
+
+    // Verificar si la nueva contraseña cumple con los requisitos
+    const passwordRegex = /^[A-Za-z0-9]+$/;
+    if (newPassword.length > 6 && passwordRegex.test(newPassword)) {
+      setPasswordError("");
+    } else {
+      setPasswordError("La contraseña debe tener más de 6 caracteres y solo contener números y letras.");
     }
   }, [newPassword, confirmPassword]);
 
@@ -104,13 +114,18 @@ const RecuperarContra = ({ handleBackToLoginClick }) => {
   const handleVerificationSubmit = async (event) => {
     event.preventDefault();
     const storedCode = localStorage.getItem("verificationCode");
-  
+
     if (verificationCode !== storedCode) {
       setVerificationError("El código de verificación es incorrecto.");
       return;
     }
 
     setVerificationError(""); // Limpiar el mensaje de error
+
+    if (!passwordsMatch) {
+      setPasswordError("Las contraseñas no coinciden.");
+      return;
+    }
 
     try {
       setUpdatingPassword(true); // Activar el estado de carga
@@ -188,10 +203,10 @@ const RecuperarContra = ({ handleBackToLoginClick }) => {
               type="submit"
               style={{
                 ...styles.button,
-                backgroundColor: emailAvailable ? "gray" : "#007BFF",
-                cursor: emailAvailable ? "not-allowed" : "pointer",
+                backgroundColor: !validEmailFormat || emailAvailable ? "gray" : "#007BFF",
+                cursor: !validEmailFormat || emailAvailable ? "not-allowed" : "pointer",
               }}
-              disabled={emailAvailable || sendingEmail} // Deshabilitar el botón cuando se envía el correo
+              disabled={!validEmailFormat || emailAvailable || sendingEmail} // Deshabilitar el botón cuando el email no es válido o se está enviando el correo
             >
               {sendingEmail ? "Enviando..." : "Enviar"}
             </button>
@@ -238,6 +253,11 @@ const RecuperarContra = ({ handleBackToLoginClick }) => {
               required
               style={styles.input}
             />
+            {!passwordsMatch && (
+              <p style={{ color: "red", margin: "5px 0" }}>
+                Las contraseñas no coinciden.
+              </p>
+            )}
             {passwordError && (
               <p style={{ color: "red", margin: "5px 0" }}>{passwordError}</p>
             )}
@@ -245,9 +265,10 @@ const RecuperarContra = ({ handleBackToLoginClick }) => {
               type="submit"
               style={{
                 ...styles.button,
-                backgroundColor: "blue",
-                cursor: "pointer",
+                backgroundColor: passwordsMatch && !passwordError ? "blue" : "gray",
+                cursor: passwordsMatch && !passwordError ? "pointer" : "not-allowed",
               }}
+              disabled={!passwordsMatch || passwordError || updatingPassword} // Deshabilitar el botón si las contraseñas no coinciden o hay un error
             >
               {updatingPassword ? "Actualizando..." : "Actualizar Contraseña"}
             </button>

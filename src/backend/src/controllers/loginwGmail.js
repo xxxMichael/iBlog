@@ -3,7 +3,7 @@ const connection = require('../models/db')
 const jwt = require('jsonwebtoken')
 module.exports.loginwGmail = (req, res) => {
     const { email } = req.body;
-    console.log(email);
+    console.log("EMAIL"+email);
     const consulta = 'SELECT * FROM usuarioAutenticado where email = ?';
     try {
         connection.query(consulta, [email], (err, result) => {
