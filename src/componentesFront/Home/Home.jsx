@@ -1,9 +1,9 @@
 import './Home.css';
 import { useEffect, useState } from 'react'; // Importa useEffect y useState
 import { parseJwt } from '../Main/Main'; // Asegúrate de importar la función parseJwt desde el archivo correcto
-import { Link, Router } from 'react-router-dom';
-import { FaSearch } from 'react-icons/fa';
-import { FaHome, FaUser } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import { FaSearch, FaHome, FaUser } from 'react-icons/fa';
+import Categorias from './Categorias'; // Importar el componente Categorias
 
 const Home = () => {
     // Estado para almacenar la información del usuario decodificada
@@ -25,7 +25,7 @@ const Home = () => {
             <div className='contedorPrincipal'>
                 <div className='barra-navegacion'>
                     <div className="logo-container">
-                        <img src="src\componentesFront\Login\images\logoApp1.png" />
+                        <img src="src/componentesFront/Login/images/logoApp1.png" alt="Logo" />
                     </div>
                     <div className="buscador">
                         <input className='inputB' type="text" placeholder="Search" />
@@ -42,39 +42,14 @@ const Home = () => {
                             <Link className='btnNav' to="/perfil"><FaUser size={25} className='icon' /> Perfil</Link>
                         </div>
                         <div className='contCategorias'>
-                            <button id="botonPrincipal">Categorias</button>
-                            
+                                 <label> Categorias:</label>                               
+                                {/* Incorporar el componente Categorias */}
+                            <Categorias />
                         </div>
                     </div>
                     <div className='contCentral'>
                         Contenedor Central<br />
-                        Contenedor Central<br />
-                        Contenedor Central<br />
-                        Contenedor Central<br />
-                        Contenedor Central<br />
-                        Contenedor Central<br />                        Contenedor Central<br />
-                        Contenedor Central<br />
-                        Contenedor Central<br />                        Contenedor Central<br />
-                        Contenedor Central<br />
-                        Contenedor Central<br />                        Contenedor Central<br />
-                        Contenedor Central<br />
-                        Contenedor Central<br />                        Contenedor Central<br />
-                        Contenedor Central<br />
-                        Contenedor Central<br />                        Contenedor Central<br />
-                        Contenedor Central<br />
-                        Contenedor Central<br />                        Contenedor Central<br />
-                        Contenedor Central<br />
-                        Contenedor Central<br />                        Contenedor Central<br />
-                        Contenedor Central<br />
-                        Contenedor Central<br />                        Contenedor Central<br />
-                        Contenedor Central<br />
-                        Contenedor Central<br />                        Contenedor Central<br />
-                        Contenedor Central<br />
-                        Contenedor Central<br />                        Contenedor Central<br />
-                        Contenedor Central<br />
-                        Contenedor Central<br />                        Contenedor Central<br />
-                        Contenedor Central<br />
-                        Contenedor Central<br />
+                        {/* Añadir más contenido aquí */}
                     </div>
                     <div className='contDerecho'>
                         <div className='contenidoD'>
@@ -115,8 +90,8 @@ const Home = () => {
 
             </div >
         </>
-
     );
 }
 
 export default Home;
+
