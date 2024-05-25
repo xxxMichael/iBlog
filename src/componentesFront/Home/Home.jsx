@@ -8,6 +8,17 @@ import { FaHome, FaUser } from 'react-icons/fa';
 const Home = () => {
     // Estado para almacenar la información del usuario decodificada
     const [userData, setUserData] = useState(null);
+    let buttonText = "";
+    let direct = null;
+    const token = localStorage.getItem('token');
+    const tokenExistAndStillValid = token && parseJwt(token).exp * 1000 > Date.now();
+    if (tokenExistAndStillValid) {
+        buttonText = 'Crear Posts';
+        direct = '/posts';
+    } else {
+        buttonText = 'Iniciar Sesion';
+        direct = '/login';
+    }
 
     useEffect(() => {
         // Obtiene el token del almacenamiento local
@@ -31,9 +42,7 @@ const Home = () => {
                         <input className='inputB' type="text" placeholder="Search" />
                         <FaSearch className="iconoBuscar" />
                     </div>
-                    <div className='btnInicioSesion'>
-                        Iniciar Sesión
-                    </div>
+                    <Link className='btnInicioSesion' id='btnP' to={direct}>{buttonText}</Link>
                 </div>
                 <div className='cont'>
                     <div className='contIzquierdo'>
@@ -43,36 +52,13 @@ const Home = () => {
                         </div>
                         <div className='contCategorias'>
                             <button id="botonPrincipal">Categorias</button>
-                            
+
                         </div>
                     </div>
                     <div className='contCentral'>
                         Contenedor Central<br />
                         Contenedor Central<br />
                         Contenedor Central<br />
-                        Contenedor Central<br />
-                        Contenedor Central<br />
-                        Contenedor Central<br />                        Contenedor Central<br />
-                        Contenedor Central<br />
-                        Contenedor Central<br />                        Contenedor Central<br />
-                        Contenedor Central<br />
-                        Contenedor Central<br />                        Contenedor Central<br />
-                        Contenedor Central<br />
-                        Contenedor Central<br />                        Contenedor Central<br />
-                        Contenedor Central<br />
-                        Contenedor Central<br />                        Contenedor Central<br />
-                        Contenedor Central<br />
-                        Contenedor Central<br />                        Contenedor Central<br />
-                        Contenedor Central<br />
-                        Contenedor Central<br />                        Contenedor Central<br />
-                        Contenedor Central<br />
-                        Contenedor Central<br />                        Contenedor Central<br />
-                        Contenedor Central<br />
-                        Contenedor Central<br />                        Contenedor Central<br />
-                        Contenedor Central<br />
-                        Contenedor Central<br />                        Contenedor Central<br />
-                        Contenedor Central<br />
-                        Contenedor Central<br />                        Contenedor Central<br />
                         Contenedor Central<br />
                         Contenedor Central<br />
                     </div>
