@@ -1,48 +1,33 @@
-import React, { useState, useEffect } from 'react';
-import './categorias.css';
+// Categorias.jsx
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
-const ComponentChecklist = ({ componentList, onSelectedCountChange, onSelectedComponentsChange }) => {
-    const [selectedComponents, setSelectedComponents] = useState([]);
+const Categorias = ({ onCategoriaClick }) => {
+    const [categorias, setCategorias] = useState([]);
 
     useEffect(() => {
-        onSelectedComponentsChange(selectedComponents);
-    }, [selectedComponents, onSelectedComponentsChange]);
-
-    const handleCheckboxChange = (event, componentName) => {
-        if (event.target.checked) {
-            if (selectedComponents.length < 3) {
-                setSelectedComponents([...selectedComponents, componentName]);
-            } else {
-                event.target.checked = false;
-                alert("You can't select more than three components.");
+        const fetchCategorias = async () => {
+            try {
+                const response = await axios.get('http://localhost:3000/consultarCatego');
+                setCategorias(response.data);
+            } catch (error) {
+                console.error('Error al obtener las categorías:', error);
             }
-        } else {
-            setSelectedComponents(selectedComponents.filter(comp => comp !== componentName));
-        }
-        onSelectedCountChange(selectedComponents.length + (event.target.checked ? 1 : -1));
-    };
+        };
+        fetchCategorias();
+    }, []);
 
     return (
-        <div className='contenedorCategorias'>
-            {componentList.map(component => (
-                <div
-                    className={`categoriaSeparada ${selectedComponents.includes(component) ? 'categoriaSeleccionada' : ''}`}
-                    key={component}
-                >
-                    <input
-                        className='inputCh'
-                        type="checkbox"
-                        id={component}
-                        onChange={(event) => handleCheckboxChange(event, component)}
-                        checked={selectedComponents.includes(component)}
-                    />
-                    <label htmlFor={component}>{component}</label>
-                </div>
+        <ul>
+            {categorias.map((categoria) => (
+                <li key={categoria.id}>
+                    <button onClick={() => onCategoriaClick(categoria.id)}>
+                        {categoria.nombre}
+                    </button>
+                </li>
             ))}
-        </div>
+        </ul>
     );
 };
 
-export { ComponentChecklist };
-
-
+export default Categorias;
