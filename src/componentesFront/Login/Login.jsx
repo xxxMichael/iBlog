@@ -8,9 +8,12 @@ import Registro from "../Login/Registro";
 import LoginwGmail from "../Login/LoginwGmail";
 import RegistroGmail from "../Login/RegistrowGmail";
 import RecuperarContrasena from "../Login/RecuperarContra";
-import { Link, Router } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [showSignUpForm, setShowSignUpForm] = useState(false);
@@ -98,6 +101,8 @@ const Login = () => {
       if (result.token) {
         localStorage.setItem("token", result.token);
         setLoginSuccessful(true);
+        navigate("/");
+
       } else {
         setErrorMessage({
           message: result.message || "Error al obtener el token",
