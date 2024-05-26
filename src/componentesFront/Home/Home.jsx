@@ -1,22 +1,19 @@
+// src/componentesFront/Home/Home.jsx
 import './Home.css';
 import { useEffect, useState } from 'react'; // Importa useEffect y useState
 import { parseJwt } from '../Main/Main'; // Asegúrate de importar la función parseJwt desde el archivo correcto
 import { Link, Router } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
 import { FaHome, FaUser } from 'react-icons/fa';
-import Formulario from '../Home/formularioPost.jsx';
-
 
 const Home = () => {
     // Estado para almacenar la información del usuario decodificada
-    const [showForm, setShowForm] = useState(false);
-    const [searchDisabled, setSearchDisabled] = useState(false);
     const [userData, setUserData] = useState(null);
-
     let buttonText = "";
     let direct = null;
     const token = localStorage.getItem('token');
     const tokenExistAndStillValid = token && parseJwt(token).exp * 1000 > Date.now();
+    
     if (tokenExistAndStillValid) {
         buttonText = 'Crear Posts';
         direct = '#';
@@ -31,22 +28,27 @@ const Home = () => {
     };
     
     useEffect(() => {
-        // Obtiene el token del almacenamiento local
-        const token = localStorage.getItem('token');
-
         if (token) {
-            // Decodifica el token y establece los datos del usuario en el estado
             const decodedToken = parseJwt(token);
             setUserData(decodedToken);
         }
-    }, []); // El efecto se ejecuta solo una vez al montar el componente
+    }, [token]);
+
+    const handleCategoriaClick = async (categoriaId) => {
+        try {
+            const response = await axios.get(`http://localhost:3000/consultaPostCat?categoriaId=${categoriaId}`);
+            setPosts(response.data);
+        } catch (error) {
+            console.error('Error al cargar los posts:', error);
+        }
+    };
 
     return (
         <>
             <div className='contedorPrincipal'>
                 <div className='barra-navegacion'>
                     <div className="logo-container">
-                        <img src="src\componentesFront\Login\images\logoApp1.png" />
+                        <img src="src/componentesFront/Login/images/logoApp1.png" alt="Logo" />
                     </div>
                     <div className="buscador">
                         <input className='inputB' disabled={searchDisabled} type="text" placeholder="Search" />
@@ -73,13 +75,10 @@ const Home = () => {
                         </div>
                         <div className='contCategorias'>
                             <button id="botonPrincipal">Categorias</button>
-
+                            <Categorias onCategoriaClick={handleCategoriaClick} />
                         </div>
                     </div>
                     <div className='contCentral'>
-                        {showForm && <Formulario onClose={handleClick} />}
-                        Contenedor Central<br />
-                        Contenedor Central<br />
                         Contenedor Central<br />
                         Contenedor Central<br />
                         Contenedor Central<br />
@@ -93,39 +92,31 @@ const Home = () => {
                                 <img
                                     src={"src/componentesFront/Login/images/iconoMichael.png"}
                                     alt="Miniatura"
-                                    style={{ width: '50px', height: '50px' }} // Establece el tamaño deseado
+                                    style={{ width: '50px', height: '50px' }} 
                                 />
-                                <label>
-                                    Michael Chavez
-                                </label>
+                                <label>Michael Chavez</label>
                             </div>
                             <div className='contenedorImagen'>
                                 <img
                                     src={"src/componentesFront/Login/images/perfilD.jpg"}
                                     alt="Miniatura"
-                                    style={{ width: '50px', height: '50px' }} // Establece el tamaño deseado
+                                    style={{ width: '50px', height: '50px' }} 
                                 />
-                                <label>
-                                    David Giler
-                                </label>
+                                <label>David Giler</label>
                             </div>
                             <div className='contenedorImagen'>
                                 <img
                                     src={""}
                                     alt="Miniatura"
-                                    style={{ width: '50px', height: '50px' }} // Establece el tamaño deseado
+                                    style={{ width: '50px', height: '50px' }} 
                                 />
-                                <label>
-                                    Kevin Peñafiel
-                                </label>
+                                <label>Kevin Peñafiel</label>
                             </div>
                         </div>
                     </div>
                 </div>
-
-            </div >
+            </div>
         </>
-
     );
 }
 
