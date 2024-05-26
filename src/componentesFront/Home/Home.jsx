@@ -5,11 +5,14 @@ import { parseJwt } from '../Main/Main'; // Asegúrate de importar la función p
 import { Link, Router } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
 import { FaHome, FaUser } from 'react-icons/fa';
+import Categorias from './Categorias';
+import axios from 'axios';
 import Formulario from '../Home/formularioPost.jsx';
 
 const Home = () => {
     // Estado para almacenar la información del usuario decodificada
     const [userData, setUserData] = useState(null);
+    const [posts, setPosts] = useState([]);
     const [showForm, setShowForm] = useState(false);
     const [searchDisabled, setSearchDisabled] = useState(false);
     let buttonText = "";
@@ -83,7 +86,16 @@ const Home = () => {
                     </div>
                     <div className='contCentral'>
                         {showForm && <Formulario onClose={handleClick} />}
-                        Contenedor Central<br />
+                        {posts.length > 0 ? (
+                            posts.map((post) => (
+                                <div key={post.id} className="post">
+                                    <h3>{post.titulo}</h3>
+                                    <p>{post.contenido}</p>
+                                </div>
+                            ))
+                        ) : (
+                            <p>No hay posts disponibles.</p>
+                        )}
                         Contenedor Central<br />
                         Contenedor Central<br />
                         Contenedor Central<br />
