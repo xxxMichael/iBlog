@@ -25,7 +25,6 @@ router.post('/checkEmail', checkEmail);
 router.post('/emailController', emailController);
 router.post('/actualizarContra', actualizarContra);
 router.get('/consultarCatego', consultarCatego);
-
 router.post('/loginwGmail', loginwGmail);
 router.post('/checkUsername', checkUsername);
 router.post('/verfRegistro', verfRegistro);

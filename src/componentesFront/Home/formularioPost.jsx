@@ -3,6 +3,7 @@ import './formularioPost.css';
 import { ComponentChecklist } from './Categorias2.jsx';
 import axios from 'axios';
 
+
 function Formulario({ onClose }) {
     const [categorias, setCategorias] = useState([]);
     const [selectedCount, setSelectedCount] = useState(0);
@@ -19,6 +20,7 @@ function Formulario({ onClose }) {
     const [idCategoria2, setIdCategoria2] = useState("");
     const [idCategoria3, setIdCategoria3] = useState("");
     const [fechaPublicacion, setFechaPublicacion] = useState("");
+
     const handleSubmit = (e) => {
         e.preventDefault();
         // Lógica para manejar el envío del formulario
@@ -27,7 +29,6 @@ function Formulario({ onClose }) {
 
     useEffect(() => {
         const token = localStorage.getItem('token');
-        setDueño(token);
     }, []);
 
     useEffect(() => {
