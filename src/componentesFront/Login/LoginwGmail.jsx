@@ -2,9 +2,12 @@
 import React, { useState, useEffect } from "react";
 import { gapi } from "gapi-script";
 import { GoogleLogin } from "react-google-login";
+import { useNavigate } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
 function LoginwGmail({ handleBackToLoginClick }) {
+  const navigate = useNavigate();
+
   const clientID =
     "799659145752-cgsgfheos3279f3b0ec30abdn42pffkt.apps.googleusercontent.com";
   const [user, setUser] = useState(null); // Initially, no user is logged in
@@ -32,7 +35,8 @@ function LoginwGmail({ handleBackToLoginClick }) {
             type: "success",
           }); // Set error message
           setTimeout(function () {
-            location.reload();
+            navigate("/");
+
           }, 500);
         } else {
           console.log("sin usuario");

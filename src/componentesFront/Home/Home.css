@@ -30,7 +30,7 @@ body {
   margin-top: calc(10px + 70px);
   border: 1px solid black;
   flex: 0 0 auto; /* El elemento no se expandirá, mantendrá su tamaño original */
-  background-color: rgb(0, 0, 0); /* Color de fondo del contenido izquierdo */
+  background-color: rgb(198, 189, 189); /* Color de fondo del contenido izquierdo */
   width: 25%;
   border-radius: 5%;
   position: fixed;
