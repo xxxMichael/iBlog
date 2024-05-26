@@ -6,7 +6,7 @@ import { parseJwt } from '../Main/Main'; // Asegúrate de importar la función p
 import { Link, Router } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
 import { FaHome, FaUser } from 'react-icons/fa';
-import Categorias from './categorias.jsx';
+import Categorias from './Categorias.jsx';
 import axios from 'axios';
 import Formulario from '../Home/formularioPost.jsx';
 

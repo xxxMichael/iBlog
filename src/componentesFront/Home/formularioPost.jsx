@@ -17,8 +17,17 @@ function Formulario({ onClose }) {
     const [selectedComponents, setSelectedComponents] = useState([]);
     const [content, setContent] = useState('');
     const [isProject, setIsProject] = useState(true);
+    const [dueño, setDueño] = useState("");
+    const [titulo, setTitulo] = useState("");
+    const [contenido, setContenido] = useState("");
+    const [urlImagen, setUrlImagen] = useState("");
+    const [urlDocumento, setUrlSocumento] = useState("");
+    const [idCategoria1, setIdCategoria1] = useState("");
+    const [idCategoria2, setIdCategoria2] = useState("");
+    const [idCategoria3, setIdCategoria3] = useState("");
+    const [fechaPublicacion, setFechaPublicacion] = useState("");
 
-    
+
     useEffect(() => {
         const fetchCategorias = async () => {
             try {
@@ -45,9 +54,27 @@ function Formulario({ onClose }) {
     const cantCaracteres = () => {
         return content.length;
     };
-    const enviarPost = () => {
+    const enviarPost = async (e) => {
+        e.preventDefault();
+
         if (selectedCount > 0) {
-            alert("correct");
+            try {
+                const response = await fetch('http://localhost:3000/estudiantes', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        dueño, titulo, contenido, urlImagen, urlDocumento, idCategoria1,
+                        idCategoria2, idCategoria3, fechaPublicacion
+                    }),
+                });
+                if (response.ok) {
+                    alert('Se agrego correctamente el nuevo post');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
         } else {
             alert("Selecciona al menos una categoria");
         }
