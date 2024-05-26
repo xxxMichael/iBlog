@@ -17,12 +17,13 @@ function Formulario({ onClose }) {
     const [selectedComponents, setSelectedComponents] = useState([]);
     const [content, setContent] = useState('');
     const [isProject, setIsProject] = useState(true);
+
+    
     useEffect(() => {
         const fetchCategorias = async () => {
             try {
                 const response = await axios.get('http://localhost:3000/consultarCatego');
-                const nombresCategorias = response.data.map(categoria => categoria.nombre);
-                setCategorias(nombresCategorias);
+                setCategorias(response.data);
             } catch (error) {
                 console.error('Error al obtener las categorías:', error);
             }

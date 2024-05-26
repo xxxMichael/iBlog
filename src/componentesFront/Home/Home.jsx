@@ -97,10 +97,6 @@ const Home = () => {
                         ) : (
                             <p>No hay posts disponibles.</p>
                         )}
-                        Contenedor Central<br />
-                        Contenedor Central<br />
-                        Contenedor Central<br />
-                        Contenedor Central<br />
                     </div>
                     <div className='contDerecho' style={{ display: showForm ? 'none' : 'block' }}>
                         <div className='contenidoD'>
