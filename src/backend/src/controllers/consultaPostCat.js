@@ -8,10 +8,10 @@ module.exports.consultaPostCat = (req, res) => {
     }
 
     const query = `
-        SELECT p.id, p.titulo, p.contenido 
-        FROM posts p
-        INNER JOIN categorias c ON p.categoria_id = c.id
-        WHERE c.id = ?
+    SELECT p.idPost, p.dueño, p.titulo, p.contenido, p.fechaPublicacion, p.urlImagen, p.urlDocumento
+    FROM posts p
+    WHERE p.idCategoria1 = ? OR p.idCategoria2 = ? OR p.idCategoria3 = ?;
+    
     `;
 
     connection.query(query, [categoriaId], (error, results) => {
