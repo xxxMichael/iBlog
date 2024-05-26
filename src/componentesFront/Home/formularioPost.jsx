@@ -2,6 +2,22 @@ import React, { useState, useEffect } from "react";
 import './formularioPost.css';
 import { ComponentChecklist } from './Categorias2.jsx';
 import axios from 'axios';
+import { parseJwt } from "../Main/Main";
+export function decodificar(token) {
+    const base64Url = token.split(".")[1];
+    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    const jsonPayload = decodeURIComponent(
+        window
+            .atob(base64)
+            .split("")
+            .map(function (c) {
+                return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+            })
+            .join("")
+    );
+
+    return JSON.parse(jsonPayload);
+}
 
 
 function Formulario({ onClose }) {
@@ -15,7 +31,7 @@ function Formulario({ onClose }) {
     const [titulo, setTitulo] = useState("");
     const [contenido, setContenido] = useState("");
     const [urlImagen, setUrlImagen] = useState("");
-    const [urlDocumento, setUrlSocumento] = useState("");
+    const [urlDocumento, setUrlDocumento] = useState("");
     const [idCategoria1, setIdCategoria1] = useState("");
     const [idCategoria2, setIdCategoria2] = useState("");
     const [idCategoria3, setIdCategoria3] = useState("");
@@ -28,9 +44,12 @@ function Formulario({ onClose }) {
     };
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem("token");
+        if (token) {
+            const decodedToken = parseJwt(token);
+            setDueño(decodedToken.username);
+        }
     }, []);
-
     useEffect(() => {
         const fetchCategorias = async () => {
             try {
@@ -66,18 +85,30 @@ function Formulario({ onClose }) {
             console.log(contenido);
             console.log(dueño);
             try {
-                const response = await fetch('http://localhost:3000/almacenarPost', {
-                    method: 'POST',
+                const formData = new FormData();
+                formData.append('image', image); // Asegúrate de que 'image' sea el nombre correcto del campo en tu servidor
+                const responseUpload = await axios.post('http://localhost:3000/subirImagen', formData, {
                     headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        dueño, titulo, contenido, urlImagen, urlDocumento, idCategoria1,
-                        idCategoria2, idCategoria3, fechaPublicacion
-                    }),
+                        'Content-Type': 'multipart/form-data'
+                    }
                 });
-                if (response.ok) {
-                    alert('Se agrego correctamente el nuevo post');
+                if (responseUpload.data.success) {
+                    setUrlImagen(responseUpload.data.imageUrl);
+                    const response = await fetch('http://localhost:3000/almacenarPost', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            dueño, titulo, contenido, urlImagen, urlDocumento, idCategoria1,
+                            idCategoria2, idCategoria3, fechaPublicacion
+                        }),
+                    });
+                    if (response.ok) {
+                        alert('Se agrego correctamente el nuevo post');
+                    }
+                } else {
+                    console.error('Error al cargar la imagen:', responseUpload.data.error);
                 }
             } catch (error) {
                 console.error('Error:', error);
@@ -113,7 +144,7 @@ function Formulario({ onClose }) {
                             </div>
                         </label>
                     </label>
-                    <div className='contenedorImg' onClick={handleDivClick}>
+                    <div className='contenedorImg' id='fileInput' onClick={handleDivClick}>
                         {!image && <p>Haz clic para seleccionar una imagen</p>}
                         {image && <img src={image} alt="Imagen seleccionada" style={{ width: '350px', height: '180px' }} />}
                         <input
