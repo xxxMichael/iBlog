@@ -8,6 +8,22 @@ import Categorias from "./Categorias.jsx";
 import axios from "axios";
 import Formulario from "../Home/formularioPost.jsx";
 
+export function decodificar(token) {
+  const base64Url = token.split(".")[1];
+  const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+  const jsonPayload = decodeURIComponent(
+    window
+      .atob(base64)
+      .split("")
+      .map(function (c) {
+        return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+      })
+      .join("")
+  );
+
+  return JSON.parse(jsonPayload);
+}
+
 const Home = () => {
   // Estado para almacenar la información del usuario decodificada
   const [userData, setUserData] = useState(null);
@@ -17,12 +33,18 @@ const Home = () => {
   let buttonText = "";
   let direct = null;
 
-  const navigate = useNavigate(); // Define navigate aquí
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+        const decodedToken = parseJwt(token);
+        setUserData(decodedToken);
+    }
+}, []);
 
   const handleLogout = () => {
     // Eliminar el token JWT del almacenamiento local
-    localStorage.removeItem('token');
-    
+    localStorage.removeItem("token");
+
     // Recargar la página
     window.location.reload();
   };
@@ -44,12 +66,7 @@ const Home = () => {
     setSearchDisabled(!showForm);
   };
 
-  useEffect(() => {
-    if (token) {
-      const decodedToken = parseJwt(token);
-      setUserData(decodedToken);
-    }
-  }, [token]);
+ 
 
   const handleCategoriaClick = async (categoriaId) => {
     try {
@@ -172,6 +189,10 @@ const Home = () => {
                 <label>Kevin Peñafiel</label>
               </div>
               <button onClick={handleLogout}>Cerrar Sesión</button>
+              <label>
+                Información del JWT:
+                {userData && <pre>{JSON.stringify(userData, null, 2)}</pre>}
+              </label>
             </div>
           </div>
         </div>
