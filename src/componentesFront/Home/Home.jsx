@@ -6,7 +6,7 @@ import { parseJwt } from '../Main/Main'; // Asegúrate de importar la función p
 import { Link, Router } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
 import { FaHome, FaUser } from 'react-icons/fa';
-import Categorias from './Categorias.jsx';
+import Categorias from './categorias.jsx';
 import axios from 'axios';
 import Formulario from '../Home/formularioPost.jsx';
 
@@ -89,9 +89,13 @@ const Home = () => {
                         {showForm && <Formulario onClose={handleClick} />}
                         {posts.length > 0 ? (
                             posts.map((post) => (
-                                <div key={post.id} className="post">
+                                <div key={post.idPost} className="post">
                                     <h3>{post.titulo}</h3>
                                     <p>{post.contenido}</p>
+                                    <p><strong>Dueño:</strong> {post.dueño}</p>
+                                    <p><strong>Fecha de Publicación:</strong> {new Date(post.fechaPublicacion).toLocaleDateString()}</p>
+                                    {post.urlImagen && <img src={post.urlImagen} alt="Imagen del post" />}
+                                    {post.urlDocumento && <a href={post.urlDocumento} target="_blank" rel="noopener noreferrer">Ver Documento</a>}
                                 </div>
                             ))
                         ) : (
