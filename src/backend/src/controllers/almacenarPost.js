@@ -1,6 +1,6 @@
 const connection = require('../models/db');
 
-module.exports.GuardarPost = async (req, res) => {
+module.exports.almacenarPost = async (req, res) => {
     const { dueño, titulo, contenido, urlImagen, urlDocumento, idCategoria1,
         idCategoria2, idCategoria3, fechaPublicacion } = req.body;
 

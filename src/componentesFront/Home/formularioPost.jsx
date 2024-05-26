@@ -1,16 +1,9 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import './formularioPost.css';
 import { ComponentChecklist } from './Categorias2.jsx';
 import axios from 'axios';
 
 function Formulario({ onClose }) {
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Lógica para manejar el envío del formulario
-        onClose();
-    };
     const [categorias, setCategorias] = useState([]);
     const [selectedCount, setSelectedCount] = useState(0);
     const [image, setImage] = useState(null);
@@ -26,7 +19,16 @@ function Formulario({ onClose }) {
     const [idCategoria2, setIdCategoria2] = useState("");
     const [idCategoria3, setIdCategoria3] = useState("");
     const [fechaPublicacion, setFechaPublicacion] = useState("");
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // Lógica para manejar el envío del formulario
+        onClose();
+    };
 
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        setDueño(token);
+    }, []);
 
     useEffect(() => {
         const fetchCategorias = async () => {
@@ -49,6 +51,7 @@ function Formulario({ onClose }) {
         const inputValue = event.target.value;
         if (inputValue.length <= 250) {
             setContent(inputValue);
+            setContenido(event.target.value);
         }
     };
     const cantCaracteres = () => {
@@ -58,8 +61,11 @@ function Formulario({ onClose }) {
         e.preventDefault();
 
         if (selectedCount > 0) {
+            console.log(titulo);
+            console.log(contenido);
+            console.log(dueño);
             try {
-                const response = await fetch('http://localhost:3000/estudiantes', {
+                const response = await fetch('http://localhost:3000/almacenarPost', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -116,9 +122,9 @@ function Formulario({ onClose }) {
                             onChange={handleImageChange}
                         />
                     </div>
-                    <input placeholder="Titulo..." type="text" className="input3" />
+                    <input placeholder="Titulo..." type="text" className="input3" onChange={(e) => setTitulo(e.target.value)} />
                     <textarea placeholder="Contenido..." rows="6" cols="20" id="message" name="message" className="textarea"
-                        value={content} onChange={handleChange}></textarea>
+                        value={content} onChange={handleChange} ></textarea>
                     <label className="caracteres">{cantCaracteres()}/250</label>
                     {!isProject && (
                         <div className='contenedorArchivo'>

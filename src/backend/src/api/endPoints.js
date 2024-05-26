@@ -14,7 +14,7 @@ const { emailController } = require('../controllers/emailController');
 const { actualizarContra } = require('../controllers/actualizarContra');
 const { consultarCatego } = require('../controllers/consultarCatego');
 const { consultaPostCat } = require('../controllers/consultaPostCat');
-const { guardarPost } = require('../controllers/almacenarPost');
+const { almacenarPost } = require('../controllers/almacenarPost');
 
 router.get('/ping', ping);
 router.get('/consultaPostCat', consultaPostCat);
@@ -30,7 +30,7 @@ router.post('/loginwGmail', loginwGmail);
 router.post('/checkUsername', checkUsername);
 router.post('/verfRegistro', verfRegistro);
 router.post('/verificarUser', verificarUser);
-router.post('/guardarpost', guardarPost);
+router.post('/almacenarPost', almacenarPost);
 
 router.post('/login', login);
 module.exports = router;
