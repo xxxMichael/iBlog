@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import './categorias.css';
 
@@ -10,35 +8,35 @@ const ComponentChecklist = ({ componentList, onSelectedCountChange, onSelectedCo
         onSelectedComponentsChange(selectedComponents);
     }, [selectedComponents, onSelectedComponentsChange]);
 
-    const handleCheckboxChange = (event, componentName) => {
+    const handleCheckboxChange = (event, component) => {
         if (event.target.checked) {
             if (selectedComponents.length < 3) {
-                setSelectedComponents([...selectedComponents, componentName]);
+                setSelectedComponents([...selectedComponents, component]);
             } else {
                 event.target.checked = false;
                 alert("You can't select more than three components.");
             }
         } else {
-            setSelectedComponents(selectedComponents.filter(comp => comp !== componentName));
+            setSelectedComponents(selectedComponents.filter(comp => comp.nombre !== component.nombre));
         }
         onSelectedCountChange(selectedComponents.length + (event.target.checked ? 1 : -1));
     };
 
     return (
         <div className='contenedorCategorias'>
-            {componentList.map(component => (
+            {componentList.map((componente) => (
                 <div
-                    className={`categoriaSeparada ${selectedComponents.includes(component) ? 'categoriaSeleccionada' : ''}`}
-                    key={component}
+                    className={`categoriaSeparada ${selectedComponents.some(comp => comp.nombre === componente.nombre) ? 'categoriaSeleccionada' : ''}`}
+                    key={componente.nombre}
                 >
                     <input
                         className='inputCh'
                         type="checkbox"
-                        id={component}
-                        onChange={(event) => handleCheckboxChange(event, component)}
-                        checked={selectedComponents.includes(component)}
+                        id={componente.nombre}
+                        onChange={(event) => handleCheckboxChange(event, componente)}
+                        checked={selectedComponents.some(comp => comp.nombre === componente.nombre)}
                     />
-                    <label htmlFor={component}>{component}</label>
+                    <label htmlFor={componente.nombre}>{componente.nombre}</label>
                 </div>
             ))}
         </div>
