@@ -43,9 +43,9 @@ body {
   border-right: 1px solid rgb(62, 65, 66);
   margin-top: calc(10px + 70px);
   flex: 0 0 auto;
-  background-color: rgb(14, 17, 19);
+  background-color: rgb(155, 171, 181);
   width: 20%;
-  color: black;
+  color: rgb(235, 228, 228);
   position: fixed;
   top: 0;
   left: 0;
@@ -61,7 +61,7 @@ body {
 }
 .contCentral {
   flex: 0 0 auto; /* El elemento ocupará todo el espacio restante */
-  background-color: rgb(14, 17, 19); /* Color de fondo del contenido central */
+  background-color: rgb(211, 221, 228); /* Color de fondo del contenido central */
   width: 50%;
   overflow-y: auto; /* Habilita el scroll vertical cuando el contenido es más largo que el contenedor */
   height: 100%;

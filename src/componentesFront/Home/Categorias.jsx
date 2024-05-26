@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
+// Categorias.jsx
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
-const Categorias = () => {
+const Categorias = ({ onCategoriaClick }) => {
     const [categorias, setCategorias] = useState([]);
 
     useEffect(() => {
         const fetchCategorias = async () => {
             try {
-                const response = await fetch('http://localhost:3000/consultarCatego');
-                const data = await response.json();
-                setCategorias(data);
+                const response = await axios.get('http://localhost:3000/consultarCatego');
+                setCategorias(response.data);
             } catch (error) {
                 console.error('Error al obtener las categorías:', error);
             }
         };
-
         fetchCategorias();
     }, []);
 
@@ -21,7 +21,9 @@ const Categorias = () => {
         <ul>
             {categorias.map((categoria) => (
                 <li key={categoria.id}>
-                    <a href={`/categoria/${categoria.id}`}>{categoria.nombre}</a>
+                    <button onClick={() => onCategoriaClick(categoria.id)}>
+                        {categoria.nombre}
+                    </button>
                 </li>
             ))}
         </ul>

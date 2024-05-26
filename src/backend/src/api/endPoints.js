@@ -13,8 +13,11 @@ const {checkEmail}= require('../controllers/checkEmail');
 const {emailController}= require('../controllers/emailController');
 const {actualizarContra}= require('../controllers/actualizarContra');
 const {consultarCatego}= require('../controllers/consultarCatego');
+const {consultaPostCat}= require('../controllers/consultaPostCat');
 
 router.get('/ping', ping);
+router.get('/consultaPostCat', consultaPostCat);
+
 router.post('/registrarGmail', registrarGmail);
 router.post('/registroNormal', registroNormal);
 router.post('/checkEmail', checkEmail);
