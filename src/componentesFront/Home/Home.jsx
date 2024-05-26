@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // src/componentesFront/Home/Home.jsx
 import './Home.css';
 import { useEffect, useState } from 'react'; // Importa useEffect y useState
@@ -5,7 +6,7 @@ import { parseJwt } from '../Main/Main'; // Asegúrate de importar la función p
 import { Link, Router } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
 import { FaHome, FaUser } from 'react-icons/fa';
-import Categorias from './Categorias';
+import Categorias from './Categorias.jsx';
 import axios from 'axios';
 import Formulario from '../Home/formularioPost.jsx';
 

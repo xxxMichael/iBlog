@@ -12,7 +12,7 @@
 }
 .contenidoP {
   position: fixed;
-  top: 14%;
+  top: 11%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -27,7 +27,7 @@
     0 100%
   );
   width: 40%;
-  height: 85%;
+  height: 88%;
 }
 
 .form1 {
@@ -49,6 +49,7 @@
 .contBotones {
   margin-bottom: 5px;
 }
+
 .input3,
 .textarea {
   width: 100%;
@@ -134,14 +135,35 @@
 .contenedorImg {
   background-color: white;
   width: 100%;
-  height: 250px;
+  height: 300px;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  background-size: cover;
+  background-position: center;
 }
 .btnEnviar1,
 .btnCancelar1 {
   color: white;
   background-color: #0019;
+}
+
+.btnEnviar1:hover,
+.btnCancelar1:hover {
+  color: white;
+  background-color: #013747;
+}
+.caracteres {
+  position: relative;
+  text-align: center;
+  color: aliceblue;
+}
+.inputArchivo::-webkit-file-upload-button {
+  color: #001925;
+}
+.contenedorArchivo {
+  color: white;
+  border-radius: 5px;
 }

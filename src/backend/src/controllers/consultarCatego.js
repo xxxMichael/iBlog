@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const connection = require('../models/db');
 
 module.exports.consultarCatego = (req, res) => {
