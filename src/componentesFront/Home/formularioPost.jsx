@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import './formularioPost.css';
-import { ComponentChecklist } from './categorias.jsx';
+import { ComponentChecklist } from './Categorias2.jsx';
 
 
 

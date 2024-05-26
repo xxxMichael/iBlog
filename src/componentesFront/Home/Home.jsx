@@ -5,15 +5,18 @@ import { parseJwt } from '../Main/Main'; // Asegúrate de importar la función p
 import { Link, Router } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
 import { FaHome, FaUser } from 'react-icons/fa';
+import Formulario from '../Home/formularioPost.jsx';
 
 const Home = () => {
     // Estado para almacenar la información del usuario decodificada
     const [userData, setUserData] = useState(null);
+    const [showForm, setShowForm] = useState(false);
+    const [searchDisabled, setSearchDisabled] = useState(false);
     let buttonText = "";
     let direct = null;
     const token = localStorage.getItem('token');
     const tokenExistAndStillValid = token && parseJwt(token).exp * 1000 > Date.now();
-    
+
     if (tokenExistAndStillValid) {
         buttonText = 'Crear Posts';
         direct = '#';
@@ -26,7 +29,7 @@ const Home = () => {
         setShowForm(!showForm);
         setSearchDisabled(!showForm);
     };
-    
+
     useEffect(() => {
         if (token) {
             const decodedToken = parseJwt(token);
@@ -79,6 +82,7 @@ const Home = () => {
                         </div>
                     </div>
                     <div className='contCentral'>
+                        {showForm && <Formulario onClose={handleClick} />}
                         Contenedor Central<br />
                         Contenedor Central<br />
                         Contenedor Central<br />
@@ -92,7 +96,7 @@ const Home = () => {
                                 <img
                                     src={"src/componentesFront/Login/images/iconoMichael.png"}
                                     alt="Miniatura"
-                                    style={{ width: '50px', height: '50px' }} 
+                                    style={{ width: '50px', height: '50px' }}
                                 />
                                 <label>Michael Chavez</label>
                             </div>
@@ -100,7 +104,7 @@ const Home = () => {
                                 <img
                                     src={"src/componentesFront/Login/images/perfilD.jpg"}
                                     alt="Miniatura"
-                                    style={{ width: '50px', height: '50px' }} 
+                                    style={{ width: '50px', height: '50px' }}
                                 />
                                 <label>David Giler</label>
                             </div>
@@ -108,7 +112,7 @@ const Home = () => {
                                 <img
                                     src={""}
                                     alt="Miniatura"
-                                    style={{ width: '50px', height: '50px' }} 
+                                    style={{ width: '50px', height: '50px' }}
                                 />
                                 <label>Kevin Peñafiel</label>
                             </div>
