@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Atropos from "atropos/react";
 import "./Login.css";
 import "atropos/css";
@@ -7,7 +7,8 @@ import Home from "../Home/Home";
 import Registro from "../Login/Registro";
 import LoginwGmail from "../Login/LoginwGmail";
 import RegistroGmail from "../Login/RegistrowGmail";
-import RecuperarContrasena from "../Login/RecuperarContra"; // Importa el componente de recuperación de contraseña
+import RecuperarContrasena from "../Login/RecuperarContra";
+import { Link, Router } from 'react-router-dom';
 
 const Login = () => {
   const [password, setPassword] = useState("");
@@ -46,9 +47,17 @@ const Login = () => {
       return "black";
     }
   };
+  const linkRef = useRef(null);
+
+  useEffect(() => {
+    if (loginSuccessful) {
+      linkRef.current.click();
+    }
+  }, [loginSuccessful]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
     const data = {
       username: username,
       password: password,
@@ -141,7 +150,7 @@ const Login = () => {
   return (
     <>
       {loginSuccessful ? (
-        <Home />
+        <Link to='/' ref={linkRef} id='redirección'></Link>
       ) : (
         <div className="centered-div" id="app">
           <Atropos activeOffset={15} shadowScale={0}>

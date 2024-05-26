@@ -1,0 +1,147 @@
+.contenidoMayor {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.contenidoP {
+  position: fixed;
+  top: 14%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #001925;
+  border-left: 5px solid #013747;
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - 20px),
+    calc(100% - 20px) 100%,
+    0 100%
+  );
+  width: 40%;
+  height: 85%;
+}
+
+.form1 {
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* Ajusta según sea necesario */
+  height: 100%;
+  max-width: 350px; /* Ajusta según sea necesario */
+}
+.input3 {
+  margin-top: 5px;
+}
+
+.tituloCrearPosts {
+  margin-bottom: 15px;
+}
+.input3,
+.textarea,
+.contBotones {
+  margin-bottom: 5px;
+}
+.input3,
+.textarea {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box; /* Incluye el padding en el ancho total */
+}
+
+.contBotones {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  gap: 15px;
+}
+
+.btnEnviar1,
+.btnCancelar1 {
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.tituloCrearPosts {
+  margin-top: 17px;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  color: rgb(255, 255, 255);
+  height: 0;
+}
+.contenedorCh {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0;
+  position: relative;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 0.5em;
+  gap: 10px;
+}
+
+.contenedorCh input {
+  display: none;
+  margin-bottom: 0;
+}
+
+.No {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1;
+  color: aqua;
+  text-decoration: underline;
+}
+.Yes {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1;
+  color: aqua;
+  text-decoration: underline;
+}
+.name.Yes {
+  display: none;
+}
+
+.checkmark:hover:before {
+  background-color: hsla(0, 0%, 50%, 0.2);
+}
+.contenedorCh input:checked ~ .checkmark .name.No {
+  display: none;
+}
+
+.contenedorCh input:checked ~ .checkmark .name.Yes {
+  width: auto;
+  display: unset;
+}
+.contenedorEncabezado {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Espacio entre el texto y el checkbox */
+  width: 100%;
+  height: 10%;
+}
+.contenedorImg {
+  background-color: white;
+  width: 100%;
+  height: 250px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btnEnviar1,
+.btnCancelar1 {
+  color: white;
+  background-color: #0019;
+}

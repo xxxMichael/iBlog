@@ -4,22 +4,32 @@ import { parseJwt } from '../Main/Main'; // Asegúrate de importar la función p
 import { Link, Router } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
 import { FaHome, FaUser } from 'react-icons/fa';
+import Formulario from '../Home/formularioPost.jsx';
+
 
 const Home = () => {
     // Estado para almacenar la información del usuario decodificada
+    const [showForm, setShowForm] = useState(false);
+    const [searchDisabled, setSearchDisabled] = useState(false);
     const [userData, setUserData] = useState(null);
+
     let buttonText = "";
     let direct = null;
     const token = localStorage.getItem('token');
     const tokenExistAndStillValid = token && parseJwt(token).exp * 1000 > Date.now();
     if (tokenExistAndStillValid) {
         buttonText = 'Crear Posts';
-        direct = '/posts';
+        direct = '#';
     } else {
         buttonText = 'Iniciar Sesion';
         direct = '/login';
     }
 
+    const handleClick = (event) => {
+        setShowForm(!showForm);
+        setSearchDisabled(!showForm);
+    };
+    
     useEffect(() => {
         // Obtiene el token del almacenamiento local
         const token = localStorage.getItem('token');
@@ -39,10 +49,21 @@ const Home = () => {
                         <img src="src\componentesFront\Login\images\logoApp1.png" />
                     </div>
                     <div className="buscador">
-                        <input className='inputB' type="text" placeholder="Search" />
+                        <input className='inputB' disabled={searchDisabled} type="text" placeholder="Search" />
                         <FaSearch className="iconoBuscar" />
                     </div>
-                    <Link className='btnInicioSesion' id='btnP' to={direct}>{buttonText}</Link>
+                    <Link
+                        className='btnInicioSesion'
+                        id='btnP'
+                        onClick={tokenExistAndStillValid ? handleClick : null}
+                        to={direct}
+                        style={{
+                            opacity: !showForm ? 1 : 0,
+                            pointerEvents: !showForm ? 'auto' : 'none',
+                        }}
+                    >
+                        {buttonText}
+                    </Link>
                 </div>
                 <div className='cont'>
                     <div className='contIzquierdo'>
@@ -56,13 +77,16 @@ const Home = () => {
                         </div>
                     </div>
                     <div className='contCentral'>
+                        {showForm && <Formulario onClose={handleClick} />}
+                        Contenedor Central<br />
+                        Contenedor Central<br />
                         Contenedor Central<br />
                         Contenedor Central<br />
                         Contenedor Central<br />
                         Contenedor Central<br />
                         Contenedor Central<br />
                     </div>
-                    <div className='contDerecho'>
+                    <div className='contDerecho' style={{ display: showForm ? 'none' : 'block' }}>
                         <div className='contenidoD'>
                             <div className='tituloDerecho'> DESARROLLADORES: </div>
                             <div className='contenedorImagen'>
