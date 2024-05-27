@@ -36,7 +36,7 @@ function LoginwGmail({ handleBackToLoginClick }) {
           }); // Set error message
           setTimeout(function () {
             navigate("/");
-
+            window.location.reload();
           }, 500);
         } else {
           console.log("sin usuario");

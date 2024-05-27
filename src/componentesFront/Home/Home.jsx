@@ -1,12 +1,10 @@
-import "./Home.css";
-import { useEffect, useState } from "react"; // Importa useEffect y useState
-import { parseJwt } from "../Main/Main"; // Asegúrate de importar la función parseJwt desde el archivo correcto
-import { Link, useNavigate } from "react-router-dom"; // Importa useNavigate aquí
-import { FaSearch } from "react-icons/fa";
-import { FaHome, FaUser } from "react-icons/fa";
+import React, { useEffect, useState } from "react";
+import { parseJwt } from "../Main/Main";
+import { Link } from "react-router-dom";
+import { FaSearch, FaHome, FaUser } from "react-icons/fa";
 import Categorias from "./Categorias.jsx";
 import axios from "axios";
-import Formulario from "../Home/formularioPost.jsx";
+import LoginForm from "../Login/Login.jsx"; // Importa el componente LoginForm
 
 export function decodificar(token) {
   const base64Url = token.split(".")[1];
@@ -25,10 +23,10 @@ export function decodificar(token) {
 }
 
 const Home = () => {
-  // Estado para almacenar la información del usuario decodificada
+  const [showLoginForm, setShowLoginForm] = useState(false);
   const [userData, setUserData] = useState(null);
   const [posts, setPosts] = useState([]);
-  const [showForm, setShowForm] = useState(false);
+  const [showForm, setShowForm] = useState(false); // Estado para mostrar u ocultar el formulario de inicio de sesión
   const [searchDisabled, setSearchDisabled] = useState(false);
   let buttonText = "";
   let direct = null;
@@ -36,16 +34,13 @@ const Home = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-        const decodedToken = parseJwt(token);
-        setUserData(decodedToken);
+      const decodedToken = parseJwt(token);
+      setUserData(decodedToken);
     }
-}, []);
+  }, []);
 
   const handleLogout = () => {
-    // Eliminar el token JWT del almacenamiento local
     localStorage.removeItem("token");
-
-    // Recargar la página
     window.location.reload();
   };
 
@@ -62,11 +57,9 @@ const Home = () => {
   }
 
   const handleClick = (event) => {
-    setShowForm(!showForm);
+    setShowForm(!showForm); // Cambia el estado para mostrar u ocultar el formulario de inicio de sesión
     setSearchDisabled(!showForm);
   };
-
- 
 
   const handleCategoriaClick = async (categoriaId) => {
     try {
@@ -77,6 +70,10 @@ const Home = () => {
     } catch (error) {
       console.error("Error al cargar los posts:", error);
     }
+  };
+
+  const handleLoginClick = () => {
+    setShowLoginForm(true);
   };
 
   return (
@@ -101,8 +98,8 @@ const Home = () => {
           <Link
             className="btnInicioSesion"
             id="btnP"
-            onClick={tokenExistAndStillValid ? handleClick : null}
-            to={direct}
+            onClick={handleClick}
+            //   to={direct}
             style={{
               opacity: !showForm ? 1 : 0,
               pointerEvents: !showForm ? "auto" : "none",
@@ -127,7 +124,6 @@ const Home = () => {
             </div>
           </div>
           <div className="contCentral">
-            {showForm && <Formulario onClose={handleClick} />}
             {posts.length > 0 ? (
               posts.map((post) => (
                 <div key={post.idPost} className="post">
@@ -158,10 +154,7 @@ const Home = () => {
               <p>No hay posts disponibles.</p>
             )}
           </div>
-          <div
-            className="contDerecho"
-            style={{ display: showForm ? "none" : "block" }}
-          >
+          <div className="contDerecho">
             <div className="contenidoD">
               <div className="tituloDerecho"> DESARROLLADORES: </div>
               <div className="contenedorImagen">
@@ -196,7 +189,54 @@ const Home = () => {
             </div>
           </div>
         </div>
+        {showForm && (
+          <div className="loginOverlay">
+            <div className="loginFormWrapper">
+              <LoginForm onClose={handleClick} />
+              <button
+                onClick={handleClick}
+                className="cerrar-formulario"
+              >
+                X
+              </button>
+            </div>
+          </div>
+        )}
       </div>
+      <style jsx>{`
+        .cerrar-formulario {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          z-index: 1000;
+          background-color: red;
+          color: white;
+          border: none;
+          padding: 10px;
+          cursor: pointer;
+        }
+        .loginFormWrapper {
+          position: relative;
+          width: 100%;
+          max-width: 400px;
+          margin: 0 auto;
+          padding: 20px;
+          background-color: #fff;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .loginOverlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.5);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 1000;
+        }
+      `}</style>
     </>
   );
 };

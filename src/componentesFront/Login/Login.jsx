@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
-
+  
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [showSignUpForm, setShowSignUpForm] = useState(false);
@@ -101,8 +101,8 @@ const Login = () => {
       if (result.token) {
         localStorage.setItem("token", result.token);
         setLoginSuccessful(true);
-        navigate("/");
-
+       //navigate("/");
+        window.location.reload();
       } else {
         setErrorMessage({
           message: result.message || "Error al obtener el token",
@@ -246,6 +246,7 @@ const Login = () => {
                   )}
                 </>
               )}
+              
             </div>
           </Atropos>
         </div>
