@@ -158,7 +158,7 @@ const Login = () => {
         <Link to='/' ref={linkRef} id='redirección'></Link>
       ) : (
         <div className="centered-div" id="app">
-          <Atropos activeOffset={15} shadowScale={0}>
+          <Atropos activeOffset={15} shadowScale={50}>
             <div className="login-panel">
               {showSignUpForm ? (
                 <Registro

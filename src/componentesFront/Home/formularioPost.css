@@ -9,6 +9,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1000;
 }
 .contenidoP {
   position: fixed;
@@ -19,6 +20,7 @@
   align-items: center;
   background-color: #001925;
   border-left: 5px solid #013747;
+  z-index: 1100;
   clip-path: polygon(
     0 0,
     100% 0,

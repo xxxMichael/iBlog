@@ -30,7 +30,7 @@ body {
   margin-top: calc(10px + 70px);
   border: 1px solid black;
   flex: 0 0 auto; /* El elemento no se expandirá, mantendrá su tamaño original */
-  background-color: rgb(198, 189, 189); /* Color de fondo del contenido izquierdo */
+  background-color: black;
   width: 25%;
   border-radius: 5%;
   position: fixed;
@@ -43,7 +43,7 @@ body {
   border-right: 1px solid rgb(62, 65, 66);
   margin-top: calc(10px + 70px);
   flex: 0 0 auto;
-  background-color: rgb(155, 171, 181);
+  background-color: rgb(14, 17, 19);
   width: 20%;
   color: rgb(235, 228, 228);
   position: fixed;
@@ -54,6 +54,12 @@ body {
   align-items: center;
   overflow-y: auto;
   flex-direction: column;
+  scrollbar-width: thin;
+  overflow-y: auto;
+  scrollbar-color: rgb(14, 17, 19) rgb(14, 17, 19);
+}
+.contIzquierdo:hover {
+  scrollbar-color: rgb(62, 65, 66) rgb(14, 17, 19);
 }
 .contIzquierdo li {
   margin-top: 25px;
@@ -61,7 +67,7 @@ body {
 }
 .contCentral {
   flex: 0 0 auto; /* El elemento ocupará todo el espacio restante */
-  background-color: rgb(211, 221, 228); /* Color de fondo del contenido central */
+  background-color: rgb(14, 17, 19); /* Color de fondo del contenido central */
   width: 50%;
   overflow-y: auto; /* Habilita el scroll vertical cuando el contenido es más largo que el contenedor */
   height: 100%;
@@ -156,4 +162,101 @@ body {
 }
 .contenedorImagen img {
   border-radius: 100%;
+}
+.contenedorPer {
+  background-color: rgb(14, 17, 19);
+  position: relative;
+  margin-left: 20px;
+  margin-right: 10px;
+  border-bottom: 1px solid rgb(62, 65, 66);
+}
+.postP {
+  background-color: rgb(14, 17, 19);
+  width: 95%;
+  left: 3%;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  display: flez;
+  border-bottom: 1px solid rgb(62, 65, 66);
+  border-top: 1px solid rgb(62, 65, 66);
+}
+.card {
+  padding: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  position: relative;
+  width: 93.72%;
+  min-height: 350px;
+  border-radius: 15px;
+  background: rgb(14, 17, 19);
+  transition: 0.05s;
+}
+
+.card:hover {
+  background-color: rgb(24, 28, 31);
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #b2eccf;
+  margin: 15px 0 0 10px;
+}
+
+.card-image {
+  min-height: 170px;
+  background-color: #313131;
+  border-radius: 15px;
+  background: #313131;
+  overflow: hidden;
+  position: relative;
+}
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.card-body {
+  margin: 13px 0 0 10px;
+  color: rgb(184, 184, 184);
+  font-size: 15px;
+}
+
+.footer {
+  margin: 28px 0 0 18px;
+  font-size: 13px;
+  color: #b3b3b3;
+}
+
+.by-name {
+  font-weight: 700;
+}
+.headerPost {
+  margin-bottom: 2%;
+  display: flex;
+  align-items: center;
+}
+.headerPost img {
+  border-radius: 100%;
+}
+.headerPost label {
+  padding-left: 10px;
+  font-size: 1.1rem;
+  color: white;
+}
+.btnCerrarSesion {
+  margin-top: 100%;
+}
+
+*::-webkit-scrollbar {
+  width: 12px;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: rgb(104, 104, 104); /* Color del thumb */
+}
+*::-webkit-scrollbar-track {
+  background-color: rgb(66, 66, 66); /* Color del track */
 }

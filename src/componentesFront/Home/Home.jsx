@@ -5,6 +5,9 @@ import { FaSearch, FaHome, FaUser } from "react-icons/fa";
 import Categorias from "./Categorias.jsx";
 import axios from "axios";
 import LoginForm from "../Login/Login.jsx"; // Importa el componente LoginForm
+import Formulario from "./formularioPost.jsx";
+import { format, formatDistanceToNow, parseISO } from 'date-fns';
+import { es } from 'date-fns/locale'; // Para formateo en español
 
 export function decodificar(token) {
   const base64Url = token.split(".")[1];
@@ -21,16 +24,25 @@ export function decodificar(token) {
 
   return JSON.parse(jsonPayload);
 }
-
 const Home = () => {
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [userData, setUserData] = useState(null);
   const [posts, setPosts] = useState([]);
   const [showForm, setShowForm] = useState(false); // Estado para mostrar u ocultar el formulario de inicio de sesión
+  const [showForm1, setShowForm1] = useState(false);
   const [searchDisabled, setSearchDisabled] = useState(false);
   let buttonText = "";
   let direct = null;
-
+  const formatearFecha = (fecha) => {
+    const fechaISO = parseISO(fecha);
+    const diferenciaEnAños = new Date().getFullYear() - fechaISO.getFullYear();
+    console.log(diferenciaEnAños);
+    if (diferenciaEnAños < 1) {
+      return formatDistanceToNow(fechaISO, { locale: es });
+    } else {
+      return format(fechaISO, 'MMMM yyyy', { locale: es });
+    }
+  };
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -57,10 +69,31 @@ const Home = () => {
   }
 
   const handleClick = (event) => {
-    setShowForm(!showForm); // Cambia el estado para mostrar u ocultar el formulario de inicio de sesión
-    setSearchDisabled(!showForm);
+    if (userData != null) {
+      setShowForm1(!showForm1); // Cambia el estado para mostrar u ocultar el formulario de inicio de sesión
+      setSearchDisabled(!showForm1);
+    } else {
+      setShowForm(!showForm); // Cambia el estado para mostrar u ocultar el formulario de inicio de sesión
+      setSearchDisabled(!showForm);
+    }
   };
-
+  const handleClick1 = (event) => {
+    setShowForm1(!showForm1); // Cambia el estado para mostrar u ocultar el formulario de inicio de sesión
+    setSearchDisabled(!showForm1);
+  };
+  const estilos = () => {
+    if (userData != null) {
+      return {
+        opacity: !showForm1 ? 1 : 0,
+        pointerEvents: !showForm1 ? "auto" : "none"
+      };
+    } else {
+      return {
+        opacity: !showForm ? 1 : 0,
+        pointerEvents: !showForm ? "auto" : "none"
+      };
+    }
+  };
   const handleCategoriaClick = async (categoriaId) => {
     try {
       const response = await axios.get(
@@ -100,10 +133,7 @@ const Home = () => {
             id="btnP"
             onClick={handleClick}
             //   to={direct}
-            style={{
-              opacity: !showForm ? 1 : 0,
-              pointerEvents: !showForm ? "auto" : "none",
-            }}
+            style={estilos()}
           >
             {buttonText}
           </Link>
@@ -122,70 +152,50 @@ const Home = () => {
               <button id="botonPrincipal">Categorias</button>
               <Categorias onCategoriaClick={handleCategoriaClick} />
             </div>
+            <button className='btnCerrarSesion' onClick={handleLogout}>Cerrar Sesión</button>
           </div>
           <div className="contCentral">
+            <div className="contenedorPer">
+              <button> Perfil </button>
+              <p> Contenido del Perfil </p>
+            </div>
+            {showForm1 && <Formulario onClose={handleClick1} />}
             {posts.length > 0 ? (
               posts.map((post) => (
-                <div key={post.idPost} className="post">
-                  <h3>{post.titulo}</h3>
-                  <p>{post.contenido}</p>
-                  <p>
-                    <strong>Dueño:</strong> {post.dueño}
-                  </p>
-                  <p>
-                    <strong>Fecha de Publicación:</strong>{" "}
-                    {new Date(post.fechaPublicacion).toLocaleDateString()}
-                  </p>
-                  {post.urlImagen && (
-                    <img src={post.urlImagen} alt="Imagen del post" />
-                  )}
-                  {post.urlDocumento && (
-                    <a
-                      href={post.urlDocumento}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Ver Documento
-                    </a>
-                  )}
+                <div key={post.idPost} className="postP">
+                  <div className="card">
+                    <div className="headerPost">
+                      <img
+                        src={"src/componentesFront/Login/images/iconoMichael.png"}
+                        alt="Miniatura"
+                        style={{ width: "50px", height: "50px" }}
+                      />
+                      <label>{post.dueño} • {formatearFecha(post.fechaPublicacion)}</label>
+                    </div>
+                    <div className="card-image">
+                      <img src="src/componentesFront/Login/images/logoApp1.png" />
+                    </div>
+                    <p className="card-title">{post.titulo}</p>
+                    <p className="card-body">
+                      {post.contenido}
+                    </p>
+                    <p>
+                    </p>
+                    <div className="contBtnPost">
+                      <button className="btnComentarios">Comentarios...</button>
+                    </div>
+                  </div>
                 </div>
               ))
             ) : (
-              <p>No hay posts disponibles.</p>
+              <p className="mensajePostsVacios">No hay posts disponibles.</p>
             )}
           </div>
           <div className="contDerecho">
             <div className="contenidoD">
-              <div className="tituloDerecho"> DESARROLLADORES: </div>
-              <div className="contenedorImagen">
-                <img
-                  src={"src/componentesFront/Login/images/iconoMichael.png"}
-                  alt="Miniatura"
-                  style={{ width: "50px", height: "50px" }}
-                />
-                <label>Michael Chavez</label>
+              <div className="contenedorCube">
+
               </div>
-              <div className="contenedorImagen">
-                <img
-                  src={"src/componentesFront/Login/images/perfilD.jpg"}
-                  alt="Miniatura"
-                  style={{ width: "50px", height: "50px" }}
-                />
-                <label>David Giler</label>
-              </div>
-              <div className="contenedorImagen">
-                <img
-                  src={""}
-                  alt="Miniatura"
-                  style={{ width: "50px", height: "50px" }}
-                />
-                <label>Kevin Peñafiel</label>
-              </div>
-              <button onClick={handleLogout}>Cerrar Sesión</button>
-              <label>
-                Información del JWT:
-                {userData && <pre>{JSON.stringify(userData, null, 2)}</pre>}
-              </label>
             </div>
           </div>
         </div>
@@ -202,7 +212,7 @@ const Home = () => {
             </div>
           </div>
         )}
-      </div>
+      </div >
       <style jsx>{`
         .cerrar-formulario {
           position: absolute;
