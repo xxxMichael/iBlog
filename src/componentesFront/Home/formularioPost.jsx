@@ -127,6 +127,11 @@ function Formulario({ onClose }) {
             reader.readAsDataURL(file);
         }
     };
+    const [isFlipped, setIsFlipped] = useState(false);
+
+    const handleToggle = () => {
+        setIsFlipped(!isFlipped);
+    };
     const handleDivClick = () => {
         document.getElementById('fileInput').click();
     };
@@ -135,18 +140,16 @@ function Formulario({ onClose }) {
             <div className="contenidoP">
                 <div className="form1">
                     <label className="contenedorEncabezado">
-                        <label className="contenedorCh">
-                            <label className="tituloCrearPosts">CREAR </label>
-                            <input type="checkbox" onChange={() => setIsProject(!isProject)} checked={isProject} />
-                            <div className="checkmark">
-                                <p className="No name">PROYECTO</p>
-                                <p className="Yes name">POST</p>
-                            </div>
+                        <h3 className={!isProject ? 'opcionPr encendido' : 'opcionPr apagado'}>PROYECTO</h3>
+                        <label className="toggle">
+                            <input type="checkbox" id="btn" onChange={() => setIsProject(!isProject)} checked={isProject} />
+                            <label htmlFor="btn"></label>
                         </label>
+                        <h3 className={!isProject ? 'opcionPs apagado' : 'opcionPs encendido'}>POST</h3>
                     </label>
                     <div className='contenedorImg' id='fileInput' onClick={handleDivClick}>
-                        {!image && <p>Haz clic para seleccionar una imagen</p>}
-                        {image && <img src={image} alt="Imagen seleccionada" style={{ width: '350px', height: '180px' }} />}
+                        {!image && <p className="textImg">Haz clic para seleccionar una imagen</p>}
+                        {image && <img src={image} alt="Imagen seleccionada" style={{ width: '100%', height: '100%' }} />}
                         <input
                             type="file"
                             accept="image/jpeg, image/png"

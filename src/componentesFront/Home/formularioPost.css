@@ -18,31 +18,47 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #001925;
-  border-left: 5px solid #013747;
+  background-color: transparent;
+  border: 1px solid white;
   z-index: 1100;
-  clip-path: polygon(
-    0 0,
-    100% 0,
-    100% calc(100% - 20px),
-    calc(100% - 20px) 100%,
-    0 100%
-  );
+  border-radius: 15px;
   width: 40%;
   height: 88%;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
-
+.contenidoP::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: inherit;
+  filter: blur(15rem);
+  z-index: -1;
+  border-radius: inherit;
+}
 .form1 {
   display: flex;
+  align-items: center;
   flex-direction: column;
   width: 100%; /* Ajusta según sea necesario */
   height: 100%;
-  max-width: 350px; /* Ajusta según sea necesario */
+  max-width: 400px; /* Ajusta según sea necesario */
 }
 .input3 {
   margin-top: 5px;
+  background-color: white;
+  color: black;
+  border: 1px solid black;
 }
-
+.textarea::placeholder,
+.input3::placeholder {
+  color: black;
+  opacity: 0.7;
+  font-style: italic;
+}
 .tituloCrearPosts {
   margin-bottom: 15px;
 }
@@ -50,8 +66,13 @@
 .textarea,
 .contBotones {
   margin-bottom: 5px;
+  border-radius: 20px;
 }
-
+.textarea {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+}
 .input3,
 .textarea {
   width: 100%;
@@ -69,6 +90,7 @@
 .btnEnviar1,
 .btnCancelar1 {
   padding: 10px 20px;
+  border-radius: 15px;
   cursor: pointer;
 }
 
@@ -77,7 +99,7 @@
   font-size: 20px;
   display: flex;
   align-items: center;
-  color: rgb(255, 255, 255);
+  color: black;
   height: 0;
 }
 .contenedorCh {
@@ -98,46 +120,44 @@
   margin-bottom: 0;
 }
 
-.No {
-  margin: 0;
-  font-size: 20px;
-  line-height: 1;
-  color: aqua;
-  text-decoration: underline;
-}
-.Yes {
-  margin: 0;
-  font-size: 20px;
-  line-height: 1;
-  color: aqua;
-  text-decoration: underline;
-}
-.name.Yes {
-  display: none;
-}
-
-.checkmark:hover:before {
-  background-color: hsla(0, 0%, 50%, 0.2);
-}
-.contenedorCh input:checked ~ .checkmark .name.No {
-  display: none;
-}
-
-.contenedorCh input:checked ~ .checkmark .name.Yes {
-  width: auto;
-  display: unset;
-}
 .contenedorEncabezado {
   display: flex;
   align-items: center;
-  gap: 10px; /* Espacio entre el texto y el checkbox */
+  justify-content: center;
+  position: relative;
+  gap: 0px;
   width: 100%;
   height: 10%;
 }
+.opcionPs {
+  position: absolute;
+  right: 0;
+}
+.opcionPr {
+  position: absolute;
+  left: 0;
+}
+.encendido {
+  color: green; /* Color para la opción seleccionada */
+  border: 2px solid green; /* Borde para la opción seleccionada */
+  background-color: black;
+  padding: 5px; /* Añadir algo de padding para que el borde se vea mejor */
+  border-radius: 5px; /* Bordes redondeados */
+  box-shadow: 0 0 10px green; /* Color para la palabra encendida */
+}
+
+.apagado {
+  color: gray; /* Color para la opción no seleccionada */
+  border: 2px solid transparent; /* Sin borde para la opción no seleccionada */
+  padding: 5px;
+}
+
 .contenedorImg {
   background-color: white;
+  border: 1px solid black;
+  border-radius: 20px;
   width: 100%;
-  height: 300px;
+  height: 250px;
   position: relative;
   display: flex;
   align-items: center;
@@ -146,26 +166,73 @@
   background-size: cover;
   background-position: center;
 }
+.textImg {
+  color: black;
+}
+.contenedorImg img {
+  border-radius: 20px;
+}
 .btnEnviar1,
 .btnCancelar1 {
   color: white;
   background-color: #0019;
 }
 
-.btnEnviar1:hover,
+.btnEnviar1:hover {
+  color: white;
+  background-color: rgb(24, 90, 24);
+}
 .btnCancelar1:hover {
   color: white;
-  background-color: #013747;
+  background-color: rgb(112, 15, 15);
 }
 .caracteres {
+  background-color: white;
   position: relative;
   text-align: center;
-  color: aliceblue;
+  border-radius: 20px;
+  width: 20%;
+  position: relative;
+  margin-bottom: 2px;
+  color: black;
 }
 .inputArchivo::-webkit-file-upload-button {
   color: #001925;
 }
 .contenedorArchivo {
-  color: white;
-  border-radius: 5px;
+  margin-top: 2px;
+  background-color: white;
+  color: black;
+  border-radius: 20px;
+  width: 100%;
+}
+
+.toggle {
+  background: #eee;
+  width: 80px;
+  height: 25px;
+  padding: 5px;
+  border-radius: 50px;
+  margin: 50px;
+  position: relative;
+  cursor: pointer;
+}
+
+.toggle label {
+  width: 25px;
+  height: 25px;
+  display: flex;
+  cursor: pointer;
+  border-radius: 50px;
+  transition: all 0.25s ease 0s;
+  background: #47c;
+}
+
+.toggle input {
+  display: none;
+}
+
+.toggle input:checked + label {
+  margin-left: 50px;
+  background: #47c;
 }
