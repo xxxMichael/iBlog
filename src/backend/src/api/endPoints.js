@@ -16,9 +16,15 @@ const { consultarCatego } = require('../controllers/consultarCatego');
 const { consultaPostCat } = require('../controllers/consultaPostCat');
 const { almacenarPost } = require('../controllers/almacenarPost');
 const { subirImagen } = require('../controllers/imageController');
+const { consultarComentarios } = require('../controllers/consultarComentarios');
+const { eliminarComentario } = require('../controllers/eliminarComentario');
+const { agregarComentario } = require('../controllers/agregarComentario');
 
 router.get('/ping', ping);
 router.get('/consultaPostCat', consultaPostCat);
+router.get('/consultarComentarios', consultarComentarios);
+router.post('/agregarComentario', agregarComentario);
+router.delete('/eliminarComentario', eliminarComentario);
 router.post('/registrarGmail', registrarGmail);
 router.post('/registroNormal', registroNormal);
 router.post('/checkEmail', checkEmail);

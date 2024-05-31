@@ -4,10 +4,11 @@ import { Link } from "react-router-dom";
 import { FaSearch, FaHome, FaUser } from "react-icons/fa";
 import Categorias from "./Categorias.jsx";
 import axios from "axios";
-import LoginForm from "../Login/Login.jsx"; // Importa el componente LoginForm
+import LoginForm from "../Login/Login.jsx";
 import Formulario from "./formularioPost.jsx";
-import { format, formatDistanceToNow, parseISO } from 'date-fns';
-import { es } from 'date-fns/locale'; // Para formateo en español
+import { format, formatDistanceToNow, parseISO } from "date-fns";
+import { es } from "date-fns/locale";
+import Comentarios from "./Comentarios.jsx"; // Importa el componente Comentarios desde Comentarios.jsx
 
 export function decodificar(token) {
   const base64Url = token.split(".")[1];
@@ -24,25 +25,26 @@ export function decodificar(token) {
 
   return JSON.parse(jsonPayload);
 }
+
 const Home = () => {
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [userData, setUserData] = useState(null);
   const [posts, setPosts] = useState([]);
-  const [showForm, setShowForm] = useState(false); // Estado para mostrar u ocultar el formulario de inicio de sesión
+  const [showForm, setShowForm] = useState(false);
   const [showForm1, setShowForm1] = useState(false);
   const [searchDisabled, setSearchDisabled] = useState(false);
-  let buttonText = "";
-  let direct = null;
+  const [selectedPostId, setSelectedPostId] = useState(null);
+
   const formatearFecha = (fecha) => {
     const fechaISO = parseISO(fecha);
     const diferenciaEnAños = new Date().getFullYear() - fechaISO.getFullYear();
-    console.log(diferenciaEnAños);
     if (diferenciaEnAños < 1) {
       return formatDistanceToNow(fechaISO, { locale: es });
     } else {
-      return format(fechaISO, 'MMMM yyyy', { locale: es });
+      return format(fechaISO, "MMMM yyyy", { locale: es });
     }
   };
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -57,43 +59,40 @@ const Home = () => {
   };
 
   const token = localStorage.getItem("token");
-  const tokenExistAndStillValid =
-    token && parseJwt(token).exp * 1000 > Date.now();
+  const tokenExistAndStillValid = token && parseJwt(token).exp * 1000 > Date.now();
 
-  if (tokenExistAndStillValid) {
-    buttonText = "Crear Posts";
-    direct = "#";
-  } else {
-    buttonText = "Iniciar Sesion";
-    direct = "/login";
-  }
+  let buttonText = tokenExistAndStillValid ? "Crear Posts" : "Iniciar Sesion";
+  let direct = tokenExistAndStillValid ? "#" : "/login";
 
   const handleClick = (event) => {
     if (userData != null) {
-      setShowForm1(!showForm1); // Cambia el estado para mostrar u ocultar el formulario de inicio de sesión
+      setShowForm1(!showForm1);
       setSearchDisabled(!showForm1);
     } else {
-      setShowForm(!showForm); // Cambia el estado para mostrar u ocultar el formulario de inicio de sesión
+      setShowForm(!showForm);
       setSearchDisabled(!showForm);
     }
   };
+
   const handleClick1 = (event) => {
-    setShowForm1(!showForm1); // Cambia el estado para mostrar u ocultar el formulario de inicio de sesión
+    setShowForm1(!showForm1);
     setSearchDisabled(!showForm1);
   };
+
   const estilos = () => {
     if (userData != null) {
       return {
         opacity: !showForm1 ? 1 : 0,
-        pointerEvents: !showForm1 ? "auto" : "none"
+        pointerEvents: !showForm1 ? "auto" : "none",
       };
     } else {
       return {
         opacity: !showForm ? 1 : 0,
-        pointerEvents: !showForm ? "auto" : "none"
+        pointerEvents: !showForm ? "auto" : "none",
       };
     }
   };
+
   const handleCategoriaClick = async (categoriaId) => {
     try {
       const response = await axios.get(
@@ -109,6 +108,9 @@ const Home = () => {
     setShowLoginForm(true);
   };
 
+  const handleComentariosClick = (postId) => {
+    setSelectedPostId(postId);
+  };
   return (
     <>
       <div className="contedorPrincipal">
@@ -132,7 +134,6 @@ const Home = () => {
             className="btnInicioSesion"
             id="btnP"
             onClick={handleClick}
-            //   to={direct}
             style={estilos()}
           >
             {buttonText}
@@ -152,7 +153,9 @@ const Home = () => {
               <button id="botonPrincipal">Categorias</button>
               <Categorias onCategoriaClick={handleCategoriaClick} />
             </div>
-            <button className='btnCerrarSesion' onClick={handleLogout}>Cerrar Sesión</button>
+            <button className="btnCerrarSesion" onClick={handleLogout}>
+              Cerrar Sesión
+            </button>
           </div>
           <div className="contCentral">
             <div className="contenedorPer">
@@ -170,20 +173,29 @@ const Home = () => {
                         alt="Miniatura"
                         style={{ width: "50px", height: "50px" }}
                       />
-                      <label>{post.dueño} • {formatearFecha(post.fechaPublicacion)}</label>
+                      <label>
+                        {post.dueño} • {formatearFecha(post.fechaPublicacion)}
+                      </label>
                     </div>
                     <div className="card-image">
                       <img src="src/componentesFront/Login/images/logoApp1.png" />
                     </div>
                     <p className="card-title">{post.titulo}</p>
-                    <p className="card-body">
-                      {post.contenido}
-                    </p>
-                    <p>
-                    </p>
+                    <p className="card-body">{post.contenido}</p>
+                    <p></p>
                     <div className="contBtnPost">
-                      <button className="btnComentarios">Comentarios...</button>
+                      <button
+                        className="btnComentarios"
+                        onClick={() => handleComentariosClick(post.idPost)}
+                      >
+                        Comentarios... {post.idPost}
+                      </button>
+
                     </div>
+                    
+                    {selectedPostId === post.idPost && (
+                      <Comentarios idPost={post.idPost} onClose={() => setSelectedPostId(null)} />
+                    )}
                   </div>
                 </div>
               ))
@@ -193,9 +205,7 @@ const Home = () => {
           </div>
           <div className="contDerecho">
             <div className="contenidoD">
-              <div className="contenedorCube">
-
-              </div>
+              <div className="contenedorCube"></div>
             </div>
           </div>
         </div>
@@ -203,17 +213,14 @@ const Home = () => {
           <div className="loginOverlay">
             <div className="loginFormWrapper">
               <LoginForm onClose={handleClick} />
-              <button
-                onClick={handleClick}
-                className="cerrar-formulario"
-              >
+              <button onClick={handleClick} className="cerrar-formulario">
                 X
               </button>
             </div>
           </div>
         )}
-      </div >
-      <style jsx>{`
+      </div>
+      <style >{`
         .cerrar-formulario {
           position: absolute;
           top: 10px;
@@ -245,6 +252,15 @@ const Home = () => {
           justify-content: center;
           align-items: center;
           z-index: 1000;
+        }
+        .comentarios {
+          background-color: #f9f9f9;
+          padding: 10px;
+          border: 1px solid #ddd;
+          margin-top: 10px;
+        }
+        .comentario {
+          margin-bottom: 10px;
         }
       `}</style>
     </>
