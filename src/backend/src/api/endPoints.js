@@ -19,6 +19,9 @@ const ImageController = require('../controllers/imageController');
 
 router.get('/ping', ping);
 router.get('/consultaPostCat', consultaPostCat);
+router.get('/consultarComentarios', consultarComentarios);
+router.post('/agregarComentario', agregarComentario);
+router.delete('/eliminarComentario', eliminarComentario);
 router.post('/registrarGmail', registrarGmail);
 router.post('/registroNormal', registroNormal);
 router.post('/checkEmail', checkEmail);
