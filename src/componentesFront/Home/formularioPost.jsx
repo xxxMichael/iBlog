@@ -127,11 +127,6 @@ function Formulario({ onClose }) {
             reader.readAsDataURL(file);
         }
     };
-    const [isFlipped, setIsFlipped] = useState(false);
-
-    const handleToggle = () => {
-        setIsFlipped(!isFlipped);
-    };
     const handleDivClick = () => {
         document.getElementById('fileInput').click();
     };

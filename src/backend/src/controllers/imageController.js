@@ -1,20 +1,28 @@
 const multer = require('multer');
 const path = require('path');
 
-// Configuración de multer para el almacenamiento de archivos
+// Configuración de almacenamiento de multer
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, '../imagenesPublicaciones'); // Carpeta donde se guardarán las imágenes
-    },
-    filename: function (req, file, cb) {
-        // Generar un nombre de archivo único
-        cb(null, `${Date.now()}-${file.originalname}`);
-    }
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/');
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
+  }
 });
 
-const upload = multer({ storage });
+const upload = multer({ storage }).single('image');
 
-// Controlador para subir una imagen
-const subirImagen = upload.single('image');
+// Clase controladora
+class ImageController {
+  static uploadImage(req, res) {
+    upload(req, res, (err) => {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+      res.status(200).json({ message: 'File uploaded successfully', file: req.file });
+    });
+  }
+}
 
-module.exports = { subirImagen };
+module.exports = ImageController;

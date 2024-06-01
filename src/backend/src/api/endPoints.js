@@ -15,7 +15,7 @@ const { actualizarContra } = require('../controllers/actualizarContra');
 const { consultarCatego } = require('../controllers/consultarCatego');
 const { consultaPostCat } = require('../controllers/consultaPostCat');
 const { almacenarPost } = require('../controllers/almacenarPost');
-const { subirImagen } = require('../controllers/imageController');
+const ImageController = require('../controllers/imageController');
 
 router.get('/ping', ping);
 router.get('/consultaPostCat', consultaPostCat);
@@ -30,7 +30,7 @@ router.post('/checkUsername', checkUsername);
 router.post('/verfRegistro', verfRegistro);
 router.post('/verificarUser', verificarUser);
 router.post('/almacenarPost', almacenarPost);
-router.post('/subirImagen', subirImagen);
+router.post('/upload', ImageController.uploadImage);
 
 router.post('/login', login);
 module.exports = router;
