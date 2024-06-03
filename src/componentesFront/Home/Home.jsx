@@ -26,7 +26,9 @@ export function decodificar(token) {
   return JSON.parse(jsonPayload);
 }
 
+
 const Home = () => {
+  
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [userData, setUserData] = useState(null);
   const [posts, setPosts] = useState([]);
@@ -34,6 +36,7 @@ const Home = () => {
   const [showForm1, setShowForm1] = useState(false);
   const [searchDisabled, setSearchDisabled] = useState(false);
   const [selectedPostId, setSelectedPostId] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null); // Definir el estado currentUser y su función setter setCurrentUser
 
   const formatearFecha = (fecha) => {
     const fechaISO = parseISO(fecha);
@@ -50,6 +53,7 @@ const Home = () => {
     if (token) {
       const decodedToken = parseJwt(token);
       setUserData(decodedToken);
+      setCurrentUser(decodedToken.username);
     }
   }, []);
 
@@ -59,7 +63,8 @@ const Home = () => {
   };
 
   const token = localStorage.getItem("token");
-  const tokenExistAndStillValid = token && parseJwt(token).exp * 1000 > Date.now();
+  const tokenExistAndStillValid =
+    token && parseJwt(token).exp * 1000 > Date.now();
 
   let buttonText = tokenExistAndStillValid ? "Crear Posts" : "Iniciar Sesion";
   let direct = tokenExistAndStillValid ? "#" : "/login";
@@ -108,9 +113,11 @@ const Home = () => {
     setShowLoginForm(true);
   };
 
-  const handleComentariosClick = (postId) => {
+  const handleComentariosClick = (postId, currentUser) => {
     setSelectedPostId(postId);
+    setCurrentUser(currentUser); // Agregar esta línea para establecer currentUser antes de mostrar los comentarios
   };
+  
   return (
     <>
       <div className="contedorPrincipal">
@@ -169,7 +176,9 @@ const Home = () => {
                   <div className="card">
                     <div className="headerPost">
                       <img
-                        src={"src/componentesFront/Login/images/iconoMichael.png"}
+                        src={
+                          "src/componentesFront/Login/images/iconoMichael.png"
+                        }
                         alt="Miniatura"
                         style={{ width: "50px", height: "50px" }}
                       />
@@ -186,16 +195,19 @@ const Home = () => {
                     <div className="contBtnPost">
                       <button
                         className="btnComentarios"
-                        onClick={() => handleComentariosClick(post.idPost)}
-                      >
-                        Comentarios... {post.idPost}
+                        onClick={() => handleComentariosClick(post.idPost, post.dueño)}
+                        >
+                        Comentarios..
                       </button>
-
                     </div>
-                    
-                    {selectedPostId === post.idPost && (
-                      <Comentarios idPost={post.idPost} onClose={() => setSelectedPostId(null)} />
-                    )}
+                    {selectedPostId === post.idPost &&
+                      currentUser && ( // Asegura que currentUser esté definido antes de renderizar Comentarios
+                        <Comentarios
+                          idPost={post.idPost}
+                          currentUser={currentUser}
+                          onClose={() => setSelectedPostId(null)}
+                        />
+                      )}
                   </div>
                 </div>
               ))
@@ -220,7 +232,7 @@ const Home = () => {
           </div>
         )}
       </div>
-      <style >{`
+      <style>{`
         .cerrar-formulario {
           position: absolute;
           top: 10px;
