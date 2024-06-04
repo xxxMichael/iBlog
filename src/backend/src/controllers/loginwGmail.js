@@ -14,7 +14,8 @@ module.exports.loginwGmail = (req, res) => {
                 console.log(result.email);
 
                 if (result.length > 0) {
-                    const token = jwt.sign({ username: result[0].username }, "stack", { expiresIn: '2m' })
+                    const token = jwt.sign({    username: result[0].username,
+                        rol: result[0].rol}, "stack", { expiresIn: '2d' })
                     res.send({ token });
                 } else {
                     console.log('usuario incorrecto');

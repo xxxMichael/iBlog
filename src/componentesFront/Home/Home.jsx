@@ -9,6 +9,7 @@ import Formulario from "./formularioPost.jsx";
 import { format, formatDistanceToNow, parseISO } from "date-fns";
 import { es } from "date-fns/locale";
 import Comentarios from "./Comentarios.jsx"; // Importa el componente Comentarios desde Comentarios.jsx
+import  UserCard from "./usercard.jsx";
 
 export function decodificar(token) {
   const base64Url = token.split(".")[1];
@@ -117,7 +118,6 @@ const Home = () => {
     setSelectedPostId(postId);
     setCurrentUser(currentUser); // Agregar esta línea para establecer currentUser antes de mostrar los comentarios
   };
-  
   return (
     <>
       <div className="contedorPrincipal">
@@ -157,7 +157,7 @@ const Home = () => {
               </Link>
             </div>
             <div className="contCategorias">
-              <button id="botonPrincipal">Categorias</button>
+              <h2>Categorias</h2>
               <Categorias onCategoriaClick={handleCategoriaClick} />
             </div>
             <button className="btnCerrarSesion" onClick={handleLogout}>
@@ -191,23 +191,21 @@ const Home = () => {
                     </div>
                     <p className="card-title">{post.titulo}</p>
                     <p className="card-body">{post.contenido}</p>
-                    <p></p>
                     <div className="contBtnPost">
                       <button
                         className="btnComentarios"
-                        onClick={() => handleComentariosClick(post.idPost, post.dueño)}
-                        >
+                        onClick={() => handleComentariosClick(post.idPost, currentUser)}
+                      >
                         Comentarios..
                       </button>
                     </div>
-                    {selectedPostId === post.idPost &&
-                      currentUser && ( // Asegura que currentUser esté definido antes de renderizar Comentarios
-                        <Comentarios
-                          idPost={post.idPost}
-                          currentUser={currentUser}
-                          onClose={() => setSelectedPostId(null)}
-                        />
-                      )}
+                    {selectedPostId === post.idPost && (
+                      <Comentarios
+                        idPost={post.idPost}
+                        currentUser={currentUser}
+                        onClose={() => setSelectedPostId(null)}
+                      />
+                    )}
                   </div>
                 </div>
               ))
@@ -216,18 +214,24 @@ const Home = () => {
             )}
           </div>
           <div className="contDerecho">
+              <UserCard/>
             <div className="contenidoD">
-              <div className="contenedorCube"></div>
+                     
             </div>
           </div>
         </div>
         {showForm && (
-          <div className="loginOverlay">
+          <div
+            className="loginOverlay"
+            onClick={(e) => {
+              if (e.target.className === "loginOverlay") {
+                handleClick();
+              }
+            }}
+          >
             <div className="loginFormWrapper">
               <LoginForm onClose={handleClick} />
-              <button onClick={handleClick} className="cerrar-formulario">
-                X
-              </button>
+            
             </div>
           </div>
         )}

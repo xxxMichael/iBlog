@@ -37,11 +37,4 @@
   body {
     background-color: rgb(14, 17, 19);
   }
-  input[type="text"] {
-    margin-bottom: 10px;
-    padding: 5px;
-    font-size: 1rem;
-    border-radius: 3px;
-    border: 1px solid #ccc;
-  }
-  
+
