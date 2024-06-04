@@ -9,6 +9,7 @@ import Formulario from "./formularioPost.jsx";
 import { format, formatDistanceToNow, parseISO } from "date-fns";
 import { es } from "date-fns/locale";
 import Comentarios from "./Comentarios.jsx"; // Importa el componente Comentarios desde Comentarios.jsx
+import  UserCard from "./usercard.jsx";
 
 export function decodificar(token) {
   const base64Url = token.split(".")[1];
@@ -213,8 +214,9 @@ const Home = () => {
             )}
           </div>
           <div className="contDerecho">
+              <UserCard/>
             <div className="contenidoD">
-              <div className="contenedorCube"></div>
+                     
             </div>
           </div>
         </div>
