@@ -157,7 +157,7 @@ const Home = () => {
               </Link>
             </div>
             <div className="contCategorias">
-              <strong>Categorias</strong>
+              <h2>Categorias</h2>
               <Categorias onCategoriaClick={handleCategoriaClick} />
             </div>
             <button className="btnCerrarSesion" onClick={handleLogout}>
