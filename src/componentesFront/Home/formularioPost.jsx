@@ -85,30 +85,18 @@ function Formulario({ onClose }) {
             console.log(contenido);
             console.log(dueño);
             try {
-                const formData = new FormData();
-                formData.append('image', image); // Asegúrate de que 'image' sea el nombre correcto del campo en tu servidor
-                const responseUpload = await axios.post('http://localhost:3000/subirImagen', formData, {
+                const response = await fetch('http://localhost:3000/almacenarPost', {
+                    method: 'POST',
                     headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        dueño, titulo, contenido, urlImagen, urlDocumento, idCategoria1,
+                        idCategoria2, idCategoria3, fechaPublicacion
+                    }),
                 });
-                if (responseUpload.data.success) {
-                    setUrlImagen(responseUpload.data.imageUrl);
-                    const response = await fetch('http://localhost:3000/almacenarPost', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            dueño, titulo, contenido, urlImagen, urlDocumento, idCategoria1,
-                            idCategoria2, idCategoria3, fechaPublicacion
-                        }),
-                    });
-                    if (response.ok) {
-                        alert('Se agrego correctamente el nuevo post');
-                    }
-                } else {
-                    console.error('Error al cargar la imagen:', responseUpload.data.error);
+                if (response.ok) {
+                    alert('Se agrego correctamente el nuevo post');
                 }
             } catch (error) {
                 console.error('Error:', error);
