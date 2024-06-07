@@ -2,10 +2,10 @@
 const mysql = require('mysql2');
 
 const dbConfig = {
-    host: 'bairqdsqayr6niqkwas3-mysql.services.clever-cloud.com',
-    user: 'uedxx9ar8zv6biqd',
-    password: 'r1IllM7XbBUkcaeyg4xr',
-    database: 'bairqdsqayr6niqkwas3'
+    host: 'db-iblog.cfoko6wgu4ul.sa-east-1.rds.amazonaws.com',
+    user: 'admin',
+    password: 'Ndgr212004',
+    database: 'iBlog'
 };
 
 let connection;
