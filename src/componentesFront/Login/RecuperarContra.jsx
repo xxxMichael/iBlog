@@ -20,7 +20,7 @@ const RecuperarContra = ({ handleBackToLoginClick }) => {
   useEffect(() => {
     if (email.includes(".com")) {
       setValidEmailFormat(true);
-      fetch("http://localhost:3000/checkEmail", {
+      fetch("http://52.67.196.92:3000/checkEmail", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -84,7 +84,7 @@ const RecuperarContra = ({ handleBackToLoginClick }) => {
 
     try {
       setSendingEmail(true); // Activar el estado de carga
-      const response = await fetch("http://localhost:3000/emailController", {
+      const response = await fetch("http://52.67.196.92:3000/emailController", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -129,7 +129,7 @@ const RecuperarContra = ({ handleBackToLoginClick }) => {
 
     try {
       setUpdatingPassword(true); // Activar el estado de carga
-      const response = await fetch("http://localhost:3000/actualizarContra", {
+      const response = await fetch("http://52.67.196.92:3000/actualizarContra", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

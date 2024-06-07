@@ -53,7 +53,7 @@ function Formulario({ onClose }) {
     useEffect(() => {
         const fetchCategorias = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/consultarCatego');
+                const response = await axios.get('http://52.67.196.92:3000/consultarCatego');
                 setCategorias(response.data);
             } catch (error) {
                 console.error('Error al obtener las categorías:', error);
@@ -85,7 +85,7 @@ function Formulario({ onClose }) {
             console.log(contenido);
             console.log(dueño);
             try {
-                const response = await fetch('http://localhost:3000/almacenarPost', {
+                const response = await fetch('http://52.67.196.92:3000/almacenarPost', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
