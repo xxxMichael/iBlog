@@ -7,8 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-    "start": "node src/backend/index.js"
+    "preview": "vite preview"
   },
   "dependencies": {
     "18": "^0.0.0",
