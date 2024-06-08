@@ -51,12 +51,31 @@ const Home = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) {
-      const decodedToken = parseJwt(token);
-      setUserData(decodedToken);
-      setCurrentUser(decodedToken.username);
-    }
+    
+    const checkTokenValidity = () => {
+      if (token) {
+        const decodedToken = decodificar(token);
+        const currentTime =Date.now() / 1000; // Obtiene el tiempo actual en segundos
+        if (decodedToken.exp <currentTime) {
+          // El token ha expirado
+          alert("Tu sesión ha expirado. Por favor inicia sesión de nuevo.");
+          localStorage.removeItem("token");
+        } else {
+          console.log(decodedToken.exp );
+          console.log(currentTime );
+
+          console.log(decodedToken.exp <currentTime);
+          // El token aún es válido
+          setUserData(decodedToken);
+          setCurrentUser(decodedToken.username);
+        }
+      }
+    };
+  
+    checkTokenValidity();
+  
   }, []);
+  
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -123,10 +142,14 @@ const Home = () => {
       <div className="contedorPrincipal">
         <div className="barra-navegacion">
           <div className="logo-container">
+          <Link className="btnNav" to="/">
+           
             <img
               src="src/componentesFront/Login/images/logoApp1.png"
               alt="Logo"
             />
+                 
+                 </Link>
           </div>
           <div className="buscador">
             <input
@@ -149,12 +172,8 @@ const Home = () => {
         <div className="cont">
           <div className="contIzquierdo">
             <div className="contNav">
-              <Link className="btnNav" to="/">
-                <FaHome size={25} className="icon" /> Home
-              </Link>
-              <Link className="btnNav" to="/perfil">
-                <FaUser size={25} className="icon" /> Perfil
-              </Link>
+            
+            
             </div>
             <div className="contCategorias">
               <h2>Categorias</h2>
@@ -165,10 +184,7 @@ const Home = () => {
             </button>
           </div>
           <div className="contCentral">
-            <div className="contenedorPer">
-              <button> Perfil </button>
-              <p> Contenido del Perfil </p>
-            </div>
+           
             {showForm1 && <Formulario onClose={handleClick1} />}
             {posts.length > 0 ? (
               posts.map((post) => (

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { decodificar } from './Home';
 //import 'bootstrap/dist/css/bootstrap.min.css';
 import './UserCard.css';
+import { Link } from "react-router-dom";
 
 const UserCard = () => {
   const [userInfo, setUserInfo] = useState({ username: 'invitado', rol: 'invitado' });
@@ -36,8 +37,11 @@ const UserCard = () => {
       <img src={getRoleImage(userInfo.rol)} className="card-img-top" alt={`${userInfo.rol} badge`} />
       <div className="card-body">
         <h5 className="card-title">@{userInfo.username}</h5>
-        <p className="card-text">Rol: {userInfo.rol}</p>
-        <a href="#" className="btn btn-primary">Go to Profile</a>
+        <p className="card-text">Rango: {userInfo.rol}</p>
+        <Link className="btnNav" to="/perfil">
+              Mi Prefil   
+              </Link>
+       
       </div>
     </div>
   );
