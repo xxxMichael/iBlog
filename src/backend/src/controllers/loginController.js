@@ -14,8 +14,10 @@ module.exports.login = (req, res) => {
                 return res.status(500).send(err);
             }
             if (result && result.length > 0) {
-                const token = jwt.sign({    username: result[0].username,
-                    rol: result[0].rol}, "stack", { expiresIn: '2d' })
+                const token = jwt.sign({  username: result[0].username,
+                    rol: result[0].rol, catgoria1:result[0].categoria1,
+                    catgoria2:result[0].categoria2, 
+                    catgoria3:result[0].categoria3,}, "stack", { expiresIn: '1m' })
                 return res.send({ token });
             } else {
                 console.log('usuario incorrecto');

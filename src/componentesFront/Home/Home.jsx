@@ -9,7 +9,8 @@ import Formulario from "./formularioPost.jsx";
 import { format, formatDistanceToNow, parseISO } from "date-fns";
 import { es } from "date-fns/locale";
 import Comentarios from "./Comentarios.jsx"; // Importa el componente Comentarios desde Comentarios.jsx
-import  UserCard from "./usercard.jsx";
+import UserCard from "./usercard.jsx";
+import SeleccionarIntereses from "./seleccionarIntereses.jsx"; // Asegúrate de importar el componente
 
 export function decodificar(token) {
   const base64Url = token.split(".")[1];
@@ -27,9 +28,7 @@ export function decodificar(token) {
   return JSON.parse(jsonPayload);
 }
 
-
 const Home = () => {
-  
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [userData, setUserData] = useState(null);
   const [posts, setPosts] = useState([]);
@@ -38,6 +37,7 @@ const Home = () => {
   const [searchDisabled, setSearchDisabled] = useState(false);
   const [selectedPostId, setSelectedPostId] = useState(null);
   const [currentUser, setCurrentUser] = useState(null); // Definir el estado currentUser y su función setter setCurrentUser
+  const [showInterests, setShowInterests] = useState(false);
 
   const formatearFecha = (fecha) => {
     const fechaISO = parseISO(fecha);
@@ -51,31 +51,48 @@ const Home = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    
+
     const checkTokenValidity = () => {
       if (token) {
         const decodedToken = decodificar(token);
-        const currentTime =Date.now() / 1000; // Obtiene el tiempo actual en segundos
-        if (decodedToken.exp <currentTime) {
+        const currentTime = Date.now() / 1000; // Obtiene el tiempo actual en segundos
+        if (decodedToken.exp < currentTime) {
           // El token ha expirado
           alert("Tu sesión ha expirado. Por favor inicia sesión de nuevo.");
           localStorage.removeItem("token");
         } else {
-          console.log(decodedToken.exp );
-          console.log(currentTime );
+          const tokenLifetimeMinutes =
+            (decodedToken.exp - decodedToken.iat) / 60;
+          console.log("Token lifetime: " + tokenLifetimeMinutes + " minutes");
+          console.log(decodedToken.estafunca);
+          console.log(decodedToken.categoria1);
+          console.log(decodedToken.categoria2);
+          console.log(decodedToken.categoria3);
 
-          console.log(decodedToken.exp <currentTime);
+          console.log(currentTime);
+
+          console.log(decodedToken.exp < currentTime);
+          // Verificar si el token tiene categorías
+          if (
+            !decodedToken.categoria1 &&
+            !decodedToken.categoria2 &&
+            !decodedToken.categoria3
+          ) {
+            setShowInterests(true);
+          } else {
+            // El token aún es válido
+            setUserInfo(decodedToken);
+            setTokenValid(true);
+          }
           // El token aún es válido
           setUserData(decodedToken);
           setCurrentUser(decodedToken.username);
         }
       }
     };
-  
+
     checkTokenValidity();
-  
   }, []);
-  
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -137,19 +154,18 @@ const Home = () => {
     setSelectedPostId(postId);
     setCurrentUser(currentUser); // Agregar esta línea para establecer currentUser antes de mostrar los comentarios
   };
+
   return (
     <>
       <div className="contedorPrincipal">
         <div className="barra-navegacion">
           <div className="logo-container">
-          <Link className="btnNav" to="/">
-           
-            <img
-              src="src/componentesFront/Login/images/logoApp1.png"
-              alt="Logo"
-            />
-                 
-                 </Link>
+            <Link className="btnNav" to="/">
+              <img
+                src="src/componentesFront/Login/images/logoApp1.png"
+                alt="Logo"
+              />
+            </Link>
           </div>
           <div className="buscador">
             <input
@@ -171,20 +187,32 @@ const Home = () => {
         </div>
         <div className="cont">
           <div className="contIzquierdo">
-            <div className="contNav">
-            
-            
-            </div>
+            <div className="contNav"></div>
             <div className="contCategorias">
               <h2>Categorias</h2>
               <Categorias onCategoriaClick={handleCategoriaClick} />
             </div>
-            <button className="btnCerrarSesion" onClick={handleLogout}>
-              Cerrar Sesión
-            </button>
+            {userData && (
+              <button className="btnCerrarSesion" onClick={handleLogout}>
+                Cerrar Sesión
+              </button>
+            )}
           </div>
           <div className="contCentral">
-           
+            {showInterests && (
+              <div
+                className="interestsOverlay"
+                onClick={(e) => {
+                  if (e.target.className === "interestsOverlay") {
+                    setShowInterests(false);
+                  }
+                }}
+              >
+                <div className="interestsFormWrapper">
+                  <SeleccionarIntereses />
+                </div>
+              </div>
+            )}
             {showForm1 && <Formulario onClose={handleClick1} />}
             {posts.length > 0 ? (
               posts.map((post) => (
@@ -210,7 +238,9 @@ const Home = () => {
                     <div className="contBtnPost">
                       <button
                         className="btnComentarios"
-                        onClick={() => handleComentariosClick(post.idPost, currentUser)}
+                        onClick={() =>
+                          handleComentariosClick(post.idPost, currentUser)
+                        }
                       >
                         Comentarios..
                       </button>
@@ -230,10 +260,8 @@ const Home = () => {
             )}
           </div>
           <div className="contDerecho">
-              <UserCard/>
-            <div className="contenidoD">
-                     
-            </div>
+            <UserCard />
+            <div className="contenidoD"></div>
           </div>
         </div>
         {showForm && (
@@ -247,7 +275,6 @@ const Home = () => {
           >
             <div className="loginFormWrapper">
               <LoginForm onClose={handleClick} />
-            
             </div>
           </div>
         )}
@@ -274,6 +301,27 @@ const Home = () => {
           box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
         .loginOverlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.5);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 1000;
+        }
+           .interestsFormWrapper {
+          position: relative;
+          width: 100%;
+          max-width: 400px;
+          margin: 0 auto;
+          padding: 20px;
+          background-color: #fff;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .interestsOverlay {
           position: fixed;
           top: 0;
           left: 0;

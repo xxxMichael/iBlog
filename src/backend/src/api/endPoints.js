@@ -19,6 +19,11 @@ const { consultarComentarios } = require('../controllers/consultarComentarios');
 const { agregarComentario } = require('../controllers/agregarComentario');
 const { eliminarComentario } = require('../controllers/eliminarComentario');
 const ImageController = require('../controllers/imageController');
+const { eliminarComentario } = require('../controllers/eliminarComentario');
+const { guardarIntereses } = require('../controllers/guardarIntereses');
+
+
+router.post('/guardarIntereses', guardarIntereses);
 
 router.get('/ping', ping);
 router.get('/consultaPostCat', consultaPostCat);

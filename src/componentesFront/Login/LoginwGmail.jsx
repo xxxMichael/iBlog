@@ -60,7 +60,7 @@ function LoginwGmail({ handleBackToLoginClick }) {
   };
 
   const onFailure = (response) => {
-    console.log("Something went wrong");
+    console.log("Something went wrong", response.error);
   };
 
 

@@ -38,9 +38,12 @@ const UserCard = () => {
       <div className="card-body">
         <h5 className="card-title">@{userInfo.username}</h5>
         <p className="card-text">Rango: {userInfo.rol}</p>
-        <Link className="btnNav" to="/perfil">
-              Mi Prefil   
-              </Link>
+        {userInfo.rol !== 'invitado' && (
+  <Link className="btnNav" to="/perfil">
+    Mi Perfil
+  </Link>
+)}
+
        
       </div>
     </div>
