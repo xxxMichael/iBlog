@@ -23,8 +23,7 @@ export function decodificar(token) {
 function Formulario({ onClose }) {
     const [categorias, setCategorias] = useState([]);
     const [selectedCount, setSelectedCount] = useState(0);
-    const [archivoI, setArchivoI] = useState(null);
-    const [imagen, setImagen] = useState("#");
+    const [image, setImage] = useState(null);
     const [selectedComponents, setSelectedComponents] = useState([]);
     const [content, setContent] = useState('');
     const [isProject, setIsProject] = useState(true);
@@ -106,7 +105,6 @@ function Formulario({ onClose }) {
             alert("Selecciona al menos una categoria");
         }
     }
-
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
