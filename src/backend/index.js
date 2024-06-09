@@ -9,8 +9,8 @@ const cors = require('cors');
 
 // Configuración para leer los certificados SSL
 const options = {
-    key: fs.readFileSync('ruta/de/tu/llave-privada.pem'),
-    cert: fs.readFileSync('ruta/de/tu/certificado-publico.pem')
+    key: fs.readFileSync('./src/certificates/key.pem'),
+    cert: fs.readFileSync('./src/certificates/csr.pem')
 };
 
 app.use(express.json()); //interpreta el json
