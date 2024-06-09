@@ -6,7 +6,7 @@ import "./regwgmail.css"; // Importa tu archivo CSS aquí
 function RegistrowGmail({ handleBackToLoginClick }) {
   const [loginSuccessful, setLoginSuccessful] = useState(false);
   const clientID =
-    "545268428713-at1b5ore5jp9tcg4nikbgkbs4sso1flm.apps.googleusercontent.com";
+    "482021881298-70smm2voldbn4tf7i32jh4iclh4fqlko.apps.googleusercontent.com";
   const [user, setUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null); // Initialize errorMessage to null
