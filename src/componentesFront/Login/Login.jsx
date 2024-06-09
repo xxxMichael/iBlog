@@ -79,7 +79,7 @@ const Login = () => {
       return;
     }
     try {
-      const response = await fetch("https://52.67.196.92:443/login", {
+      const response = await fetch("https://52.67.196.92:3000/loginController", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
