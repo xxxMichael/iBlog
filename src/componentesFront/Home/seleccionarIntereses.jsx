@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { host } from './Home';
+import './seleccionarIntereses.css';
 
 const SeleccionarIntereses = ({ onHide }) => {
   const [categorias, setCategorias] = useState([]);
