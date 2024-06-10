@@ -260,12 +260,22 @@ body {
 *::-webkit-scrollbar-track {
   background-color: rgb(66, 66, 66); /* Color del track */
 }
-.logo-image {
-  background-image: url('images/logoApp1.png');
-  width:5px;
-  height:5px;
+
+.logo-container {
+  display: flex;
+  justify-content: center; /* Centra el contenido horizontalmente */
+  align-items: center; /* Centra el contenido verticalmente */
 }
 
+.logo-image {
+  width: 100%; /* Asegura que la imagen ocupe todo el ancho del contenedor */
+  height: auto; /* Mantiene la proporción de la imagen */
+  background-image: url('images/logoApp1.png');
+  background-size: contain; /* Ajusta la imagen para que quepa dentro del elemento, manteniendo la proporción */
+  background-position: center; /* Centra la imagen en el elemento */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
+  display: block; /* Asegura que el img se comporte como un bloque */
+}
 .miniatura {
   background-image: url('images/iconoMichael.png');
   width: 50px;
@@ -275,8 +285,8 @@ body {
 }
 .logo {
   background-image: url('images/logoApp1.png');
-  width: auto; /* Ajusta e sto según tus necesidades */
-  height: auto; /* Ajusta esto según tus necesidades */
+  width: 100px; /* Ajusta e sto según tus necesidades */
+  height: 100px; /* Ajusta esto según tus necesidades */
   background-size: cover; /* Ajusta la imagen para que cubra todo el elemento */
   background-position: center; /* Centra la imagen */
   display: block; /* Asegura que se comporte como un bloque */

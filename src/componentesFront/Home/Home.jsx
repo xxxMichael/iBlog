@@ -190,7 +190,6 @@ const Home = () => {
             {/*  <Link className="btnNav" to="/">*/}
             <img
               className="logo-image"
-              alt="Logo"
               onClick={handleReload}
               style={{ cursor: "pointer" }}
             />
