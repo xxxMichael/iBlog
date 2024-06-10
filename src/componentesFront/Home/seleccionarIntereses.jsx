@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 
-const SeleccionarIntereses = () => {
+const SeleccionarIntereses = ({ onHide }) => {
   const [categorias, setCategorias] = useState([]);
   const [selectedIntereses, setSelectedIntereses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [exito, setExito] = useState(false);
 
   useEffect(() => {
     const fetchCategorias = async () => {
@@ -40,12 +41,12 @@ const SeleccionarIntereses = () => {
   const handleGuardarClick = () => {
     if (selectedIntereses.length === 3) {
       // Realizar la solicitud POST
-      fetch('http://52.67.196.92:3000/guardarIntereses', {
+      fetch('http://localhost:3000/guardarIntereses', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ intereses: selectedIntereses })
+        body: JSON.stringify({ categorias: selectedIntereses })
       })
       .then(response => {
         if (!response.ok) {
@@ -54,24 +55,21 @@ const SeleccionarIntereses = () => {
         return response.json();
       })
       .then(data => {
-        console.log('Intereses guardados exitosamente:', data);
-        // Aquí puedes manejar la respuesta del servidor
+        setExito(true); // Indicar que la inserción fue exitosa
+        setTimeout(() => {
+          onHide(); // Ocultar el componente después de 2 segundos
+        }, 1000);
       })
       .catch(error => {
         console.error('Error al guardar intereses:', error.message);
-        // Aquí puedes manejar errores de la solicitud
       });
     } else {
       alert("Debes seleccionar exactamente 3 intereses.");
     }
   };
 
-  if (loading) {
-    return <p>Cargando categorías...</p>;
-  }
-
-  if (error) {
-    return <p>Error: {error}</p>;
+  if (exito) {
+    return <p>¡Gracias por seleccionar sus intereses!</p>;
   }
 
   return (

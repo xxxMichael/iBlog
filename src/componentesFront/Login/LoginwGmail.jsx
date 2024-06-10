@@ -17,7 +17,7 @@ function LoginwGmail({ handleBackToLoginClick }) {
     const data = {
       email: user.email,
     };
-    fetch("http://52.67.196.92:3000/loginWGmail", {
+    fetch("http://localhost:3000/loginWGmail", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

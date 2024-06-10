@@ -2,7 +2,9 @@ const connection = require('../models/db');
 
 module.exports.guardarIntereses = (req, res) => {
     const { categorias } = req.body; // Ahora recibimos un array de categorías seleccionadas
-
+    console.log(categorias[0]);
+    console.log(categorias[1]);
+    console.log(categorias[2]);
     // Verificamos si se han seleccionado exactamente 3 categorías
     if (!Array.isArray(categorias) || categorias.length !== 3) {
         return res.status(400).json({ error: 'Se requieren exactamente 3 categorías seleccionadas' });

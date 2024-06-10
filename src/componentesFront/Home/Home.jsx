@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { parseJwt } from "../Main/Main";
 import { Link } from "react-router-dom";
 import { FaSearch, FaHome, FaUser } from "react-icons/fa";
-import Categorias from "./Categorias.jsx";
+import Categorias from "./categorias.jsx";
 import axios from "axios";
 import LoginForm from "../Login/Login.jsx";
 import Formulario from "./formularioPost.jsx";
@@ -11,7 +11,8 @@ import { es } from "date-fns/locale";
 import Comentarios from "./Comentarios.jsx"; // Importa el componente Comentarios desde Comentarios.jsx
 import UserCard from "./usercard.jsx";
 import SeleccionarIntereses from "./seleccionarIntereses.jsx"; // Asegúrate de importar el componente
-
+import InvitadoPosts from "./InvitadosPost.jsx"; // Importa el componente
+import BuscadorPosts from "./BuscadorPosts.jsx";
 export function decodificar(token) {
   const base64Url = token.split(".")[1];
   const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
@@ -38,6 +39,7 @@ const Home = () => {
   const [selectedPostId, setSelectedPostId] = useState(null);
   const [currentUser, setCurrentUser] = useState(null); // Definir el estado currentUser y su función setter setCurrentUser
   const [showInterests, setShowInterests] = useState(false);
+  const [filteredPosts, setFilteredPosts] = useState([]);
 
   const formatearFecha = (fecha) => {
     const fechaISO = parseISO(fecha);
@@ -59,32 +61,23 @@ const Home = () => {
         if (decodedToken.exp < currentTime) {
           // El token ha expirado
           alert("Tu sesión ha expirado. Por favor inicia sesión de nuevo.");
+          window.location.reload();
           localStorage.removeItem("token");
         } else {
-          const tokenLifetimeMinutes =
-            (decodedToken.exp - decodedToken.iat) / 60;
-          console.log("Token lifetime: " + tokenLifetimeMinutes + " minutes");
-          console.log(decodedToken.estafunca);
-          console.log(decodedToken.categoria1);
-          console.log(decodedToken.categoria2);
-          console.log(decodedToken.categoria3);
-
-          console.log(currentTime);
-
           console.log(decodedToken.exp < currentTime);
           // Verificar si el token tiene categorías
           if (
-            !decodedToken.categoria1 &&
-            !decodedToken.categoria2 &&
-            !decodedToken.categoria3
+            decodedToken.categoria1 &&
+            decodedToken.categoria2 &&
+            decodedToken.categoria3
           ) {
-            setShowInterests(true);
+            setUserData(decodedToken);
+            handleCategoriaClick(decodedToken.categoria1);
+            handleCategoriaClick(decodedToken.categoria2);
+            handleCategoriaClick(decodedToken.categoria3);
           } else {
-            // El token aún es válido
-            setUserInfo(decodedToken);
-            setTokenValid(true);
+            setShowInterests(true);
           }
-          // El token aún es válido
           setUserData(decodedToken);
           setCurrentUser(decodedToken.username);
         }
@@ -154,20 +147,26 @@ const Home = () => {
     setSelectedPostId(postId);
     setCurrentUser(currentUser); // Agregar esta línea para establecer currentUser antes de mostrar los comentarios
   };
-
+  const handleReload = () => {
+    window.location.reload();
+  };
   return (
     <>
       <div className="contedorPrincipal">
         <div className="barra-navegacion">
           <div className="logo-container">
-            <Link className="btnNav" to="/">
-              <img
-                src="src/componentesFront/Login/images/logoApp1.png"
-                alt="Logo"
-              />
-            </Link>
+            {/*  <Link className="btnNav" to="/">*/}
+            <img
+              src="src/componentesFront/Login/images/logoApp1.png"
+              alt="Logo"
+              onClick={handleReload}
+              style={{ cursor: "pointer" }} // Opcional
+            />
+            {/* </Link>*/}
           </div>
-          <div className="buscador">
+          <BuscadorPosts setPosts={setPosts} />
+
+          {/*   <div className="buscador">
             <input
               className="inputB"
               disabled={searchDisabled}
@@ -176,6 +175,7 @@ const Home = () => {
             />
             <FaSearch className="iconoBuscar" />
           </div>
+          */}
           <Link
             className="btnInicioSesion"
             id="btnP"
@@ -192,28 +192,8 @@ const Home = () => {
               <h2>Categorias</h2>
               <Categorias onCategoriaClick={handleCategoriaClick} />
             </div>
-            {userData && (
-              <button className="btnCerrarSesion" onClick={handleLogout}>
-                Cerrar Sesión
-              </button>
-            )}
           </div>
           <div className="contCentral">
-            {showInterests && (
-              <div
-                className="interestsOverlay"
-                onClick={(e) => {
-                  if (e.target.className === "interestsOverlay") {
-                    setShowInterests(false);
-                  }
-                }}
-              >
-                <div className="interestsFormWrapper">
-                  <SeleccionarIntereses />
-                </div>
-              </div>
-            )}
-            {showForm1 && <Formulario onClose={handleClick1} />}
             {posts.length > 0 ? (
               posts.map((post) => (
                 <div key={post.idPost} className="postP">

@@ -20,9 +20,13 @@ const { agregarComentario } = require('../controllers/agregarComentario');
 const { eliminarComentario } = require('../controllers/eliminarComentario');
 const ImageController = require('../controllers/imageController');
 const { guardarIntereses } = require('../controllers/guardarIntereses');
+const { consultarpostsall } = require('../controllers/consultarpostsall');
+const { BuscarPostsNombre } = require('../controllers/BuscarPostsNombre');
 
 
 router.post('/guardarIntereses', guardarIntereses);
+router.get('/consultarpostsall', consultarpostsall);
+router.get('/BuscarPostsNombre', BuscarPostsNombre);
 
 router.get('/ping', ping);
 router.get('/consultaPostCat', consultaPostCat);
