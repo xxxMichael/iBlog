@@ -17,6 +17,7 @@
     "cors": "^2.8.5",
     "date-fns": "^3.6.0",
     "express": "^4.19.2",
+    "express-fileupload": "^1.5.0",
     "gapi-script": "^1.2.0",
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
@@ -25,7 +26,8 @@
     "react-dom": "^18.3.1",
     "react-google-login": "^5.2.2",
     "resend": "^3.2.0",
-    "safe-buffer": "^5.2.1"
+    "safe-buffer": "^5.2.1",
+    "sharp": "^0.33.4"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

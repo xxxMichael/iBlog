@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 const express = require('express');
 const router = express.Router();
+const fileUpload = require('express-fileupload');
 const { ping } = require('../controllers/pinController');
 const { login } = require('../controllers/loginController');
 const { loginwGmail } = require('../controllers/loginwGmail');
@@ -18,12 +19,13 @@ const { almacenarPost } = require('../controllers/almacenarPost');
 const { consultarComentarios } = require('../controllers/consultarComentarios');
 const { agregarComentario } = require('../controllers/agregarComentario');
 const { eliminarComentario } = require('../controllers/eliminarComentario');
-const ImageController = require('../controllers/imageController');
+const ImageController = require('../controllers/s3Uploader');
 const { guardarIntereses } = require('../controllers/guardarIntereses');
 
 
-router.post('/guardarIntereses', guardarIntereses);
+router.use(fileUpload());
 
+router.post('/guardarIntereses', guardarIntereses);
 router.get('/ping', ping);
 router.get('/consultaPostCat', consultaPostCat);
 router.get('/consultarComentarios', consultarComentarios);

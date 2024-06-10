@@ -30,11 +30,11 @@ function Formulario({ onClose }) {
     const [dueño, setDueño] = useState("");
     const [titulo, setTitulo] = useState("");
     const [contenido, setContenido] = useState("");
-    const [urlImagen, setUrlImagen] = useState("");
-    const [urlDocumento, setUrlDocumento] = useState("");
-    const [idCategoria1, setIdCategoria1] = useState("");
-    const [idCategoria2, setIdCategoria2] = useState("");
-    const [idCategoria3, setIdCategoria3] = useState("");
+    //const [urlImagen, setUrlImagen] = useState("");
+    //const [urlDocumento, setUrlDocumento] = useState("");
+    //const [idCategoria1, setIdCategoria1] = useState("");
+    //const [idCategoria2, setIdCategoria2] = useState("");
+    //const [idCategoria3, setIdCategoria3] = useState("");
     const [fechaPublicacion, setFechaPublicacion] = useState("");
 
     const handleSubmit = (e) => {
@@ -79,21 +79,31 @@ function Formulario({ onClose }) {
     };
     const enviarPost = async (e) => {
         e.preventDefault();
-
         if (selectedCount > 0) {
+            const currentDateTime = new Date();
+            setFechaPublicacion(currentDateTime);
+            const formData = new FormData();
+            formData.append('dueño', dueño);
+            formData.append('titulo', titulo);
+            formData.append('contenido', contenido);
+            //formData.append('urlDocumento', urlDocumento);
+            //formData.append('idCategoria1', idCategoria1);
+            //formData.append('idCategoria2', idCategoria2);
+            //formData.append('idCategoria3', idCategoria3);
+            formData.append('fechaPublicacion', fechaPublicacion);
+            console.log(dueño);
             console.log(titulo);
             console.log(contenido);
-            console.log(dueño);
+            console.log(fechaPublicacion);
+
+            if (image) {
+                formData.append('image', image);
+            }
+
             try {
                 const response = await fetch('http://52.67.196.92:3000/almacenarPost', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        dueño, titulo, contenido, urlImagen, urlDocumento, idCategoria1,
-                        idCategoria2, idCategoria3, fechaPublicacion
-                    }),
+                    body: formData,
                 });
                 if (response.ok) {
                     alert('Se agrego correctamente el nuevo post');
@@ -104,7 +114,7 @@ function Formulario({ onClose }) {
         } else {
             alert("Selecciona al menos una categoria");
         }
-    }
+    };
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
@@ -115,6 +125,7 @@ function Formulario({ onClose }) {
             reader.readAsDataURL(file);
         }
     };
+
     const handleDivClick = () => {
         document.getElementById('fileInput').click();
     };
