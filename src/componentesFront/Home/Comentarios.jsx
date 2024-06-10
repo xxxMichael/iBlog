@@ -3,6 +3,7 @@ import axios from "axios";
 import { decodificar } from "../Home/Home"; // Importa la función decodificar desde el componente Home
 import './Comentarios.css';
 import { format } from 'date-fns';
+import { host } from './Home';
 
 const Comentarios = ({ idPost, currentUser }) => {
   const [comentarios, setComentarios] = useState([]);
@@ -14,7 +15,7 @@ const Comentarios = ({ idPost, currentUser }) => {
     const fetchComentarios = async () => {
       try {
         const response = await axios.get(
-          `http://52.67.196.92:3000/consultarComentarios?idPost=${idPost}`
+          `http://${host}:3000/consultarComentarios?idPost=${idPost}`
         );
         setComentarios(response.data);
       } catch (error) {

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { host } from './Home';
 
 const SeleccionarIntereses = ({ onHide }) => {
   const [categorias, setCategorias] = useState([]);
@@ -11,7 +12,7 @@ const SeleccionarIntereses = ({ onHide }) => {
     const fetchCategorias = async () => {
       try {
         const response = await fetch(
-          "http://52.67.196.92:3000/consultarCatego"
+          `http://${host}:3000/consultarCatego`
         );
         if (!response.ok) {
           throw new Error("Error al consultar categorías");
@@ -41,7 +42,7 @@ const SeleccionarIntereses = ({ onHide }) => {
   const handleGuardarClick = () => {
     if (selectedIntereses.length === 3) {
       // Realizar la solicitud POST
-      fetch('http://localhost:3000/guardarIntereses', {
+      fetch(`http://${host}:3000/guardarIntereses`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

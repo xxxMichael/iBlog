@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
-
+import { host } from './Home';
 const BuscadorPosts = ({ setPosts }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchDisabled, setSearchDisabled] = useState(false);
@@ -11,7 +11,7 @@ const BuscadorPosts = ({ setPosts }) => {
       setSearchDisabled(true);
 
       try {
-        const response = await fetch(`http://localhost:3000/BuscarPostsNombre?nombre=${event.target.value}`);
+        const response = await fetch(`http://${host}:3000/BuscarPostsNombre?nombre=${event.target.value}`);
         if (!response.ok) {
           throw new Error("Error al buscar posts");
         }

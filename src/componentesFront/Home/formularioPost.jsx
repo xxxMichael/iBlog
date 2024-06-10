@@ -3,6 +3,7 @@ import './formularioPost.css';
 import { ComponentChecklist } from './Categorias2.jsx';
 import axios from 'axios';
 import { parseJwt } from "../Main/Main";
+import { host } from './Home';
 export function decodificar(token) {
     const base64Url = token.split(".")[1];
     const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
@@ -53,7 +54,7 @@ function Formulario({ onClose }) {
     useEffect(() => {
         const fetchCategorias = async () => {
             try {
-                const response = await axios.get('http://52.67.196.92:3000/consultarCatego');
+                const response = await axios.get(`http://${host}:3000/consultarCatego`);
                 setCategorias(response.data);
             } catch (error) {
                 console.error('Error al obtener las categorías:', error);
@@ -85,7 +86,7 @@ function Formulario({ onClose }) {
             console.log(contenido);
             console.log(dueño);
             try {
-                const response = await fetch('http://52.67.196.92:3000/almacenarPost', {
+                const response = await fetch(`http://${host}:3000/almacenarPost`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

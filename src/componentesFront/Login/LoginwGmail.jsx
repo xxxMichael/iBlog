@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { gapi } from "gapi-script";
 import { GoogleLogin } from "react-google-login";
 import { useNavigate } from "react-router-dom";
+import { host } from '../Home/Home';
 
 // eslint-disable-next-line react/prop-types
 function LoginwGmail({ handleBackToLoginClick }) {
@@ -17,7 +18,7 @@ function LoginwGmail({ handleBackToLoginClick }) {
     const data = {
       email: user.email,
     };
-    fetch("http://localhost:3000/loginWGmail", {
+    fetch(`http://${host}:3000/loginWGmail`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

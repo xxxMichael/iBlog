@@ -3,6 +3,7 @@ import axios from "axios";
 import { format, formatDistanceToNow, parseISO } from "date-fns";
 import { es } from "date-fns/locale";
 import Comentarios from "./Comentarios.jsx"; // Importa el componente Comentarios desde Comentarios.jsx
+import { host } from './Home';
 
 const InvitadoPosts = () => {
   const [posts, setPosts] = useState([]);
@@ -18,7 +19,7 @@ const InvitadoPosts = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `http://localhost:3000/consultarpostsall?limit=10&offset=${offset}`
+        `http://${host}:3000/consultarpostsall?limit=10&offset=${offset}`
       );
       if (response.data.length > 0) {
         setPosts((prevPosts) => [...prevPosts, ...response.data]);

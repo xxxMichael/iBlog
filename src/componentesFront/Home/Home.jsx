@@ -28,6 +28,7 @@ export function decodificar(token) {
 
   return JSON.parse(jsonPayload);
 }
+export const host = 'localhost';
 
 const Home = () => {
   const [showLoginForm, setShowLoginForm] = useState(false);
@@ -131,7 +132,7 @@ const Home = () => {
   const handleCategoriaClick = async (categoriaId) => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/consultaPostCat?categoriaId=${categoriaId}`
+        `http://${host}:3000/consultaPostCat?categoriaId=${categoriaId}`
       );
       setPosts(response.data);
     } catch (error) {
