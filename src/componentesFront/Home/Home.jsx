@@ -131,7 +131,7 @@ const Home = () => {
   const handleCategoriaClick = async (categoriaId) => {
     try {
       const response = await axios.get(
-        `http://52.67.196.92:3000/consultaPostCat?categoriaId=${categoriaId}`
+        `http://localhost:3000/consultaPostCat?categoriaId=${categoriaId}`
       );
       setPosts(response.data);
     } catch (error) {
