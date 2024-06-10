@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { parseJwt } from "../Main/Main";
 import { Link } from "react-router-dom";
 import { FaSearch, FaHome, FaUser } from "react-icons/fa";
-import Categorias from "./Categorias.jsx";
+import Categorias from "./categorias.jsx";
 import axios from "axios";
 import LoginForm from "../Login/Login.jsx";
 import Formulario from "./formularioPost.jsx";
@@ -11,7 +11,8 @@ import { es } from "date-fns/locale";
 import Comentarios from "./Comentarios.jsx"; // Importa el componente Comentarios desde Comentarios.jsx
 import UserCard from "./usercard.jsx";
 import SeleccionarIntereses from "./seleccionarIntereses.jsx"; // Asegúrate de importar el componente
-
+import InvitadoPosts from "./InvitadosPost.jsx"; // Importa el componente
+import BuscadorPosts from "./BuscadorPosts.jsx";
 export function decodificar(token) {
   const base64Url = token.split(".")[1];
   const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
@@ -28,6 +29,8 @@ export function decodificar(token) {
   return JSON.parse(jsonPayload);
 }
 
+export const host = "localhost";
+
 const Home = () => {
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [userData, setUserData] = useState(null);
@@ -38,6 +41,7 @@ const Home = () => {
   const [selectedPostId, setSelectedPostId] = useState(null);
   const [currentUser, setCurrentUser] = useState(null); // Definir el estado currentUser y su función setter setCurrentUser
   const [showInterests, setShowInterests] = useState(false);
+  const [filteredPosts, setFilteredPosts] = useState([]);
 
   const formatearFecha = (fecha) => {
     const fechaISO = parseISO(fecha);
@@ -48,7 +52,34 @@ const Home = () => {
       return format(fechaISO, "MMMM yyyy", { locale: es });
     }
   };
+  const handleMultipleCategoriesClick = async (categoriaIds) => {
+    try {
+      const promises = categoriaIds.map(async (categoriaId) => {
+        const response = await axios.get(
+          `http://${host}:3000/consultaPostCat?categoriaId=${categoriaId}`
+        );
+        return response.data;
+      });
 
+      const results = await Promise.all(promises);
+      const mergedPosts = results.flat(); // Mezcla los posts recibidos en una sola matriz
+
+      // Filtrar y excluir los posts duplicados
+      const uniquePosts = [];
+      const postIds = new Set();
+
+      mergedPosts.forEach((post) => {
+        if (!postIds.has(post.idPost)) {
+          uniquePosts.push(post);
+          postIds.add(post.idPost);
+        }
+      });
+
+      setPosts(uniquePosts);
+    } catch (error) {
+      console.error("Error al cargar los posts:", error);
+    }
+  };
   useEffect(() => {
     const token = localStorage.getItem("token");
 
@@ -59,35 +90,29 @@ const Home = () => {
         if (decodedToken.exp < currentTime) {
           // El token ha expirado
           alert("Tu sesión ha expirado. Por favor inicia sesión de nuevo.");
+          window.location.reload();
           localStorage.removeItem("token");
         } else {
-          const tokenLifetimeMinutes =
-            (decodedToken.exp - decodedToken.iat) / 60;
-          console.log("Token lifetime: " + tokenLifetimeMinutes + " minutes");
-          console.log(decodedToken.estafunca);
-          console.log(decodedToken.categoria1);
-          console.log(decodedToken.categoria2);
-          console.log(decodedToken.categoria3);
-
-          console.log(currentTime);
-
-          console.log(decodedToken.exp < currentTime);
           // Verificar si el token tiene categorías
           if (
-            !decodedToken.categoria1 &&
-            !decodedToken.categoria2 &&
-            !decodedToken.categoria3
+            decodedToken.categoria1 &&
+            decodedToken.categoria2 &&
+            decodedToken.categoria3
           ) {
-            setShowInterests(true);
+            setUserData(decodedToken);
+            handleMultipleCategoriesClick([
+              decodedToken.categoria1,
+              decodedToken.categoria2,
+              decodedToken.categoria3,
+            ]);
           } else {
-            // El token aún es válido
-            setUserInfo(decodedToken);
-            setTokenValid(true);
+            setShowInterests(true);
           }
-          // El token aún es válido
           setUserData(decodedToken);
           setCurrentUser(decodedToken.username);
         }
+      } else {
+        handleCategoriaClick("*");
       }
     };
 
@@ -138,7 +163,7 @@ const Home = () => {
   const handleCategoriaClick = async (categoriaId) => {
     try {
       const response = await axios.get(
-        `http://52.67.196.92:3000/consultaPostCat?categoriaId=${categoriaId}`
+        `http://${host}:3000/consultaPostCat?categoriaId=${categoriaId}`
       );
       setPosts(response.data);
     } catch (error) {
@@ -154,20 +179,26 @@ const Home = () => {
     setSelectedPostId(postId);
     setCurrentUser(currentUser); // Agregar esta línea para establecer currentUser antes de mostrar los comentarios
   };
-
+  const handleReload = () => {
+    window.location.reload();
+  };
   return (
     <>
       <div className="contedorPrincipal">
         <div className="barra-navegacion">
           <div className="logo-container">
-            <Link className="btnNav" to="/">
-              <img
-                src="src/componentesFront/Login/images/logoApp1.png"
-                alt="Logo"
-              />
-            </Link>
+            {/*  <Link className="btnNav" to="/">*/}
+            <img
+              className="logo-image"
+              onClick={handleReload}
+              style={{ cursor: "pointer" }}
+            />
+
+            {/* </Link>*/}
           </div>
-          <div className="buscador">
+          <BuscadorPosts setPosts={setPosts} />
+
+          {/*   <div className="buscador">
             <input
               className="inputB"
               disabled={searchDisabled}
@@ -176,6 +207,7 @@ const Home = () => {
             />
             <FaSearch className="iconoBuscar" />
           </div>
+          */}
           <Link
             className="btnInicioSesion"
             id="btnP"
@@ -192,11 +224,6 @@ const Home = () => {
               <h2>Categorias</h2>
               <Categorias onCategoriaClick={handleCategoriaClick} />
             </div>
-            {userData && (
-              <button className="btnCerrarSesion" onClick={handleLogout}>
-                Cerrar Sesión
-              </button>
-            )}
           </div>
           <div className="contCentral">
             {showInterests && (
@@ -209,29 +236,24 @@ const Home = () => {
                 }}
               >
                 <div className="interestsFormWrapper">
-                  <SeleccionarIntereses />
+                  <SeleccionarIntereses
+                    onHide={() => setShowInterests(false)}
+                  />
                 </div>
               </div>
             )}
-            {showForm1 && <Formulario onClose={handleClick1} />}
             {posts.length > 0 ? (
               posts.map((post) => (
                 <div key={post.idPost} className="postP">
                   <div className="card">
                     <div className="headerPost">
-                      <img
-                        src={
-                          "src/componentesFront/Login/images/iconoMichael.png"
-                        }
-                        alt="Miniatura"
-                        style={{ width: "50px", height: "50px" }}
-                      />
+                      <img className="miniatura" />
                       <label>
                         {post.dueño} • {formatearFecha(post.fechaPublicacion)}
                       </label>
                     </div>
                     <div className="card-image">
-                      <img src="src/componentesFront/Login/images/logoApp1.png" />
+                      <img className="logo-app" alt="Logo App" />
                     </div>
                     <p className="card-title">{post.titulo}</p>
                     <p className="card-body">{post.contenido}</p>

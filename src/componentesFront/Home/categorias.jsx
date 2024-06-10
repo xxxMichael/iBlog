@@ -1,6 +1,7 @@
 // Categorias.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { host } from './Home';
 
 const Categorias = ({ onCategoriaClick }) => {
     const [categorias, setCategorias] = useState([]);
@@ -8,7 +9,7 @@ const Categorias = ({ onCategoriaClick }) => {
     useEffect(() => {
         const fetchCategorias = async () => {
             try {
-                const response = await axios.get('http://52.67.196.92:3000/consultarCatego');
+                const response = await axios.get(`http://${host}:3000/consultarCatego`);
                 setCategorias(response.data);
             } catch (error) {
                 console.error('Error al obtener las categorías:', error);

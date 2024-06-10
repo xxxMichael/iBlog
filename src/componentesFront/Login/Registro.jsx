@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AutenticarUser from "./AutenticarUser"; // Importar AutenticarUser
+import { host } from '../Home/Home';
 
 const Registro = ({ handleBackToLoginClick, handleSignUp }) => {
   const [email, setEmail] = useState("");
@@ -47,7 +48,7 @@ const Registro = ({ handleBackToLoginClick, handleSignUp }) => {
   useEffect(() => {
     // Verificar la disponibilidad del nombre de usuario
     if (username.trim().length >= 4) {
-      fetch("http://52.67.196.92:3000/checkUsername", {
+      fetch(`http://${host}:3000/checkUsername`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

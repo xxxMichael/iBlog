@@ -10,6 +10,7 @@ import RegistroGmail from "../Login/RegistrowGmail";
 import RecuperarContrasena from "../Login/RecuperarContra";
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
+import { host } from '../Home/Home';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -79,7 +80,7 @@ const Login = () => {
       return;
     }
     try {
-      const response = await fetch("http://52.67.196.92:3000/login", {
+      const response = await fetch(`http://${host}:3000/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

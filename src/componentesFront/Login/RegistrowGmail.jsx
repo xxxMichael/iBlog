@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { gapi } from "gapi-script";
 import { GoogleLogin } from "react-google-login";
 import "./regwgmail.css"; // Importa tu archivo CSS aquí
+import { host } from '../Home/Home';
 
 function RegistrowGmail({ handleBackToLoginClick }) {
   const [loginSuccessful, setLoginSuccessful] = useState(false);
@@ -20,7 +21,7 @@ function RegistrowGmail({ handleBackToLoginClick }) {
   useEffect(() => {
     function checkUsernameExists() {
       if (username.trim().length >= 4) {
-        fetch("http://52.67.196.92:3000/checkUsername", {
+        fetch(`http://${host}:3000/checkUsername`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -77,7 +78,7 @@ function RegistrowGmail({ handleBackToLoginClick }) {
 
     console.log("Data to be sent to the server:", data);
 
-    fetch("http://52.67.196.92:3000/registrarGmail", {
+    fetch(`http://${host}:3000/registrarGmail`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -114,7 +115,7 @@ function RegistrowGmail({ handleBackToLoginClick }) {
   };
 
   const onSuccess = (response) => {
-    fetch("http://52.67.196.92:3000/verfRegistro", {
+    fetch(`http://${host}:3000/verfRegistro`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
