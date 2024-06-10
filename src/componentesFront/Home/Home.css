@@ -261,7 +261,7 @@ body {
   background-color: rgb(66, 66, 66); /* Color del track */
 }
 .logo-image {
-  background-image: url('images/logoApp1.png');
+  background-image: url('../Login/images/logoApp1.png');
   width:auto;
   height:auto;
 }
