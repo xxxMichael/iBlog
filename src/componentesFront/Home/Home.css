@@ -261,11 +261,6 @@ body {
   background-color: rgb(66, 66, 66); /* Color del track */
 }
 
-.logo-container {
-  display: flex;
-  justify-content: center; /* Centra el contenido horizontalmente */
-  align-items: center; /* Centra el contenido verticalmente */
-}
 
 .logo-image {
   width: 100%; /* Asegura que la imagen ocupe todo el ancho del contenedor */
