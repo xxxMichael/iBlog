@@ -28,7 +28,8 @@ export function decodificar(token) {
 
   return JSON.parse(jsonPayload);
 }
-export const host = 'localhost';
+
+export const host = "localhost";
 
 const Home = () => {
   const [showLoginForm, setShowLoginForm] = useState(false);
@@ -59,21 +60,21 @@ const Home = () => {
         );
         return response.data;
       });
-  
+
       const results = await Promise.all(promises);
       const mergedPosts = results.flat(); // Mezcla los posts recibidos en una sola matriz
-  
+
       // Filtrar y excluir los posts duplicados
       const uniquePosts = [];
       const postIds = new Set();
-  
+
       mergedPosts.forEach((post) => {
         if (!postIds.has(post.idPost)) {
           uniquePosts.push(post);
           postIds.add(post.idPost);
         }
       });
-  
+
       setPosts(uniquePosts);
     } catch (error) {
       console.error("Error al cargar los posts:", error);
@@ -110,9 +111,8 @@ const Home = () => {
           setUserData(decodedToken);
           setCurrentUser(decodedToken.username);
         }
-      }else{
+      } else {
         handleCategoriaClick("*");
-
       }
     };
 
@@ -189,11 +189,12 @@ const Home = () => {
           <div className="logo-container">
             {/*  <Link className="btnNav" to="/">*/}
             <img
-              src="src/componentesFront/Login/images/logoApp1.png"
+              className="logo-image"
               alt="Logo"
               onClick={handleReload}
-              style={{ cursor: "pointer" }} // Opcional
+              style={{ cursor: "pointer" }}
             />
+
             {/* </Link>*/}
           </div>
           <BuscadorPosts setPosts={setPosts} />
@@ -226,7 +227,7 @@ const Home = () => {
             </div>
           </div>
           <div className="contCentral">
-          {showInterests && (
+            {showInterests && (
               <div
                 className="interestsOverlay"
                 onClick={(e) => {
