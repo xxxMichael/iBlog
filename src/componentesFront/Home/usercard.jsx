@@ -25,16 +25,16 @@ const UserCard = () => {
   }, []);
 
   const getRoleImage = (rol) => {
-    if (!rol) return "src/componentesFront/Home/img/invitado.gif";
+    if (!rol) return "/images/invitado.gif";
     switch (rol.toLowerCase()) {
       case "bronce":
-        return "src/componentesFront/Home/img/bronce.gif";
+        return "/images/bronce.gif";
       case "plata":
-        return "src/componentesFront/Home/img/plata.gif";
+        return "/images/plata.gif";
       case "oro":
-        return "src/componentesFront/Home/img/oro.gif";
+        return "/images/oro.gif";
       default:
-        return "src/componentesFront/Home/img/invitado.gif";
+        return "/images/invitado.gif";
     }
   };
   const handleLogout = () => {

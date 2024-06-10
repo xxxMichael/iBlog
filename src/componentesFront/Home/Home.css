@@ -262,8 +262,8 @@ body {
 }
 .logo-image {
   background-image: url('images/logoApp1.png');
-  width:auto;
-  height:auto;
+  width:5px;
+  height:5px;
 }
 
 .miniatura {
@@ -275,8 +275,8 @@ body {
 }
 .logo {
   background-image: url('images/logoApp1.png');
-  width: 100px; /* Ajusta e sto según tus necesidades */
-  height: 100px; /* Ajusta esto según tus necesidades */
+  width: auto; /* Ajusta e sto según tus necesidades */
+  height: auto; /* Ajusta esto según tus necesidades */
   background-size: cover; /* Ajusta la imagen para que cubra todo el elemento */
   background-position: center; /* Centra la imagen */
   display: block; /* Asegura que se comporte como un bloque */

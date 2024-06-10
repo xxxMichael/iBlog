@@ -248,13 +248,13 @@ const Home = () => {
                 <div key={post.idPost} className="postP">
                   <div className="card">
                     <div className="headerPost">
-                      <img className="miniatura" alt="Miniatura" />
+                      <img className="miniatura"  />
                       <label>
                         {post.dueño} • {formatearFecha(post.fechaPublicacion)}
                       </label>
                     </div>
                     <div className="card-image">
-                    <img className="logo" alt="Logo" />
+                    <img className="logo"  />
                     </div>
                     <p className="card-title">{post.titulo}</p>
                     <p className="card-body">{post.contenido}</p>
