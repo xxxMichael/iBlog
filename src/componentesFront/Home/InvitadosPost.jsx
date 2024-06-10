@@ -7,53 +7,27 @@ import { host } from './Home';
 
 const InvitadoPosts = () => {
   const [posts, setPosts] = useState([]);
-  const [offset, setOffset] = useState(0);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [hasMore, setHasMore] = useState(true);
   const [selectedPostId, setSelectedPostId] = useState(null);
   const [currentUser, setCurrentUser] = useState("usuarioActual"); // Ajusta según tu lógica
 
-  const loadPosts = async () => {
-    if (loading || !hasMore) return;
-
-    setLoading(true);
-    try {
-      const response = await axios.get(
-        `http://${host}:3000/consultarpostsall?limit=10&offset=${offset}`
-      );
-      if (response.data.length > 0) {
-        setPosts((prevPosts) => [...prevPosts, ...response.data]);
-        setOffset((prevOffset) => prevOffset + 10);
-      } else {
-        setHasMore(false);
-      }
-    } catch (error) {
-      console.error("Error al cargar los posts:", error);
-      setHasMore(false); // En caso de error, asumimos que no hay más posts
-    }
-    setLoading(false);
-  };
-
   useEffect(() => {
+    const loadPosts = async () => {
+      try {
+        const response = await axios.get(
+          `http://${host}:3000/consultarpostsall?limit=10&offset=0`
+        );
+        setPosts(response.data);
+        setHasMore(false); // Desactiva la carga adicional de posts
+      } catch (error) {
+        console.error("Error al cargar los posts:", error);
+      }
+      setLoading(false);
+    };
+
     loadPosts();
   }, []); // Cargar posts al inicializar el componente
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (
-        window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 &&
-        !loading &&
-        hasMore
-      ) {
-        loadPosts();
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [loading, hasMore]);
 
   const formatearFecha = (fecha) => {
     const fechaISO = parseISO(fecha);
@@ -108,8 +82,7 @@ const InvitadoPosts = () => {
           </div>
         </div>
       ))}
-      {loading && <p>Cargando más posts...</p>}
-      {!hasMore && !loading && <p>No hay más posts disponibles.</p>}
+      {loading && <p>Cargando posts...</p>}
     </div>
   );
 };

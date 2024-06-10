@@ -51,7 +51,34 @@ const Home = () => {
       return format(fechaISO, "MMMM yyyy", { locale: es });
     }
   };
-
+  const handleMultipleCategoriesClick = async (categoriaIds) => {
+    try {
+      const promises = categoriaIds.map(async (categoriaId) => {
+        const response = await axios.get(
+          `http://${host}:3000/consultaPostCat?categoriaId=${categoriaId}`
+        );
+        return response.data;
+      });
+  
+      const results = await Promise.all(promises);
+      const mergedPosts = results.flat(); // Mezcla los posts recibidos en una sola matriz
+  
+      // Filtrar y excluir los posts duplicados
+      const uniquePosts = [];
+      const postIds = new Set();
+  
+      mergedPosts.forEach((post) => {
+        if (!postIds.has(post.idPost)) {
+          uniquePosts.push(post);
+          postIds.add(post.idPost);
+        }
+      });
+  
+      setPosts(uniquePosts);
+    } catch (error) {
+      console.error("Error al cargar los posts:", error);
+    }
+  };
   useEffect(() => {
     const token = localStorage.getItem("token");
 
@@ -65,7 +92,6 @@ const Home = () => {
           window.location.reload();
           localStorage.removeItem("token");
         } else {
-          console.log(decodedToken.exp < currentTime);
           // Verificar si el token tiene categorías
           if (
             decodedToken.categoria1 &&
@@ -73,15 +99,20 @@ const Home = () => {
             decodedToken.categoria3
           ) {
             setUserData(decodedToken);
-            handleCategoriaClick(decodedToken.categoria1);
-            handleCategoriaClick(decodedToken.categoria2);
-            handleCategoriaClick(decodedToken.categoria3);
+            handleMultipleCategoriesClick([
+              decodedToken.categoria1,
+              decodedToken.categoria2,
+              decodedToken.categoria3,
+            ]);
           } else {
             setShowInterests(true);
           }
           setUserData(decodedToken);
           setCurrentUser(decodedToken.username);
         }
+      }else{
+        handleCategoriaClick("*");
+
       }
     };
 
@@ -195,6 +226,22 @@ const Home = () => {
             </div>
           </div>
           <div className="contCentral">
+          {showInterests && (
+              <div
+                className="interestsOverlay"
+                onClick={(e) => {
+                  if (e.target.className === "interestsOverlay") {
+                    setShowInterests(false);
+                  }
+                }}
+              >
+                <div className="interestsFormWrapper">
+                  <SeleccionarIntereses
+                    onHide={() => setShowInterests(false)}
+                  />
+                </div>
+              </div>
+            )}
             {posts.length > 0 ? (
               posts.map((post) => (
                 <div key={post.idPost} className="postP">
