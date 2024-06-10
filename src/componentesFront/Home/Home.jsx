@@ -248,19 +248,13 @@ const Home = () => {
                 <div key={post.idPost} className="postP">
                   <div className="card">
                     <div className="headerPost">
-                      <img
-                        src={
-                          "src/componentesFront/Login/images/iconoMichael.png"
-                        }
-                        alt="Miniatura"
-                        style={{ width: "50px", height: "50px" }}
-                      />
+                      <img className="miniatura" alt="Miniatura" />
                       <label>
                         {post.dueño} • {formatearFecha(post.fechaPublicacion)}
                       </label>
                     </div>
                     <div className="card-image">
-                      <img src="src/componentesFront/Login/images/logoApp1.png" />
+                    <img className="logo" alt="Logo" />
                     </div>
                     <p className="card-title">{post.titulo}</p>
                     <p className="card-body">{post.contenido}</p>

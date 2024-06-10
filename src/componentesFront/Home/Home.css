@@ -261,7 +261,23 @@ body {
   background-color: rgb(66, 66, 66); /* Color del track */
 }
 .logo-image {
-  background-image: url('images/bronce.gif');
+  background-image: url('images/logoApp1.png');
   width:auto;
   height:auto;
+}
+
+.miniatura {
+  background-image: url('images/iconoMichael.png');
+  width: 50px;
+  height: 50px;
+  background-size: cover; /* Ajusta la imagen para que cubra todo el elemento */
+  background-position: center; /* Centra la imagen */
+}
+.logo {
+  background-image: url('images/logoApp1.png');
+  width: 100px; /* Ajusta e sto según tus necesidades */
+  height: 100px; /* Ajusta esto según tus necesidades */
+  background-size: cover; /* Ajusta la imagen para que cubra todo el elemento */
+  background-position: center; /* Centra la imagen */
+  display: block; /* Asegura que se comporte como un bloque */
 }
