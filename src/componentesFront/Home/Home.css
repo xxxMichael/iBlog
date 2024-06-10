@@ -212,12 +212,14 @@ body {
   overflow: hidden;
   position: relative;
 }
-.card-image img {
+
+.card-image .logo-app {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
+
 
 .card-body {
   margin: 13px 0 0 10px;
@@ -263,13 +265,11 @@ body {
 
 
 .logo-image {
-  width: 100%; /* Asegura que la imagen ocupe todo el ancho del contenedor */
-  height: auto; /* Mantiene la proporción de la imagen */
+  width: 100px; /* Asegura que la imagen ocupe todo el ancho del contenedor */
+  height: 80px; /* Mantiene la proporción de la imagen */
   background-image: url('images/logoApp1.png');
-  background-size: contain; /* Ajusta la imagen para que quepa dentro del elemento, manteniendo la proporción */
   background-position: center; /* Centra la imagen en el elemento */
   background-repeat: no-repeat; /* Evita que la imagen se repita */
-  display: block; /* Asegura que el img se comporte como un bloque */
 }
 .miniatura {
   background-image: url('images/iconoMichael.png');
@@ -278,11 +278,12 @@ body {
   background-size: cover; /* Ajusta la imagen para que cubra todo el elemento */
   background-position: center; /* Centra la imagen */
 }
-.logo {
+.logo-app {
   background-image: url('images/logoApp1.png');
-  width: 100px; /* Ajusta e sto según tus necesidades */
-  height: 100px; /* Ajusta esto según tus necesidades */
+  width: 100%; /* Ajusta esto según tus necesidades */
+  height: 100%; /* Ajusta esto según tus necesidades */
   background-size: cover; /* Ajusta la imagen para que cubra todo el elemento */
   background-position: center; /* Centra la imagen */
   display: block; /* Asegura que se comporte como un bloque */
+  margin-top: 50px;
 }
