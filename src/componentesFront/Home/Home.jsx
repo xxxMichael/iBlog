@@ -106,6 +106,8 @@ const Home = () => {
               decodedToken.categoria3,
             ]);
           } else {
+            handleCategoriaClick("*");
+
             setShowInterests(true);
           }
           setUserData(decodedToken);

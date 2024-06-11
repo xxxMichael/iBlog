@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { host } from './Home';
-import './seleccionarIntereses.css';
+import { host } from "./Home";
+import "./seleccionarIntereses.css";
 
 const SeleccionarIntereses = ({ onHide }) => {
   const [categorias, setCategorias] = useState([]);
@@ -12,9 +12,7 @@ const SeleccionarIntereses = ({ onHide }) => {
   useEffect(() => {
     const fetchCategorias = async () => {
       try {
-        const response = await fetch(
-          `http://${host}:3000/consultarCatego`
-        );
+        const response = await fetch(`http://${host}:3000/consultarCatego`);
         if (!response.ok) {
           throw new Error("Error al consultar categorías");
         }
@@ -41,30 +39,33 @@ const SeleccionarIntereses = ({ onHide }) => {
   };
 
   const handleGuardarClick = () => {
+    console.log(categorias);
+    console.log( selectedIntereses);
+
     if (selectedIntereses.length === 3) {
       // Realizar la solicitud POST
       fetch(`http://${host}:3000/guardarIntereses`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ categorias: selectedIntereses })
+        body: JSON.stringify({ categorias: selectedIntereses }),
       })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Error al guardar intereses');
-        }
-        return response.json();
-      })
-      .then(data => {
-        setExito(true); // Indicar que la inserción fue exitosa
-        setTimeout(() => {
-          onHide(); // Ocultar el componente después de 2 segundos
-        }, 1000);
-      })
-      .catch(error => {
-        console.error('Error al guardar intereses:', error.message);
-      });
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Error al guardar intereses");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          setExito(true); // Indicar que la inserción fue exitosa
+          setTimeout(() => {
+            onHide(); // Ocultar el componente después de 2 segundos
+          }, 1000);
+        })
+        .catch((error) => {
+          console.error("Error al guardar intereses:", error.message);
+        });
     } else {
       alert("Debes seleccionar exactamente 3 intereses.");
     }
@@ -76,29 +77,44 @@ const SeleccionarIntereses = ({ onHide }) => {
 
   return (
     <div className="seleccionar-intereses">
-      <h2>Categorías Disponibles</h2>
+
       <form>
-        {categorias.map((categoria) => (
-          <div key={categoria.id} className="checkbox-container">
-            <input
-              className="tgl tgl-flip"
-              type="checkbox"
-              id={`categoria-${categoria.id}`}
-              value={categoria.id}
-              name="categorias"
-              onChange={handleCheckboxChange}
-            />
-            <label className="tgl-btn" data-tg-off="Nope" data-tg-on="Yeah!" htmlFor={`categoria-${categoria.id}`}></label>
-            <span>{categoria.nombre}</span>
-          </div>
-        ))}
-      </form>
-      <button onClick={handleGuardarClick} disabled={selectedIntereses.length !== 3}>
+      <h2>Seleccione sus Intereses</h2>
+
+        <div className="organizador">
+          
+          {categorias.map((categoria) => (
+            <div key={categoria.id} className="checkbox-container">
+              <input
+                className="tgl tgl-flip"
+                type="checkbox"
+                id={`categoria-${categoria.id}`}
+                value={categoria.id}
+                name="categorias"
+                onChange={handleCheckboxChange}
+              />
+              <label
+                className="tgl-btn"
+                data-tg-off={categoria.nombre}
+                data-tg-on={categoria.nombre}
+                htmlFor={`categoria-${categoria.id}`}
+              ></label>
+              {/*  <span>{categoria.nombre}</span>*/}
+            </div>
+          ))}
+          
+        </div>
+        <button
+        onClick={handleGuardarClick}
+        disabled={selectedIntereses.length !== 3}
+      >
         Guardar intereses
       </button>
+      </form>
+
+     
     </div>
   );
 };
-
 
 export default SeleccionarIntereses;
