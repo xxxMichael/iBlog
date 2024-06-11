@@ -48,14 +48,14 @@ const Comentarios = ({ idPost, currentUser }) => {
     if (newComentario.trim() === "") return;
 
     try {
-      await axios.post("http://52.67.196.92:3000/agregarComentario", {
+      await axios.post(`http://${host}:3000/agregarComentario`, {
         idPost,
         contenido: newComentario,
         autor: currentUser,
       });
       setNewComentario("");
       const updatedComentarios = await axios.get(
-        `http://52.67.196.92:3000/consultarComentarios?idPost=${idPost}`
+        `http://${host}:3000/consultarComentarios?idPost=${idPost}`
       );
       setComentarios(updatedComentarios.data);
     } catch (error) {
@@ -66,10 +66,10 @@ const Comentarios = ({ idPost, currentUser }) => {
   const handleDeleteComentario = async (idComentario) => {
     try {
       await axios.delete(
-        `http://52.67.196.92:3000/eliminarComentario?idComentario=${idComentario}`
+        `http://${host}:3000/eliminarComentario?idComentario=${idComentario}`
       );
       const updatedComentarios = await axios.get(
-        `http://52.67.196.92:3000/consultarComentarios?idPost=${idPost}`
+        `http://${host}:3000/consultarComentarios?idPost=${idPost}`
       );
       setComentarios(updatedComentarios.data);
     } catch (error) {

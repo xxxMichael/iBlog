@@ -27,7 +27,7 @@ body {
   margin-top: 0; /* Sin margen arriba */
 }
 .contDerecho {
-  margin-top: calc(10px + 70px);
+  margin-top: calc(10px + 20px);
   border: 1px solid black;
   flex: 0 0 auto; /* El elemento no se expandirá, mantendrá su tamaño original */
   /* background-color: black; */
@@ -73,7 +73,6 @@ body {
   height: 100%;
   margin-left: 20%;
 }
-
 .cont {
   display: flex; /* Establece el contenedor como un contenedor flex */
 }
