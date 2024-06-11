@@ -3,7 +3,6 @@ import './formularioPost.css';
 import { ComponentChecklist } from './Categorias2.jsx';
 import axios from 'axios';
 import { parseJwt } from "../Main/Main";
-import { host } from './Home';
 export function decodificar(token) {
     const base64Url = token.split(".")[1];
     const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
@@ -31,12 +30,14 @@ function Formulario({ onClose }) {
     const [dueño, setDueño] = useState("");
     const [titulo, setTitulo] = useState("");
     const [contenido, setContenido] = useState("");
-    //const [urlImagen, setUrlImagen] = useState("");
-    //const [urlDocumento, setUrlDocumento] = useState("");
-    //const [idCategoria1, setIdCategoria1] = useState("");
-    //const [idCategoria2, setIdCategoria2] = useState("");
-    //const [idCategoria3, setIdCategoria3] = useState("");
-    const [fechaPublicacion, setFechaPublicacion] = useState("");
+    const [archivo, setArchivo] = useState(null);
+    const [avatar, setAvatar] = useState("/imagenes/avatar.jpg");
+    // const [urlImagen, setUrlImagen] = useState("");
+    // const [urlDocumento, setUrlDocumento] = useState("");
+    // const [idCategoria1, setIdCategoria1] = useState("");
+    // const [idCategoria2, setIdCategoria2] = useState("");
+    // const [idCategoria3, setIdCategoria3] = useState("");
+    // const [fechaPublicacion, setFechaPublicacion] = useState("");
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -54,7 +55,7 @@ function Formulario({ onClose }) {
     useEffect(() => {
         const fetchCategorias = async () => {
             try {
-                const response = await axios.get(`http://${host}:3000/consultarCatego`);
+                const response = await axios.get('http://52.67.196.92:3000/consultarCatego');
                 setCategorias(response.data);
             } catch (error) {
                 console.error('Error al obtener las categorías:', error);
@@ -81,30 +82,20 @@ function Formulario({ onClose }) {
     const enviarPost = async (e) => {
         e.preventDefault();
         if (selectedCount > 0) {
-            const currentDateTime = new Date();
-            setFechaPublicacion(currentDateTime);
-            const formData = new FormData();
-            formData.append('dueño', dueño);
-            formData.append('titulo', titulo);
-            formData.append('contenido', contenido);
-            //formData.append('urlDocumento', urlDocumento);
-            //formData.append('idCategoria1', idCategoria1);
-            //formData.append('idCategoria2', idCategoria2);
-            //formData.append('idCategoria3', idCategoria3);
-            formData.append('fechaPublicacion', fechaPublicacion);
-            console.log(dueño);
             console.log(titulo);
             console.log(contenido);
-            console.log(fechaPublicacion);
-
-            if (image) {
-                formData.append('image', image);
-            }
-
+            console.log(dueño);
+            console.log(urlImagen);
             try {
-                const response = await fetch(`http://${host}:3000/almacenarPost`, {
+                const response = await fetch('http://52.67.196.92:3000/almacenarPost', {
                     method: 'POST',
-                    body: formData,
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        dueño, titulo, contenido, urlImagen, urlDocumento, idCategoria1,
+                        idCategoria2, idCategoria3, fechaPublicacion
+                    }),
                 });
                 if (response.ok) {
                     alert('Se agrego correctamente el nuevo post');
@@ -115,18 +106,43 @@ function Formulario({ onClose }) {
         } else {
             alert("Selecciona al menos una categoria");
         }
-    };
+    }
     const handleImageChange = (e) => {
         const file = e.target.files[0];
-        if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
+        if (file && (file.type === 'image/jpg' || !file.type === 'image/jpeg')) {
             const reader = new FileReader();
             reader.onloadend = () => {
                 setImage(reader.result);
+                setArchivo(file);
             };
             reader.readAsDataURL(file);
         }
     };
+    async function controlSubida(event){
+        event.preventDefault(); 
 
+        if(!archivo){console.log("sube un archivo");}
+        else{
+            const formData = new FormData();
+            formData.append('file', archivo);
+
+            // Enviar la imagen al servidor
+            await axios.post("http://localhost:3000/subida", formData, {
+                headers: {'Content-Type': 'multipart/form-data',},
+            })
+            .then(async function(response){
+                console.log(response);
+
+                if(response.status===200){
+                    console.log("exito"); 
+                    let urlImagen = response.data.urlImagen; 
+                    setAvatar(urlImagen);
+                }
+                else{ console.log("error");  }
+            });
+        }
+
+    }
     const handleDivClick = () => {
         document.getElementById('fileInput').click();
     };
@@ -172,7 +188,7 @@ function Formulario({ onClose }) {
 
                     <ComponentChecklist componentList={categorias} onSelectedCountChange={handleSelectedCountChange} onSelectedComponentsChange={handleSelectedComponentsChange} />
                     <div className="contBotones">
-                        <div onClick={enviarPost} className="btnEnviar1">Send</div>
+                        <div onClick={controlSubida} className="btnEnviar1">Send</div>
                         <div onClick={onClose} className="btnCancelar1">Cancelar</div>
                     </div>
                 </div>

@@ -141,11 +141,6 @@ const Home = () => {
     }
   };
 
-  const handleClick1 = (event) => {
-    setShowForm1(!showForm1);
-    setSearchDisabled(!showForm1);
-  };
-
   const estilos = () => {
     if (userData != null) {
       return {
@@ -241,6 +236,9 @@ const Home = () => {
                   />
                 </div>
               </div>
+            )}
+            {showForm1 && (
+              <Formulario onClose={handleClick} />
             )}
             {posts.length > 0 ? (
               posts.map((post) => (

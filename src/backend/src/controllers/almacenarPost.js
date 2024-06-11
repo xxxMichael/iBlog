@@ -1,9 +1,9 @@
 const connection = require('../models/db');
-const { uploadImageToS3 } = require('../utils/s3Uploader');  // Ajusta la ruta según la ubicación de tu archivo s3Uploader
+const { uploadImageToS3 } = require('../controllers/s3Uploader');  // Ajusta la ruta según la ubicación de tu archivo s3Uploader
 
 module.exports.almacenarPost = async (req, res) => {
     const { dueño, titulo, contenido, urlDocumento, idCategoria1, idCategoria2, idCategoria3, fechaPublicacion } = req.body;
-    let { urlImagen } = req.body;
+    let urlImagen = '';
 
     if (req.files && req.files.image) {
         const imageFile = req.files.image;
@@ -26,7 +26,7 @@ module.exports.almacenarPost = async (req, res) => {
             return res.status(201).json({ message: 'Post creado Exitosamente' });
         });
     } catch (error) {
-        console.log(error);
+        console.log('ERROR GENERAL');
         return res.status(500).send({ message: 'Internal server error' });
     }
 };
