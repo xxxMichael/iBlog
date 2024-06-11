@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 const express = require('express');
 const router = express.Router();
-const fileUpload = require('express-fileupload');
+//const fileUpload = require('express-fileupload');
 const { ping } = require('../controllers/pinController');
 const { login } = require('../controllers/loginController');
 const { loginwGmail } = require('../controllers/loginwGmail');
@@ -25,7 +25,7 @@ const { consultarpostsall } = require('../controllers/consultarpostsall');
 const { BuscarPostsNombre } = require('../controllers/BuscarPostsNombre');
 
 
-router.use(fileUpload());
+//router.use(fileUpload());
 router.post('/guardarIntereses', guardarIntereses);
 router.get('/consultarpostsall', consultarpostsall);
 router.get('/BuscarPostsNombre', BuscarPostsNombre);

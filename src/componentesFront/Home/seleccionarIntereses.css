@@ -1,86 +1,188 @@
- 
+:root {
+  --color-one: #52117d;
+  --color-two: #a944ec;
+  --color-three: #ffc800;
+  --color-accent: #19ff70;
+  --color-text: #fffed7;
+  --color-bg: #181729;
+
+  /* Typography */
+  --font-family: "Inter", sans-serif;
+  --font-family-headings: "Inter", sans-serif;
+}
 
 .seleccionar-intereses {
-    position: relative;
-    width: 400px;
-    padding: 40px;
-    box-sizing: border-box;
-    background-image: radial-gradient(circle at 21.53% 66.44%, rgba(18, 140, 161, 0.709) 0px, rgba(7, 148, 200, 0.795) 25%, rgb(22, 109, 151) 50%, rgb(26, 60, 84) 75%, rgb(12, 21, 28) 100%);
-    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
-    border-radius: 10px;
-    text-align: center;
-  }
+  display: grid;
+  gap: 1rem;
+  justify-items: center;
+  text-align: center;
+  color: var(--color-text);
   
-  
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+}
 
-  .seleccionar-intereses h2 {
-    margin: 0 0 30px;
-    padding: 0;
-    color: #e6d8d8;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 600;
-    font-size: 24px;
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
-  } 
-  
-  .checkbox-container {
-    position: relative;
-    margin-bottom: 20px;
-  }
-  
-  .checkbox-container input[type="checkbox"] {
-    display: none;
-  }
-  
-  .checkbox-container label {
-    position: relative;
-    padding-left: 30px;
-    font-size: 16px;
-    color: #fff;
-    cursor: pointer;
-    user-select: none;
-    display: inline-block;
-  }
-  
-  .checkbox-container label:before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 20px;
-    height: 20px;
-    border: 1px solid #fff;
-    background: transparent;
-    border-radius: 4px;
-    transition: 0.3s;
-  }
-  
-  .checkbox-container input[type="checkbox"]:checked + label:before {
-    background-color: #03e9f4;
-    border-color: #03e9f4;
-  }
-  
-  .checkbox-container label:after {
-    content: "";
-    position: absolute;
-    left: 6px;
-    top: 2px;
-    width: 8px;
-    height: 14px;
-    border: solid #121212;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
-    opacity: 0;
-    transition: 0.3s;
-  }
-  
-  .checkbox-container input[type="checkbox"]:checked + label:after {
-    opacity: 1;
-  }
+.seleccionar-intereses h2 {
+  font-family: var(--font-family-headings);
+  font-size: 1.5rem;
+}
 
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.checkbox-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.checkbox-container .tgl {
+  display: none;
+}
+
+.checkbox-container .tgl,
+.checkbox-container .tgl:after,
+.checkbox-container .tgl:before,
+.checkbox-container .tgl *,
+.checkbox-container .tgl *:after,
+.checkbox-container .tgl *:before,
+.checkbox-container .tgl + .tgl-btn {
+  box-sizing: border-box;
+}
+
+.checkbox-container .tgl::-moz-selection,
+.checkbox-container .tgl:after::-moz-selection,
+.checkbox-container .tgl:before::-moz-selection,
+.checkbox-container .tgl *::-moz-selection,
+.checkbox-container .tgl *:after::-moz-selection,
+.checkbox-container .tgl *:before::-moz-selection,
+.checkbox-container .tgl + .tgl-btn::-moz-selection,
+.checkbox-container .tgl::selection,
+.checkbox-container .tgl:after::selection,
+.checkbox-container .tgl:before::selection,
+.checkbox-container .tgl *::selection,
+.checkbox-container .tgl *:after::selection,
+.checkbox-container .tgl *:before::selection,
+.checkbox-container .tgl + .tgl-btn::selection {
+  background: none;
+}
+
+.checkbox-container .tgl + .tgl-btn {
+  outline: 0;
+  display: block;
+  width: 4em;
+  height: 2em;
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.checkbox-container .tgl + .tgl-btn:after,
+.checkbox-container .tgl + .tgl-btn:before {
+  position: relative;
+  display: block;
+  content: "";
+  width: 50%;
+  height: 100%;
+}
+
+.checkbox-container .tgl + .tgl-btn:after {
+  left: 0;
+}
+
+.checkbox-container .tgl + .tgl-btn:before {
+  display: none;
+}
+
+.checkbox-container .tgl:checked + .tgl-btn:after {
+  left: 50%;
+}
+
+.checkbox-container .tgl-flip + .tgl-btn {
+  padding: 2px;
+  transition: all 0.2s ease;
+  font-family: sans-serif;
+  perspective: 100px;
+}
+
+.checkbox-container .tgl-flip + .tgl-btn:after,
+.checkbox-container .tgl-flip + .tgl-btn:before {
+  display: inline-block;
+  transition: all 0.4s ease;
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  line-height: 2em;
+  font-weight: bold;
+  color: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  border-radius: 4px;
+}
+
+.checkbox-container .tgl-flip + .tgl-btn:after {
+  content: attr(data-tg-on);
+  background: #02C66F;
+  transform: rotateY(-180deg);
+}
+
+.checkbox-container .tgl-flip + .tgl-btn:before {
+  background: #FF3A19;
+  content: attr(data-tg-off);
+}
+
+.checkbox-container .tgl-flip + .tgl-btn:active:before {
+  transform: rotateY(-20deg);
+}
+
+.checkbox-container .tgl-flip:checked + .tgl-btn:before {
+  transform: rotateY(180deg);
+}
+
+.checkbox-container .tgl-flip:checked + .tgl-btn:after {
+  transform: rotateY(0);
+  left: 0;
+  background: #7FC6A6;
+}
+
+.checkbox-container .tgl-flip:checked + .tgl-btn:active:after {
+  transform: rotateY(20deg);
+}
+
+.checkbox-container span {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  color: var(--color-text);
+}
+
+
+/*
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #9a9a88;
+  cursor: not-allowed;
+}
+
+*/
   
-/* 
+
 button {
   display: inline-block;
   padding: 8px 10px;
@@ -90,7 +192,7 @@ button {
   text-transform: uppercase;
   overflow: hidden;
   transition: 0.5s;
-  margin-top: 40px;
+  margin-top: 10px;
   letter-spacing: 4px;
   border: none;
   background-color: transparent;
@@ -107,4 +209,3 @@ button:disabled {
   color: #cccccc;
   cursor: not-allowed;
 }
-*/

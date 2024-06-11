@@ -338,10 +338,11 @@ const Home = () => {
           max-width: 400px;
           margin: 0 auto;
           padding: 20px;
-          background-color: #fff;
           box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+          background-color="transparent";
         }
         .interestsOverlay {
+        
           position: fixed;
           top: 0;
           left: 0;

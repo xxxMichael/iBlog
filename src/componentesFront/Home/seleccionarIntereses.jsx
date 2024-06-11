@@ -81,15 +81,15 @@ const SeleccionarIntereses = ({ onHide }) => {
         {categorias.map((categoria) => (
           <div key={categoria.id} className="checkbox-container">
             <input
+              className="tgl tgl-flip"
               type="checkbox"
               id={`categoria-${categoria.id}`}
               value={categoria.id}
               name="categorias"
               onChange={handleCheckboxChange}
             />
-            <label htmlFor={`categoria-${categoria.id}`}>
-              {categoria.nombre}
-            </label>
+            <label className="tgl-btn" data-tg-off="Nope" data-tg-on="Yeah!" htmlFor={`categoria-${categoria.id}`}></label>
+            <span>{categoria.nombre}</span>
           </div>
         ))}
       </form>
@@ -99,5 +99,6 @@ const SeleccionarIntereses = ({ onHide }) => {
     </div>
   );
 };
+
 
 export default SeleccionarIntereses;
