@@ -103,13 +103,21 @@ function Formulario({ onClose }) {
                             console.log('cat1 ' + idCategoria1);
                             console.log('cat2 ' + idCategoria2);
                             console.log('cat3 ' + idCategoria3);
-                            var fechaHora = new Date();
+                            const fechaHora = new Date();
+                            console.log(fechaHora);
+                            const año = fechaHora.getFullYear();
+                            const mes = (fechaHora.getMonth() + 1).toString().padStart(2, '0'); // Los meses van de 0 a 11, por lo que sumamos 1
+                            const dia = fechaHora.getDate().toString().padStart(2, '0');
+                            const horas = fechaHora.getHours().toString().padStart(2, '0');
+                            const minutos = fechaHora.getMinutes().toString().padStart(2, '0');
+                            const segundos = fechaHora.getSeconds().toString().padStart(2, '0');
+                            const fechaFormateada = `${año}-${mes}-${dia} ${horas}:${minutos}:${segundos}`;
                             const data = {
                                 dueño: dueño,
                                 titulo: titulo,
                                 contenido: contenido,
                                 urlImagen: urlImagen,
-                                fechaPublicacion: fechaHora.toISOString().slice(0, 19).replace('T', ' '),
+                                fechaPublicacion: fechaFormateada,
                                 idCategoria1: idCategoria1,
                                 idCategoria2: idCategoria2,
                                 idCategoria3: idCategoria3

@@ -203,12 +203,10 @@ const Home = () => {
   const handleReload = () => {
     window.location.reload();
   };
-  let texto = new Date();
-  let texto1 = texto.toISOString().slice(0, 19).replace('T', ' ');
+
   return (
     <>
       <div className="contedorPrincipal">
-        <label> {texto1 }</label>
         <div className="barra-navegacion">
           <div className="logo-container">
             {/*  <Link className="btnNav" to="/">*/}
