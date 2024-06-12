@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 const express = require('express');
 const router = express.Router();
 //const fileUpload = require('express-fileupload');
@@ -22,10 +21,15 @@ const { eliminarComentario } = require('../controllers/eliminarComentario');
 const { guardarIntereses } = require('../controllers/guardarIntereses');
 const { consultarpostsall } = require('../controllers/consultarpostsall');
 const { BuscarPostsNombre } = require('../controllers/BuscarPostsNombre');
+const { consultarUser  } = require('../controllers/consultarUser');
+const { guardarCambios} = require('../controllers/guardarCambios');
 const FileUploadService = require('../controllers/fileUploadService');
 const fileUploadService = new FileUploadService();
 
+//router.use(fileUpload());
 router.post('/guardarIntereses', guardarIntereses);
+router.post('/guardarCambios', guardarCambios);
+
 router.get('/consultarpostsall', consultarpostsall);
 router.get('/BuscarPostsNombre', BuscarPostsNombre);
 router.get('/ping', ping);
@@ -44,24 +48,27 @@ router.post('/checkUsername', checkUsername);
 router.post('/verfRegistro', verfRegistro);
 router.post('/verificarUser', verificarUser);
 router.post('/almacenarPost', almacenarPost);
-router.post('/subida', (req, res) => {
-    const upload = fileUploadService.getMulterUpload();
-  
-    upload(req, res, async (err) => {
-      if (err) {
-        console.log("error desde upload: ", err);
-        return res.status(400).json({ mensaje: "error desde upload" });
-      }
-  
-      try {
-        const urlImagen = await fileUploadService.uploadFile(req.file);
-        return res.status(200).json({ urlImagen: urlImagen, mensaje: "archivo subido correctamente" });
-      } catch (error) {
-        console.log("error al ejecutar send, ", error);
-        return res.status(400).json({ mensaje: "error al ejecutar comando, por favor intentar nuevamente" });
-      }
-    });
-  });
+router.get('/consultarUser', consultarUser);
 
 router.post('/login', login);
+router.post('/subida', (req, res) => {
+  const upload = fileUploadService.getMulterUpload();
+
+  upload(req, res, async (err) => {
+    if (err) {
+      console.log("error desde upload: ", err);
+      return res.status(400).json({ mensaje: "error desde upload" });
+    }
+
+    try {
+      const urlImagen = await fileUploadService.uploadFile(req.file);
+      return res.status(200).json({ urlImagen: urlImagen, mensaje: "archivo subido correctamente" });
+    } catch (error) {
+      console.log("error al ejecutar send, ", error);
+      return res.status(400).json({ mensaje: "error al ejecutar comando, por favor intentar nuevamente" });
+    }
+  });
+});
+
+
 module.exports = router;

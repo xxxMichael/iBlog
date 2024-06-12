@@ -192,10 +192,6 @@ const Home = () => {
     }
   };
 
-  const handleLoginClick = () => {
-    setShowLoginForm(true);
-  };
-
   const handleComentariosClick = (postId, currentUser) => {
     setSelectedPostId(postId);
     setCurrentUser(currentUser); // Agregar esta línea para establecer currentUser antes de mostrar los comentarios
@@ -272,7 +268,7 @@ const Home = () => {
                 <div key={post.idPost} className="postP">
                   <div className="card">
                     <div className="headerPost">
-                      <img className="miniatura" />
+                      <img className="miniatura" src='src/componentesFront/Home/images/bronce.gif'/>
                       <label>
                         {post.dueño} • {formatearTiempoTranscurrido(post.fechaPublicacion)}
                       </label>
