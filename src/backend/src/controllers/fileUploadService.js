@@ -3,6 +3,7 @@
 const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
 const multer = require('multer');
 const sharp = require('sharp');
+const { v4: uuidv4 } = require('uuid'); // Asegúrate de tener instalado 'uuid' package
 
 class FileUploadService {
   constructor() {
@@ -19,22 +20,39 @@ class FileUploadService {
 
   getMulterUpload() {
     const storage = multer.memoryStorage(); // multer almacena el archivo de forma temporal.
-    return multer({ storage: storage }).single('file');
+
+    const fileFilter = (req, file, cb) => {
+      const allowedTypes = /jpeg|jpg|png/;
+      const extension = file.mimetype.split('/')[1];
+
+      if (allowedTypes.test(extension)) {
+        cb(null, true);
+      } else {
+        cb(new Error('Solo se permiten imágenes de tipo jpg, jpeg y png.'));
+      }
+    };
+
+    return multer({ 
+      storage: storage,
+      fileFilter: fileFilter
+    }).single('file');
   }
 
   async uploadFile(file) {
-    const carpetaInternaBucket = 'imagenes/imagenPost.jpg';
+    const fileExtension = file.originalname.split('.').pop(); // Obtiene la extensión del archivo
+    const uniqueName = `${Date.now()}-${uuidv4()}.${fileExtension}`; // Crea un nombre único usando la fecha y un UUID
+    const carpetaInternaBucket = `imagenes/${uniqueName}`; // Forma la ruta completa en el bucket
     const urlImagen = `https://${this.bucket}.s3.${this.miRegion}.amazonaws.com/${carpetaInternaBucket}`;
 
     const redimensionBuffer = await sharp(file.buffer)
-      .resize({ width: '665px', height: '450px', fit: 'cover' })
+      .resize({ width: 800, withoutEnlargement: true }) // Utiliza solo el ancho y sin agrandar imágenes pequeñas
       .toBuffer();
 
     const params = {
       Bucket: this.bucket,
       Key: carpetaInternaBucket,
       Body: redimensionBuffer,
-      ContentType: 'image/jpg',
+      ContentType: file.mimetype,
     };
 
     const command = new PutObjectCommand(params);

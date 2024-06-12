@@ -2,41 +2,46 @@ import React, { useState, useEffect } from 'react';
 import './categorias.css';
 
 const ComponentChecklist = ({ componentList, onSelectedCountChange, onSelectedComponentsChange }) => {
-    const [selectedComponents, setSelectedComponents] = useState([]);
+    const [selectedComponentIds, setSelectedComponentIds] = useState([]);
 
     useEffect(() => {
-        onSelectedComponentsChange(selectedComponents);
-    }, [selectedComponents, onSelectedComponentsChange]);
+        onSelectedComponentsChange(selectedComponentIds);
+    }, [selectedComponentIds, onSelectedComponentsChange]);
 
     const handleCheckboxChange = (event, component) => {
-        if (event.target.checked) {
-            if (selectedComponents.length < 3) {
-                setSelectedComponents([...selectedComponents, component]);
+        const { id } = component;
+        const isChecked = event.target.checked;
+
+        if (isChecked) {
+            if (selectedComponentIds.length < 3) {
+                setSelectedComponentIds([...selectedComponentIds, id]);
+                console.log(id);
             } else {
                 event.target.checked = false;
-                alert("You can't select more than three components.");
+                alert("Solo puedes elegir tres componentes");
             }
         } else {
-            setSelectedComponents(selectedComponents.filter(comp => comp.nombre !== component.nombre));
+            setSelectedComponentIds(selectedComponentIds.filter(selectedId => selectedId !== id));
         }
-        onSelectedCountChange(selectedComponents.length + (event.target.checked ? 1 : -1));
+
+        onSelectedCountChange(selectedComponentIds.length + (isChecked ? 1 : -1));
     };
 
     return (
         <div className='contenedorCategorias'>
-            {componentList.map((componente) => (
+            {componentList.map((component) => (
                 <div
-                    className={`categoriaSeparada ${selectedComponents.some(comp => comp.nombre === componente.nombre) ? 'categoriaSeleccionada' : ''}`}
-                    key={componente.nombre}
+                    className={`categoriaSeparada ${selectedComponentIds.includes(component.id) ? 'categoriaSeleccionada' : ''}`}
+                    key={component.id}
                 >
                     <input
                         className='inputCh'
                         type="checkbox"
-                        id={componente.nombre}
-                        onChange={(event) => handleCheckboxChange(event, componente)}
-                        checked={selectedComponents.some(comp => comp.nombre === componente.nombre)}
+                        id={component.id}
+                        onChange={(event) => handleCheckboxChange(event, component)}
+                        checked={selectedComponentIds.includes(component.id)}
                     />
-                    <label htmlFor={componente.nombre}>{componente.nombre}</label>
+                    <label htmlFor={component.id}>{component.nombre}</label>
                 </div>
             ))}
         </div>
@@ -44,5 +49,3 @@ const ComponentChecklist = ({ componentList, onSelectedCountChange, onSelectedCo
 };
 
 export { ComponentChecklist };
-
-

@@ -25,8 +25,6 @@ const { BuscarPostsNombre } = require('../controllers/BuscarPostsNombre');
 const FileUploadService = require('../controllers/fileUploadService');
 const fileUploadService = new FileUploadService();
 
-
-//router.use(fileUpload());
 router.post('/guardarIntereses', guardarIntereses);
 router.get('/consultarpostsall', consultarpostsall);
 router.get('/BuscarPostsNombre', BuscarPostsNombre);

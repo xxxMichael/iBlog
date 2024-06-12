@@ -34,7 +34,6 @@ export function decodificar(token) {
 export const host = "localhost";
 
 const Home = () => {
-  const [showLoginForm, setShowLoginForm] = useState(false);
   const [userData, setUserData] = useState(null);
   const [posts, setPosts] = useState([]);
   const [showForm, setShowForm] = useState(false);
@@ -45,15 +44,39 @@ const Home = () => {
   const [showInterests, setShowInterests] = useState(false);
   const [filteredPosts, setFilteredPosts] = useState([]);
 
-  const formatearFecha = (fecha) => {
-    const fechaISO = parseISO(fecha);
-    const diferenciaEnAños = new Date().getFullYear() - fechaISO.getFullYear();
-    if (diferenciaEnAños < 1) {
-      return formatDistanceToNow(fechaISO, { locale: es });
+  const formatearTiempoTranscurrido = (fecha) => {
+    const fechaPasada = new Date(fecha);
+    const fechaActual = new Date();
+
+    if (fechaPasada > fechaActual) {
+      return 'Fecha futura';
+    }
+
+    const diferenciaEnMilisegundos = fechaActual - fechaPasada;
+    const segundos = Math.floor(diferenciaEnMilisegundos / 1000);
+    const minutos = Math.floor(segundos / 60);
+    const horas = Math.floor(minutos / 60);
+    const dias = Math.floor(horas / 24);
+    const meses = Math.floor(dias / 30);
+    const años = Math.floor(meses / 12);
+
+    if (años > 0) {
+      return `hace ${años === 1 ? '1 año' : `${años} años`}`;
+    } else if (meses > 0) {
+      return `hace ${meses === 1 ? '1 mes' : `${meses} meses`}`;
+    } else if (dias > 0) {
+      return `hace ${dias === 1 ? '1 día' : `${dias} días`}`;
+    } else if (horas > 0) {
+      return `hace ${horas === 1 ? '1 hora' : `${horas} horas`}`;
+    } else if (minutos > 0) {
+      return `hace ${minutos === 1 ? '1 minuto' : `${minutos} minutos`}`;
     } else {
-      return format(fechaISO, "MMMM yyyy", { locale: es });
+      return `hace ${segundos === 1 ? '1 segundo' : `${segundos} segundos`}`;
     }
   };
+
+
+
   const handleMultipleCategoriesClick = async (categoriaIds) => {
     try {
       const promises = categoriaIds.map(async (categoriaId) => {
@@ -180,9 +203,12 @@ const Home = () => {
   const handleReload = () => {
     window.location.reload();
   };
+  let texto = new Date();
+  let texto1 = texto.toISOString().slice(0, 19).replace('T', ' ');
   return (
     <>
       <div className="contedorPrincipal">
+        <label> {texto1 }</label>
         <div className="barra-navegacion">
           <div className="logo-container">
             {/*  <Link className="btnNav" to="/">*/}
@@ -250,7 +276,7 @@ const Home = () => {
                     <div className="headerPost">
                       <img className="miniatura" />
                       <label>
-                        {post.dueño} • {formatearFecha(post.fechaPublicacion)}
+                        {post.dueño} • {formatearTiempoTranscurrido(post.fechaPublicacion)}
                       </label>
                     </div>
                     <div className="card-image">

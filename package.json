@@ -29,7 +29,8 @@
     "react-world-flags": "^1.6.0",
     "resend": "^3.2.0",
     "safe-buffer": "^5.2.1",
-    "sharp": "^0.33.4"
+    "sharp": "^0.33.4",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

@@ -4,6 +4,7 @@ import { ComponentChecklist } from './Categorias2.jsx';
 import axios from 'axios';
 import { parseJwt } from "../Main/Main";
 import { host } from './Home';
+
 export function decodificar(token) {
     const base64Url = token.split(".")[1];
     const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
@@ -32,13 +33,6 @@ function Formulario({ onClose }) {
     const [titulo, setTitulo] = useState("");
     const [contenido, setContenido] = useState("");
     const [archivo, setArchivo] = useState(null);
-    const [avatar, setAvatar] = useState("/imagenes/avatar.jpg");
-    const [urlImagen, setUrlImagen] = useState("");
-    // const [urlDocumento, setUrlDocumento] = useState("");
-    // const [idCategoria1, setIdCategoria1] = useState("");
-    // const [idCategoria2, setIdCategoria2] = useState("");
-    // const [idCategoria3, setIdCategoria3] = useState("");
-    const [fechaPublicacion, setFechaPublicacion] = useState("");
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -80,19 +74,12 @@ function Formulario({ onClose }) {
     const cantCaracteres = () => {
         return content.length;
     };
-    const getCurrentDate = () => {
-        const today = new Date();
-        const year = today.getFullYear();
-        const month = (today.getMonth() + 1).toString().padStart(2, "0");
-        const day = today.getDate().toString().padStart(2, "0");
-        return `${year}-${month}-${day}`;
-    };
+
+    const idCategoria1 = selectedComponents.length >= 1 ? selectedComponents[0] : null;
+    const idCategoria2 = selectedComponents.length >= 2 ? selectedComponents[1] : null;
+    const idCategoria3 = selectedComponents.length >= 3 ? selectedComponents[2] : null;
     const enviarPost = async (e) => {
         e.preventDefault();
-        let fec = getCurrentDate();
-        console.log(fec);
-        setFechaPublicacion(fec);
-        console.log(fechaPublicacion);
         if (selectedCount > 0) {
             if (!archivo) { alert("sube un archivo"); }
             else {
@@ -109,17 +96,23 @@ function Formulario({ onClose }) {
                         if (response.status === 200) {
                             console.log("exito");
                             let urlImagen = response.data.urlImagen;
-                            setUrlImagen(urlImagen);
-                            console.log(titulo);
-                            console.log(contenido);
-                            console.log(dueño);
-                            console.log(urlImagen);
+                            console.log('Titulo:' + titulo);
+                            console.log('Contenido' + contenido);
+                            console.log('due;o: ' + dueño);
+                            console.log('url: ' + urlImagen);
+                            console.log('cat1 ' + idCategoria1);
+                            console.log('cat2 ' + idCategoria2);
+                            console.log('cat3 ' + idCategoria3);
+                            var fechaHora = new Date();
                             const data = {
                                 dueño: dueño,
                                 titulo: titulo,
                                 contenido: contenido,
                                 urlImagen: urlImagen,
-                                fechaPublicacion: fechaPublicacion,
+                                fechaPublicacion: fechaHora.toISOString().slice(0, 19).replace('T', ' '),
+                                idCategoria1: idCategoria1,
+                                idCategoria2: idCategoria2,
+                                idCategoria3: idCategoria3
                             };
                             try {
                                 const response = await fetch(`http://${host}:3000/almacenarPost`, {
@@ -131,6 +124,8 @@ function Formulario({ onClose }) {
                                 });
                                 if (response.ok) {
                                     alert('Se agrego correctamente el nuevo post');
+                                    onClose();
+                                    window.location.reload();
                                 }
                             } catch (error) {
                                 console.error('Error:', error);
@@ -146,7 +141,7 @@ function Formulario({ onClose }) {
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         console.log(file);
-        if (file && (file.type === 'image/jpeg')) {
+        if (file && (file.type === 'image/jpeg') || (file.type === 'image/jpg') || (file.type === 'image/png')) {
             const reader = new FileReader();
             reader.onloadend = () => {
                 setImage(reader.result);
@@ -155,9 +150,6 @@ function Formulario({ onClose }) {
             reader.readAsDataURL(file);
         }
     };
-    async function controlSubida(event) {
-        event.preventDefault();
-    }
 
     const handleDivClick = () => {
         document.getElementById('fileInput').click();
