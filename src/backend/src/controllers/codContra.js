@@ -13,7 +13,7 @@ function generateVerificationCode(length = 8) {
 async function sendEmail(codigoVerificacion, recipientEmail) {
   try {
     const { data, error } = await resend.emails.send({
-      from: 'NotFairDev@iblog.com',
+      from: 'NotFairDev@iblog.click',
       to: [recipientEmail],
       subject: 'Recuperación de Contraseña',
       html: `  

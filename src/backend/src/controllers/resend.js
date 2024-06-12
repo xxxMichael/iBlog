@@ -5,7 +5,7 @@ const path = require('path');
 async function sendEmail(codigoVerificacion, recipientEmail) {
     try {
         const { data, error } = await resend.emails.send({
-            from: 'NotFairDev@iblog.com',
+            from: 'NotFairDev@iblog.click',
             to: [recipientEmail],
             subject: 'Código de Verificación',
             html: `  
