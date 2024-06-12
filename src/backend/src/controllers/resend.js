@@ -70,7 +70,7 @@ margin: 0 auto 20px;
               <div id="contenedor-encabezado">
                   <div id="logo-izquierdo">
                   <img
-                  src="https://logopond.com/logos/422ac4960d4fe3bcd511d0b135d4bb6d.png"
+                  src="https://iblog-archivos.s3.sa-east-1.amazonaws.com/complementosPrincipal/logohd.png"
                   alt=""
                   width="80"
                   height="80"
@@ -82,7 +82,7 @@ margin: 0 auto 20px;
                   </div>
                   <div id="logo-derecho">
                   <img
-                  src="https://logopond.com/logos/422ac4960d4fe3bcd511d0b135d4bb6d.png"
+                  src="https://iblog-archivos.s3.sa-east-1.amazonaws.com/complementosPrincipal/logohd.png"
                   alt=""
                   width="80"
                   height="80"
