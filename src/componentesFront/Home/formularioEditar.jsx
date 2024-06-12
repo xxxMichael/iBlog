@@ -50,7 +50,7 @@ function FormularioEditar({ onClose }) {
     useEffect(() => {
         const fetchCategorias = async () => {
             try {
-                const response = await axios.get('http://52.67.196.92:3000/consultarCatego');
+                const response = await axios.get('http://localhost:3000/consultarCatego');
                 setCategorias(response.data);
             } catch (error) {
                 console.error('Error al obtener las categorías:', error);
@@ -74,11 +74,10 @@ function FormularioEditar({ onClose }) {
     const cantCaracteres = () => {
         return content.length;
     };
-
     const idCategoria1 = selectedComponents.length >= 1 ? selectedComponents[0] : null;
     const idCategoria2 = selectedComponents.length >= 2 ? selectedComponents[1] : null;
     const idCategoria3 = selectedComponents.length >= 3 ? selectedComponents[2] : null;
-    const enviarPost = async (e) => {
+    const editarPost = async (e) => {
         e.preventDefault();
         if (selectedCount > 0) {
             if (!archivo) { alert("sube un archivo"); }
@@ -146,6 +145,7 @@ function FormularioEditar({ onClose }) {
             alert("Selecciona al menos una categoria");
         }
     }
+
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         console.log(file);
@@ -196,7 +196,7 @@ function FormularioEditar({ onClose }) {
 
                     <ComponentChecklist componentList={categorias} onSelectedCountChange={handleSelectedCountChange} onSelectedComponentsChange={handleSelectedComponentsChange} />
                     <div className="contBotones">
-                        <div onClick={enviarPost} className="btnEnviar1">Edit</div>
+                        <div onClick={editarPost} className="btnEnviar1">Edit</div>
                         <div onClick={onClose} className="btnCancelar1">Cancelar</div>
                     </div>
                 </div>
