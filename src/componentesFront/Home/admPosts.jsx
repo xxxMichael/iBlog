@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { host } from "./Home";
 import { decodificar } from "./Home";
 import '../Home/admPosts.css';
-
+import FormularioE from "./formularioEditar.jsx";
 const AdmPosts = () => {
     const [postU, setPostU] = useState([]);
 
