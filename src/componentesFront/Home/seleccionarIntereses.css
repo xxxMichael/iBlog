@@ -1,26 +1,50 @@
-:root {
-  --color-one: #52117d;
-  --color-two: #a944ec;
-  --color-three: #ffc800;
-  --color-accent: #19ff70;
-  --color-text: #fffed7;
-  --color-bg: #181729;
-
-  /* Typography */
-  --font-family: "Inter", sans-serif;
-  --font-family-headings: "Inter", sans-serif;
-}
-
 .seleccionar-intereses {
+
   display: grid;
   gap: 1rem;
   justify-items: center;
   text-align: center;
   color: var(--color-text);
-  
+  background-color: transparent;
+
+}
+.organizador {
+background-color: #0000003f;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  font-size: 1.5vw;
+  /*margin: max(1rem, 1vw);
+  */
+  border: 0.35rem solid;
+
+  padding: 3vw;
+  border-image: conic-gradient(from var(--angle), var(--c2), var(--c1) 0.1turn, var(--c1) 0.15turn, var(--c2) 0.25turn) 30;
+  animation: borderRotate var(--d) linear infinite forwards;
+}
+
+.checkbox-container .tgl-btn::before,
+.checkbox-container .tgl-btn::after {
+  font-size: 0.3rem; /* Ajusta el tamaño del texto según tus necesidades */
+}
+
+.tgl-btn {
+
+  font-size: 1.5rem;
+  /* Ajusta el tamaño del texto según tus necesidades */
+}
+
+.checkbox-container .tgl-btn::before,
+.checkbox-container .tgl-btn::after {
+  font-size: 0.7rem;
+  /* Ajusta el tamaño del texto según tus necesidades */
+}
+
+.checkbox-container .tgl {
+  display: none;
 }
 
 .seleccionar-intereses h2 {
+  color: #fff;
   font-family: var(--font-family-headings);
   font-size: 1.5rem;
 }
@@ -32,12 +56,14 @@
 }
 
 .checkbox-container {
+
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .checkbox-container .tgl {
+
   display: none;
 }
 
@@ -47,8 +73,9 @@
 .checkbox-container .tgl *,
 .checkbox-container .tgl *:after,
 .checkbox-container .tgl *:before,
-.checkbox-container .tgl + .tgl-btn {
+.checkbox-container .tgl+.tgl-btn {
   box-sizing: border-box;
+
 }
 
 .checkbox-container .tgl::-moz-selection,
@@ -57,18 +84,22 @@
 .checkbox-container .tgl *::-moz-selection,
 .checkbox-container .tgl *:after::-moz-selection,
 .checkbox-container .tgl *:before::-moz-selection,
-.checkbox-container .tgl + .tgl-btn::-moz-selection,
+.checkbox-container .tgl+.tgl-btn::-moz-selection,
 .checkbox-container .tgl::selection,
 .checkbox-container .tgl:after::selection,
 .checkbox-container .tgl:before::selection,
 .checkbox-container .tgl *::selection,
 .checkbox-container .tgl *:after::selection,
 .checkbox-container .tgl *:before::selection,
-.checkbox-container .tgl + .tgl-btn::selection {
+.checkbox-container .tgl+.tgl-btn::selection {
   background: none;
 }
 
-.checkbox-container .tgl + .tgl-btn {
+.checkbox-container .tgl+.tgl-btn {
+  margin-top: 0.1rem; /* Ajusta el espacio entre los checkboxes y el texto */
+  display: inline-flex; /* Utiliza flexbox para alinear el texto */
+  justify-content: center; /* Centra horizontalmente el texto */
+
   outline: 0;
   display: block;
   width: 4em;
@@ -76,13 +107,17 @@
   position: relative;
   cursor: pointer;
   -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 2px solid #000;
+  /* Ajusta el grosor y el color del borde según tus necesidades */
+  border-radius: 4px;
+  /* Opcional: agrega bordes redondeados */
 }
 
-.checkbox-container .tgl + .tgl-btn:after,
-.checkbox-container .tgl + .tgl-btn:before {
+.checkbox-container .tgl+.tgl-btn:after,
+.checkbox-container .tgl+.tgl-btn:before {
   position: relative;
   display: block;
   content: "";
@@ -90,27 +125,27 @@
   height: 100%;
 }
 
-.checkbox-container .tgl + .tgl-btn:after {
+.checkbox-container .tgl+.tgl-btn:after {
   left: 0;
 }
 
-.checkbox-container .tgl + .tgl-btn:before {
+.checkbox-container .tgl+.tgl-btn:before {
   display: none;
 }
 
-.checkbox-container .tgl:checked + .tgl-btn:after {
+.checkbox-container .tgl:checked+.tgl-btn:after {
   left: 50%;
 }
 
-.checkbox-container .tgl-flip + .tgl-btn {
+.checkbox-container .tgl-flip+.tgl-btn {
   padding: 2px;
   transition: all 0.2s ease;
   font-family: sans-serif;
-  perspective: 100px;
+  perspective: 110px;
 }
 
-.checkbox-container .tgl-flip + .tgl-btn:after,
-.checkbox-container .tgl-flip + .tgl-btn:before {
+.checkbox-container .tgl-flip+.tgl-btn:after,
+.checkbox-container .tgl-flip+.tgl-btn:before {
   display: inline-block;
   transition: all 0.4s ease;
   width: 100%;
@@ -123,44 +158,44 @@
   top: 0;
   left: 0;
   -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
+  backface-visibility: hidden;
   border-radius: 4px;
 }
-
-.checkbox-container .tgl-flip + .tgl-btn:after {
-  content: attr(data-tg-on);
-  background: #02C66F;
-  transform: rotateY(-180deg);
+.checkbox-container .tgl-btn {
+  text-transform: uppercase; /* Convierte el texto a mayúsculas */
 }
 
-.checkbox-container .tgl-flip + .tgl-btn:before {
-  background: #FF3A19;
+.checkbox-container .tgl-flip+.tgl-btn:after {
+  content: attr(data-tg-on);
+  background: rgb(39, 150, 175);
+  transform: rotateY(-180deg);
+  color: #000000;
+
+}
+
+.checkbox-container .tgl-flip+.tgl-btn:before {
+  background: gray;
   content: attr(data-tg-off);
 }
 
-.checkbox-container .tgl-flip + .tgl-btn:active:before {
+.checkbox-container .tgl-flip+.tgl-btn:active:before {
   transform: rotateY(-20deg);
 }
 
-.checkbox-container .tgl-flip:checked + .tgl-btn:before {
+.checkbox-container .tgl-flip:checked+.tgl-btn:before {
   transform: rotateY(180deg);
 }
 
-.checkbox-container .tgl-flip:checked + .tgl-btn:after {
+.checkbox-container .tgl-flip:checked+.tgl-btn:after {
   transform: rotateY(0);
   left: 0;
-  background: #7FC6A6;
+  background: rgb(39, 150, 175);
 }
 
-.checkbox-container .tgl-flip:checked + .tgl-btn:active:after {
+.checkbox-container .tgl-flip:checked+.tgl-btn:active:after {
   transform: rotateY(20deg);
 }
 
-.checkbox-container span {
-  margin-top: 0.5rem;
-  font-size: 1rem;
-  color: var(--color-text);
-}
 
 
 /*
@@ -181,12 +216,12 @@ button:disabled {
 }
 
 */
-  
+
 
 button {
   display: inline-block;
   padding: 8px 10px;
-  color: #03e9f4;
+  color: #03e8f4cd;
   font-size: 15px;
   text-decoration: none;
   text-transform: uppercase;
@@ -200,12 +235,90 @@ button {
 }
 
 button:hover {
-  background-color: #03e9f4;
+  background-color: #03e8f451;
   color: #fff;
-  box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4, 0 0 100px #03e9f4;
+  box-shadow: 0 0 5px #03e8f479, 0 0 10px #03e9f4, 0 0 20px #03e9f4, 0 0 50px #03e9f4;
 }
 
 button:disabled {
   color: #cccccc;
   cursor: not-allowed;
+}
+  
+
+@import url("https://fonts.googleapis.com/css?family=Raleway:400");
+
+* {
+  box-sizing: border-box;
+}
+
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 90deg;
+  inherits: true;
+}
+
+@property --gradX {
+  syntax: '<percentage>';
+  initial-value: 50%;
+  inherits: true;
+}
+
+@property --gradY {
+  syntax: '<percentage>';
+  initial-value: 0%;
+  inherits: true;
+}
+
+
+:root {
+  --d: 2500ms;
+  --angle: 90deg;
+  --gradX: 100%;
+  --gradY: 50%;
+  --c1: rgb(39, 150, 175);
+  --c2: rgba(168, 239, 255, 0.1);
+}
+
+.seleccionar-intereses {
+  min-width: min(40rem, 100%);
+}
+
+
+.box:nth-child(2) {
+  border-image: radial-gradient(ellipse at var(--gradX) var(--gradY), var(--c1), var(--c1) 10%, var(--c2) 40%) 30;
+  animation: borderRadial var(--d) linear infinite forwards;
+}
+
+@keyframes borderRotate {
+  100% {
+    --angle: 420deg;
+  }
+}
+
+@keyframes borderRadial {
+  20% {
+    --gradX: 100%;
+    --gradY: 50%;
+  }
+
+  40% {
+    --gradX: 100%;
+    --gradY: 100%;
+  }
+
+  60% {
+    --gradX: 50%;
+    --gradY: 100%;
+  }
+
+  80% {
+    --gradX: 0%;
+    --gradY: 50%;
+  }
+
+  100% {
+    --gradX: 50%;
+    --gradY: 0%;
+  }
 }

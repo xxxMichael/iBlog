@@ -1,18 +1,374 @@
-import './Home.css';
-import { useEffect, useState } from 'react'; // Importa useEffect y useState
-import { decodificar } from '../Home/Home'; // Asegúrate de importar la función parseJwt desde el archivo correcto
-import { Link } from 'react-router-dom';
+import EstilosContainer from "./EstilosContainer";
+import { Link } from "react-router-dom";
+import Flag from "react-world-flags";
+import { FaPen } from "react-icons/fa";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { host } from "./Home";
+import { decodificar } from "../Home/Home"; // Importa la función decodificar desde el componente Home
 
 const Perfil = () => {
-    return (
-        <>
-            <div className='contenedor-Principal'>
-                Hola Mundo
-                <Link to='/'>Regresar Menu</Link>
-            </div>
-        </>
+  const [userData, setUserData] = useState({
+    nombre: "",
+    apellido: "",
+    username: "",
+    fechaRegistro: "",
+    rol: "",
+    fechaNac: "",
+    pais: "",
+    email: "",
+  });
+  const validateName = (name) => {
+    // Verificar si solo contiene letras
+    const nameRegex = /^[a-zA-Z\s]*$/;
+    if (!nameRegex.test(name)) {
+      return false;
+    }
 
+    // Verificar que no sea mayor a 50 caracteres
+    if (name.length > 50) {
+      return false;
+    }
+
+    return true;
+  };
+  const validateCountry = (country) => {
+    // Verificar que se haya seleccionado una opción válida
+    return country !== "N/A";
+  };
+  const validateDateOfBirth = (dateOfBirth) => {
+    // Verificar si es una fecha válida
+    const isValidDate = !isNaN(Date.parse(dateOfBirth));
+
+    // Verificar que la fecha no sea mayor a 100 años ni menor a 12 años
+    const currentDate = new Date();
+    const twelveYearsAgo = new Date(
+      currentDate.getFullYear() - 12,
+      currentDate.getMonth(),
+      currentDate.getDate()
     );
-}
+    const oneHundredYearsAgo = new Date(
+      currentDate.getFullYear() - 100,
+      currentDate.getMonth(),
+      currentDate.getDate()
+    );
+    const userDateOfBirth = new Date(dateOfBirth);
+    if (
+      !isValidDate ||
+      userDateOfBirth > twelveYearsAgo ||
+      userDateOfBirth < oneHundredYearsAgo
+    ) {
+      return false;
+    }
+
+    return true;
+  };
+
+  const [modalOpen, setModalOpen] = useState(false);
+  // Estado para controlar el tipo de modal
+  const [modalType, setModalType] = useState("");
+  // Estados para almacenar los nuevos valores de nombre y apellido
+  const [newName, setNewName] = useState("");
+  const [newLastName, setNewLastName] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    let data = {};
+
+    if (modalType === "name") {
+      data = {
+        nombre: newName,
+        apellido: newLastName,
+      };
+      if (!validateName(newName) || !validateName(newLastName)) {
+        console.error("Nombre y/o Apellido inválido(s).");
+        return;
+      }
+    } else if (modalType === "dateOfBirth") {
+      data = {
+        fechaNac: newDateOfBirth,
+      };
+      if (!validateDateOfBirth(newDateOfBirth)) {
+        console.error("Fecha de nacimiento inválida.");
+        return;
+      }
+    } else if (modalType === "country") {
+      data = {
+        pais: newCountry,
+      };
+      if (!validateCountry(newCountry)) {
+        console.error("Por favor, seleccione un país válido.");
+        return;
+      }
+    }
+
+    const payload = {
+      modalType,
+      data,
+      username: userData.username, // Asegúrate de enviar el username para identificar al usuario
+    };
+
+    try {
+      const response = await fetch(`http://${host}:3000/guardarCambios`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error en la solicitud");
+      }
+
+      const result = await response.json();
+      console.log(result);
+
+      // Aquí puedes manejar la respuesta, actualizar el estado de userData, etc.
+      setUserData((prevData) => ({
+        ...prevData,
+        ...data,
+        pais: data.pais ? data.pais.slice(-2).toUpperCase() : prevData.pais, // Recorta el código del país si existe en los datos nuevos
+      }));
+
+      setModalOpen(false); // Cierra la ventana modal después de enviar el formulario
+    } catch (error) {
+      console.error("Error al enviar los datos:", error);
+    }
+  };
+
+  const [newDateOfBirth, setNewDateOfBirth] = useState("");
+  const [newCountry, setNewCountry] = useState("");
+
+  const handleEdit = () => {
+    setModalOpen(true);
+  };
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (token) {
+          const decodedToken = decodificar(token); // Decodificar el token
+          const username = decodedToken.username; // Obtener el nombre de usuario del token
+          console.log(username);
+          const response = await axios.get(
+            `http://${host}:3000/consultarUser?username=${username}`
+          );
+          let fechaRegistro = "N/A";
+          let fechanac = "N/A";
+          let paisCodigo = "N/A";
+
+          if (response.data.fechaRegistro) {
+            fechaRegistro = new Date(response.data.fechaRegistro)
+              .toISOString()
+              .split("T")[0];
+          }
+
+          if (response.data.fechaNac) {
+            fechanac = new Date(response.data.fechaNac)
+              .toISOString()
+              .split("T")[0];
+          }
+
+          if (response.data.pais) {
+            // Extraer las dos últimas letras del país
+            paisCodigo = response.data.pais.slice(-2).toUpperCase();
+          }
+
+          setUserData({
+            ...response.data,
+            fechaRegistro: fechaRegistro,
+            fechaNac: fechanac,
+            pais: paisCodigo,
+          });
+        } else {
+          // Manejar el caso en que no haya un token en el almacenamiento local
+          console.error("No se encontró un token en el almacenamiento local");
+        }
+      } catch (error) {
+        console.error("Error al obtener los datos del usuario:", error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  console.log(userData);
+
+  const handleEditName = () => {
+    setNewName(userData.nombre); // Establece el valor actual del nombre en el estado newName
+    setNewLastName(userData.apellido); // Establece el valor actual del apellido en el estado newLastName
+    setModalType("name"); // Establece el tipo de modal como 'name'
+    setModalOpen(true); // Abre la ventana modal
+  };
+  const handleEditDate = () => {
+    setNewDateOfBirth(userData.fechaNac); // Establece el valor actual de la fecha de nacimiento en el estado newDateOfBirth
+    setModalType("dateOfBirth"); // Establece el tipo de modal como 'dateOfBirth'
+    setModalOpen(true); // Abre la ventana modal
+  };
+
+  const handleEditCountry = () => {
+    setNewCountry(userData.pais); // Establece el valor actual del país en el estado newCountry
+    setModalType("country"); // Establece el tipo de modal como 'country'
+    setModalOpen(true); // Abre la ventana modal
+  };
+  return (
+    <>
+      <EstilosContainer />
+
+      <div className="contenedor">
+        <div className="puntos">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div className="contenido">
+          <div className="user-profile">
+            <button className="edit-button edit-posts">Mis posts</button>
+            <button className="edit-button edit-categories">Intereses</button>
+            <div className="profile-picture">
+              <img
+                src="https://images.wikidexcdn.net/mwuploads/wikidex/thumb/f/fb/latest/20200411222755/Charmeleon.png/800px-Charmeleon.png"
+                alt="profile"
+              />
+            </div>
+            <div className="user-info">
+              <h2>
+                {userData.nombre} {userData.apellido}
+                <button className="edit-icon" onClick={handleEditName}>
+                  <FaPen />
+                </button>
+              </h2>
+              <p className="username">@{userData.username}</p>
+              <div className="country-info">
+                <Flag code={userData.pais} height="30" />
+              </div>
+            </div>
+            <div className="additional-info">
+              <div className="info-item">
+                <span className="info-label">Miembro desde: </span>
+                <span className="info-value">{userData.fechaRegistro}</span>
+              </div>
+              <div className="info-item">
+                <span className="info-label">Fecha de Nacimiento: </span>
+                <span className="info-value">{userData.fechaNac}</span>
+                <button className="edit-icon" onClick={handleEditDate}>
+                  <FaPen />
+                </button>
+              </div>
+              <div className="info-item">
+                <span className="info-label">Rango: </span>
+                <span className="info-value">{userData.rol}</span>
+              </div>
+              <div className="info-item">
+                <span className="info-label">País: </span>
+                <span className="info-value">
+                  {userData.pais}
+                  <button className="edit-icon" onClick={handleEditCountry}>
+                    <FaPen />
+                  </button>
+                </span>
+              </div>
+              <div className="info-item">
+                <span className="info-label">Email: </span>
+                <span className="info-value">{userData.email}</span>
+              </div>
+              <div style={{ position: "absolute", bottom: "5%", right: "5%" }}>
+                {/* Enlace a la página principal */}
+                <Link to="/" className="backHome">
+                  Home
+                </Link>
+              </div>
+            </div>
+          </div>
+          {modalOpen && (
+            <div className="modal">
+              <div className="modal-content">
+                <h2>
+                  {modalType === "name"
+                    ? "Editar Nombre"
+                    : modalType === "dateOfBirth"
+                    ? "Editar Fecha de Nacimiento"
+                    : "Editar País"}
+                </h2>
+                <form onSubmit={handleSubmit}>
+                  {modalType === "name" ? (
+                    <>
+                      <label>
+                        Nuevo Nombre:
+                        <input
+                          type="text"
+                          value={newName}
+                          onChange={(e) => setNewName(e.target.value)}
+                        />
+                      </label>
+                      <label>
+                        Nuevo Apellido:
+                        <input
+                          type="text"
+                          value={newLastName}
+                          onChange={(e) => setNewLastName(e.target.value)}
+                        />
+                      </label>
+                    </>
+                  ) : modalType === "dateOfBirth" ? (
+                    <label>
+                      Nueva Fecha de Nacimiento:
+                      <input
+                        type="date"
+                        value={newDateOfBirth}
+                        onChange={(e) => setNewDateOfBirth(e.target.value)}
+                      />
+                    </label>
+                  ) : (
+                    <label>
+                      Nuevo País:
+                      <select
+                        id="country"
+                        value={newCountry}
+                        onChange={(e) => setNewCountry(e.target.value)}
+                        required
+                      >
+                        <option value="">Seleccione su país</option>
+                        <option value="Argentina AR">Argentina</option>
+                        <option value="Bolivia BO">Bolivia</option>
+                        <option value="Chile CL">Chile</option>
+                        <option value="Colombia CO">Colombia</option>
+                        <option value="Costa Rica CR">Costa Rica</option>
+                        <option value="Cuba CU">Cuba</option>
+                        <option value="Dominicana DO">
+                          República Dominicana
+                        </option>
+                        <option value="Ecuador EC">Ecuador</option>
+                        <option value="El Salvador SV">El Salvador</option>
+                        <option value="Guatemala GT">Guatemala</option>
+                        <option value="Honduras HN">Honduras</option>
+                        <option value="México MX">México</option>
+                        <option value="Nicaragua NI">Nicaragua</option>
+                        <option value="Panamá PA">Panamá</option>
+                        <option value="Paraguay PY">Paraguay</option>
+                        <option value="Perú PE">Perú</option>
+                        <option value="Puerto Rico PR">Puerto Rico</option>
+                        <option value="Uruguay UY">Uruguay</option>
+                        <option value="Venezuela VE">Venezuela</option>
+                      </select>
+                    </label>
+                  )}
+                  <button type="submit">Guardar</button>
+                  <button type="button" onClick={() => setModalOpen(false)}>
+                    Cancelar
+                  </button>
+                </form>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </>
+  );
+};
 
 export default Perfil;
