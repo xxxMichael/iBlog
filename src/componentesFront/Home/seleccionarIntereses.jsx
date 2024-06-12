@@ -40,7 +40,7 @@ const SeleccionarIntereses = ({ onHide }) => {
 
   const handleGuardarClick = () => {
     console.log(categorias);
-    console.log( selectedIntereses);
+    console.log(selectedIntereses);
 
     if (selectedIntereses.length === 3) {
       // Realizar la solicitud POST
@@ -79,10 +79,10 @@ const SeleccionarIntereses = ({ onHide }) => {
     <div className="seleccionar-intereses">
 
       <form>
-      <h2>Seleccione sus Intereses</h2>
+        <h2>Seleccione sus Intereses</h2>
 
         <div className="organizador">
-          
+
           {categorias.map((categoria) => (
             <div key={categoria.id} className="checkbox-container">
               <input
@@ -102,17 +102,17 @@ const SeleccionarIntereses = ({ onHide }) => {
               {/*  <span>{categoria.nombre}</span>*/}
             </div>
           ))}
-          
+
         </div>
         <button
-        onClick={handleGuardarClick}
-        disabled={selectedIntereses.length !== 3}
-      >
-        Guardar intereses
-      </button>
+          onClick={handleGuardarClick}
+          disabled={selectedIntereses.length !== 3}
+        >
+          Guardar intereses
+        </button>
       </form>
 
-     
+
     </div>
   );
 };

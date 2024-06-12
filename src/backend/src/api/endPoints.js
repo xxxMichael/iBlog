@@ -23,13 +23,14 @@ const { consultarpostsall } = require('../controllers/consultarpostsall');
 const { BuscarPostsNombre } = require('../controllers/BuscarPostsNombre');
 const { consultarUser  } = require('../controllers/consultarUser');
 const { guardarCambios} = require('../controllers/guardarCambios');
+const { consultarpostsUsuario } = require('../controllers/obtPostUsuario');
 const FileUploadService = require('../controllers/fileUploadService');
 const fileUploadService = new FileUploadService();
 
 //router.use(fileUpload());
 router.post('/guardarIntereses', guardarIntereses);
 router.post('/guardarCambios', guardarCambios);
-
+router.get('/consultarpostsUsuario', consultarpostsUsuario);
 router.get('/consultarpostsall', consultarpostsall);
 router.get('/BuscarPostsNombre', BuscarPostsNombre);
 router.get('/ping', ping);

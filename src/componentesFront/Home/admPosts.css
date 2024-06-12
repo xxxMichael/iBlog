@@ -1,0 +1,49 @@
+.contPosts {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 10px;
+    border: 1px solid white;
+    height: auto;
+    padding: 20px;
+    margin-top: 2%;
+    margin-left: 2%;
+    margin-right: 2%;
+    border-radius: 25px;
+}
+
+.PropioPost {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ddd;
+    padding: 10px;
+    height: auto;
+    border-radius: 25px;
+}
+
+.btnHome {
+    margin-bottom: 10px;
+}
+
+.tituloMP {
+    grid-column: span 4;
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.PropioPost img{
+    width: 250px;
+    height: 150px;
+}
+.post-Contenido{
+    width: 250px;
+    height: 80px;
+    border: 1px solid white;
+    color: white;
+}
+
+.titulo-Post{
+    color: white;
+}

@@ -227,7 +227,7 @@ const Perfil = () => {
         </div>
         <div className="contenido">
           <div className="user-profile">
-            <button className="edit-button edit-posts">Mis posts</button>
+            <Link to="/admPosts" className="edit-button edit-posts">Mis posts</Link>
             <button className="edit-button edit-categories">Intereses</button>
             <div className="profile-picture">
               <img

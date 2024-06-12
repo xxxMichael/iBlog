@@ -4,6 +4,7 @@ import Main from './componentesFront/Main/Main.jsx';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Perfil from './componentesFront/Home/Perfil.jsx';
 import Login from "./componentesFront/Login/Login.jsx";
+import AdmPosts from "./componentesFront/Home/admPosts.jsx";
 
 
 // Verifica si el elemento con id "root" está presente en el DOM
@@ -18,6 +19,7 @@ if (rootElement) {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/perfil" element={<Perfil />} />
+        <Route path="/admPosts" element={<AdmPosts />} />
         <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>

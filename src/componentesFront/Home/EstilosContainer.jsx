@@ -338,7 +338,7 @@ const EstilosContainer = () => {
   margin-bottom: 20px;
 }
 
-.modal button {
+.modal edit-posts {
   background-color: #007bff;
   color: white;
   border: none;
