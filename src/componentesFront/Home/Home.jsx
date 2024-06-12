@@ -129,7 +129,6 @@ const Home = () => {
     token && parseJwt(token).exp * 1000 > Date.now();
 
   let buttonText = tokenExistAndStillValid ? "Crear Posts" : "Iniciar Sesion";
-  let direct = tokenExistAndStillValid ? "#" : "/login";
 
   const handleClick = (event) => {
     if (userData != null) {
@@ -251,7 +250,7 @@ const Home = () => {
                       </label>
                     </div>
                     <div className="card-image">
-                      <img className="logo-app" alt="Logo App" />
+                      <img className="img-Post" src={post.urlImagen} alt="imagen del Post" />
                     </div>
                     <p className="card-title">{post.titulo}</p>
                     <p className="card-body">{post.contenido}</p>

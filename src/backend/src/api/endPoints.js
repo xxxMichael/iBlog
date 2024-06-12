@@ -19,10 +19,11 @@ const { almacenarPost } = require('../controllers/almacenarPost');
 const { consultarComentarios } = require('../controllers/consultarComentarios');
 const { agregarComentario } = require('../controllers/agregarComentario');
 const { eliminarComentario } = require('../controllers/eliminarComentario');
-const ImageController = require('../controllers/s3Uploader');
 const { guardarIntereses } = require('../controllers/guardarIntereses');
 const { consultarpostsall } = require('../controllers/consultarpostsall');
 const { BuscarPostsNombre } = require('../controllers/BuscarPostsNombre');
+const FileUploadService = require('../controllers/fileUploadService');
+const fileUploadService = new FileUploadService();
 
 
 //router.use(fileUpload());
@@ -45,6 +46,24 @@ router.post('/checkUsername', checkUsername);
 router.post('/verfRegistro', verfRegistro);
 router.post('/verificarUser', verificarUser);
 router.post('/almacenarPost', almacenarPost);
+router.post('/subida', (req, res) => {
+    const upload = fileUploadService.getMulterUpload();
+  
+    upload(req, res, async (err) => {
+      if (err) {
+        console.log("error desde upload: ", err);
+        return res.status(400).json({ mensaje: "error desde upload" });
+      }
+  
+      try {
+        const urlImagen = await fileUploadService.uploadFile(req.file);
+        return res.status(200).json({ urlImagen: urlImagen, mensaje: "archivo subido correctamente" });
+      } catch (error) {
+        console.log("error al ejecutar send, ", error);
+        return res.status(400).json({ mensaje: "error al ejecutar comando, por favor intentar nuevamente" });
+      }
+    });
+  });
 
 router.post('/login', login);
 module.exports = router;

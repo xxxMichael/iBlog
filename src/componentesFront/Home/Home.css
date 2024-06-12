@@ -204,12 +204,21 @@ body {
 }
 
 .card-image {
-  min-height: 170px;
+  min-height: 250px;
+  max-width: 665px;
   background-color: #313131;
   border-radius: 15px;
   background: #313131;
   overflow: hidden;
   position: relative;
+}
+
+.card-image img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
 }
 
 .card-image .logo-app {
