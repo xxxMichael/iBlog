@@ -6,8 +6,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { host } from "./Home";
 import { decodificar } from "../Home/Home"; // Importa la función decodificar desde el componente Home
-
+import { useNavigate } from 'react-router-dom';
 const Perfil = () => {
+  const navigate = useNavigate();
+
   const [userData, setUserData] = useState({
     nombre: "",
     apellido: "",
@@ -144,9 +146,14 @@ const Perfil = () => {
     setModalOpen(true);
   };
   useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token == null) {
+      navigate('/');
+    }
+
     const fetchUserData = async () => {
       try {
-        const token = localStorage.getItem("token");
         if (token) {
           const decodedToken = decodificar(token); // Decodificar el token
           const username = decodedToken.username; // Obtener el nombre de usuario del token
@@ -227,7 +234,9 @@ const Perfil = () => {
         </div>
         <div className="contenido">
           <div className="user-profile">
-            <Link to="/admPosts" className="edit-button edit-posts">Mis posts</Link>
+            <Link to="/admPosts" className="edit-button edit-posts">
+              Mis posts
+            </Link>
             <button className="edit-button edit-categories">Intereses</button>
             <div className="profile-picture">
               <img

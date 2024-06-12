@@ -25,16 +25,16 @@ const UserCard = () => {
   }, []);
 
   const getRoleImage = (rol) => {
-    if (!rol) return "src/componentesFront/Home/images/invitado.gif";
+    if (!rol) return "https://iblog-archivos.s3.sa-east-1.amazonaws.com/complementosPrincipal/invitado.gif";
     switch (rol.toLowerCase()) {
       case "bronce":
-        return "src/componentesFront/Home/images/bronce.gif";
+        return "https://iblog-archivos.s3.sa-east-1.amazonaws.com/complementosPrincipal/bronce.gif";
       case "plata":
-        return "src/componentesFront/Home/images/plata.gif";
+        return "https://iblog-archivos.s3.sa-east-1.amazonaws.com/complementosPrincipal/plata.gif";
       case "oro":
-        return "src/componentesFront/Home/images/oro.gif";
+        return "https://iblog-archivos.s3.sa-east-1.amazonaws.com/complementosPrincipal/oro.gif";
       default:
-        return "src/componentesFront/Home/images/invitado.gif";
+        return "https://iblog-archivos.s3.sa-east-1.amazonaws.com/complementosPrincipal/invitado.gif";
     }
   };
   const handleLogout = () => {
