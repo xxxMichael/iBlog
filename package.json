@@ -26,6 +26,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-google-login": "^5.2.2",
+    "react-world-flags": "^1.6.0",
     "resend": "^3.2.0",
     "safe-buffer": "^5.2.1",
     "sharp": "^0.33.4"

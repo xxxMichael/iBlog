@@ -1,3 +1,5 @@
+import './Home.css';
+
 import React, { useEffect, useState } from "react";
 import { parseJwt } from "../Main/Main";
 import { Link } from "react-router-dom";

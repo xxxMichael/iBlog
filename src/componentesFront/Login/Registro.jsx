@@ -305,25 +305,27 @@ const Registro = ({ handleBackToLoginClick, handleSignUp }) => {
                   required
                 >
                   <option value="">Seleccione su país</option>
-                  <option value="Argentina">Argentina</option>
-                  <option value="Bolivia">Bolivia</option>
-                  <option value="Chile">Chile</option>
-                  <option value="Colombia">Colombia</option>
-                  <option value="Costa Rica">Costa Rica</option>
-                  <option value="Cuba">Cuba</option>
-                  <option value="Dominicana">República Dominicana</option>
-                  <option value="Ecuador">Ecuador</option>
-                  <option value="El Salvador">El Salvador</option>
-                  <option value="Guatemala">Guatemala</option>
-                  <option value="Honduras">Honduras</option>
-                  <option value="México">México</option>
-                  <option value="Nicaragua">Nicaragua</option>
-                  <option value="Panamá">Panamá</option>
-                  <option value="Paraguay">Paraguay</option>
-                  <option value="Perú">Perú</option>
-                  <option value="Puerto Rico">Puerto Rico</option>
-                  <option value="Uruguay">Uruguay</option>
-                  <option value="Venezuela">Venezuela</option>
+                        <option value="Argentina AR">Argentina</option>
+                        <option value="Bolivia BO">Bolivia</option>
+                        <option value="Chile CL">Chile</option>
+                        <option value="Colombia CO">Colombia</option>
+                        <option value="Costa Rica CR">Costa Rica</option>
+                        <option value="Cuba CU">Cuba</option>
+                        <option value="Dominicana DO">
+                          República Dominicana
+                        </option>
+                        <option value="Ecuador EC">Ecuador</option>
+                        <option value="El Salvador SV">El Salvador</option>
+                        <option value="Guatemala GT">Guatemala</option>
+                        <option value="Honduras HN">Honduras</option>
+                        <option value="México MX">México</option>
+                        <option value="Nicaragua NI">Nicaragua</option>
+                        <option value="Panamá PA">Panamá</option>
+                        <option value="Paraguay PY">Paraguay</option>
+                        <option value="Perú PE">Perú</option>
+                        <option value="Puerto Rico PR">Puerto Rico</option>
+                        <option value="Uruguay UY">Uruguay</option>
+                        <option value="Venezuela VE">Venezuela</option>
                 </select>
               </div>
             </div>
