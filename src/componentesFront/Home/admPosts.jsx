@@ -6,7 +6,6 @@ import { decodificar } from "./Home";
 import '../Home/admPosts.css';
 
 const AdmPosts = () => {
-    const [usuario, setUsuario] = useState('');
     const [postU, setPostU] = useState([]);
 
     useEffect(() => {
@@ -44,7 +43,16 @@ const AdmPosts = () => {
                                     <img className="img-Post" src={post.urlImagen} alt="imagen del Post" />
                                 </div>
                                 <p className="post-Contenido">{post.contenido}</p>
-                                <label className="cat-Post">{post.idCategoria1}</label>
+                                <div className="cont-Cat">
+                                    <label className="cat-Post">{post.categoria1}</label><br />
+                                    <label className="cat-Post">{post.categoria2}</label><br />
+                                    <label className="cat-Post">{post.categoria3}</label>
+                                </div>
+                                <div className="cont-btns">
+                                    <button value={post.idPost} className="btn-Editar"> EDITAR </button>
+                                    <button className="btn-Borrar"> BORRAR </button>
+                                </div>
+
                             </div>
                         </div>
                     ))
