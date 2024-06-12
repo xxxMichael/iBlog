@@ -10,7 +10,7 @@ function LoginwGmail({ handleBackToLoginClick }) {
   const navigate = useNavigate();
 
   const clientID =
-    "482021881298-70smm2voldbn4tf7i32jh4iclh4fqlko.apps.googleusercontent.com";
+    "156003158373-sqloa88ehv8003k3d8i7k4v6a9112vvs.apps.googleusercontent.com";
   const [user, setUser] = useState(null); // Initially, no user is logged in
   const [errorMessage, setErrorMessage] = useState(null); // Initialize errorMessage to null
 
