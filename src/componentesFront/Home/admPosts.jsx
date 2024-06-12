@@ -29,6 +29,15 @@ const AdmPosts = () => {
         }
     }, []);
 
+    const editarPost = (valor) => {
+        console.log("titulo"+valor[0]);
+        console.log("contenido"+valor[1]);
+        console.log("imagen"+valor[2]);
+        console.log("id1"+valor[3]);
+        console.log("id2"+valor[4]);
+        console.log("id3"+valor[5]);
+    }
+
     return (
         <>
             <div className="contPosts">
@@ -49,7 +58,14 @@ const AdmPosts = () => {
                                     <label className="cat-Post">{post.categoria3}</label>
                                 </div>
                                 <div className="cont-btns">
-                                    <button value={post.idPost} className="btn-Editar"> EDITAR </button>
+                                    <button onClick={() => editarPost([
+                                        post.titulo,
+                                        post.contenido,
+                                        post.urlImagen,
+                                        post.idcategoria1,
+                                        post.idcategoria2,
+                                        post.idcategoria3
+                                    ])} className="btn-Editar"> EDITAR </button>
                                     <button className="btn-Borrar"> BORRAR </button>
                                 </div>
 
