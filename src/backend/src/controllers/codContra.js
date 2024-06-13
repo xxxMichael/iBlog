@@ -13,7 +13,7 @@ function generateVerificationCode(length = 8) {
 async function sendEmail(codigoVerificacion, recipientEmail) {
   try {
     const { data, error } = await resend.emails.send({
-      from: 'NotFairDev@iblog.com',
+      from: 'NotFairDev@iblog.click',
       to: [recipientEmail],
       subject: 'Recuperación de Contraseña',
       html: `  
@@ -77,7 +77,7 @@ async function sendEmail(codigoVerificacion, recipientEmail) {
               <div id="contenedor-encabezado">
                   <div id="logo-izquierdo">
                   <img
-                  src="https://logopond.com/logos/422ac4960d4fe3bcd511d0b135d4bb6d.png"
+                  src="https://iblog-archivos.s3.sa-east-1.amazonaws.com/complementosPrincipal/logohd.png"
                   alt=""
                   width="80"
                   height="80"
@@ -89,7 +89,7 @@ async function sendEmail(codigoVerificacion, recipientEmail) {
                   </div>
                   <div id="logo-derecho">
                   <img
-                  src="https://logopond.com/logos/422ac4960d4fe3bcd511d0b135d4bb6d.png"
+                  src="https://iblog-archivos.s3.sa-east-1.amazonaws.com/complementosPrincipal/logohd.png"
                   alt=""
                   width="80"
                   height="80"

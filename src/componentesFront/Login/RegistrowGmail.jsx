@@ -7,7 +7,7 @@ import { host } from '../Home/Home';
 function RegistrowGmail({ handleBackToLoginClick }) {
   const [loginSuccessful, setLoginSuccessful] = useState(false);
   const clientID =
-    "482021881298-70smm2voldbn4tf7i32jh4iclh4fqlko.apps.googleusercontent.com";
+    "156003158373-sqloa88ehv8003k3d8i7k4v6a9112vvs.apps.googleusercontent.com";
   const [user, setUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null); // Initialize errorMessage to null
