@@ -31,7 +31,7 @@ export function decodificar(token) {
   return JSON.parse(jsonPayload);
 }
 
-export const host = "52.67.196.92";
+export const host = "localhost";
 
 const Home = () => {
   const [userData, setUserData] = useState(null);

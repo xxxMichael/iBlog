@@ -21,11 +21,15 @@ const { eliminarComentario } = require('../controllers/eliminarComentario');
 const { guardarIntereses } = require('../controllers/guardarIntereses');
 const { consultarpostsall } = require('../controllers/consultarpostsall');
 const { BuscarPostsNombre } = require('../controllers/BuscarPostsNombre');
-const { consultarUser  } = require('../controllers/consultarUser');
-const { guardarCambios} = require('../controllers/guardarCambios');
+const { consultarUser } = require('../controllers/consultarUser');
+const { guardarCambios } = require('../controllers/guardarCambios');
 const { consultarpostsUsuario } = require('../controllers/obtPostUsuario');
+const { editarPosts } = require('../controllers/editarPost');
 const FileUploadService = require('../controllers/fileUploadService');
+const ActualizarImagen = require('../controllers/actualizarImagen');
 const fileUploadService = new FileUploadService();
+const actualizarImagen = new ActualizarImagen();
+
 
 //router.use(fileUpload());
 router.post('/guardarIntereses', guardarIntereses);
@@ -50,8 +54,9 @@ router.post('/verfRegistro', verfRegistro);
 router.post('/verificarUser', verificarUser);
 router.post('/almacenarPost', almacenarPost);
 router.get('/consultarUser', consultarUser);
-
+router.post('/actualizarPost', editarPosts);
 router.post('/login', login);
+
 router.post('/subida', (req, res) => {
   const upload = fileUploadService.getMulterUpload();
 
@@ -70,6 +75,24 @@ router.post('/subida', (req, res) => {
     }
   });
 });
+router.post('/actualizarI', (req, res) => {
+  const upload = actualizarImagen.getMulterUpload();
 
+  upload(req, res, async (err) => {
+    if (err) {
+      console.log("error desde upload: ", err);
+      return res.status(400).json({ mensaje: "error desde upload" });
+    }
+
+    try {
+      const fileName = req.body.fileName; // Obtener el nombre del archivo desde el cuerpo de la solicitud
+      const urlImagen = await actualizarImagen.uploadFile(req.file, fileName); // Pasar fileName como argumento a uploadFile
+      return res.status(200).json({ urlImagen: urlImagen, mensaje: "archivo actualizado correctamente" });
+    } catch (error) {
+      console.log("error al ejecutar send, ", error);
+      return res.status(400).json({ mensaje: "error al ejecutar comando, por favor intentar nuevamente" });
+    }
+  });
+});
 
 module.exports = router;

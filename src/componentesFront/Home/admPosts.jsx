@@ -8,7 +8,7 @@ import FormularioE from "./formularioEditar.jsx";
 const AdmPosts = () => {
     const [postU, setPostU] = useState([]);
     const [showForm, setShowForm] = useState(false);
-    const [datos,setDatos] = useState([]);
+    const [datos, setDatos] = useState([]);
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -36,9 +36,10 @@ const AdmPosts = () => {
             post.titulo,
             post.contenido,
             post.urlImagen,
-            post.categoria1,
-            post.categoria2,
-            post.categoria3
+            post.idcategoria1,
+            post.idcategoria2,
+            post.idcategoria3,
+            post.idPost
         ]);
         setShowForm(true);
     }
@@ -59,7 +60,7 @@ const AdmPosts = () => {
                             <div className="PropioPost">
                                 <label className="titulo-Post">{post.titulo}</label>
                                 <div className="PropioPost">
-                                    <img className="img-Post" src={post.urlImagen} alt="imagen del Post" />
+                                    <img className="img-Post" src={post.urlImagen + '?${new Date().getTime()}'} alt="imagen del Post" />
                                 </div>
                                 <p className="post-Contenido">{post.contenido}</p>
                                 <div className="cont-Cat">

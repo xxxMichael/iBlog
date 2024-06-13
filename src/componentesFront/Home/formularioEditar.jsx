@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import './formularioPost.css';
-import { ComponentChecklist } from './Categorias2.jsx';
+import { ComponentChecklist } from './Categorias3.jsx';
 import axios from 'axios';
 import { parseJwt } from "../Main/Main";
 import { host } from './Home';
@@ -29,10 +29,12 @@ function FormularioEditar({ onClose, infor }) {
     const [categoria1, setCategoria1] = useState('');
     const [categoria2, setCategoria2] = useState('');
     const [categoria3, setCategoria3] = useState('');
+    const [id, setID] = useState('');
     const [image, setImage] = useState(null);
     const [selectedComponents, setSelectedComponents] = useState([]);
     const [selectedCount, setSelectedCount] = useState(0);
-
+    const [archivo, setArchivo] = useState(null);
+    const [cambioI, setCambioI] = useState(false);
     useEffect(() => {
         if (infor.length > 0) {
             setTitulo(infor[0]);
@@ -41,9 +43,21 @@ function FormularioEditar({ onClose, infor }) {
             setCategoria1(infor[3]);
             setCategoria2(infor[4]);
             setCategoria3(infor[5]);
-            setImage(infor[2]); // Asumiendo que urlImagen es la URL de la imagen
+            setImage(infor[2] + '?${new Date().getTime()}'); // Asumiendo que urlImagen es la URL de la imagen
+            setID(infor[6]);
         }
     }, [infor]);
+    useEffect(() => {
+        const fetchCategorias = async () => {
+            try {
+                const response = await axios.get('http://52.67.196.92:3000/consultarCatego');
+                setCategorias(response.data);
+            } catch (error) {
+                console.error('Error al obtener las categorías:', error);
+            }
+        };
+        fetchCategorias();
+    }, []);
     const handleSelectedCountChange = (count) => {
         setSelectedCount(count);
     };
@@ -53,9 +67,79 @@ function FormularioEditar({ onClose, infor }) {
     const cantCaracteres = () => {
         return contenido.length;
     };
+    const idcat1 = selectedComponents.length >= 1 ? selectedComponents[0] : null;
+    const idcat2 = selectedComponents.length >= 2 ? selectedComponents[1] : null;
+    const idcat3 = selectedComponents.length >= 3 ? selectedComponents[2] : null;
+    const getFileNameFromUrl = (url) => {
+        const path = url.split('/').pop();
+        const fileName = path.split('?')[0];
+        return fileName;
+    }
 
-    const editarPost = async () => {
-        // Lógica para editar el post
+    const editarPost = async (e) => {
+        e.preventDefault();
+        if (selectedCount > 0) {
+            console.log(selectedComponents[0]);
+            console.log(selectedComponents[1]);
+            console.log(selectedComponents[2]);
+            if (cambioI) {
+                const fileName = getFileNameFromUrl(urlImagen);
+                const formData = new FormData();
+                formData.append('file', archivo);
+                formData.append('fileName', fileName);
+                await axios.post(`http://${host}:3000/actualizarI`, formData, {
+                    headers: { 'Content-Type': 'multipart/form-data', },
+                })
+                    .then(async function (response) {
+                        console.log(response);
+
+                        if (response.status === 200) {
+                            console.log('exito al cambiar imagen');
+                        }
+                        else { console.log("error"); }
+                    });
+            }
+
+            const data = {
+                titulo: titulo,
+                contenido: contenido,
+                idCategoria1: idcat1,
+                idCategoria2: idcat2,
+                idCategoria3: idcat3,
+                id: id
+            };
+            try {
+                const response = await fetch(`http://${host}:3000/actualizarPost`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+                if (response.ok) {
+                    alert('Se agrego correctamente el nuevo post');
+                    onClose();
+                    window.location.reload();
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        } else {
+            alert("Selecciona al menos una categoria");
+        }
+    };
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        console.log(file);
+        if (file && (file.type === 'image/jpeg') || (file.type === 'image/jpg') || (file.type === 'image/png')) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setImage(reader.result);
+                setArchivo(file);
+                setCambioI(true);
+            };
+            reader.readAsDataURL(file);
+        }
     };
 
     return (
@@ -69,7 +153,7 @@ function FormularioEditar({ onClose, infor }) {
                             type="file"
                             accept="image/jpeg, image/png"
                             style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0, cursor: 'pointer' }}
-                            onChange={(e) => setImage(URL.createObjectURL(e.target.files[0]))}
+                            onChange={handleImageChange}
                         />
                     </div>
                     <input
@@ -101,7 +185,10 @@ function FormularioEditar({ onClose, infor }) {
                             />
                         </form>
                     </div>
-                    <ComponentChecklist componentList={categorias} onSelectedCountChange={handleSelectedCountChange} onSelectedComponentsChange={handleSelectedComponentsChange} />
+                    <ComponentChecklist componentList={categorias}
+                        initialSelected={[categoria1, categoria2, categoria3]}
+                        onSelectedCountChange={handleSelectedCountChange}
+                        onSelectedComponentsChange={handleSelectedComponentsChange} />
                     <div className="contBotones">
                         <div onClick={editarPost} className="btnEnviar1">Edit</div>
                         <div onClick={onClose} className="btnCancelar1">Cancelar</div>
