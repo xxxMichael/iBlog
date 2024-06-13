@@ -7,6 +7,8 @@ import '../Home/admPosts.css';
 import FormularioE from "./formularioEditar.jsx";
 const AdmPosts = () => {
     const [postU, setPostU] = useState([]);
+    const [showForm, setShowForm] = useState(false);
+    const [datos,setDatos] = useState([]);
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -29,20 +31,28 @@ const AdmPosts = () => {
         }
     }, []);
 
-    const editarPost = (valor) => {
-        console.log("titulo"+valor[0]);
-        console.log("contenido"+valor[1]);
-        console.log("imagen"+valor[2]);
-        console.log("id1"+valor[3]);
-        console.log("id2"+valor[4]);
-        console.log("id3"+valor[5]);
+    const editarPost = (post) => {
+        setDatos([
+            post.titulo,
+            post.contenido,
+            post.urlImagen,
+            post.categoria1,
+            post.categoria2,
+            post.categoria3
+        ]);
+        setShowForm(true);
     }
-
+    const handleClick = () => {
+        setShowForm(!showForm);
+    };
     return (
         <>
             <div className="contPosts">
                 <Link className='btnHome' to='/perfil'>Regresar</Link>
                 <label className="tituloMP"> MIS POSTS</label>
+                {showForm && (
+                    <FormularioE onClose={handleClick} infor={datos} />
+                )}
                 {postU.length > 0 ? (
                     postU.map((post) => (
                         <div key={post.idPost} className="postUsuario">
@@ -58,14 +68,7 @@ const AdmPosts = () => {
                                     <label className="cat-Post">{post.categoria3}</label>
                                 </div>
                                 <div className="cont-btns">
-                                    <button onClick={() => editarPost([
-                                        post.titulo,
-                                        post.contenido,
-                                        post.urlImagen,
-                                        post.idcategoria1,
-                                        post.idcategoria2,
-                                        post.idcategoria3
-                                    ])} className="btn-Editar"> EDITAR </button>
+                                    <button onClick={() => editarPost(post)} className="btn-Editar"> EDITAR </button>
                                     <button className="btn-Borrar"> BORRAR </button>
                                 </div>
 

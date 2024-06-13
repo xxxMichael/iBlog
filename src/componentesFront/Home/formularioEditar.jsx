@@ -21,179 +21,86 @@ export function decodificar(token) {
     return JSON.parse(jsonPayload);
 }
 
-
-function FormularioEditar({ onClose }) {
+function FormularioEditar({ onClose, infor }) {
     const [categorias, setCategorias] = useState([]);
-    const [selectedCount, setSelectedCount] = useState(0);
+    const [titulo, setTitulo] = useState('');
+    const [contenido, setContenido] = useState('');
+    const [urlImagen, setUrlImagen] = useState('');
+    const [categoria1, setCategoria1] = useState('');
+    const [categoria2, setCategoria2] = useState('');
+    const [categoria3, setCategoria3] = useState('');
     const [image, setImage] = useState(null);
     const [selectedComponents, setSelectedComponents] = useState([]);
-    const [content, setContent] = useState('');
-    const [isProject, setIsProject] = useState(true);
-    const [dueño, setDueño] = useState("");
-    const [titulo, setTitulo] = useState("");
-    const [contenido, setContenido] = useState("");
-    const [archivo, setArchivo] = useState(null);
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Lógica para manejar el envío del formulario
-        onClose();
-    };
+    const [selectedCount, setSelectedCount] = useState(0);
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (token) {
-            const decodedToken = parseJwt(token);
-            setDueño(decodedToken.username);
+        if (infor.length > 0) {
+            setTitulo(infor[0]);
+            setContenido(infor[1]);
+            setUrlImagen(infor[2]);
+            setCategoria1(infor[3]);
+            setCategoria2(infor[4]);
+            setCategoria3(infor[5]);
+            setImage(infor[2]); // Asumiendo que urlImagen es la URL de la imagen
         }
-    }, []);
-    useEffect(() => {
-        const fetchCategorias = async () => {
-            try {
-                const response = await axios.get('http://localhost:3000/consultarCatego');
-                setCategorias(response.data);
-            } catch (error) {
-                console.error('Error al obtener las categorías:', error);
-            }
-        };
-        fetchCategorias();
-    }, []);
+    }, [infor]);
     const handleSelectedCountChange = (count) => {
         setSelectedCount(count);
     };
     const handleSelectedComponentsChange = (components) => {
         setSelectedComponents(components);
     };
-    const handleChange = (event) => {
-        const inputValue = event.target.value;
-        if (inputValue.length <= 250) {
-            setContent(inputValue);
-            setContenido(event.target.value);
-        }
-    };
     const cantCaracteres = () => {
-        return content.length;
-    };
-    const idCategoria1 = selectedComponents.length >= 1 ? selectedComponents[0] : null;
-    const idCategoria2 = selectedComponents.length >= 2 ? selectedComponents[1] : null;
-    const idCategoria3 = selectedComponents.length >= 3 ? selectedComponents[2] : null;
-    const editarPost = async (e) => {
-        e.preventDefault();
-        if (selectedCount > 0) {
-            if (!archivo) { alert("sube un archivo"); }
-            else {
-                const formData = new FormData();
-                formData.append('file', archivo);
-
-                // Enviar la imagen al servidor
-                await axios.post(`http://${host}:3000/subida`, formData, {
-                    headers: { 'Content-Type': 'multipart/form-data', },
-                })
-                    .then(async function (response) {
-                        console.log(response);
-
-                        if (response.status === 200) {
-                            console.log("exito");
-                            let urlImagen = response.data.urlImagen;
-                            console.log('Titulo:' + titulo);
-                            console.log('Contenido' + contenido);
-                            console.log('due;o: ' + dueño);
-                            console.log('url: ' + urlImagen);
-                            console.log('cat1 ' + idCategoria1);
-                            console.log('cat2 ' + idCategoria2);
-                            console.log('cat3 ' + idCategoria3);
-                            const fechaHora = new Date();
-                            console.log(fechaHora);
-                            const año = fechaHora.getFullYear();
-                            const mes = (fechaHora.getMonth() + 1).toString().padStart(2, '0'); // Los meses van de 0 a 11, por lo que sumamos 1
-                            const dia = fechaHora.getDate().toString().padStart(2, '0');
-                            const horas = fechaHora.getHours().toString().padStart(2, '0');
-                            const minutos = fechaHora.getMinutes().toString().padStart(2, '0');
-                            const segundos = fechaHora.getSeconds().toString().padStart(2, '0');
-                            const fechaFormateada = `${año}-${mes}-${dia} ${horas}:${minutos}:${segundos}`;
-                            const data = {
-                                dueño: dueño,
-                                titulo: titulo,
-                                contenido: contenido,
-                                urlImagen: urlImagen,
-                                fechaPublicacion: fechaFormateada,
-                                idCategoria1: idCategoria1,
-                                idCategoria2: idCategoria2,
-                                idCategoria3: idCategoria3
-                            };
-                            try {
-                                const response = await fetch(`http://${host}:3000/almacenarPost`, {
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'application/json',
-                                    },
-                                    body: JSON.stringify(data),
-                                });
-                                if (response.ok) {
-                                    alert('Se agrego correctamente el nuevo post');
-                                    onClose();
-                                    window.location.reload();
-                                }
-                            } catch (error) {
-                                console.error('Error:', error);
-                            }
-                        }
-                        else { console.log("error"); }
-                    });
-            }
-        } else {
-            alert("Selecciona al menos una categoria");
-        }
-    }
-
-    const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        console.log(file);
-        if (file && (file.type === 'image/jpeg') || (file.type === 'image/jpg') || (file.type === 'image/png')) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setImage(reader.result);
-                setArchivo(file);
-            };
-            reader.readAsDataURL(file);
-        }
+        return contenido.length;
     };
 
-    const handleDivClick = () => {
-        document.getElementById('fileInput').click();
+    const editarPost = async () => {
+        // Lógica para editar el post
     };
+
     return (
         <div className='contenidoMayor'>
             <div className="contenidoP">
                 <div className="form1">
-                    <div className='contenedorImg' id='fileInput' onClick={handleDivClick}>
+                    <div className='contenedorImg' id='fileInput'>
                         {!image && <p className="textImg">Haz clic para seleccionar una imagen</p>}
                         {image && <img src={image} alt="Imagen seleccionada" style={{ width: '100%', height: '100%' }} />}
                         <input
                             type="file"
                             accept="image/jpeg, image/png"
                             style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0, cursor: 'pointer' }}
-                            onChange={handleImageChange}
+                            onChange={(e) => setImage(URL.createObjectURL(e.target.files[0]))}
                         />
                     </div>
-                    <input placeholder="Titulo..." type="text" className="input3" onChange={(e) => setTitulo(e.target.value)} />
-                    <textarea placeholder="Contenido..." rows="6" cols="20" id="message" name="message" className="textarea"
-                        value={content} onChange={handleChange} ></textarea>
+                    <input
+                        placeholder="Titulo..."
+                        type="text"
+                        className="input3"
+                        value={titulo}
+                        onChange={(e) => setTitulo(e.target.value)}
+                    />
+                    <textarea
+                        placeholder="Contenido..."
+                        rows="6"
+                        cols="20"
+                        id="message"
+                        name="message"
+                        className="textarea"
+                        value={contenido}
+                        onChange={(e) => setContenido(e.target.value)}
+                    ></textarea>
                     <label className="caracteres">{cantCaracteres()}/250</label>
-                    {!isProject && (
-                        <div className='contenedorArchivo'>
-                            <form onSubmit={handleSubmit}>
-                                <input
-                                    accept=".zip, .war"
-                                    className="inputArchivo"
-                                    name="arquivo"
-                                    id="arquivo"
-                                    type="file"
-                                />
-                            </form>
-                        </div>
-                    )}
-
+                    <div className='contenedorArchivo'>
+                        <form>
+                            <input
+                                accept=".zip, .war"
+                                className="inputArchivo"
+                                name="archivo"
+                                id="archivo"
+                                type="file"
+                            />
+                        </form>
+                    </div>
                     <ComponentChecklist componentList={categorias} onSelectedCountChange={handleSelectedCountChange} onSelectedComponentsChange={handleSelectedComponentsChange} />
                     <div className="contBotones">
                         <div onClick={editarPost} className="btnEnviar1">Edit</div>
