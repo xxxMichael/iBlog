@@ -46,6 +46,44 @@ const AdmPosts = () => {
     const handleClick = () => {
         setShowForm(!showForm);
     };
+    const getFileNameFromUrl = (url) => {
+        const path = url.split('/').pop();
+        const fileName = path.split('?')[0];
+        return fileName;
+    }
+    const eliminarPost = async (post) => {
+        const nombreI = getFileNameFromUrl(post.urlImagen);
+        await axios.post(`http://${host}:3000/eliminarI`, { nombreI }, {
+            headers: { 'Content-Type': 'application/json' },
+        })
+            .then(async function (response) {
+                console.log(response);
+
+                if (response.status === 200) {
+                    console.log('exito al eliminar Imagen');
+                    const data = {
+                        id: post.idPost
+                    };
+                    try {
+                        const response = await fetch(`http://${host}:3000/eliminarPost`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(data),
+                        });
+                        if (response.ok) {
+                            alert('Se elimino correctamente el post');
+                            window.location.reload();
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                    }
+                }
+                else { console.log("error"); }
+            });
+    }
+
     return (
         <>
             <div className="contPosts">
@@ -70,7 +108,7 @@ const AdmPosts = () => {
                                 </div>
                                 <div className="cont-btns">
                                     <button onClick={() => editarPost(post)} className="btn-Editar"> EDITAR </button>
-                                    <button className="btn-Borrar"> BORRAR </button>
+                                    <button onClick={() => eliminarPost(post)} className="btn-Borrar"> BORRAR </button>
                                 </div>
 
                             </div>

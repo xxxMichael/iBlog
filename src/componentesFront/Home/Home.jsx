@@ -187,6 +187,10 @@ const Home = () => {
         `http://${host}:3000/consultaPostCat?categoriaId=${categoriaId}`
       );
       setPosts(response.data);
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'  // Opcional: animación suave
+      });
     } catch (error) {
       console.error("Error al cargar los posts:", error);
     }
@@ -268,7 +272,7 @@ const Home = () => {
                 <div key={post.idPost} className="postP">
                   <div className="card">
                     <div className="headerPost">
-                      <img className="miniatura" src='https://iblog-archivos.s3.sa-east-1.amazonaws.com/complementosPrincipal/logoApp1.png'/>
+                      <img className="miniatura" src='https://iblog-archivos.s3.sa-east-1.amazonaws.com/complementosPrincipal/logoApp1.png' />
                       <label>
                         {post.dueño} • {formatearTiempoTranscurrido(post.fechaPublicacion)}
                       </label>

@@ -27,8 +27,12 @@ const { consultarpostsUsuario } = require('../controllers/obtPostUsuario');
 const { editarPosts } = require('../controllers/editarPost');
 const FileUploadService = require('../controllers/fileUploadService');
 const ActualizarImagen = require('../controllers/actualizarImagen');
+const S3Service = require("../controllers/eliminarImagen");
+const { eliminarPost } = require('../controllers/eliminarPosts');
 const fileUploadService = new FileUploadService();
 const actualizarImagen = new ActualizarImagen();
+const s3Service = new S3Service();
+
 
 
 //router.use(fileUpload());
@@ -56,6 +60,7 @@ router.post('/almacenarPost', almacenarPost);
 router.get('/consultarUser', consultarUser);
 router.post('/actualizarPost', editarPosts);
 router.post('/login', login);
+router.post('/eliminarPost', eliminarPost);
 
 router.post('/subida', (req, res) => {
   const upload = fileUploadService.getMulterUpload();
@@ -93,6 +98,23 @@ router.post('/actualizarI', (req, res) => {
       return res.status(400).json({ mensaje: "error al ejecutar comando, por favor intentar nuevamente" });
     }
   });
+});
+
+router.post("/eliminarI", async function (req, res) {
+  try {
+    const { nombreI } = req.body;
+    console.log('Nombre del archivo recibido:',nombreI);
+
+    if (!nombreI) {
+      return res.status(400).json({ error: "Nombre de archivo no proporcionado" });
+  }
+    const resultado = await s3Service.eliminarArchivo(nombreI);
+
+    return res.status(200).json(resultado);
+  } catch (error) {
+    //console.log("Error en el endpoint de eliminación:", error);
+    return res.status(500).json({ error: "Error en EndPoints" });
+  }
 });
 
 module.exports = router;
