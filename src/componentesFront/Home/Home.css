@@ -224,7 +224,9 @@ body {
 .card-body-post {
   margin: 13px 0 0 10px;
   color: rgb(184, 184, 184);
-  font-size: 15px;
+  font-size: 20px;
+  margin-bottom: 2%;
+  text-align: justify;
 }
 
 .footer {
@@ -325,6 +327,28 @@ body {
 }
 .contCategorias h2 {
   margin-left: 10%;
+}
+.bookmarkBtn {
+  border: none;
+  background-color: transparent;
+}
+
+.IconContainer {
+  width: 30px;
+  height: 30px;
+  background-color: rgb(66, 66, 66);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
+  z-index: 2;
+  transition-duration: 0.3s;
+}
+.IconContainer:hover {
+  background-color: #b2eccf;
+  fill: white;
 }
 
 @media (max-width: 1024px) {

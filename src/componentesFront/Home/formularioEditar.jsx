@@ -141,6 +141,13 @@ function FormularioEditar({ onClose, infor }) {
             reader.readAsDataURL(file);
         }
     };
+    const handleChange = (event) => {
+        const inputValue = event.target.value;
+        if (inputValue.length <= 250) {
+            setContenido(inputValue);
+            setContenido(event.target.value);
+        }
+    };
 
     return (
         <div className='contenidoMayor'>
@@ -163,16 +170,8 @@ function FormularioEditar({ onClose, infor }) {
                         value={titulo}
                         onChange={(e) => setTitulo(e.target.value)}
                     />
-                    <textarea
-                        placeholder="Contenido..."
-                        rows="6"
-                        cols="20"
-                        id="message"
-                        name="message"
-                        className="textarea"
-                        value={contenido}
-                        onChange={(e) => setContenido(e.target.value)}
-                    ></textarea>
+                    <textarea placeholder="Contenido..." rows="6" cols="20" id="message" name="message" className="textarea"
+                        value={contenido} onChange={handleChange} ></textarea>
                     <label className="caracteres">{cantCaracteres()}/250</label>
                     <div className='contenedorArchivo'>
                         <form>

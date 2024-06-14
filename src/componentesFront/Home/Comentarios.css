@@ -1,14 +1,16 @@
 .comentarios {
     margin-bottom: 20px;
-    background-color: #f4f4f4;
+    background-color: transparent;
     padding: 15px;
-    border-radius: 5px;
+    border-radius: 15px;
   }
   
   .comentario {
     margin-bottom: 15px;
     padding: 10px;
     border: 1px solid #ccc;
+    background-color: black;
+    color: white;
     border-radius: 5px;
   }
   

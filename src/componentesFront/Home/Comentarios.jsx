@@ -46,12 +46,21 @@ const Comentarios = ({ idPost, currentUser }) => {
 
   const handleAddComentario = async () => {
     if (newComentario.trim() === "") return;
-
+    const fechaHora = new Date();
+    console.log(fechaHora);
+    const año = fechaHora.getFullYear();
+    const mes = (fechaHora.getMonth() + 1).toString().padStart(2, '0'); // Los meses van de 0 a 11, por lo que sumamos 1
+    const dia = fechaHora.getDate().toString().padStart(2, '0');
+    const horas = fechaHora.getHours().toString().padStart(2, '0');
+    const minutos = fechaHora.getMinutes().toString().padStart(2, '0');
+    const segundos = fechaHora.getSeconds().toString().padStart(2, '0');
+    const fechaFormateada = `${año}-${mes}-${dia} ${horas}:${minutos}:${segundos}`;
     try {
       await axios.post(`http://${host}:3000/agregarComentario`, {
         idPost,
         contenido: newComentario,
         autor: currentUser,
+        fecha: fechaFormateada
       });
       setNewComentario("");
       const updatedComentarios = await axios.get(
@@ -76,19 +85,46 @@ const Comentarios = ({ idPost, currentUser }) => {
       console.error("Error al eliminar el comentario:", error);
     }
   };
+  const formatearTiempoTranscurrido = (fecha) => {
+    const fechaPasada = new Date(fecha);
+    const fechaActual = new Date();
+
+    if (fechaPasada > fechaActual) {
+      return 'Fecha futura';
+    }
+
+    const diferenciaEnMilisegundos = fechaActual - fechaPasada;
+    const segundos = Math.floor(diferenciaEnMilisegundos / 1000);
+    const minutos = Math.floor(segundos / 60);
+    const horas = Math.floor(minutos / 60);
+    const dias = Math.floor(horas / 24);
+    const meses = Math.floor(dias / 30);
+    const años = Math.floor(meses / 12);
+
+    if (años > 0) {
+      return `hace ${años === 1 ? '1 año' : `${años} años`}`;
+    } else if (meses > 0) {
+      return `hace ${meses === 1 ? '1 mes' : `${meses} meses`}`;
+    } else if (dias > 0) {
+      return `hace ${dias === 1 ? '1 día' : `${dias} días`}`;
+    } else if (horas > 0) {
+      return `hace ${horas === 1 ? '1 hora' : `${horas} horas`}`;
+    } else if (minutos > 0) {
+      return `hace ${minutos === 1 ? '1 minuto' : `${minutos} minutos`}`;
+    } else {
+      return `hace ${segundos === 1 ? '1 segundo' : `${segundos} segundos`}`;
+    }
+  };
 
   return (
     <div className="comentarios">
       <h4>Comentarios</h4>
       {comentarios.map((comentario) => (
         <div key={comentario.idComentario} className="comentario">
+          <p>
+            <strong>@{comentario.autor} • {formatearTiempoTranscurrido(new Date(comentario.fechaComentario))}</strong>
+          </p>
           <p>{comentario.contenido}</p>
-          <p>
-            <strong>{comentario.autor}</strong>
-          </p>
-          <p>
-          {format(new Date(comentario.fechaComentario), 'yyyy-MM-dd HH:mm:ss')}
-          </p>
           {currentUser === comentario.autor && !tokenExpired && (
             <button
               onClick={() => handleDeleteComentario(comentario.idComentario)}
