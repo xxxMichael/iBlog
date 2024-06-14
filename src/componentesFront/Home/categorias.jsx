@@ -22,7 +22,7 @@ const Categorias = ({ onCategoriaClick }) => {
         <ul>
             {categorias.map((categoria) => (
                 <li key={categoria.id}>
-                    <button onClick={() => onCategoriaClick(categoria.id)}>
+                    <button className='btns-Categorias' onClick={() => onCategoriaClick(categoria.id)}>
                         {categoria.nombre}
                     </button>
                 </li>

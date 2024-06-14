@@ -53,13 +53,13 @@ const UserCard = () => {
         <p className="card-text">Rango: {userInfo.rol}</p>
 
         {userInfo.rol !== "invitado" && (
-          <Link className="btnNav" to="/perfil">
-            Mi Perfil
+          <Link className="btnPerfil" to="/perfil">
+            <span className="spanB">Mi Perfil</span>
           </Link>
         )}
         {userInfo.rol !== "invitado" && (
-          <button className="" onClick={handleLogout}>
-            Cerrar Sesión
+          <button className="btn-cerrarS" onClick={handleLogout}>
+            <span className="spanB">Cerrar Sesion</span>
           </button>
         )}
       </div>

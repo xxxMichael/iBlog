@@ -203,20 +203,28 @@ const Home = () => {
   const handleReload = () => {
     window.location.reload();
   };
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 767px)');
+    setIsMobile(mediaQuery.matches);
+
+    const handleResize = () => setIsMobile(mediaQuery.matches);
+    mediaQuery.addListener(handleResize);
+
+    return () => mediaQuery.removeListener(handleResize);
+  }, []);
 
   return (
     <>
       <div className="contedorPrincipal">
         <div className="barra-navegacion">
           <div className="logo-container">
-            {/*  <Link className="btnNav" to="/">*/}
             <img
               className="logo-image"
               onClick={handleReload}
               style={{ cursor: "pointer" }}
             />
-
-            {/* </Link>*/}
           </div>
           <BuscadorPosts setPosts={setPosts} />
           <Link
@@ -230,9 +238,8 @@ const Home = () => {
         </div>
         <div className="cont">
           <div className="contIzquierdo">
-            <div className="contNav"></div>
             <div className="contCategorias">
-              <h2>Categorias</h2>
+              <h2>CATEGORIAS</h2>
               <Categorias onCategoriaClick={handleCategoriaClick} />
             </div>
           </div>
@@ -259,18 +266,18 @@ const Home = () => {
             {posts.length > 0 ? (
               posts.map((post) => (
                 <div key={post.idPost} className="postP">
-                  <div className="card">
+                  <div className="card-post">
                     <div className="headerPost">
                       <img className="miniatura" src='https://iblog-archivos.s3.sa-east-1.amazonaws.com/complementosPrincipal/logoApp1.png' />
                       <label>
-                        {post.dueño} • {formatearTiempoTranscurrido(post.fechaPublicacion)}
+                        @{post.dueño}   •   {formatearTiempoTranscurrido(post.fechaPublicacion)}
                       </label>
                     </div>
-                    <div className="card-image">
+                    <div className="card-image-post">
                       <img className="img-Post" src={post.urlImagen} alt="imagen del Post" />
                     </div>
-                    <p className="card-title">{post.titulo}</p>
-                    <p className="card-body">{post.contenido}</p>
+                    <p className="card-title-post">{post.titulo}</p>
+                    <p className="card-body-post">{post.contenido}</p>
                     <div className="contBtnPost">
                       <button
                         className="btnComentarios"
@@ -292,12 +299,11 @@ const Home = () => {
                 </div>
               ))
             ) : (
-              <p className="mensajePostsVacios">No hay posts disponibles.</p>
+              <p className="mensajePostsVacios">NO HAY POSTS EN ESTA CATEGORIA</p>
             )}
           </div>
           <div className="contDerecho">
             <UserCard />
-            <div className="contenidoD"></div>
           </div>
         </div>
         {showForm && (

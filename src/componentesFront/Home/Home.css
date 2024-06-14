@@ -27,17 +27,15 @@ body {
   margin-top: 0; /* Sin margen arriba */
 }
 .contDerecho {
-  margin-top: calc(10px + 20px);
-  border: 1px solid black;
-  flex: 0 0 auto; /* El elemento no se expandirá, mantendrá su tamaño original */
-  /* background-color: black; */
+  margin-top: calc(10px + 50px);
+  border: 1px solid rgb(235, 228, 228);
   width: 25%;
+  height: 75%;
   border-radius: 5%;
   position: fixed;
-  color: black; 
+  color: black;
   top: 5%;
   right: 5%;
-  bottom: 35%;
 }
 .contIzquierdo {
   border-right: 1px solid rgb(62, 65, 66);
@@ -92,7 +90,7 @@ body {
 .inputB {
   padding-left: 35px; /* Ajusta el padding izquierdo para dejar espacio para el icono */
   height: 35px;
-  width: 35%;
+  width: 42%;
   border-radius: 20px;
   margin-left: 25%;
   font-size: 15px;
@@ -180,30 +178,31 @@ body {
   border-bottom: 1px solid rgb(62, 65, 66);
   border-top: 1px solid rgb(62, 65, 66);
 }
-.card {
+.card-post {
   padding: 20px;
   margin-top: 20px;
   margin-bottom: 20px;
   position: relative;
   width: 93.72%;
+  margin: 20px auto;
   min-height: 350px;
   border-radius: 15px;
   background: rgb(14, 17, 19);
   transition: 0.05s;
 }
 
-.card:hover {
+.card-post:hover {
   background-color: rgb(24, 28, 31);
 }
 
-.card-title {
-  font-size: 18px;
+.card-title-post {
+  font-size: 2rem;
   font-weight: 600;
   color: #b2eccf;
   margin: 15px 0 0 10px;
 }
 
-.card-image {
+.card-image-post {
   min-height: 250px;
   max-width: 665px;
   background-color: #313131;
@@ -213,7 +212,7 @@ body {
   position: relative;
 }
 
-.card-image img {
+.card-image-post img {
   max-width: 100%;
   max-height: 100%;
   width: auto;
@@ -222,8 +221,7 @@ body {
   object-fit: cover;
 }
 
-
-.card-body {
+.card-body-post {
   margin: 13px 0 0 10px;
   color: rgb(184, 184, 184);
   font-size: 15px;
@@ -265,26 +263,95 @@ body {
   background-color: rgb(66, 66, 66); /* Color del track */
 }
 
-
 .logo-image {
-  width: 100px; /* Asegura que la imagen ocupe todo el ancho del contenedor */
-  height: 80px; /* Mantiene la proporción de la imagen */
-  background-image: url('images/logoApp1.png');
-  background-position: center; /* Centra la imagen en el elemento */
-  background-repeat: no-repeat; /* Evita que la imagen se repita */
+  width: 100px;
+  height: 80px;
+  background-image: url("images/logoApp1.png");
+  padding: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 .miniatura {
   width: 50px;
   height: 50px;
+  border: 1px solid black;
   background-size: cover; /* Ajusta la imagen para que cubra todo el elemento */
   background-position: center; /* Centra la imagen */
 }
 .logo-app {
-  background-image: url('images/logoApp1.png');
+  background-image: url("images/logoApp1.png");
   width: 100%; /* Ajusta esto según tus necesidades */
   height: 100%; /* Ajusta esto según tus necesidades */
   background-size: cover; /* Ajusta la imagen para que cubra todo el elemento */
   background-position: center; /* Centra la imagen */
   display: block; /* Asegura que se comporte como un bloque */
   margin-top: 50px;
+}
+
+.btns-Categorias {
+  display: inline-block;
+  padding: 8px 10px;
+  color: #03e8f4cd;
+  font-size: 15px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: 0.5s;
+  margin-top: 1%;
+  letter-spacing: 4px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+.btns-Categorias:hover {
+  background-color: #03e8f451;
+  color: #fff;
+  box-shadow: 0 0 5px #03e8f479, 0 0 10px #03e9f4, 0 0 20px #03e9f4,
+    0 0 50px #03e9f4;
+}
+
+.btns-Categorias:disabled {
+  color: #cccccc;
+  cursor: not-allowed;
+}
+.mensajePostsVacios {
+  margin-top: 10%;
+  margin-left: 35%;
+  width: 30%;
+  padding: 25px;
+  color: white;
+  text-align: center;
+  border: 1px solid white;
+}
+.contCategorias h2 {
+  margin-left: 10%;
+}
+
+@media (max-width: 1024px) {
+  .logo-image {
+    width: 100px;
+    height: 80px;
+    padding: 50%;
+    margin-left: -10%;
+  }
+  .inputB {
+    height: 35px;
+    width: 100%;
+    margin-left: -5%;
+  }
+  .iconoBuscar {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 0%;
+    left: 1%;
+  }
+
+  .btnInicioSesion {
+    border-radius: 5px;
+    margin-right: 5px;
+    width: 15%;
+    height: 50%;
+    padding: 2px;
+  }
 }
