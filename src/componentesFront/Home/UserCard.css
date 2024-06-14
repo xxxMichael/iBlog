@@ -44,8 +44,8 @@
   text-transform: uppercase;
   cursor: pointer;
   transform: skew(-21deg);
-  color: black;
-  background-color: rgba(19, 97, 19, 0.877);
+  color: white;
+  background-color: rgb(11, 86, 91);
 }
 .btnPerfil::before {
   content: "";
@@ -54,13 +54,13 @@
   bottom: 0;
   right: 100%;
   left: 0;
-  background: rgb(8, 219, 8);
+  background: rgb(26, 190, 202);
   opacity: 0;
   z-index: -1;
   transition: all 0.5s;
 }
 .btnPerfil:hover {
-  color: #fff;
+  color: black;
 }
 .spanB {
   transform: skew(21deg);
@@ -72,7 +72,8 @@
 }
 
 .btn-cerrarS {
-  background: rgba(129, 12, 12, 0.89);
+  background: #dc3545;
+  color: white;
   border: 1px solid black;
   padding: 2px;
   display: inline-block;
@@ -89,13 +90,13 @@
   bottom: 0;
   right: 100%;
   left: 0;
-  background: rgb(250, 2, 2);
+  background: #83000d;
   opacity: 0;
   z-index: -1;
   transition: all 0.5s;
 }
 .btn-cerrarS:hover {
-  color: #fff;
+  color: black;
 }
 
 .btn-cerrarS:hover::before {

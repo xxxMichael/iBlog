@@ -1,42 +1,90 @@
-.comentarios {
-    margin-bottom: 20px;
-    background-color: transparent;
-    padding: 15px;
-    border-radius: 15px;
-  }
-  
-  .comentario {
-    margin-bottom: 15px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    background-color: black;
-    color: white;
-    border-radius: 5px;
-  }
-  
-  .comentario p {
-    margin-bottom: 5px;
-    font-size: 1rem;
-  }
-  
-  .comentario p strong {
-    color: #007bff; /* Color para resaltar el nombre de usuario */
-    font-size: 1.1rem;
-  }
-  
-  .comentario button {
-    background-color: #dc3545;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 3px;
-    cursor: pointer;
-  }
-  
-  .comentario button:hover {
-    background-color: #c82333;
-  }
-  body {
-    background-color: rgb(14, 17, 19);
-  }
+.contenedor-comentarios {
+  margin-bottom: 20px;
+  background-color: rgb(20, 24, 27);
+  padding: 10px;
+  border-radius: 15px;
+}
 
+.contenedor-comentarios h4 {
+  color: white;
+  margin-top: 2px;
+  margin-bottom: 8px;
+  font-size: 20px;
+}
+.contenido-comentario {
+  position: relative;
+  margin-top: 5px;
+}
+.btn-eliminar-comentario {
+  margin-left: 88%;
+  width: 15%;
+}
+
+.text-new-comment {
+  border-radius: 5px;
+  width: 85%;
+  height: 30px;
+  padding-left: 2%;
+  padding-right: 2%;
+}
+.btn-comentar {
+  background-color: rgb(11, 86, 91);
+  height: 35px;
+  color: white;
+  margin-left: 1%;
+  cursor: pointer;
+}
+
+.btn-comentar:hover {
+  background-color: rgb(21, 147, 156);
+}
+
+.comentario {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: rgb(36, 35, 33);
+  color: white;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 600px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  padding: 10px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+}
+.usuario-Comento {
+  margin-top: 0;
+}
+.usuario-con-boton {
+  position: absolute;
+  margin-top: -20px;
+}
+.comentario p {
+  margin-bottom: 5px;
+  font-size: 1rem;
+}
+
+.comentario p strong {
+  color: rgb(26, 190, 202);
+  font-size: 1.1rem;
+}
+
+.comentario button {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.comentario button:hover {
+  background-color: #c82333;
+}
+
+body {
+  background-color: rgb(14, 17, 19);
+}

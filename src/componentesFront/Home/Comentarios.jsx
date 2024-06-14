@@ -117,32 +117,41 @@ const Comentarios = ({ idPost, currentUser }) => {
   };
 
   return (
-    <div className="comentarios">
-      <h4>Comentarios</h4>
+    <div className="contenedor-comentarios">
+      <h4>COMENTARIOS</h4>
       {comentarios.map((comentario) => (
         <div key={comentario.idComentario} className="comentario">
-          <p>
-            <strong>@{comentario.autor} • {formatearTiempoTranscurrido(new Date(comentario.fechaComentario))}</strong>
-          </p>
-          <p>{comentario.contenido}</p>
           {currentUser === comentario.autor && !tokenExpired && (
             <button
               onClick={() => handleDeleteComentario(comentario.idComentario)}
-            >
+              className="btn-eliminar-comentario">
               Eliminar
             </button>
           )}
+          <p
+            className={`usuario-Comento ${currentUser === comentario.autor && !tokenExpired
+                ? "usuario-con-boton"
+                : ""
+              }`}
+          >
+            <strong>
+              @{comentario.autor} •{" "}
+              {formatearTiempoTranscurrido(new Date(comentario.fechaComentario))}
+            </strong>
+          </p>
+          <p className="contenido-comentario">{comentario.contenido}</p>
         </div>
       ))}
       {isAuthenticated && !tokenExpired ? (
         <div>
           <input
             type="text"
+            className="text-new-comment"
             value={newComentario}
             onChange={(e) => setNewComentario(e.target.value)}
             placeholder="Escribe un comentario"
           />
-          <button onClick={handleAddComentario}>Comentar</button>
+          <button className="btn-comentar" onClick={handleAddComentario}>Comentar</button>
         </div>
       ) : (
         <p>
