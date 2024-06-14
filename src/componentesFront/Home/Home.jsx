@@ -219,17 +219,6 @@ const Home = () => {
             {/* </Link>*/}
           </div>
           <BuscadorPosts setPosts={setPosts} />
-
-          {/*   <div className="buscador">
-            <input
-              className="inputB"
-              disabled={searchDisabled}
-              type="text"
-              placeholder="Search"
-            />
-            <FaSearch className="iconoBuscar" />
-          </div>
-          */}
           <Link
             className="btnInicioSesion"
             id="btnP"

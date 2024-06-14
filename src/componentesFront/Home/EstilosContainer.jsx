@@ -172,15 +172,6 @@ const EstilosContainer = () => {
           margin-bottom: 1em;
         }
 
-        footer {
-          padding: 1em;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          font-size: 1rem;
-          color: var(--color-claro);
-        }
-
         @keyframes vawe {
           20% {
             border-radius: 45% 55% 62% 38% / 53% 51% 49% 47%;

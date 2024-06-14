@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import './Login.css';
 const RecuperarContra = ({ handleBackToLoginClick }) => {
   const [email, setEmail] = useState("");
   const [emailExists, setEmailExists] = useState(false);
@@ -158,8 +158,8 @@ const RecuperarContra = ({ handleBackToLoginClick }) => {
   };
 
   return (
-    <div className="modal" style={styles.modal}>
-      <div className="modal-content" style={styles.modalContent}>
+    <div className="modal-rc">
+      <div className="modal-content-rc" style={styles.modalContent}>
         <h2>Recuperar Contraseña</h2>
         {!emailSent && (
           <form onSubmit={handleSubmit} style={styles.form}>
@@ -206,6 +206,7 @@ const RecuperarContra = ({ handleBackToLoginClick }) => {
                 backgroundColor: !validEmailFormat || emailAvailable ? "gray" : "#007BFF",
                 cursor: !validEmailFormat || emailAvailable ? "not-allowed" : "pointer",
               }}
+              className="btnEnviar-rc"
               disabled={!validEmailFormat || emailAvailable || sendingEmail} // Deshabilitar el botón cuando el email no es válido o se está enviando el correo
             >
               {sendingEmail ? "Enviando..." : "Enviar"}
@@ -291,7 +292,6 @@ const RecuperarContra = ({ handleBackToLoginClick }) => {
         <div className="btnContainerG">
           <button
             id="btnSalir"
-            data-atropos-offset="20"
             className="btnRegresoLogin"
             onClick={handleBackToLoginClick}
           >

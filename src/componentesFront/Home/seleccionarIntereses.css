@@ -218,7 +218,7 @@ button:disabled {
 */
 
 
-button {
+/*button {
   display: inline-block;
   padding: 8px 10px;
   color: #03e8f4cd;
@@ -243,7 +243,7 @@ button:hover {
 button:disabled {
   color: #cccccc;
   cursor: not-allowed;
-}
+}*/
   
 
 @import url("https://fonts.googleapis.com/css?family=Raleway:400");

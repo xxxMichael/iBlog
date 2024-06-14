@@ -31,7 +31,7 @@ const BuscadorPosts = ({ setPosts }) => {
         className="inputB"
         disabled={searchDisabled}
         type="text"
-        placeholder="Search"
+        placeholder="Search for name of Post"
         value={searchTerm}
         onChange={(event) => setSearchTerm(event.target.value)}
         onKeyDown={handleSearch} // Manejar la tecla Enter
