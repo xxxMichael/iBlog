@@ -50,7 +50,7 @@ function Formulario({ onClose }) {
     useEffect(() => {
         const fetchCategorias = async () => {
             try {
-                const response = await axios.get('http://52.67.196.92:3000/consultarCatego');
+                const response = await axios.get(`http://${host}:3000/consultarCatego`);
                 setCategorias(response.data);
             } catch (error) {
                 console.error('Error al obtener las categorías:', error);

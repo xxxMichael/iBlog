@@ -5,7 +5,7 @@ body {
   display: flex;
   height: 100vh; /* Establece la altura al 100% del viewport */
 }
-.barra-navegacion {
+.barra-navegacion-home {
   border-bottom: 1px solid rgb(62, 65, 66);
   background: transparent;
   backdrop-filter: blur(10px);
@@ -352,9 +352,6 @@ body {
 }
 
 @media (max-width: 1024px) {
-  .barra-navegacion {
-
-  }
   .logo-image {
     width: 100px;
     height: 80px;
@@ -383,13 +380,15 @@ body {
   }
   .cont {
     flex-direction: column;
+    
   }
   .contDerecho {
     margin-top: 0;
     border: 1px solid rgb(235, 228, 228);
+    background-color: rgb(14, 17, 19);
     margin-left: 0px;
     margin-right: 0px;
-    height: 260px;
+    height: 50px;
     position: relative;
     color: black;
     overflow: hidden;
@@ -397,13 +396,61 @@ body {
     top: 0%;
     right: 0%;
     order: -1;
+    position: sticky;
+    top: 80px;
+    z-index: 1;
   }
   .contIzquierdo {
     position: relative;
   }
   .contIzquierdo,
-  .contCentral,
   .contDerecho {
     width: 100%;
+  }
+  .barra-navegacion-home {
+    border-bottom: 1px solid rgb(62, 65, 66);
+    background: transparent;
+    backdrop-filter: blur(10px);
+    height: 80px;
+    align-items: center;
+    background-color: rgb(14, 17, 19);
+    top: 0;
+    justify-content: space-between;
+    z-index: 1;
+    align-items: center;
+  }
+  .postP {
+    background-color: rgb(14, 17, 19);
+    width: 100%;
+    left: 0%;
+    position: relative;
+    display: flez;
+    border-bottom: 1px solid rgb(62, 65, 66);
+    border-top: 1px solid rgb(62, 65, 66);
+  }
+  .contCentral{
+    flex: 0 0 auto;
+    width: 100%;
+    overflow-y: auto; /* Habilita el scroll vertical cuando el contenido es más largo que el contenedor */
+    height: 100%;
+    margin-left: 0%;
+  }
+  .card-image-post {
+    min-height: 150px;
+    max-width: 665px;
+    background-color: #313131;
+    border-radius: 15px;
+    background: #313131;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .card-image-post img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    display: block;
+    object-fit: cover;
   }
 }

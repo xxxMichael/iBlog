@@ -31,7 +31,7 @@ export function decodificar(token) {
   return JSON.parse(jsonPayload);
 }
 
-export const host = "consulta.iblog.click";
+export const host = "localhost";
 
 const Home = () => {
   const [userData, setUserData] = useState(null);
@@ -218,7 +218,7 @@ const Home = () => {
   return (
     <>
       <div className="contedorPrincipal">
-        <div className="barra-navegacion">
+        <div className="barra-navegacion-home">
           <div className="logo-container">
             <img
               className="logo-image"
