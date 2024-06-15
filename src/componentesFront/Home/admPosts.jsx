@@ -85,7 +85,7 @@ const AdmPosts = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(data),
+                body: JSON.stringify({ id: post.idPost }),
             });
             if (response.ok) {
                 alert('Se eliminó correctamente el post');
@@ -97,6 +97,7 @@ const AdmPosts = () => {
             console.error('Error:', error);
         }
     };
+
 
 
     return (
