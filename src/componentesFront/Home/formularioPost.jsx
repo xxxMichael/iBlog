@@ -35,7 +35,6 @@ function Formulario({ onClose }) {
     const [contenido, setContenido] = useState("");
     const [archivo, setArchivo] = useState(null);
     const [archivoCompleto, setArchivoCompleto] = useState(null);
-    const [urlDocumento, setUrlDocumento] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -122,30 +121,12 @@ function Formulario({ onClose }) {
             if (content.trim() != '') {
                 if (selectedCount > 0) {
                     if (!archivo) {
-                        if (archivoCompleto) {
-                            const formData = new FormData();
-                            formData.append('file', archivoCompleto);
-
-                            // Enviar la imagen al servidor
-                            await axios.post(`https://${host}/subidaA`, formData, {
-                                headers: { 'Content-Type': 'multipart/form-data', },
-                            })
-                                .then(async function (response) {
-                                    console.log(response);
-                                    if (response.status === 200) {
-                                        console.log('exito al subir Archivo');
-                                        setUrlDocumento(response.data.urlDocumento);
-                                    }
-                                    else { console.log("error"); }
-                                });
-                        }
                         console.log('Titulo:' + titulo);
                         console.log('Contenido' + contenido);
                         console.log('due;o: ' + dueño);
                         console.log('cat1 ' + idCategoria1);
                         console.log('cat2 ' + idCategoria2);
                         console.log('cat3 ' + idCategoria3);
-                        console.log('archivoSu: ' + urlDocumento);
                         const fechaHora = new Date();
                         const año = fechaHora.getFullYear();
                         const mes = (fechaHora.getMonth() + 1).toString().padStart(2, '0'); // Los meses van de 0 a 11, por lo que sumamos 1
@@ -159,7 +140,6 @@ function Formulario({ onClose }) {
                             titulo: titulo,
                             contenido: contenido,
                             urlImagen: "",
-                            urlDocumento: urlDocumento,
                             fechaPublicacion: fechaFormateada,
                             idCategoria1: idCategoria1,
                             idCategoria2: idCategoria2,
@@ -216,7 +196,6 @@ function Formulario({ onClose }) {
                                         titulo: titulo,
                                         contenido: contenido,
                                         urlImagen: urlImagen,
-                                        urlDocumento: urlDocumento,
                                         fechaPublicacion: fechaFormateada,
                                         idCategoria1: idCategoria1,
                                         idCategoria2: idCategoria2,

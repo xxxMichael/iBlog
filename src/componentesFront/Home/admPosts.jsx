@@ -114,9 +114,15 @@ const AdmPosts = () => {
                             </div>*/}
                             <article className="card-ed-post">
                                 <div className="card-img-ed-post">
-                                    <div className="card-imgs pv delete">
-                                        <img className="img-Post" src={post.urlImagen + '?${new Date().getTime()}'} alt="imagen del Post" />
-                                    </div>
+                                    {post.urlImagen ? (
+                                        <div className="card-imgs pv delete">
+                                            <img className="img-Post" src={post.urlImagen + '?${new Date().getTime()}'} alt="imagen del Post" />
+                                        </div>
+                                    ) : (
+                                        <div className="card-imgs pv delete">
+                                            <img className="img-Post" src={'https://iblog-archivos.s3.sa-east-1.amazonaws.com/complementosPrincipal/no-hay-foto.jpeg'} alt="imagen del Post" />
+                                        </div>
+                                    )}
                                 </div>
                                 <div className="project-info">
                                     <div className="flex-ed-post">
