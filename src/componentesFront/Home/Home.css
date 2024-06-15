@@ -455,7 +455,7 @@ body {
   .btn-menu-categorias {
     writing-mode: vertical-rl; /* Modo de escritura vertical, de derecha a izquierda */
     text-orientation: mixed; /* Orientación de texto mixto para adaptarse mejor a diferentes navegadores */
-    background-color: #007bff;
+    background-color: rgb(11, 86, 91);
     color: white;
     border: none;
     padding: 10px;
@@ -464,12 +464,33 @@ body {
     cursor: pointer;
     transform: rotate(-90deg);
     position: fixed; /* Posicionar fijo para que se sobreponga */
-    left: 20px; 
+    left: 20px;
     top: 60%; /* Centrar verticalmente */
     transform-origin: bottom left; /* Punto de transformación para que el botón gire desde la esquina inferior izquierda */
     z-index: 1000;
+    transition: left 0.3s ease;
   }
   .btn-menu-categorias span {
     display: block;
+  }
+
+  .btn-menu-categorias.active {
+    left: 75%; /* Ajusta este valor al ancho del contenedor de categorías */
+  }
+  .cont-categorias-des {
+    padding: 10px;
+    width: 70%;
+    margin: 10px;
+    position: fixed;
+    height: 100%;
+    background-color: rgb(14, 17, 19);
+    left: 0;
+    margin-left: 0;
+    top: 7%;
+    z-index: 1000;
+    transition: left 0.3s ease;
+  }
+  .cont-categorias-des h2 {
+    color: white;
   }
 }

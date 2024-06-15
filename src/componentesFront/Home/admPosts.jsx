@@ -95,7 +95,7 @@ const AdmPosts = () => {
                 {postU.length > 0 ? (
                     postU.map((post) => (
                         <div key={post.idPost} className="postUsuario">
-                            <div className="PropioPost">
+                            {/*<div className="PropioPost">
                                 <label className="titulo-Post">{post.titulo}</label>
                                 <div className="PropioPost">
                                     <img className="img-Post" src={post.urlImagen + '?${new Date().getTime()}'} alt="imagen del Post" />
@@ -111,7 +111,24 @@ const AdmPosts = () => {
                                     <button onClick={() => eliminarPost(post)} className="btn-Borrar"> BORRAR </button>
                                 </div>
 
-                            </div>
+                            </div>*/}
+                            <article className="card-ed-post">
+                                <div className="card-img-ed-post">
+                                    <div className="card-imgs pv delete">
+                                        <img className="img-Post" src={post.urlImagen + '?${new Date().getTime()}'} alt="imagen del Post" />
+                                    </div>
+                                </div>
+                                <div className="project-info">
+                                    <div className="flex-ed-post">
+                                        <div className="project-title-ed-post">{post.titulo}</div>
+                                    </div>
+                                    <span className="lighter-ed-post"
+                                    >{post.contenido}.</span
+                                    >
+                                </div>
+                                <button onClick={() => editarPost(post)} > EDITAR </button>
+                                <button onClick={() => eliminarPost(post)}> BORRAR </button>
+                            </article>
                         </div>
                     ))
                 ) : (

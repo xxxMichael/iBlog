@@ -57,3 +57,100 @@
 .cat-Post {
   color: white;
 }
+.project-info {
+  padding: 100px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  top: -50px;
+}
+
+.project-title-ed-post {
+  font-weight: 500;
+  font-size: 1.5em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: black;
+}
+
+.lighter-ed-post {
+  font-size: 0.9em;
+}
+
+.flex-ed-post {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tag-ed-post {
+  font-weight: lighter;
+  color: grey;
+}
+
+.delete {
+  background-color: #b2b2fd;
+}
+
+.card-img-ed-post div {
+  width: 90%;
+}
+/*IF USING IMAGES*/
+
+.card-ed-post {
+  background-color: white;
+  color: black;
+  width: 300px;
+  margin-top: 10%;
+  max-height: 500px;
+  min-height: 500px;
+  border-radius: 8px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  align-items: center;
+  padding: 10px;
+  height: auto;
+}
+.card-ed-post img {
+  width: 250px;
+  height: 150px;
+  border-radius: 5px;
+}
+.card-img-ed-post {
+  position: relative;
+  top: -20px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Change the .card-img div to .card-img img to use img*/
+.card-img-ed-post a,
+.card-img-ed-post div {
+  height: 150px;
+  width: 90%;
+  /* Change this width here to change the width of the color/image */
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.card-imgs {
+  transition: all 0.5s;
+}
+
+@media (max-width: 1024px) {
+  .contPosts {
+    display: grid;
+    gap: 10px;
+    border: 1px solid white;
+    height: auto;
+    padding: 20px;
+    margin-top: 2%;
+    margin-left: 2%;
+    margin-right: 2%;
+    border-radius: 25px;
+  }
+}
