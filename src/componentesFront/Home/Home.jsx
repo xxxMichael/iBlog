@@ -245,16 +245,7 @@ const Home = () => {
           {isMobile ? (
             <div className={`overlay ${isCategorias ? 'show' : ''}`}>
               <button onClick={clickCategorias} className={`btn-menu-categorias ${isCategorias ? 'active' : ''}`}>
-                <span>C</span>
-                <span>A</span>
-                <span>T</span>
-                <span>E</span>
-                <span>G</span>
-                <span>O</span>
-                <span>R</span>
-                <span>I</span>
-                <span>A</span>
-                <span>S</span>
+              ➤
               </button>
               {isCategorias && (
                 <div className="cont-categorias-des">
