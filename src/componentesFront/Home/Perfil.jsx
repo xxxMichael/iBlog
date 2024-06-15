@@ -446,12 +446,11 @@ const Perfil = () => {
                   <InteresesPerfil username={userData.username} />
                   
                   </div>
-                  <button type="submit">Guardar</button>
                   <button
                     type="button"
                     onClick={() => setInterestsModalOpen(false)}
                   >
-                    Cancelar
+                    Aceptar
                   </button>
                 </form>
               </div>

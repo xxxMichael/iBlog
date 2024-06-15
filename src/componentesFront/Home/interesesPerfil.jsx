@@ -18,6 +18,7 @@ const InteresesPerfil = ({ username }) => {
     }, [username]);
 
     return (
+              
         <div className="intereses-perfil">
             <table>
                 <thead>
@@ -35,7 +36,49 @@ const InteresesPerfil = ({ username }) => {
                     ))}
                 </tbody>
             </table>
+            <style>{`
+            /* Estilos para la estructura de la tabla en InteresesPerfil */
+.intereses-perfil {
+  margin-top: 20px;
+}
+
+.intereses-perfil table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ccc;
+  background-color: #272528;
+  color: white;
+}
+
+.intereses-perfil th,
+.intereses-perfil td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ccc;
+}
+
+.intereses-perfil th {
+  background-color: #2c90fbcd;
+  color: white;
+  font-weight: bold;
+}
+
+.intereses-perfil tbody tr:nth-child(even) {
+  background-color: #373439c4;
+}
+
+.intereses-perfil tbody tr:hover {
+  background-color: #0056b3;
+  cursor: pointer;
+}
+
+.intereses-perfil td {
+  font-size: medium;
+}
+
+            `}</style>
         </div>
+  
     );
 };
 
