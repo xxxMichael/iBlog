@@ -90,7 +90,7 @@ const Login = ({onClose}) => {
       return;
     }
     try {
-      const response = await fetch(`http://${host}:3000/login`, {
+      const response = await fetch(`https://${host}/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

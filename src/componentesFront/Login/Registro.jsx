@@ -48,7 +48,7 @@ const Registro = ({ handleBackToLoginClick, handleSignUp }) => {
   useEffect(() => {
     // Verificar la disponibilidad del nombre de usuario
     if (username.trim().length >= 4) {
-      fetch(`http://${host}:3000/checkUsername`, {
+      fetch(`https://${host}/checkUsername`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -72,7 +72,7 @@ const Registro = ({ handleBackToLoginClick, handleSignUp }) => {
   useEffect(() => {
     // Verificar la disponibilidad del email solo si contiene ".com"
     if (email.includes(".com")) {
-      fetch("http://localhost:3000/checkEmail", {
+      fetch(`https://${host}/checkEmail`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -188,7 +188,7 @@ const Registro = ({ handleBackToLoginClick, handleSignUp }) => {
       fechaNac: dob,
     };
 
-    fetch("http://localhost:3000/registroNormal", {
+    fetch(`https://${host}/registroNormal`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

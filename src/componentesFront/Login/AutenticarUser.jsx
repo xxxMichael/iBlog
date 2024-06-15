@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import '../Login/Login.css';
+import { host } from '../Home/Home';
 
 const AutenticarUser = () => {
   const [codigo, setCodigo] = useState("");
@@ -12,7 +13,7 @@ const AutenticarUser = () => {
     event.preventDefault();
     console.log(codigo);
     try {
-      const response = await fetch("http://localhost:3000/verificarUser", {
+      const response = await fetch(`https://${host}/verificarUser`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
