@@ -38,16 +38,27 @@ const SeleccionarIntereses = ({ onHide }) => {
     }
   };
   const actToken = () => {};
-  const handleGuardarClick = () => {
+  async function guardarIntereses() {
+    // Recuperar el token desde la caché del navegador
     const token = localStorage.getItem("token");
-    const decodedToken = decodificar(token);
-    const username = decodedToken.username;
 
-    console.log(categorias);
-    console.log(selectedIntereses);
-    console.log(username);
-    if (selectedIntereses.length === 3) {
-      fetch(`https://${host}/guardarIntereses`, {
+    if (!token) {
+      console.error("No token found in the cache");
+      return;
+    }
+
+    try {
+      // Decodificar el token para extraer el username
+      const decodedToken = await decodificar(token);
+      const username = decodedToken.username;
+
+      if (!username) {
+        console.error("Username not found in the decoded token");
+        return;
+      }
+
+      // Realizar la solicitud para guardar intereses
+      const response = await fetch(`https://${host}/guardarIntereses`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -56,24 +67,49 @@ const SeleccionarIntereses = ({ onHide }) => {
           categorias: selectedIntereses,
           username: username,
         }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error al guardar intereses");
+      }
+
+      const data = await response.json();
+      console.log("Intereses guardados exitosamente:", data);
+
+      setExito(true);
+      setTimeout(() => {
+        onHide(); // Ocultar el componente después de 2 segundos
+      }, 1000);
+
+      // Si se guardaron correctamente los intereses, hacer fetch a infUser para obtener el token
+      fetch(`https://${host}/infUser`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username: username }),
       })
         .then((response) => {
           if (!response.ok) {
-            throw new Error("Error al guardar intereses");
+            throw new Error("Error al obtener el token");
           }
           return response.json();
         })
-        .then((data) => {
-          setExito(true);
-          setTimeout(() => {
-            onHide(); // Ocultar el componente después de 2 segundos
-          }, 1000);
+        .then((tokenData) => {
+          localStorage.setItem("token", tokenData.token);
+          console.log("Token guardado correctamente:", tokenData.token);
         })
         .catch((error) => {
-          console.error("Error al guardar intereses:", error.message);
+          console.error("Error al obtener el token:", error.message);
         });
-    } else {
-      alert("Debes seleccionar exactamente 3 intereses.");
+    } catch (error) {
+      console.error("Error al procesar la solicitud:", error.message);
+    }
+  }
+
+  const handleGuardarClick = () => {
+    if (selectedIntereses.length === 3) {
+      guardarIntereses();
     }
   };
 
