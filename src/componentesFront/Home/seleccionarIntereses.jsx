@@ -12,7 +12,7 @@ const SeleccionarIntereses = ({ onHide }) => {
   useEffect(() => {
     const fetchCategorias = async () => {
       try {
-        const response = await fetch(`http://${host}:3000/consultarCatego`);
+        const response = await fetch(`https://${host}/consultarCatego`);
         if (!response.ok) {
           throw new Error("Error al consultar categorías");
         }
@@ -44,7 +44,7 @@ const SeleccionarIntereses = ({ onHide }) => {
 
     if (selectedIntereses.length === 3) {
       // Realizar la solicitud POST
-      fetch(`http://${host}:3000/guardarIntereses`, {
+      fetch(`https://${host}/guardarIntereses`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

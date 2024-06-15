@@ -15,7 +15,7 @@ const Comentarios = ({ idPost, currentUser }) => {
     const fetchComentarios = async () => {
       try {
         const response = await axios.get(
-          `http://${host}:3000/consultarComentarios?idPost=${idPost}`
+          `https://${host}/consultarComentarios?idPost=${idPost}`
         );
         setComentarios(response.data);
       } catch (error) {
@@ -56,7 +56,7 @@ const Comentarios = ({ idPost, currentUser }) => {
     const segundos = fechaHora.getSeconds().toString().padStart(2, '0');
     const fechaFormateada = `${año}-${mes}-${dia} ${horas}:${minutos}:${segundos}`;
     try {
-      await axios.post(`http://${host}:3000/agregarComentario`, {
+      await axios.post(`https://${host}/agregarComentario`, {
         idPost,
         contenido: newComentario,
         autor: currentUser,
@@ -64,7 +64,7 @@ const Comentarios = ({ idPost, currentUser }) => {
       });
       setNewComentario("");
       const updatedComentarios = await axios.get(
-        `http://${host}:3000/consultarComentarios?idPost=${idPost}`
+        `https://${host}/consultarComentarios?idPost=${idPost}`
       );
       setComentarios(updatedComentarios.data);
     } catch (error) {
@@ -75,10 +75,10 @@ const Comentarios = ({ idPost, currentUser }) => {
   const handleDeleteComentario = async (idComentario) => {
     try {
       await axios.delete(
-        `http://${host}:3000/eliminarComentario?idComentario=${idComentario}`
+        `https://${host}/eliminarComentario?idComentario=${idComentario}`
       );
       const updatedComentarios = await axios.get(
-        `http://${host}:3000/consultarComentarios?idPost=${idPost}`
+        `https://${host}/consultarComentarios?idPost=${idPost}`
       );
       setComentarios(updatedComentarios.data);
     } catch (error) {

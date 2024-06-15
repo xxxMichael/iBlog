@@ -19,7 +19,7 @@ const AdmPosts = () => {
                 const fetchPosts = async () => {
                     try {
                         const response = await axios.get(
-                            `http://${host}:3000/consultarpostsUsuario?usuarioP=${decoded.username}`
+                            `https://${host}/consultarpostsUsuario?usuarioP=${decoded.username}`
                         );
                         setPostU(response.data);
                     } catch (error) {
@@ -53,7 +53,7 @@ const AdmPosts = () => {
     }
     const eliminarPost = async (post) => {
         const nombreI = getFileNameFromUrl(post.urlImagen);
-        await axios.post(`http://${host}:3000/eliminarI`, { nombreI }, {
+        await axios.post(`https://${host}/eliminarI`, { nombreI }, {
             headers: { 'Content-Type': 'application/json' },
         })
             .then(async function (response) {
@@ -65,7 +65,7 @@ const AdmPosts = () => {
                         id: post.idPost
                     };
                     try {
-                        const response = await fetch(`http://${host}:3000/eliminarPost`, {
+                        const response = await fetch(`https://${host}/eliminarPost`, {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',

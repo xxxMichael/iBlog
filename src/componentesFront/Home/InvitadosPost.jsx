@@ -16,7 +16,7 @@ const InvitadoPosts = () => {
     const loadPosts = async () => {
       try {
         const response = await axios.get(
-          `http://${host}:3000/consultarpostsall?limit=10&offset=0`
+          `https://${host}/consultarpostsall?limit=10&offset=0`
         );
         setPosts(response.data);
         setHasMore(false); // Desactiva la carga adicional de posts

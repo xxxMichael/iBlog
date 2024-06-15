@@ -11,7 +11,7 @@ const BuscadorPosts = ({ setPosts }) => {
       setSearchDisabled(true);
 
       try {
-        const response = await fetch(`http://${host}:3000/BuscarPostsNombre?nombre=${event.target.value}`);
+        const response = await fetch(`https://${host}/BuscarPostsNombre?nombre=${event.target.value}`);
         if (!response.ok) {
           throw new Error("Error al buscar posts");
         }
