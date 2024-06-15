@@ -117,7 +117,6 @@ function Formulario({ onClose }) {
     const idCategoria3 = selectedComponents.length >= 3 ? selectedComponents[2] : null;
     const enviarPost = async (e) => {
         e.preventDefault();
-/*
         if (tit.trim() === '') {
             alert("Ingrese un titulo");
             return;
@@ -135,6 +134,7 @@ function Formulario({ onClose }) {
 
         try {
             let urlImagen = "";
+            let urlDocumento = "";
             if (archivo) {
                 const formData = new FormData();
                 formData.append('file', archivo);
@@ -147,6 +147,21 @@ function Formulario({ onClose }) {
                     urlImagen = responseImagen.data.urlImagen;
                 } else {
                     console.error('Error al subir la imagen:', responseImagen.statusText);
+                    return;
+                }
+            }
+            if (archivoCompleto) {
+                const formDatas = new FormData();
+                formDatas.append('file', archivoCompleto);
+
+                const responseArchivo = await axios.post(`https://${host}/subidaA`, formDatas, {
+                    headers: { 'Content-Type': 'multipart/form-data' },
+                });
+
+                if (responseArchivo.status === 200) {
+                    urlDocumento = responseArchivo.data.urlDocumento;
+                } else {
+                    console.error('Error al subir la imagen:', responseArchivo.statusText);
                     return;
                 }
             }
@@ -165,6 +180,7 @@ function Formulario({ onClose }) {
                 titulo: titulo,
                 contenido: contenido,
                 urlImagen: urlImagen,
+                urlDocumento: urlDocumento,
                 fechaPublicacion: fechaFormateada,
                 idCategoria1: idCategoria1,
                 idCategoria2: idCategoria2,
@@ -188,8 +204,7 @@ function Formulario({ onClose }) {
             }
         } catch (error) {
             console.error('Error en el proceso:', error);
-        }*/
-       console.log(archivoCompleto);
+        }
     };
 
     const handleImageChange = (e) => {
