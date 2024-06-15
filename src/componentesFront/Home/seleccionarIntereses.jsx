@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { host } from "./Home";
 import "./seleccionarIntereses.css";
-
+import { decodificar } from "../Home/Home";
 const SeleccionarIntereses = ({ onHide }) => {
   const [categorias, setCategorias] = useState([]);
   const [selectedIntereses, setSelectedIntereses] = useState([]);
@@ -37,19 +37,25 @@ const SeleccionarIntereses = ({ onHide }) => {
       setSelectedIntereses(selectedIntereses.filter((item) => item !== value));
     }
   };
-
+  const actToken = () => {};
   const handleGuardarClick = () => {
+    const token = localStorage.getItem("token");
+    const decodedToken = decodificar(token);
+    const username = decodedToken.username;
+
     console.log(categorias);
     console.log(selectedIntereses);
-
+    console.log(username);
     if (selectedIntereses.length === 3) {
-      // Realizar la solicitud POST
       fetch(`https://${host}/guardarIntereses`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ categorias: selectedIntereses }),
+        body: JSON.stringify({
+          categorias: selectedIntereses,
+          username: username,
+        }),
       })
         .then((response) => {
           if (!response.ok) {
@@ -58,7 +64,7 @@ const SeleccionarIntereses = ({ onHide }) => {
           return response.json();
         })
         .then((data) => {
-          setExito(true); // Indicar que la inserción fue exitosa
+          setExito(true);
           setTimeout(() => {
             onHide(); // Ocultar el componente después de 2 segundos
           }, 1000);
@@ -77,12 +83,10 @@ const SeleccionarIntereses = ({ onHide }) => {
 
   return (
     <div className="seleccionar-intereses">
-
       <form>
         <h2>Seleccione sus Intereses</h2>
 
         <div className="organizador">
-
           {categorias.map((categoria) => (
             <div key={categoria.id} className="checkbox-container">
               <input
@@ -102,7 +106,6 @@ const SeleccionarIntereses = ({ onHide }) => {
               {/*  <span>{categoria.nombre}</span>*/}
             </div>
           ))}
-
         </div>
         <button
           onClick={handleGuardarClick}
@@ -111,8 +114,6 @@ const SeleccionarIntereses = ({ onHide }) => {
           Guardar intereses
         </button>
       </form>
-
-
     </div>
   );
 };
