@@ -77,7 +77,7 @@ const Home = () => {
 
 
 
-  const handleMultipleCategoriesClick = async (categoriaIds) => {
+  const handleMultipleCategoriesClick = async (categoriaId) => {
     try {
       const response = await axios.post(
         `https://${host}/consultaPostCat`,
