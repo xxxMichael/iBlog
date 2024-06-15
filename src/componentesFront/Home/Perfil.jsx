@@ -6,7 +6,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { host } from "./Home";
 import { decodificar } from "../Home/Home"; // Importa la función decodificar desde el componente Home
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import InteresesPerfil from './interesesPerfil'; // Importar el componente InteresesPerfil
+
+
 const Perfil = () => {
   const navigate = useNavigate();
 
@@ -39,7 +42,6 @@ const Perfil = () => {
     return country !== "N/A";
   };
   const validateDateOfBirth = (dateOfBirth) => {
-    // Verificar si es una fecha válida
     const isValidDate = !isNaN(Date.parse(dateOfBirth));
 
     // Verificar que la fecha no sea mayor a 100 años ni menor a 12 años
@@ -67,11 +69,11 @@ const Perfil = () => {
   };
 
   const [modalOpen, setModalOpen] = useState(false);
-  // Estado para controlar el tipo de modal
   const [modalType, setModalType] = useState("");
-  // Estados para almacenar los nuevos valores de nombre y apellido
   const [newName, setNewName] = useState("");
   const [newLastName, setNewLastName] = useState("");
+  const [newDateOfBirth, setNewDateOfBirth] = useState("");
+  const [newCountry, setNewCountry] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -92,6 +94,7 @@ const Perfil = () => {
       };
       if (!validateDateOfBirth(newDateOfBirth)) {
         console.error("Fecha de nacimiento inválida.");
+
         return;
       }
     } else if (modalType === "country") {
@@ -138,9 +141,62 @@ const Perfil = () => {
       console.error("Error al enviar los datos:", error);
     }
   };
+  const [interestsModalOpen, setInterestsModalOpen] = useState(false);
+  const [userInterests, setUserInterests] = useState([]);
+  const handleInterestChange = (e, index) => {
+    const updatedInterests = [...userInterests];
+    updatedInterests[index] = e.target.value;
+    setUserInterests(updatedInterests);
+  };
+  const handleSubmitInterests = async (e) => {
+    e.preventDefault();
 
-  const [newDateOfBirth, setNewDateOfBirth] = useState("");
-  const [newCountry, setNewCountry] = useState("");
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.error("No se encontró un token en el almacenamiento local");
+      return;
+    }
+
+    const payload = {
+      interests: userInterests,
+      username: userData.username,
+    };
+
+    try {
+      const response = await fetch(`https://${host}/guardarIntereses`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error en la solicitud");
+      }
+
+      const result = await response.json();
+      console.log(result);
+
+      // Aquí puedes manejar la respuesta, actualizar el estado si es necesario
+
+      setInterestsModalOpen(false); // Cierra la ventana modal después de enviar el formulario
+    } catch (error) {
+      console.error("Error al enviar los datos de intereses:", error);
+    }
+  };
+
+  const handleInterestsEdit = () => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      const decodedToken = decodificar(token); // Decodificar el token
+      setUserInterests(decodedToken.interests); // Obtener las categorías de intereses desde el token
+      setInterestsModalOpen(true); // Abrir la ventana modal de intereses
+    } else {
+      console.error("No se encontró un token en el almacenamiento local");
+    }
+  };
 
   const handleEdit = () => {
     setModalOpen(true);
@@ -149,7 +205,7 @@ const Perfil = () => {
     const token = localStorage.getItem("token");
 
     if (token == null) {
-      navigate('/');
+      navigate("/");
     }
 
     const fetchUserData = async () => {
@@ -237,7 +293,13 @@ const Perfil = () => {
             <Link to="/admPosts" className="edit-button edit-posts">
               Mis posts
             </Link>
-            <button className="edit-button edit-categories">Intereses</button>
+            <button
+              className="edit-button edit-categories"
+              onClick={handleInterestsEdit}
+            >
+              Intereses
+            </button>
+
             <div className="profile-picture">
               <img
                 src="https://images.wikidexcdn.net/mwuploads/wikidex/thumb/f/fb/latest/20200411222755/Charmeleon.png/800px-Charmeleon.png"
@@ -337,6 +399,7 @@ const Perfil = () => {
                       Nuevo País:
                       <select
                         id="country"
+                        nameclass="select"
                         value={newCountry}
                         onChange={(e) => setNewCountry(e.target.value)}
                         required
@@ -369,6 +432,25 @@ const Perfil = () => {
                   <button type="submit">Guardar</button>
                   <button type="button" onClick={() => setModalOpen(false)}>
                     Cancelar
+                  </button>
+                </form>
+              </div>
+            </div>
+          )}
+          {interestsModalOpen && (
+            <div className="modal">
+              <div className="modal-content">
+                <h2>Sus Intereses</h2>
+                <form onSubmit={handleSubmitInterests}>
+                  <div>
+                  <InteresesPerfil username={userData.username} />
+                  
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setInterestsModalOpen(false)}
+                  >
+                    Aceptar
                   </button>
                 </form>
               </div>
