@@ -2,20 +2,20 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { host } from './Home';
 
-const interesesPerfil = () => {
+const InteresesPerfil = ({ username }) => {
     const [intereses, setIntereses] = useState([]);
 
     useEffect(() => {
         const fetchInteresesUsuario = async () => {
             try {
-                const response = await axios.get(`https://${host}/interesesUsuario`);
+                const response = await axios.post(`https://${host}/interesesUsuario`, { username });
                 setIntereses(response.data);
             } catch (error) {
                 console.error('Error al obtener los intereses del usuario:', error);
             }
         };
         fetchInteresesUsuario();
-    }, []);
+    }, [username]); // Agregar username como dependencia para que se actualice cuando cambie
 
     return (
         <div className="intereses-perfil">
@@ -42,4 +42,4 @@ const interesesPerfil = () => {
     );
 };
 
-export default interesesPerfil;
+export default InteresesPerfil;
