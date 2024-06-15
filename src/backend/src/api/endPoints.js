@@ -40,7 +40,7 @@ const infUser = require('../controllers/infUser');
 router.post('/guardarIntereses', guardarIntereses);
 router.post('/guardarCambios', guardarCambios);
 router.get('/consultarpostsUsuario', consultarpostsUsuario);
-router.get('/infUser', infUser);
+router.post('/infUser', infUser);
 
 router.get('/consultarpostsall', consultarpostsall);
 router.get('/BuscarPostsNombre', BuscarPostsNombre);
