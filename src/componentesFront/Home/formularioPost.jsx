@@ -117,7 +117,7 @@ function Formulario({ onClose }) {
     const idCategoria3 = selectedComponents.length >= 3 ? selectedComponents[2] : null;
     const enviarPost = async (e) => {
         e.preventDefault();
-
+/*
         if (tit.trim() === '') {
             alert("Ingrese un titulo");
             return;
@@ -188,7 +188,8 @@ function Formulario({ onClose }) {
             }
         } catch (error) {
             console.error('Error en el proceso:', error);
-        }
+        }*/
+       console.log(archivoCompleto);
     };
 
     const handleImageChange = (e) => {

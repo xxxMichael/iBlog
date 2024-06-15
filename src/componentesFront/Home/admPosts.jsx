@@ -108,23 +108,6 @@ const AdmPosts = () => {
                 {postU.length > 0 ? (
                     postU.map((post) => (
                         <div key={post.idPost} className="postUsuario">
-                            {/*<div className="PropioPost">
-                                <label className="titulo-Post">{post.titulo}</label>
-                                <div className="PropioPost">
-                                    <img className="img-Post" src={post.urlImagen + '?${new Date().getTime()}'} alt="imagen del Post" />
-                                </div>
-                                <p className="post-Contenido">{post.contenido}</p>
-                                <div className="cont-Cat">
-                                    <label className="cat-Post">{post.categoria1}</label><br />
-                                    <label className="cat-Post">{post.categoria2}</label><br />
-                                    <label className="cat-Post">{post.categoria3}</label>
-                                </div>
-                                <div className="cont-btns">
-                                    <button onClick={() => editarPost(post)} className="btn-Editar"> EDITAR </button>
-                                    <button onClick={() => eliminarPost(post)} className="btn-Borrar"> BORRAR </button>
-                                </div>
-
-                            </div>*/}
                             <article className="card-ed-post">
                                 <div className="card-img-ed-post">
                                     {post.urlImagen ? (
