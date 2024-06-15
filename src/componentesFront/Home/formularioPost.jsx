@@ -117,120 +117,80 @@ function Formulario({ onClose }) {
     const idCategoria3 = selectedComponents.length >= 3 ? selectedComponents[2] : null;
     const enviarPost = async (e) => {
         e.preventDefault();
-        if (tit.trim() != '') {
-            if (content.trim() != '') {
-                if (selectedCount > 0) {
-                    if (!archivo) {
-                        console.log('Titulo:' + titulo);
-                        console.log('Contenido' + contenido);
-                        console.log('due;o: ' + dueño);
-                        console.log('cat1 ' + idCategoria1);
-                        console.log('cat2 ' + idCategoria2);
-                        console.log('cat3 ' + idCategoria3);
-                        const fechaHora = new Date();
-                        const año = fechaHora.getFullYear();
-                        const mes = (fechaHora.getMonth() + 1).toString().padStart(2, '0'); // Los meses van de 0 a 11, por lo que sumamos 1
-                        const dia = fechaHora.getDate().toString().padStart(2, '0');
-                        const horas = fechaHora.getHours().toString().padStart(2, '0');
-                        const minutos = fechaHora.getMinutes().toString().padStart(2, '0');
-                        const segundos = fechaHora.getSeconds().toString().padStart(2, '0');
-                        const fechaFormateada = `${año}-${mes}-${dia} ${horas}:${minutos}:${segundos}`;
-                        const data = {
-                            dueño: dueño,
-                            titulo: titulo,
-                            contenido: contenido,
-                            urlImagen: "",
-                            fechaPublicacion: fechaFormateada,
-                            idCategoria1: idCategoria1,
-                            idCategoria2: idCategoria2,
-                            idCategoria3: idCategoria3
-                        };
-                        try {
-                            const response = await fetch(`https://${host}/almacenarPost`, {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                },
-                                body: JSON.stringify(data),
-                            });
-                            if (response.ok) {
-                                alert('Se agrego correctamente el nuevo post');
-                                onClose();
-                                window.location.reload();
-                            }
-                        } catch (error) {
-                            console.error('Error:', error);
-                        }
-                    }
-                    else {
-                        const formData = new FormData();
-                        formData.append('file', archivo);
 
-                        // Enviar la imagen al servidor
-                        await axios.post(`https://${host}/subida`, formData, {
-                            headers: { 'Content-Type': 'multipart/form-data', },
-                        })
-                            .then(async function (response) {
-                                console.log(response);
-
-                                if (response.status === 200) {
-                                    console.log("exito");
-                                    let urlImagen = response.data.urlImagen;
-                                    console.log('Titulo:' + titulo);
-                                    console.log('Contenido' + contenido);
-                                    console.log('due;o: ' + dueño);
-                                    console.log('url: ' + urlImagen);
-                                    console.log('cat1 ' + idCategoria1);
-                                    console.log('cat2 ' + idCategoria2);
-                                    console.log('cat3 ' + idCategoria3);
-                                    const fechaHora = new Date();
-                                    const año = fechaHora.getFullYear();
-                                    const mes = (fechaHora.getMonth() + 1).toString().padStart(2, '0'); // Los meses van de 0 a 11, por lo que sumamos 1
-                                    const dia = fechaHora.getDate().toString().padStart(2, '0');
-                                    const horas = fechaHora.getHours().toString().padStart(2, '0');
-                                    const minutos = fechaHora.getMinutes().toString().padStart(2, '0');
-                                    const segundos = fechaHora.getSeconds().toString().padStart(2, '0');
-                                    const fechaFormateada = `${año}-${mes}-${dia} ${horas}:${minutos}:${segundos}`;
-                                    const data = {
-                                        dueño: dueño,
-                                        titulo: titulo,
-                                        contenido: contenido,
-                                        urlImagen: urlImagen,
-                                        fechaPublicacion: fechaFormateada,
-                                        idCategoria1: idCategoria1,
-                                        idCategoria2: idCategoria2,
-                                        idCategoria3: idCategoria3
-                                    };
-                                    try {
-                                        const response = await fetch(`https://${host}/almacenarPost`, {
-                                            method: 'POST',
-                                            headers: {
-                                                'Content-Type': 'application/json',
-                                            },
-                                            body: JSON.stringify(data),
-                                        });
-                                        if (response.ok) {
-                                            alert('Se agrego correctamente el nuevo post');
-                                            onClose();
-                                            window.location.reload();
-                                        }
-                                    } catch (error) {
-                                        console.error('Error:', error);
-                                    }
-                                }
-                                else { console.log("error"); }
-                            });
-                    }
-                } else {
-                    alert("Selecciona al menos una categoria");
-                }
-            } else {
-                alert("Ingrese contenido");
-            }
-        } else {
+        if (tit.trim() === '') {
             alert("Ingrese un titulo");
+            return;
         }
-    }
+
+        if (content.trim() === '') {
+            alert("Ingrese contenido");
+            return;
+        }
+
+        if (selectedCount === 0) {
+            alert("Selecciona al menos una categoria");
+            return;
+        }
+
+        try {
+            let urlImagen = "";
+            if (archivo) {
+                const formData = new FormData();
+                formData.append('file', archivo);
+
+                const responseImagen = await axios.post(`https://${host}/subida`, formData, {
+                    headers: { 'Content-Type': 'multipart/form-data' },
+                });
+
+                if (responseImagen.status === 200) {
+                    urlImagen = responseImagen.data.urlImagen;
+                } else {
+                    console.error('Error al subir la imagen:', responseImagen.statusText);
+                    return;
+                }
+            }
+
+            const fechaHora = new Date();
+            const año = fechaHora.getFullYear();
+            const mes = (fechaHora.getMonth() + 1).toString().padStart(2, '0');
+            const dia = fechaHora.getDate().toString().padStart(2, '0');
+            const horas = fechaHora.getHours().toString().padStart(2, '0');
+            const minutos = fechaHora.getMinutes().toString().padStart(2, '0');
+            const segundos = fechaHora.getSeconds().toString().padStart(2, '0');
+            const fechaFormateada = `${año}-${mes}-${dia} ${horas}:${minutos}:${segundos}`;
+
+            const data = {
+                dueño: dueño,
+                titulo: titulo,
+                contenido: contenido,
+                urlImagen: urlImagen,
+                fechaPublicacion: fechaFormateada,
+                idCategoria1: idCategoria1,
+                idCategoria2: idCategoria2,
+                idCategoria3: idCategoria3
+            };
+
+            const responsePost = await fetch(`https://${host}/almacenarPost`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            if (responsePost.ok) {
+                alert('Se agregó correctamente el nuevo post');
+                onClose();
+                window.location.reload();
+            } else {
+                console.error('Error al almacenar el post:', responsePost.statusText);
+            }
+        } catch (error) {
+            console.error('Error en el proceso:', error);
+        }
+    };
+
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         console.log(file);

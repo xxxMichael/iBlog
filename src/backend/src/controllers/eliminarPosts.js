@@ -7,7 +7,7 @@ module.exports.eliminarPost = (req, res) => {
     const query = `
         DELETE posts, comentarios
         FROM posts
-        JOIN comentarios ON posts.idPost = comentarios.idPost
+        LEFT JOIN comentarios ON posts.idPost = comentarios.idPost
         WHERE posts.idPost = ?;
     `;
 

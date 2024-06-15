@@ -52,37 +52,52 @@ const AdmPosts = () => {
         return fileName;
     }
     const eliminarPost = async (post) => {
-        const nombreI = getFileNameFromUrl(post.urlImagen);
-        await axios.post(`https://${host}/eliminarI`, { nombreI }, {
-            headers: { 'Content-Type': 'application/json' },
-        })
-            .then(async function (response) {
-                console.log(response);
+        if (post.urlImagen) {
+            const nombreI = getFileNameFromUrl(post.urlImagen);
+            await axios.post(`https://${host}/eliminarI`, { nombreI }, {
+                headers: { 'Content-Type': 'application/json' },
+            })
+                .then(async function (response) {
+                    console.log(response);
 
-                if (response.status === 200) {
-                    console.log('exito al eliminar Imagen');
-                    const data = {
-                        id: post.idPost
-                    };
-                    try {
-                        const response = await fetch(`https://${host}/eliminarPost`, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify(data),
-                        });
-                        if (response.ok) {
-                            alert('Se elimino correctamente el post');
-                            window.location.reload();
-                        }
-                    } catch (error) {
-                        console.error('Error:', error);
+                    if (response.status === 200) {
+                        console.log('Éxito al eliminar imagen');
+                        await eliminarPostSinImagen(post);
+                    } else {
+                        console.log("Error al eliminar imagen");
                     }
-                }
-                else { console.log("error"); }
+                })
+                .catch(function (error) {
+                    console.error('Error:', error);
+                });
+        } else {
+            await eliminarPostSinImagen(post);
+        }
+    };
+
+    const eliminarPostSinImagen = async (post) => {
+        const data = {
+            id: post.idPost
+        };
+        try {
+            const response = await fetch(`https://${host}/eliminarPost`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
             });
-    }
+            if (response.ok) {
+                alert('Se eliminó correctamente el post');
+                window.location.reload();
+            } else {
+                console.error('Error al eliminar post:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
 
     return (
         <>
