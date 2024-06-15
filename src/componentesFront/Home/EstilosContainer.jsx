@@ -298,18 +298,21 @@ const EstilosContainer = () => {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+  background-color: transparent); /* Fondo semitransparente */
   width: 400px; /* Ancho de la ventana modal */
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); /* Sombra */
+  display: flex;
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
 }
 
 .modal-content {
-  background-color: white;
+  background-color: black;
   padding: 20px;
   border-radius: 10px;
 }
+
 
 .modal h2 {
   margin-bottom: 20px;
