@@ -29,10 +29,11 @@ const FileUploadService = require('../controllers/fileUploadService');
 const ActualizarImagen = require('../controllers/actualizarImagen');
 const S3Service = require("../controllers/eliminarImagen");
 const { eliminarPost } = require('../controllers/eliminarPosts');
+const {infUser} = require('../controllers/infUser');
+
 const fileUploadService = new FileUploadService();
 const actualizarImagen = new ActualizarImagen();
 const s3Service = new S3Service();
-const infUser = require('../controllers/infUser');
 
 
 
@@ -41,7 +42,6 @@ router.post('/guardarIntereses', guardarIntereses);
 router.post('/guardarCambios', guardarCambios);
 router.get('/consultarpostsUsuario', consultarpostsUsuario);
 router.post('/infUser', infUser);
-
 router.get('/consultarpostsall', consultarpostsall);
 router.get('/BuscarPostsNombre', BuscarPostsNombre);
 router.get('/ping', ping);
