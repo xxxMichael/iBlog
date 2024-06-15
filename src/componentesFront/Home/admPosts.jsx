@@ -62,7 +62,7 @@ const AdmPosts = () => {
 
                     if (response.status === 200) {
                         console.log('Éxito al eliminar imagen');
-                        await eliminarPostSinImagen(post);
+                        await eliminarPostSinImagen(post.idPost);
                     } else {
                         console.log("Error al eliminar imagen");
                     }
@@ -71,21 +71,18 @@ const AdmPosts = () => {
                     console.error('Error:', error);
                 });
         } else {
-            await eliminarPostSinImagen(post);
+            await eliminarPostSinImagen(post.idPost);
         }
     };
 
-    const eliminarPostSinImagen = async (post) => {
-        const data = {
-            id: post.idPost
-        };
+    const eliminarPostSinImagen = async (id) => {
         try {
             const response = await fetch(`https://${host}/eliminarPost`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ id: post.idPost }),
+                body: JSON.stringify({ id: id }),
             });
             if (response.ok) {
                 alert('Se eliminó correctamente el post');
