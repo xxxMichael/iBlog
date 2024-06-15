@@ -26,12 +26,14 @@ const { guardarCambios } = require('../controllers/guardarCambios');
 const { consultarpostsUsuario } = require('../controllers/obtPostUsuario');
 const { editarPosts } = require('../controllers/editarPost');
 const FileUploadService = require('../controllers/fileUploadService');
+const FileUploadServiceCompleto = require('../controllers/fileUploadCompleto');
 const ActualizarImagen = require('../controllers/actualizarImagen');
 const S3Service = require("../controllers/eliminarImagen");
 const { eliminarPost } = require('../controllers/eliminarPosts');
-const {infUser} = require('../controllers/infUser');
+const { infUser } = require('../controllers/infUser');
 
 const fileUploadService = new FileUploadService();
+const fileUploadServiceCompleto = new FileUploadServiceCompleto();
 const actualizarImagen = new ActualizarImagen();
 const s3Service = new S3Service();
 
@@ -118,6 +120,23 @@ router.post("/eliminarI", async function (req, res) {
     //console.log("Error en el endpoint de eliminación:", error);
     return res.status(500).json({ error: "Error en EndPoints" });
   }
+});
+router.post('/subidaA', (req, res) => {
+  const upload = fileUploadServiceCompleto.getMulterUpload();
+
+  upload(req, res, async (err) => {
+    if (err) {
+      console.log("error desde upload: ", err);
+      return res.status(400).json({ mensaje: "error desde uploadArchivosCompletos" });
+    }
+    try {
+      const urlDocument = await fileUploadServiceCompleto.uploadFile(req.file);
+      return res.status(200).json({ urlDocument: urlDocument, mensaje: "archivo subido correctamente" });
+    } catch (error) {
+      console.log("error al ejecutar send, ", error);
+      return res.status(400).json({ mensaje: "error al ejecutar comando, por favor intentar nuevamente" });
+    }
+  });
 });
 
 module.exports = router;

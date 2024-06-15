@@ -66,6 +66,11 @@
 .textarea{
   margin-bottom: 5px;
   border-radius: 0px;
+  padding: 10px;
+  box-sizing: border-box;
+  min-width: 90%;
+  max-width: 90%;
+  min-height: 10%;
 }
 .input3,
 .contBotones {
@@ -77,8 +82,7 @@
   color: black;
   border: 1px solid black;
 }
-.input3,
-.textarea {
+.input3{
   width: 100%;
   padding: 10px;
   box-sizing: border-box; /* Incluye el padding en el ancho total */
@@ -151,7 +155,7 @@
 }
 
 .apagado {
-  color: gray; /* Color para la opción no seleccionada */
+  color: rgb(0, 128, 122); /* Color para la opción no seleccionada */
   border: 2px solid transparent; /* Sin borde para la opción no seleccionada */
   padding: 5px;
 }
@@ -215,7 +219,7 @@
 
 .toggle {
   background: #eee;
-  width: 80px;
+  width: 60px;
   height: 25px;
   border-radius: 50px;
   margin: 50px;
@@ -238,6 +242,6 @@
 }
 
 .toggle input:checked + label {
-  margin-left: 50px;
+  margin-left: 60%;
   background: #47c;
 }
