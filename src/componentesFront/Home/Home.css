@@ -203,8 +203,8 @@ body {
 }
 
 .card-image-post {
-  min-height: 250px;
-  max-height: 450px;
+  min-height: 25vh;
+  max-height: 63vh;
   min-width: 500px;
   max-width: 560px;
   background-color: #313131;
@@ -532,7 +532,9 @@ body {
   }
   .card-image-post {
     min-height: 150px;
-    max-width: 665px;
+    max-height: 280px;
+    max-width: 320px;
+    min-width: 320px;
     background-color: #313131;
     border-radius: 15px;
     background: #313131;
@@ -562,7 +564,7 @@ body {
     position: fixed; /* Posicionar fijo para que se sobreponga */
     left: 0px;
     top: 20%; /* Punto de transformación para que el botón gire desde la esquina inferior izquierda */
-    z-index: 1000;
+    z-index: 1001;
     transition: left 0.3s ease;
   }
   .btn-menu-categorias.active {
