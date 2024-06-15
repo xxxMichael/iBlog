@@ -15,7 +15,7 @@ const InteresesPerfil = ({ username }) => {
             }
         };
         fetchInteresesUsuario();
-    }, [username]); // Agregar username como dependencia para que se actualice cuando cambie
+    }, [username]);
 
     return (
         <div className="intereses-perfil">

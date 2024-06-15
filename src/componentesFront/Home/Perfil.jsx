@@ -443,7 +443,8 @@ const Perfil = () => {
                 <h2>Sus Intereses</h2>
                 <form onSubmit={handleSubmitInterests}>
                   <div>
-                  <InteresesPerfil />
+                  <InteresesPerfil username={userData.username} />
+                  
                   </div>
                   <button type="submit">Guardar</button>
                   <button

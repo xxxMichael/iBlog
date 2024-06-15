@@ -42,7 +42,7 @@ router.post('/guardarIntereses', guardarIntereses);
 router.post('/guardarCambios', guardarCambios);
 router.get('/consultarpostsUsuario', consultarpostsUsuario);
 router.post('/infUser', infUser);
-router.get('/interesesUsuario', interesesUsuario);
+router.post('/interesesUsuario', interesesUsuario);
 router.get('/consultarpostsall', consultarpostsall);
 router.get('/BuscarPostsNombre', BuscarPostsNombre);
 router.get('/ping', ping);
