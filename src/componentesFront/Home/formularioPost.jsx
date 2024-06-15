@@ -50,7 +50,7 @@ function Formulario({ onClose }) {
     useEffect(() => {
         const fetchCategorias = async () => {
             try {
-                const response = await axios.get(`http://${host}:3000/consultarCatego`);
+                const response = await axios.get(`https://${host}/consultarCatego`);
                 setCategorias(response.data);
             } catch (error) {
                 console.error('Error al obtener las categorías:', error);
@@ -87,7 +87,7 @@ function Formulario({ onClose }) {
                 formData.append('file', archivo);
 
                 // Enviar la imagen al servidor
-                await axios.post(`http://${host}:3000/subida`, formData, {
+                await axios.post(`https://${host}/subida`, formData, {
                     headers: { 'Content-Type': 'multipart/form-data', },
                 })
                     .then(async function (response) {
@@ -123,7 +123,7 @@ function Formulario({ onClose }) {
                                 idCategoria3: idCategoria3
                             };
                             try {
-                                const response = await fetch(`http://${host}:3000/almacenarPost`, {
+                                const response = await fetch(`https://${host}/almacenarPost`, {
                                     method: 'POST',
                                     headers: {
                                         'Content-Type': 'application/json',

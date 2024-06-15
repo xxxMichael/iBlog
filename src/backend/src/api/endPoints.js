@@ -29,6 +29,8 @@ const FileUploadService = require('../controllers/fileUploadService');
 const ActualizarImagen = require('../controllers/actualizarImagen');
 const S3Service = require("../controllers/eliminarImagen");
 const { eliminarPost } = require('../controllers/eliminarPosts');
+const {infUser} = require('../controllers/infUser');
+
 const fileUploadService = new FileUploadService();
 const actualizarImagen = new ActualizarImagen();
 const s3Service = new S3Service();
@@ -39,10 +41,11 @@ const s3Service = new S3Service();
 router.post('/guardarIntereses', guardarIntereses);
 router.post('/guardarCambios', guardarCambios);
 router.get('/consultarpostsUsuario', consultarpostsUsuario);
+router.post('/infUser', infUser);
 router.get('/consultarpostsall', consultarpostsall);
 router.get('/BuscarPostsNombre', BuscarPostsNombre);
 router.get('/ping', ping);
-router.get('/consultaPostCat', consultaPostCat);
+router.post('/consultaPostCat', consultaPostCat);
 router.get('/consultarComentarios', consultarComentarios);
 router.post('/agregarComentario', agregarComentario);
 router.delete('/eliminarComentario', eliminarComentario);
@@ -103,11 +106,11 @@ router.post('/actualizarI', (req, res) => {
 router.post("/eliminarI", async function (req, res) {
   try {
     const { nombreI } = req.body;
-    console.log('Nombre del archivo recibido:',nombreI);
+    console.log('Nombre del archivo recibido:', nombreI);
 
     if (!nombreI) {
       return res.status(400).json({ error: "Nombre de archivo no proporcionado" });
-  }
+    }
     const resultado = await s3Service.eliminarArchivo(nombreI);
 
     return res.status(200).json(resultado);

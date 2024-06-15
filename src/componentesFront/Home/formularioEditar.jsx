@@ -50,7 +50,7 @@ function FormularioEditar({ onClose, infor }) {
     useEffect(() => {
         const fetchCategorias = async () => {
             try {
-                const response = await axios.get('http://52.67.196.92:3000/consultarCatego');
+                const response = await axios.get(`https://${host}/consultarCatego`);
                 setCategorias(response.data);
             } catch (error) {
                 console.error('Error al obtener las categorías:', error);
@@ -87,7 +87,7 @@ function FormularioEditar({ onClose, infor }) {
                 const formData = new FormData();
                 formData.append('file', archivo);
                 formData.append('fileName', fileName);
-                await axios.post(`http://${host}:3000/actualizarI`, formData, {
+                await axios.post(`http://${host}/actualizarI`, formData, {
                     headers: { 'Content-Type': 'multipart/form-data', },
                 })
                     .then(async function (response) {
@@ -109,7 +109,7 @@ function FormularioEditar({ onClose, infor }) {
                 id: id
             };
             try {
-                const response = await fetch(`http://${host}:3000/actualizarPost`, {
+                const response = await fetch(`https://${host}/actualizarPost`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

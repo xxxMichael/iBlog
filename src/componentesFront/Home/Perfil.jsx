@@ -111,7 +111,7 @@ const Perfil = () => {
     };
 
     try {
-      const response = await fetch(`http://${host}:3000/guardarCambios`, {
+      const response = await fetch(`https://${host}/guardarCambios`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -159,7 +159,7 @@ const Perfil = () => {
           const username = decodedToken.username; // Obtener el nombre de usuario del token
           console.log(username);
           const response = await axios.get(
-            `http://${host}:3000/consultarUser?username=${username}`
+            `https://${host}/consultarUser?username=${username}`
           );
           let fechaRegistro = "N/A";
           let fechanac = "N/A";

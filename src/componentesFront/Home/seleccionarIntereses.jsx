@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { host } from "./Home";
 import "./seleccionarIntereses.css";
-
+import { decodificar } from "../Home/Home";
 const SeleccionarIntereses = ({ onHide }) => {
   const [categorias, setCategorias] = useState([]);
   const [selectedIntereses, setSelectedIntereses] = useState([]);
@@ -12,7 +12,7 @@ const SeleccionarIntereses = ({ onHide }) => {
   useEffect(() => {
     const fetchCategorias = async () => {
       try {
-        const response = await fetch(`http://${host}:3000/consultarCatego`);
+        const response = await fetch(`https://${host}/consultarCatego`);
         if (!response.ok) {
           throw new Error("Error al consultar categorías");
         }
@@ -37,37 +37,79 @@ const SeleccionarIntereses = ({ onHide }) => {
       setSelectedIntereses(selectedIntereses.filter((item) => item !== value));
     }
   };
+  const actToken = () => {};
+  async function guardarIntereses() {
+    // Recuperar el token desde la caché del navegador
+    const token = localStorage.getItem("token");
 
-  const handleGuardarClick = () => {
-    console.log(categorias);
-    console.log(selectedIntereses);
+    if (!token) {
+      console.error("No token found in the cache");
+      return;
+    }
 
-    if (selectedIntereses.length === 3) {
-      // Realizar la solicitud POST
-      fetch(`http://${host}:3000/guardarIntereses`, {
+    try {
+      // Decodificar el token para extraer el username
+      const decodedToken = await decodificar(token);
+      const username = decodedToken.username;
+
+      if (!username) {
+        console.error("Username not found in the decoded token");
+        return;
+      }
+
+      // Realizar la solicitud para guardar intereses
+      const response = await fetch(`https://${host}/guardarIntereses`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ categorias: selectedIntereses }),
+        body: JSON.stringify({
+          categorias: selectedIntereses,
+          username: username,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error al guardar intereses");
+      }
+
+      const data = await response.json();
+      console.log("Intereses guardados exitosamente:", data);
+
+      setExito(true);
+      setTimeout(() => {
+        onHide(); // Ocultar el componente después de 2 segundos
+      }, 1000);
+
+      // Si se guardaron correctamente los intereses, hacer fetch a infUser para obtener el token
+      fetch(`https://${host}/infUser`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username: username }),
       })
         .then((response) => {
           if (!response.ok) {
-            throw new Error("Error al guardar intereses");
+            throw new Error("Error al obtener el token");
           }
           return response.json();
         })
-        .then((data) => {
-          setExito(true); // Indicar que la inserción fue exitosa
-          setTimeout(() => {
-            onHide(); // Ocultar el componente después de 2 segundos
-          }, 1000);
+        .then((tokenData) => {
+          localStorage.setItem("token", tokenData.token);
+          console.log("Token guardado correctamente:", tokenData.token);
         })
         .catch((error) => {
-          console.error("Error al guardar intereses:", error.message);
+          console.error("Error al obtener el token:", error.message);
         });
-    } else {
-      alert("Debes seleccionar exactamente 3 intereses.");
+    } catch (error) {
+      console.error("Error al procesar la solicitud:", error.message);
+    }
+  }
+
+  const handleGuardarClick = () => {
+    if (selectedIntereses.length === 3) {
+      guardarIntereses();
     }
   };
 
@@ -77,12 +119,10 @@ const SeleccionarIntereses = ({ onHide }) => {
 
   return (
     <div className="seleccionar-intereses">
-
       <form>
         <h2>Seleccione sus Intereses</h2>
 
         <div className="organizador">
-
           {categorias.map((categoria) => (
             <div key={categoria.id} className="checkbox-container">
               <input
@@ -102,7 +142,6 @@ const SeleccionarIntereses = ({ onHide }) => {
               {/*  <span>{categoria.nombre}</span>*/}
             </div>
           ))}
-
         </div>
         <button
           onClick={handleGuardarClick}
@@ -111,8 +150,6 @@ const SeleccionarIntereses = ({ onHide }) => {
           Guardar intereses
         </button>
       </form>
-
-
     </div>
   );
 };

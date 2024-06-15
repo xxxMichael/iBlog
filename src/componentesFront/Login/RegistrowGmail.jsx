@@ -21,7 +21,7 @@ function RegistrowGmail({ handleBackToLoginClick }) {
   useEffect(() => {
     function checkUsernameExists() {
       if (username.trim().length >= 4) {
-        fetch(`http://${host}:3000/checkUsername`, {
+        fetch(`https://${host}/checkUsername`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -78,7 +78,7 @@ function RegistrowGmail({ handleBackToLoginClick }) {
 
     console.log("Data to be sent to the server:", data);
 
-    fetch(`http://${host}:3000/registrarGmail`, {
+    fetch(`https://${host}/registrarGmail`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -115,7 +115,7 @@ function RegistrowGmail({ handleBackToLoginClick }) {
   };
 
   const onSuccess = (response) => {
-    fetch(`http://${host}:3000/verfRegistro`, {
+    fetch(`https://${host}/verfRegistro`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
