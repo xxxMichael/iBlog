@@ -63,7 +63,7 @@
 .tituloCrearPosts {
   margin-bottom: 15px;
 }
-.textarea{
+.textarea {
   margin-bottom: 5px;
   border-radius: 0px;
   padding: 10px;
@@ -82,7 +82,7 @@
   color: black;
   border: 1px solid black;
 }
-.input3{
+.input3 {
   width: 100%;
   padding: 10px;
   box-sizing: border-box; /* Incluye el padding en el ancho total */
@@ -244,4 +244,62 @@
 .toggle input:checked + label {
   margin-left: 60%;
   background: #47c;
+}
+
+@media (max-width: 1024px) {
+  .contenidoP {
+    position: fixed;
+    top: 6%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    border: 1px solid white;
+    z-index: 1100;
+    border-radius: 15px;
+    width: 95%;
+    backdrop-filter: initial;
+    -webkit-backdrop-filter: blur(10px);
+  }
+  .contenedorImg {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 20px;
+    min-width: 95%;
+    max-width: 95%;
+    max-height: 35%;
+    min-height: 35%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-size: cover;
+    background-position: center;
+  }
+  .input3 {
+    margin-top: 5px;
+    background-color: white;
+    height: 35px;
+    width: 95%;
+    color: black;
+    border: 1px solid black;
+  }
+  .contenedorArchivo {
+    margin-top: 2px;
+    background-color: white;
+    color: black;
+    border-radius: 20px;
+    width: 95%;
+  }
+
+  .btnEnviar1{
+    color: white;
+    background-color: rgb(24, 90, 24);
+  }
+  .btnCancelar1 {
+    color: white;
+    background-color: rgb(112, 15, 15);
+  }
 }

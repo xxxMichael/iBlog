@@ -249,7 +249,7 @@ const Home = () => {
           </Link>
         </div>
         <div className="cont">
-          {isMobile && !showForm ? (
+          {isMobile && !showForm && !showForm1 ? (
             <div className={`overlay ${isCategorias ? 'show' : ''}`}>
               <button onClick={clickCategorias} className={`btn-menu-categorias ${isCategorias ? 'active' : ''}`}>
                 ➤

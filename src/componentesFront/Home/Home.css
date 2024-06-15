@@ -563,7 +563,7 @@ body {
     cursor: pointer;
     position: fixed; /* Posicionar fijo para que se sobreponga */
     left: 0px;
-    top: 20%; /* Punto de transformación para que el botón gire desde la esquina inferior izquierda */
+    top: 50%; /* Punto de transformación para que el botón gire desde la esquina inferior izquierda */
     z-index: 1001;
     transition: left 0.3s ease;
   }

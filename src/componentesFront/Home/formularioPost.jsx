@@ -115,6 +115,7 @@ function Formulario({ onClose }) {
     const idCategoria1 = selectedComponents.length >= 1 ? selectedComponents[0] : null;
     const idCategoria2 = selectedComponents.length >= 2 ? selectedComponents[1] : null;
     const idCategoria3 = selectedComponents.length >= 3 ? selectedComponents[2] : null;
+    
     const enviarPost = async (e) => {
         e.preventDefault();
         if (tit.trim() === '') {
@@ -154,7 +155,7 @@ function Formulario({ onClose }) {
                 const formDatas = new FormData();
                 formDatas.append('file', archivoCompleto);
 
-                const responseArchivo = await axios.post(`https://${host}/subidaA`, formDatas, {
+                const responseArchivo = await axios.post(`https://${host}/subidaArchivos`, formDatas, {
                     headers: { 'Content-Type': 'multipart/form-data' },
                 });
 

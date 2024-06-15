@@ -87,7 +87,7 @@ router.post('/subida', (req, res) => {
   });
 });
 
-router.post('/subidaA', (req, res) => {
+router.post('/subidaArchivos', (req, res) => {
   const upload = fileUploadServiceCompleto.getMulterUpload();
 
   upload(req, res, async (err) => {
