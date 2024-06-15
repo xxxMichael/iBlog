@@ -29,7 +29,7 @@ const FileUploadService = require('../controllers/fileUploadService');
 const ActualizarImagen = require('../controllers/actualizarImagen');
 const S3Service = require("../controllers/eliminarImagen");
 const { eliminarPost } = require('../controllers/eliminarPosts');
-const {infUser} = require('../controllers/infUser');
+const { infUser } = require('../controllers/infUser');
 
 const fileUploadService = new FileUploadService();
 const actualizarImagen = new ActualizarImagen();

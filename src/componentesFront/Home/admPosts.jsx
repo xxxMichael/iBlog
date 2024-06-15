@@ -52,37 +52,50 @@ const AdmPosts = () => {
         return fileName;
     }
     const eliminarPost = async (post) => {
-        const nombreI = getFileNameFromUrl(post.urlImagen);
-        await axios.post(`https://${host}/eliminarI`, { nombreI }, {
-            headers: { 'Content-Type': 'application/json' },
-        })
-            .then(async function (response) {
-                console.log(response);
+        if (post.urlImagen) {
+            const nombreI = getFileNameFromUrl(post.urlImagen);
+            await axios.post(`https://${host}/eliminarI`, { nombreI }, {
+                headers: { 'Content-Type': 'application/json' },
+            })
+                .then(async function (response) {
+                    console.log(response);
 
-                if (response.status === 200) {
-                    console.log('exito al eliminar Imagen');
-                    const data = {
-                        id: post.idPost
-                    };
-                    try {
-                        const response = await fetch(`https://${host}/eliminarPost`, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify(data),
-                        });
-                        if (response.ok) {
-                            alert('Se elimino correctamente el post');
-                            window.location.reload();
-                        }
-                    } catch (error) {
-                        console.error('Error:', error);
+                    if (response.status === 200) {
+                        console.log('Éxito al eliminar imagen');
+                        await eliminarPostSinImagen(post.idPost);
+                    } else {
+                        console.log("Error al eliminar imagen");
                     }
-                }
-                else { console.log("error"); }
+                })
+                .catch(function (error) {
+                    console.error('Error:', error);
+                });
+        } else {
+            await eliminarPostSinImagen(post.idPost);
+        }
+    };
+
+    const eliminarPostSinImagen = async (id) => {
+        try {
+            const response = await fetch(`https://${host}/eliminarPost`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id: id }),
             });
-    }
+            if (response.ok) {
+                alert('Se eliminó correctamente el post');
+                window.location.reload();
+            } else {
+                console.error('Error al eliminar post:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
+
 
     return (
         <>
@@ -114,9 +127,15 @@ const AdmPosts = () => {
                             </div>*/}
                             <article className="card-ed-post">
                                 <div className="card-img-ed-post">
-                                    <div className="card-imgs pv delete">
-                                        <img className="img-Post" src={post.urlImagen + '?${new Date().getTime()}'} alt="imagen del Post" />
-                                    </div>
+                                    {post.urlImagen ? (
+                                        <div className="card-imgs pv delete">
+                                            <img className="img-Post" src={post.urlImagen + '?${new Date().getTime()}'} alt="imagen del Post" />
+                                        </div>
+                                    ) : (
+                                        <div className="card-imgs pv delete">
+                                            <img className="img-Post" src={'https://iblog-archivos.s3.sa-east-1.amazonaws.com/complementosPrincipal/no-hay-foto.jpeg'} alt="imagen del Post" />
+                                        </div>
+                                    )}
                                 </div>
                                 <div className="project-info">
                                     <div className="flex-ed-post">

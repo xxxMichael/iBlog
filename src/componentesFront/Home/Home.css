@@ -185,7 +185,7 @@ body {
   position: relative;
   width: 93.72%;
   margin: 20px auto;
-  min-height: 350px;
+  min-height: 250px;
   border-radius: 15px;
   background: rgb(14, 17, 19);
   transition: 0.05s;

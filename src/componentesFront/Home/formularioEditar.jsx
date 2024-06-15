@@ -78,26 +78,40 @@ function FormularioEditar({ onClose, infor }) {
 
     const editarPost = async (e) => {
         e.preventDefault();
-        if (selectedCount > 0) {
-            console.log(selectedComponents[0]);
-            console.log(selectedComponents[1]);
-            console.log(selectedComponents[2]);
-            if (cambioI) {
+
+        // Validación de campos vacíos
+        if (titulo.trim() === '') {
+            alert("Ingrese un titulo");
+            return;
+        }
+
+        if (contenido.trim() === '') {
+            alert("Ingrese contenido");
+            return;
+        }
+
+        if (selectedCount === 0) {
+            alert("Selecciona al menos una categoria");
+            return;
+        }
+
+        try {
+            if (cambioI && archivo) {
                 const fileName = getFileNameFromUrl(urlImagen);
                 const formData = new FormData();
                 formData.append('file', archivo);
                 formData.append('fileName', fileName);
-                await axios.post(`http://${host}/actualizarI`, formData, {
-                    headers: { 'Content-Type': 'multipart/form-data', },
-                })
-                    .then(async function (response) {
-                        console.log(response);
 
-                        if (response.status === 200) {
-                            console.log('exito al cambiar imagen');
-                        }
-                        else { console.log("error"); }
-                    });
+                const responseImagen = await axios.post(`http://${host}/actualizarI`, formData, {
+                    headers: { 'Content-Type': 'multipart/form-data' },
+                });
+
+                if (responseImagen.status === 200) {
+                    console.log('Exito al cambiar imagen');
+                } else {
+                    console.error('Error al cambiar imagen:', responseImagen.statusText);
+                    return;
+                }
             }
 
             const data = {
@@ -108,26 +122,27 @@ function FormularioEditar({ onClose, infor }) {
                 idCategoria3: idcat3,
                 id: id
             };
-            try {
-                const response = await fetch(`https://${host}/actualizarPost`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data),
-                });
-                if (response.ok) {
-                    alert('Se agrego correctamente el nuevo post');
-                    onClose();
-                    window.location.reload();
-                }
-            } catch (error) {
-                console.error('Error:', error);
+
+            const response = await fetch(`https://${host}/actualizarPost`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            if (response.ok) {
+                alert('Se actualizó correctamente el post');
+                onClose();
+                window.location.reload();
+            } else {
+                console.error('Error al actualizar el post:', response.statusText);
             }
-        } else {
-            alert("Selecciona al menos una categoria");
+        } catch (error) {
+            console.error('Error en el proceso:', error);
         }
     };
+
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         console.log(file);
