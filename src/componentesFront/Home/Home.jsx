@@ -81,7 +81,7 @@ const Home = () => {
     try {
       const promises = categoriaIds.map(async (categoriaId) => {
         const response = await axios.get(
-          `http://${host}/consultaPostCat?categoriaId=${categoriaId}`
+          `https://${host}/consultaPostCat?categoriaId=${categoriaId}`
         );
         return response.data;
       });
