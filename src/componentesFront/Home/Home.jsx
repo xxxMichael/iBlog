@@ -31,7 +31,7 @@ export function decodificar(token) {
   return JSON.parse(jsonPayload);
 }
 
-export const host = "52.67.196.92";
+export const host = "free.iblog.click";
 
 const Home = () => {
   const [userData, setUserData] = useState(null);
@@ -81,7 +81,7 @@ const Home = () => {
     try {
       const promises = categoriaIds.map(async (categoriaId) => {
         const response = await axios.get(
-          `http://${host}:3000/consultaPostCat?categoriaId=${categoriaId}`
+          `http://${host}/consultaPostCat?categoriaId=${categoriaId}`
         );
         return response.data;
       });
@@ -184,7 +184,7 @@ const Home = () => {
   const handleCategoriaClick = async (categoriaId) => {
     try {
       const response = await axios.get(
-        `http://${host}:3000/consultaPostCat?categoriaId=${categoriaId}`
+        `https://${host}/consultaPostCat?categoriaId=${categoriaId}`
       );
       setPosts(response.data);
       window.scrollTo({
