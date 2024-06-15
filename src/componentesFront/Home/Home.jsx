@@ -79,32 +79,31 @@ const Home = () => {
 
   const handleMultipleCategoriesClick = async (categoriaIds) => {
     try {
-      const promises = categoriaIds.map(async (categoriaId) => {
-        const response = await axios.get(
-          `https://${host}/consultaPostCat?categoriaId=${categoriaId}`
-        );
-        return response.data;
-      });
-
-      const results = await Promise.all(promises);
+      const response = await axios.post(
+        `https://${host}/consultaPostCat`,
+        { categoriaIds }
+      );
+  
+      const results = response.data;
       const mergedPosts = results.flat(); // Mezcla los posts recibidos en una sola matriz
-
+  
       // Filtrar y excluir los posts duplicados
       const uniquePosts = [];
       const postIds = new Set();
-
+  
       mergedPosts.forEach((post) => {
         if (!postIds.has(post.idPost)) {
           uniquePosts.push(post);
           postIds.add(post.idPost);
         }
       });
-
+  
       setPosts(uniquePosts);
     } catch (error) {
       console.error("Error al cargar los posts:", error);
     }
   };
+  
   useEffect(() => {
     const token = localStorage.getItem("token");
 
@@ -183,10 +182,13 @@ const Home = () => {
 
   const handleCategoriaClick = async (categoriaId) => {
     try {
-      const response = await axios.get(
-        `https://${host}/consultaPostCat?categoriaId=${categoriaId}`
+      const response = await axios.post(
+        `https://${host}/consultaPostCat`,
+        { categoriaId }
       );
+  
       setPosts(response.data);
+  
       window.scrollTo({
         top: 0,
         behavior: 'smooth'  // Opcional: animación suave
@@ -195,6 +197,7 @@ const Home = () => {
       console.error("Error al cargar los posts:", error);
     }
   };
+  
 
   const handleComentariosClick = (postId, currentUser) => {
     setSelectedPostId(postId);

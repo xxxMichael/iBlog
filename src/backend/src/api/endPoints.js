@@ -45,7 +45,7 @@ router.post('/infUser', infUser);
 router.get('/consultarpostsall', consultarpostsall);
 router.get('/BuscarPostsNombre', BuscarPostsNombre);
 router.get('/ping', ping);
-router.get('/consultaPostCat', consultaPostCat);
+router.post('/consultaPostCat', consultaPostCat);
 router.get('/consultarComentarios', consultarComentarios);
 router.post('/agregarComentario', agregarComentario);
 router.delete('/eliminarComentario', eliminarComentario);

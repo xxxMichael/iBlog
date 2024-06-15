@@ -1,7 +1,7 @@
-const connection = require('../models/db')
+const connection = require('../models/db');
 
 module.exports.consultaPostCat = (req, res) => {
-    const { categoriaId } = req.query;
+    const { categoriaId } = req.body; // Ahora se espera que categoriaId esté en el cuerpo de la solicitud POST
 
     if (!categoriaId) {
         return res.status(400).json({ error: 'El ID de la categoría es requerido' });
