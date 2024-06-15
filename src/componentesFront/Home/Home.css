@@ -380,7 +380,6 @@ body {
   }
   .cont {
     flex-direction: column;
-    
   }
   .contDerecho {
     margin-top: 0;
@@ -428,7 +427,7 @@ body {
     border-bottom: 1px solid rgb(62, 65, 66);
     border-top: 1px solid rgb(62, 65, 66);
   }
-  .contCentral{
+  .contCentral {
     flex: 0 0 auto;
     width: 100%;
     overflow-y: auto; /* Habilita el scroll vertical cuando el contenido es más largo que el contenedor */
@@ -444,7 +443,7 @@ body {
     overflow: hidden;
     position: relative;
   }
-  
+
   .card-image-post img {
     max-width: 100%;
     max-height: 100%;
@@ -452,5 +451,25 @@ body {
     height: auto;
     display: block;
     object-fit: cover;
+  }
+  .btn-menu-categorias {
+    writing-mode: vertical-rl; /* Modo de escritura vertical, de derecha a izquierda */
+    text-orientation: mixed; /* Orientación de texto mixto para adaptarse mejor a diferentes navegadores */
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transform: rotate(-90deg);
+    position: fixed; /* Posicionar fijo para que se sobreponga */
+    left: 20px; 
+    top: 60%; /* Centrar verticalmente */
+    transform-origin: bottom left; /* Punto de transformación para que el botón gire desde la esquina inferior izquierda */
+    z-index: 1000;
+  }
+  .btn-menu-categorias span {
+    display: block;
   }
 }

@@ -43,7 +43,6 @@ const Home = () => {
   const [currentUser, setCurrentUser] = useState(null); // Definir el estado currentUser y su función setter setCurrentUser
   const [showInterests, setShowInterests] = useState(false);
   const [filteredPosts, setFilteredPosts] = useState([]);
-
   const formatearTiempoTranscurrido = (fecha) => {
     const fechaPasada = new Date(fecha);
     const fechaActual = new Date();
@@ -214,7 +213,10 @@ const Home = () => {
 
     return () => mediaQuery.removeListener(handleResize);
   }, []);
-
+  const [isCategorias, setIsCategorias] = useState(false);
+  const clickCategorias = () => {
+    setIsCategorias(!isCategorias);
+  };
   return (
     <>
       <div className="contedorPrincipal">
@@ -237,12 +239,35 @@ const Home = () => {
           </Link>
         </div>
         <div className="cont">
-          <div className="contIzquierdo">
-            <div className="contCategorias">
-              <h2>CATEGORIAS</h2>
-              <Categorias onCategoriaClick={handleCategoriaClick} />
+          {isMobile ? (
+            <div>
+              <button onClick={clickCategorias} className='btn-menu-categorias'>
+                <span>C</span>
+                <span>A</span>
+                <span>T</span>
+                <span>E</span>
+                <span>G</span>
+                <span>O</span>
+                <span>R</span>
+                <span>I</span>
+                <span>A</span>
+                <span>S</span>
+              </button>
+              {isCategorias && (
+                <div className="cont-categorias-des">
+                  <h2>CATEGORIAS</h2>
+                  <Categorias onCategoriaClick={handleCategoriaClick} />
+                </div>
+              )}
             </div>
-          </div>
+          ) : (
+            <div className="contIzquierdo">
+              <div className="contCategorias">
+                <h2>CATEGORIAS</h2>
+                <Categorias onCategoriaClick={handleCategoriaClick} />
+              </div>
+            </div>
+          )}
           <div className="contCentral">
             {showInterests && (
               <div
