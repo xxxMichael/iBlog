@@ -81,7 +81,7 @@ const Home = () => {
     try {
       const response = await axios.post(
         `https://${host}/consultaPostCat`,
-        { categoriaIds }
+        { categoriaId }
       );
   
       const results = response.data;
