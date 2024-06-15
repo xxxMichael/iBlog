@@ -41,7 +41,7 @@ class ActualizarImagen {
         let urlImagen = `https://${this.bucket}.s3.${this.miRegion}.amazonaws.com/${carpetaInternaBucket}`;
 
         const redimensionBuffer = await sharp(file.buffer)
-            .resize({ width: 800, withoutEnlargement: true })
+            .resize({ width: 560, height: 450, fit: 'inside' })
             .toBuffer();
 
         const params = {

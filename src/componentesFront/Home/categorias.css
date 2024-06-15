@@ -1,18 +1,18 @@
-.contenedorCategorias {
+.contenedor-Categorias {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
   gap: 2px;
   background-color: white;
   border: 1px solid black;
   border-radius: 20px;
-  margin-top: 10px;
-  padding: 10px 10px;
-  padding-bottom: 5px;
+  margin-top: 5px;
+  padding: 5px;
   width: 100%;
   height: 100px;
+  min-height: 100px;
 }
-.categoriaSeparada {
-  background-color: rgba(2, 2, 53, 0.699);
+.categoria-Separada {
+  background-color: rgb(11, 86, 91);
   border: 1px solid black;
   border-radius: 15px;
   width: 90%;
@@ -24,12 +24,13 @@
   text-align: left;
   transition: background-color 0.3s;
   font-size: 14px;
-  color: black;
+  color: white;
+  margin-bottom: 1px;
 }
-.categoriaSeparada input[type="checkbox"] {
+.categoria-Separada input[type="checkbox"] {
   display: none;
 }
-.categoriaSeparada label {
+.categoria-Separada label {
   position: relative;
   padding-left: 20px;
   cursor: pointer;
@@ -38,6 +39,6 @@
 }
 
 .categoriaSeleccionada {
-  background-color: #072e3a; /* Color cuando está seleccionada */
-  color: white;
+  background-color: rgb(26, 190, 202); /* Color cuando está seleccionada */
+  color: black;
 }

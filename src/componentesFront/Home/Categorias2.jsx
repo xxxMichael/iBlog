@@ -28,10 +28,10 @@ const ComponentChecklist = ({ componentList, onSelectedCountChange, onSelectedCo
     };
 
     return (
-        <div className='contenedorCategorias'>
+        <div className='contenedor-Categorias'>
             {componentList.map((component) => (
                 <div
-                    className={`categoriaSeparada ${selectedComponentIds.includes(component.id) ? 'categoriaSeleccionada' : ''}`}
+                    className={`categoria-Separada ${selectedComponentIds.includes(component.id) ? 'categoriaSeleccionada' : ''}`}
                     key={component.id}
                 >
                     <input

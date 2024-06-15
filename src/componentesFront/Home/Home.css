@@ -204,7 +204,9 @@ body {
 
 .card-image-post {
   min-height: 250px;
-  max-width: 665px;
+  max-height: 450px;
+  min-width: 500px;
+  max-width: 560px;
   background-color: #313131;
   border-radius: 15px;
   background: #313131;

@@ -32,7 +32,7 @@ class FileUploadService {
       }
     };
 
-    return multer({ 
+    return multer({
       storage: storage,
       fileFilter: fileFilter
     }).single('file');
@@ -45,7 +45,7 @@ class FileUploadService {
     const urlImagen = `https://${this.bucket}.s3.${this.miRegion}.amazonaws.com/${carpetaInternaBucket}`;
 
     const redimensionBuffer = await sharp(file.buffer)
-      .resize({ width: 800, withoutEnlargement: true }) // Utiliza solo el ancho y sin agrandar imágenes pequeñas
+      .resize({ width: 560, height: 450, fit: 'inside' }) // Utiliza solo el ancho y sin agrandar imágenes pequeñas
       .toBuffer();
 
     const params = {

@@ -30,6 +30,7 @@ function Formulario({ onClose }) {
     const [content, setContent] = useState('');
     const [isProject, setIsProject] = useState(true);
     const [dueño, setDueño] = useState("");
+    const [tit, setTit] = useState("");
     const [titulo, setTitulo] = useState("");
     const [contenido, setContenido] = useState("");
     const [archivo, setArchivo] = useState(null);
@@ -71,6 +72,13 @@ function Formulario({ onClose }) {
             setContenido(event.target.value);
         }
     };
+    const handleChangeTitulo = (event) => {
+        const inputValue = event.target.value;
+        if (inputValue.length <= 25) {
+            setTit(inputValue);
+            setTitulo(event.target.value);
+        }
+    };
     const cantCaracteres = () => {
         return content.length;
     };
@@ -104,7 +112,6 @@ function Formulario({ onClose }) {
                             console.log('cat2 ' + idCategoria2);
                             console.log('cat3 ' + idCategoria3);
                             const fechaHora = new Date();
-                            console.log(fechaHora);
                             const año = fechaHora.getFullYear();
                             const mes = (fechaHora.getMonth() + 1).toString().padStart(2, '0'); // Los meses van de 0 a 11, por lo que sumamos 1
                             const dia = fechaHora.getDate().toString().padStart(2, '0');
@@ -184,7 +191,7 @@ function Formulario({ onClose }) {
                             onChange={handleImageChange}
                         />
                     </div>
-                    <input placeholder="Titulo..." type="text" className="input3" onChange={(e) => setTitulo(e.target.value)} />
+                    <input placeholder="Titulo..." type="text" className="input3" onChange={handleChangeTitulo} value={tit}/>
                     <textarea placeholder="Contenido..." rows="6" cols="20" id="message" name="message" className="textarea"
                         value={content} onChange={handleChange} ></textarea>
                     <label className="caracteres">{cantCaracteres()}/250</label>
