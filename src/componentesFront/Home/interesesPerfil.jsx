@@ -19,13 +19,11 @@ const InteresesPerfil = ({ username }) => {
 
     return (
         <div className="intereses-perfil">
-            <h2>Intereses del Usuario</h2>
             <table>
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Nombre</th>
-                        <th>Descripción</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,7 +31,6 @@ const InteresesPerfil = ({ username }) => {
                         <tr key={interes.id}>
                             <td>{interes.id}</td>
                             <td>{interes.nombre}</td>
-                            <td>{interes.descripcion}</td>
                         </tr>
                     ))}
                 </tbody>

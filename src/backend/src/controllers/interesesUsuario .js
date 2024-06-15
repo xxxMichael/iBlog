@@ -42,7 +42,7 @@ module.exports.interesesUsuario = (req, res) => {
 
             // Mapear los resultados a un objeto con id y nombre de categoría
             const categorias = categoriasResults.map(categoria => ({
-                id: categoria.idCategoria,
+                id: categoria.id,
                 nombre: categoria.nombre
             }));
 
