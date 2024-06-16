@@ -61,7 +61,7 @@ class FileUploadService {
 
     return urlImagen;
   }
-  
+
   getMulterUploadCompleto() {
     const storage = multer.memoryStorage(); // multer almacena el archivo de forma temporal.
 
@@ -100,6 +100,7 @@ class FileUploadService {
     await this.s3.send(command);
 
     return urlDocumento;
+  }
 }
 
 module.exports = FileUploadService;
