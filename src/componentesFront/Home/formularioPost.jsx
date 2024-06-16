@@ -48,6 +48,7 @@ function Formulario({ onClose }) {
             setDueño(decodedToken.username);
         }
     }, []);
+    
     useEffect(() => {
         const fetchCategorias = async () => {
             try {

@@ -125,6 +125,26 @@ router.post('/actualizarI', (req, res) => {
   });
 });
 
+router.post('/actualizarA', (req, res) => {
+  const upload = actualizarImagen.getMulterUploadCompleto();
+
+  upload(req, res, async (err) => {
+    if (err) {
+      console.log("error desde upload: ", err);
+      return res.status(400).json({ mensaje: "error desde upload" });
+    }
+
+    try {
+      const fileName = req.body.fileName; // Obtener el nombre del archivo desde el cuerpo de la solicitud
+      const urlDocumento = await actualizarImagen.uploadFileCompleto(req.file, fileName); // Pasar fileName como argumento a uploadFile
+      return res.status(200).json({ urlDocumento: urlDocumento, mensaje: "archivo actualizado correctamente" });
+    } catch (error) {
+      console.log("error al ejecutar send, ", error);
+      return res.status(400).json({ mensaje: "error al ejecutar comando, por favor intentar nuevamente" });
+    }
+  });
+});
+
 router.post("/eliminarI", async function (req, res) {
   try {
     const { nombreI } = req.body;
@@ -134,6 +154,23 @@ router.post("/eliminarI", async function (req, res) {
       return res.status(400).json({ error: "Nombre de archivo no proporcionado" });
     }
     const resultado = await s3Service.eliminarArchivo(nombreI);
+
+    return res.status(200).json(resultado);
+  } catch (error) {
+    //console.log("Error en el endpoint de eliminación:", error);
+    return res.status(500).json({ error: "Error en EndPoints" });
+  }
+});
+
+router.post("/eliminarA", async function (req, res) {
+  try {
+    const { nombreA } = req.body;
+    console.log('Nombre del archivo recibido:', nombreA);
+
+    if (!nombreA) {
+      return res.status(400).json({ error: "Nombre de archivo no proporcionado" });
+    }
+    const resultado = await s3Service.eliminarArchivoCompleto(nombreA);
 
     return res.status(200).json(resultado);
   } catch (error) {

@@ -26,7 +26,6 @@ function FormularioEditar({ onClose, infor }) {
     const [titulo, setTitulo] = useState('');
     const [contenido, setContenido] = useState('');
     const [urlImagen, setUrlImagen] = useState('');
-    const [urlDocumento, setUrlDocumento] = useState(useState(''));
     const [categoria1, setCategoria1] = useState('');
     const [categoria2, setCategoria2] = useState('');
     const [categoria3, setCategoria3] = useState('');
@@ -103,7 +102,7 @@ function FormularioEditar({ onClose, infor }) {
                 formData.append('file', archivo);
                 formData.append('fileName', fileName);
 
-                const responseImagen = await axios.post(`http://${host}/actualizarI`, formData, {
+                const responseImagen = await axios.post(`https://${host}/actualizarI`, formData, {
                     headers: { 'Content-Type': 'multipart/form-data' },
                 });
 
@@ -164,7 +163,13 @@ function FormularioEditar({ onClose, infor }) {
             setContenido(event.target.value);
         }
     };
-
+    const handleChangeTitulo = (event) => {
+        const inputValue = event.target.value;
+        if (inputValue.length <= 25) {
+            setTitulo(inputValue);
+            setTitulo(event.target.value);
+        }
+    };
     return (
         <div className='contenidoMayor'>
             <div className="contenidoP">
@@ -184,22 +189,11 @@ function FormularioEditar({ onClose, infor }) {
                         type="text"
                         className="input3"
                         value={titulo}
-                        onChange={(e) => setTitulo(e.target.value)}
+                        onChange={handleChangeTitulo}
                     />
                     <textarea placeholder="Contenido..." rows="6" cols="20" id="message" name="message" className="textarea"
                         value={contenido} onChange={handleChange} ></textarea>
                     <label className="caracteres">{cantCaracteres()}/250</label>
-                    <div className='contenedorArchivo'>
-                        <form>
-                            <input
-                                accept=".zip, .war"
-                                className="inputArchivo"
-                                name="archivo"
-                                id="archivo"
-                                type="file"
-                            />
-                        </form>
-                    </div>
                     <ComponentChecklist componentList={categorias}
                         initialSelected={[categoria1, categoria2, categoria3]}
                         onSelectedCountChange={handleSelectedCountChange}

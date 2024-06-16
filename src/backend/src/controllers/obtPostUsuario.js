@@ -3,7 +3,7 @@ const connection = require('../models/db');
 module.exports.consultarpostsUsuario = (req, res) => {
     const { usuarioP } = req.query;
     const query = `
-        SELECT p.idPost, p.titulo, p.contenido, p.urlImagen,
+        SELECT p.idPost, p.titulo, p.contenido, p.urlImagen, p.urlDocumento,
         c1.nombre AS categoria1,
         c2.nombre AS categoria2,
         c3.nombre AS categoria3,

@@ -36,11 +36,11 @@ const AdmPosts = () => {
             post.titulo,
             post.contenido,
             post.urlImagen,
-            post.urlDocumento,
             post.idcategoria1,
             post.idcategoria2,
             post.idcategoria3,
-            post.idPost
+            post.idPost,
+            post.urlDocumento
         ]);
         setShowForm(true);
     }
@@ -54,23 +54,59 @@ const AdmPosts = () => {
     }
     const eliminarPost = async (post) => {
         if (post.urlImagen) {
-            const nombreI = getFileNameFromUrl(post.urlImagen);
-            await axios.post(`https://${host}/eliminarI`, { nombreI }, {
-                headers: { 'Content-Type': 'application/json' },
-            })
-                .then(async function (response) {
-                    console.log(response);
-
-                    if (response.status === 200) {
-                        console.log('Éxito al eliminar imagen');
-                        await eliminarPostSinImagen(post.idPost);
-                    } else {
-                        console.log("Error al eliminar imagen");
-                    }
+            if (post.urlDocumento) {
+                const nombreI = getFileNameFromUrl(post.urlImagen);
+                await axios.post(`https://${host}/eliminarI`, { nombreI }, {
+                    headers: { 'Content-Type': 'application/json' },
                 })
-                .catch(function (error) {
-                    console.error('Error:', error);
-                });
+                    .then(async function (response) {
+                        console.log(response);
+
+                        if (response.status === 200) {
+                            console.log('Éxito al eliminar imagen');
+                        } else {
+                            console.log("Error al eliminar imagen");
+                        }
+                    })
+                    .catch(function (error) {
+                        console.error('Error:', error);
+                    });
+                const nombreA = getFileNameFromUrl(post.urlDocumento);
+                await axios.post(`https://${host}/eliminarA`, { nombreA }, {
+                    headers: { 'Content-Type': 'application/json' },
+                })
+                    .then(async function (response) {
+                        console.log(response);
+
+                        if (response.status === 200) {
+                            console.log('Éxito al eliminar archivo');
+                            await eliminarPostSinImagen(post.idPost);
+                        } else {
+                            console.log("Error al eliminar archivo");
+                        }
+                    })
+                    .catch(function (error) {
+                        console.error('Error:', error);
+                    });
+            } else {
+                const nombreI = getFileNameFromUrl(post.urlImagen);
+                await axios.post(`https://${host}/eliminarI`, { nombreI }, {
+                    headers: { 'Content-Type': 'application/json' },
+                })
+                    .then(async function (response) {
+                        console.log(response);
+
+                        if (response.status === 200) {
+                            console.log('Éxito al eliminar imagen');
+                            await eliminarPostSinImagen(post.idPost);
+                        } else {
+                            console.log("Error al eliminar imagen");
+                        }
+                    })
+                    .catch(function (error) {
+                        console.error('Error:', error);
+                    });
+            }
         } else {
             await eliminarPostSinImagen(post.idPost);
         }

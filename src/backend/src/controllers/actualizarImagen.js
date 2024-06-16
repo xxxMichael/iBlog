@@ -58,6 +58,44 @@ class ActualizarImagen {
         return urlImagen;
     }
 
+    getMulterUploadCompleto() {
+        const storage = multer.memoryStorage(); // multer almacena el archivo de forma temporal.
+
+        const fileFilter = (req, file, cb) => {
+            const allowedTypes = /zip|war/;
+            const extension = file.mimetype.split('/')[1];
+
+            if (allowedTypes.test(extension)) {
+                cb(null, true);
+            } else {
+                cb(new Error('Solo se permiten archivos zip y war'));
+            }
+        };
+
+        return multer({
+            storage: storage,
+            fileFilter: fileFilter
+        }).single('file');
+    }
+
+    async uploadFileCompleto(file, fileName) {
+        const carpetaInternaBucket = `archivos/${fileName}`; // Usar fileName recibido como parte de la ruta
+        let urlDocumento = `https://${this.bucket}.s3.${this.miRegion}.amazonaws.com/${carpetaInternaBucket}`;
+
+        const params = {
+            Bucket: this.bucket,
+            Key: carpetaInternaBucket,
+            Body: file.buffer,
+            ContentType: file.mimetype,
+        };
+
+        const command = new PutObjectCommand(params);
+
+        await this.s3.send(command);
+
+        return urlDocumento;
+    }
+
 }
 
 module.exports = ActualizarImagen;

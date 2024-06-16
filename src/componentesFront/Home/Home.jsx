@@ -229,13 +229,7 @@ const Home = () => {
   const clickCategorias = () => {
     setIsCategorias(!isCategorias);
   };
-
-  const getFileNameFromUrl = (url) => {
-    const path = url.split("/").pop();
-    const fileName = path.split("?")[0];
-    return fileName;
-  };
- 
+  
   return (
     <>
       <div className="contedorPrincipal">
@@ -262,9 +256,8 @@ const Home = () => {
             <div className={`overlay ${isCategorias ? "show" : ""}`}>
               <button
                 onClick={clickCategorias}
-                className={`btn-menu-categorias ${
-                  isCategorias ? "active" : ""
-                }`}
+                className={`btn-menu-categorias ${isCategorias ? "active" : ""
+                  }`}
               >
                 ➤
               </button>
@@ -317,9 +310,9 @@ const Home = () => {
                         src="https://iblog-archivos.s3.sa-east-1.amazonaws.com/complementosPrincipal/logoApp1.png"
                       />
                       <label className="label-container">
-                      <Link className="label-container" to="/postByUser">
-                        @{post.dueño}
-                      </Link>
+                        <Link className="label-container" to="/postByUser">
+                          @{post.dueño}
+                        </Link>
                         • {formatearTiempoTranscurrido(post.fechaPublicacion)}
                       </label>
                     </div>
@@ -363,7 +356,7 @@ const Home = () => {
                           </svg>
                           <span className="icon2-descarga"></span>
                           <span className="tooltip-descarga">
-                            {getFileNameFromUrl(post.urlDocumento)}
+                            download
                           </span>
                         </a>
                       )}
