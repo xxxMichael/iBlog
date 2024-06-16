@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { host } from './Home';
 
-const Categorias = ({ onCategoriaClick }) => {
+const Categorias = ({ onCategoriaClick,setCategoriasEnHome  }) => {
     const [categorias, setCategorias] = useState([]);
 
     useEffect(() => {
@@ -11,12 +11,16 @@ const Categorias = ({ onCategoriaClick }) => {
             try {
                 const response = await axios.get(`https://${host}/consultarCatego`);
                 setCategorias(response.data);
+                if (setCategoriasEnHome && typeof setCategoriasEnHome === 'function') {
+                    setCategoriasEnHome(response.data); // Pasa las categorías al componente padre (Home)
+                }
+
             } catch (error) {
                 console.error('Error al obtener las categorías:', error);
             }
         };
         fetchCategorias();
-    }, []);
+    }, [setCategoriasEnHome]);
 
     return (
         <ul>

@@ -26,16 +26,32 @@ body {
 .logo-container img {
   margin-top: 0; /* Sin margen arriba */
 }
+.categoriaAct {
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  margin-top: auto; /* Empuja el elemento hacia la parte inferior */
+  color: white;
+  flex-shrink: 0; /* Previene que se reduzca de tamaño */
+  height: auto; /* Ajusta este valor según sea necesario */
+}
+
 .contDerecho {
+  flex-direction: column;
+  display: flex;
+  justify-content: flex-start; /* Asegura que los elementos se alineen al principio por defecto */
+
   margin-top: calc(10px + 50px);
   border: 1px solid #178288;
   width: 25%;
-  height: 70%;
+  height: 74%;
   border-radius: 5%;
   position: fixed;
   color: black;
   top: 5%;
   right: 5%;
+
+
 }
 .contIzquierdo {
   border-right: 1px solid rgb(62, 65, 66);
@@ -334,7 +350,10 @@ body {
   border: none;
   background-color: transparent;
 }
-
+.label-container  {
+  color: white; /* Hereda el color del texto del contenedor */
+  cursor: pointer; /* Cambia el cursor al pasar el mouse */
+}
 .IconContainer {
   width: 30px;
   height: 30px;
@@ -494,6 +513,11 @@ body {
     position: sticky;
     top: 80px;
     z-index: 1;
+  }
+  
+  .categoriaAct{
+    display: none;
+
   }
   .contIzquierdo {
     position: relative;
