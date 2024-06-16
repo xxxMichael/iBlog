@@ -26,6 +26,7 @@ function FormularioEditar({ onClose, infor }) {
     const [titulo, setTitulo] = useState('');
     const [contenido, setContenido] = useState('');
     const [urlImagen, setUrlImagen] = useState('');
+    const [urlDocumento, setUrlDocumento] = useState(useState(''));
     const [categoria1, setCategoria1] = useState('');
     const [categoria2, setCategoria2] = useState('');
     const [categoria3, setCategoria3] = useState('');

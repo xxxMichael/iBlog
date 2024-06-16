@@ -89,18 +89,18 @@ router.post('/subirArchivos', (req, res) => {
   const upload = fileUploadService.getMulterUploadCompleto();
 
   upload(req, res, async (err) => {
-    if (err) {
-      console.log("error desde upload: ", err);
-      return res.status(400).json({ mensaje: "error desde upload" });
-    }
+      if (err) {
+          console.log("Error desde upload:", err);
+          return res.status(400).json({ mensaje: "Error desde upload" });
+      }
 
-    try {
-      const urlDocumento = await fileUploadService.uploadFileCompleto(req.file);
-      return res.status(200).json({ urlDocumento: urlDocumento, mensaje: "archivo subido correctamente" });
-    } catch (error) {
-      console.log("error al ejecutar send, ", error);
-      return res.status(400).json({ mensaje: "error al ejecutar comando, por favor intentar nuevamente" });
-    }
+      try {
+          const urlDocumento = await fileUploadService.uploadFileCompleto(req.file);
+          return res.status(200).json({ urlDocumento: urlDocumento, mensaje: "Archivo subido correctamente" });
+      } catch (error) {
+          console.log("Error al ejecutar send:", error);
+          return res.status(400).json({ mensaje: "Error al ejecutar comando, por favor intentar nuevamente" });
+      }
   });
 });
 

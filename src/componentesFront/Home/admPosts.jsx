@@ -36,6 +36,7 @@ const AdmPosts = () => {
             post.titulo,
             post.contenido,
             post.urlImagen,
+            post.urlDocumento,
             post.idcategoria1,
             post.idcategoria2,
             post.idcategoria3,
