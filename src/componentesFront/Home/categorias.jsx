@@ -20,7 +20,7 @@ const Categorias = ({ onCategoriaClick,setCategoriasEnHome  }) => {
             }
         };
         fetchCategorias();
-    }, [setCategoriasEnHome]);
+    }, []); 
 
     return (
         <ul>
