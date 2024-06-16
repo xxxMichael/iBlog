@@ -155,7 +155,7 @@ function Formulario({ onClose }) {
                 const formDatas = new FormData();
                 formDatas.append('file', archivoCompleto);
 
-                const responseArchivo = await axios.post(`https://${host}/subidaArchivos`, formDatas, {
+                const responseArchivo = await axios.post(`https://${host}/subirArchivos`, formDatas, {
                     headers: { 'Content-Type': 'multipart/form-data' },
                 });
 

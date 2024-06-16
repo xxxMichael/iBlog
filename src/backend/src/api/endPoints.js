@@ -26,14 +26,12 @@ const { guardarCambios } = require('../controllers/guardarCambios');
 const { consultarpostsUsuario } = require('../controllers/obtPostUsuario');
 const { editarPosts } = require('../controllers/editarPost');
 const FileUploadService = require('../controllers/fileUploadService');
-const FileUploadServiceCompleto = require('../controllers/fileUploadCompleto');
 const ActualizarImagen = require('../controllers/actualizarImagen');
 const S3Service = require("../controllers/eliminarImagen");
 const { eliminarPost } = require('../controllers/eliminarPosts');
 const { infUser } = require('../controllers/infUser');
 const {interesesUsuario } = require('../controllers/interesesUsuario ');
 const fileUploadService = new FileUploadService();
-const fileUploadServiceCompleto = new FileUploadServiceCompleto();
 const actualizarImagen = new ActualizarImagen();
 const s3Service = new S3Service();
 
@@ -87,8 +85,8 @@ router.post('/subida', (req, res) => {
   });
 });
 
-router.post('/subidaArchivos', (req, res) => {
-  const upload = fileUploadServiceCompleto.getMulterUpload();
+router.post('/subirArchivos', (req, res) => {
+  const upload = fileUploadService.getMulterUploadCompleto();
 
   upload(req, res, async (err) => {
     if (err) {
@@ -97,7 +95,7 @@ router.post('/subidaArchivos', (req, res) => {
     }
 
     try {
-      const urlDocumento = await fileUploadServiceCompleto.uploadFile(req.file);
+      const urlDocumento = await fileUploadService.uploadFileCompleto(req.file);
       return res.status(200).json({ urlDocumento: urlDocumento, mensaje: "archivo subido correctamente" });
     } catch (error) {
       console.log("error al ejecutar send, ", error);

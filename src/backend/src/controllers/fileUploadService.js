@@ -61,6 +61,48 @@ class FileUploadService {
 
     return urlImagen;
   }
+  getMulterUploadCompleto() {
+    const storage = multer.memoryStorage(); // Almacenamiento en memoria para procesar el archivo
+
+    const fileFilter = (req, file, cb) => {
+      const allowedTypes = /zip|war/;
+      const fileExtension = file.originalname.split('.').pop();
+      if (allowedTypes.test(fileExtension)) {
+        cb(null, true);
+      } else {
+        cb(new Error('Solo se permiten archivos ZIP o WAR.'));
+      }
+    };
+
+    return multer({
+      storage: storage,
+      fileFilter: fileFilter
+    }).single('file');
+  }
+
+  async uploadFileCompleto(file) {
+    const fileExtension = file.originalname.split('.').pop(); // Obtiene la extensión del archivo
+    const uniqueName = `${Date.now()}-${uuidv4()}${fileExtension}`; // Nombre único usando fecha y UUID
+    const folderPathInBucket = `archivos/${uniqueName}`; // Ruta completa en el bucket
+    const fileUrl = `https://${this.bucket}.s3.${this.miRegion}.amazonaws.com/${folderPathInBucket}`;
+
+    const params = {
+      Bucket: this.bucket,
+      Key: folderPathInBucket,
+      Body: file.buffer,
+      ContentType: file.mimetype,
+    };
+
+    const command = new PutObjectCommand(params);
+
+    try {
+      await this.s3.send(command);
+      return fileUrl;
+    } catch (err) {
+      console.error('Error al subir el archivo a S3:', err);
+      throw err;
+    }
+  }
 }
 
 module.exports = FileUploadService;
