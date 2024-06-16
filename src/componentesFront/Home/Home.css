@@ -28,9 +28,9 @@ body {
 }
 .contDerecho {
   margin-top: calc(10px + 50px);
-  border: 1px solid rgb(235, 228, 228);
+  border: 1px solid #178288;
   width: 25%;
-  height: 75%;
+  height: 70%;
   border-radius: 5%;
   position: fixed;
   color: black;
@@ -96,7 +96,7 @@ body {
   font-size: 15px;
 }
 .btnInicioSesion {
-  background-color: rgb(174, 44, 0);
+  background-color:  #178288;
   color: white;
   display: flex;
   justify-content: center;

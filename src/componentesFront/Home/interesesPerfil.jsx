@@ -23,14 +23,14 @@ const InteresesPerfil = ({ username }) => {
             <table>
                 <thead>
                     <tr>
-                        <th>ID</th>
+                       
                         <th>Nombre</th>
                     </tr>
                 </thead>
                 <tbody>
                     {intereses.map((interes) => (
                         <tr key={interes.id}>
-                            <td>{interes.id}</td>
+                       
                             <td>{interes.nombre}</td>
                         </tr>
                     ))}

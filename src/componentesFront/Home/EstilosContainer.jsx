@@ -215,7 +215,6 @@ const EstilosContainer=()=> {
       }
 
 
-
       .profile-picture {
         position: relative;
         margin-top: -50px;
@@ -293,14 +292,14 @@ const EstilosContainer=()=> {
         color: white;
         left: 1%;
         padding: 5px 10px;
-        font-size: 12px;
+        font-size: 15px;
 
       }
      
       .edit-button.edit-categories {
         right: 1%;
         padding: 5px 10px;
-        font-size: 12px;
+        font-size: 15px;
 
       }
 
@@ -380,11 +379,13 @@ const EstilosContainer=()=> {
       }
 
       .backHome {
+        position: absolute;
+        margin-top: -35px;
+        margin-left: -40px;
               background-color: #007bff;
-
         color : white;
         display: inline-block;
-        padding: 10px 20px;
+        padding: 10px 10px;
         /* Color de fondo */
         border-radius: 5px;
         /* Bordes redondeados */
