@@ -162,7 +162,7 @@ function Formulario({ onClose }) {
                 if (responseArchivo.status === 200) {
                     urlDocumento = responseArchivo.data.urlDocumento;
                 } else {
-                    console.error('Error al subir la imagen:', responseArchivo.statusText);
+                    console.error('Error al subir el Archivo:', responseArchivo.statusText);
                     return;
                 }
             }

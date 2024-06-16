@@ -100,7 +100,7 @@ const AdmPosts = () => {
     return (
         <>
             <div className="contPosts">
-                <Link className='btnHome' to='/perfil'>Regresar</Link>
+                <Link className='btnHome' to='/perfil'> ⌂ </Link>
                 <label className="tituloMP"> MIS POSTS</label>
                 {showForm && (
                     <FormularioE onClose={handleClick} infor={datos} />
@@ -128,8 +128,10 @@ const AdmPosts = () => {
                                     >{post.contenido}.</span
                                     >
                                 </div>
-                                <button onClick={() => editarPost(post)} > EDITAR </button>
-                                <button onClick={() => eliminarPost(post)}> BORRAR </button>
+                                <div className='cont-Btns-ed-posts'>
+                                    <button className="btn-ed-post" onClick={() => editarPost(post)} > EDITAR </button>
+                                    <button className="btn-elim-post" onClick={() => eliminarPost(post)}> BORRAR </button>
+                                </div>
                             </article>
                         </div>
                     ))
