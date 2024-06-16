@@ -87,13 +87,11 @@ router.post('/subida', (req, res) => {
 
 router.post('/subirArchivos', (req, res) => {
   const upload = fileUploadService.getMulterUploadCompleto();
-
   upload(req, res, async (err) => {
       if (err) {
           console.log("Error desde upload:", err);
           return res.status(400).json({ mensaje: "Error desde upload" });
       }
-
       try {
           const urlDocumento = await fileUploadService.uploadFileCompleto(req.file);
           return res.status(200).json({ urlDocumento: urlDocumento, mensaje: "Archivo subido correctamente" });
