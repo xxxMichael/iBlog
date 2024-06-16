@@ -15,6 +15,7 @@ import UserCard from "./usercard.jsx";
 import SeleccionarIntereses from "./seleccionarIntereses.jsx"; // Asegúrate de importar el componente
 import InvitadoPosts from "./InvitadosPost.jsx"; // Importa el componente
 import BuscadorPosts from "./BuscadorPosts.jsx";
+
 export function decodificar(token) {
   const base64Url = token.split(".")[1];
   const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
@@ -53,7 +54,7 @@ const Home = () => {
     if (fechaPasada > fechaActual) {
       return "Fecha futura";
     }
-
+    // Imprimir el estado antes de ser enviado
     const diferenciaEnMilisegundos = fechaActual - fechaPasada;
     const segundos = Math.floor(diferenciaEnMilisegundos / 1000);
     const minutos = Math.floor(segundos / 60);
@@ -229,7 +230,7 @@ const Home = () => {
   const clickCategorias = () => {
     setIsCategorias(!isCategorias);
   };
-  
+
   return (
     <>
       <div className="contedorPrincipal">
@@ -256,8 +257,9 @@ const Home = () => {
             <div className={`overlay ${isCategorias ? "show" : ""}`}>
               <button
                 onClick={clickCategorias}
-                className={`btn-menu-categorias ${isCategorias ? "active" : ""
-                  }`}
+                className={`btn-menu-categorias ${
+                  isCategorias ? "active" : ""
+                }`}
               >
                 ➤
               </button>
@@ -309,8 +311,12 @@ const Home = () => {
                         className="miniatura"
                         src="https://iblog-archivos.s3.sa-east-1.amazonaws.com/complementosPrincipal/logoApp1.png"
                       />
+
                       <label className="label-container">
-                        <Link className="label-container" to="/postByUser">
+                        <Link
+                          className="label-container"
+                          to={`/postByUser/${post.dueño}`} 
+                          >
                           @{post.dueño}
                         </Link>
                         • {formatearTiempoTranscurrido(post.fechaPublicacion)}
@@ -355,9 +361,7 @@ const Home = () => {
                             <path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"></path>
                           </svg>
                           <span className="icon2-descarga"></span>
-                          <span className="tooltip-descarga">
-                            download
-                          </span>
+                          <span className="tooltip-descarga">download</span>
                         </a>
                       )}
                     </div>
