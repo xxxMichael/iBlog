@@ -50,7 +50,7 @@ const Home = () => {
   const formatearTiempoTranscurrido = (fecha) => {
     const fechaPasada = new Date(fecha);
     const fechaActual = new Date();
-
+    fechaActual.setHours(fechaActual.getHours() - 5);
     if (fechaPasada > fechaActual) {
       return "Fecha futura";
     }
@@ -257,9 +257,8 @@ const Home = () => {
             <div className={`overlay ${isCategorias ? "show" : ""}`}>
               <button
                 onClick={clickCategorias}
-                className={`btn-menu-categorias ${
-                  isCategorias ? "active" : ""
-                }`}
+                className={`btn-menu-categorias ${isCategorias ? "active" : ""
+                  }`}
               >
                 ➤
               </button>
@@ -315,8 +314,8 @@ const Home = () => {
                       <label className="label-container">
                         <Link
                           className="label-container"
-                          to={`/postByUser/${post.dueño}`} 
-                          >
+                          to={`/postByUser/${post.dueño}`}
+                        >
                           @{post.dueño}
                         </Link>
                         • {formatearTiempoTranscurrido(post.fechaPublicacion)}
