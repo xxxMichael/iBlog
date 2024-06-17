@@ -41,7 +41,7 @@ const Home = () => {
   const [showForm1, setShowForm1] = useState(false);
   const [searchDisabled, setSearchDisabled] = useState(false);
   const [selectedPostId, setSelectedPostId] = useState(null);
-  const [currentUser, setCurrentUser] = useState(null); 
+  const [currentUser, setCurrentUser] = useState(null);
   const [showInterests, setShowInterests] = useState(false);
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [categoriaActual, setCategoriaActual] = useState(""); // Estado para el nombre de la categoría actual
@@ -269,6 +269,12 @@ const Home = () => {
                     onCategoriaClick={handleCategoriaClick}
                     setCategoriasEnHome={setCategoriasEnHome}
                   />
+                  <div className="logo-Empresa">
+                    <img
+                      className="logo-empresa"
+                      src="https://iblog-archivos.s3.sa-east-1.amazonaws.com/complementosPrincipal/logohd.png"
+                    />
+                  </div>
                 </div>
               )}
             </div>
@@ -279,6 +285,12 @@ const Home = () => {
                 <Categorias
                   onCategoriaClick={handleCategoriaClick}
                   setCategoriasEnHome={setCategoriasEnHome}
+                />
+              </div>
+              <div className="logo-Empresa">
+                <img
+                  className="logo-empresa"
+                  src="https://iblog-archivos.s3.sa-east-1.amazonaws.com/complementosPrincipal/logohd.png"
                 />
               </div>
             </div>
@@ -404,7 +416,7 @@ const Home = () => {
             </div>
           </div>
         )}
-      </div>
+      </div >
       <style>{`
         .cerrar-formulario {
           position: absolute;
