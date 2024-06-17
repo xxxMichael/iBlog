@@ -20,8 +20,8 @@ module.exports.registroNormal = async (req, res) => {
     const fechaExpFormatted = fechaExp.toISOString().slice(0, 19).replace('T', ' ');
 
     const query = `
-      INSERT INTO usuarionoAutenticado (nombre, apellido, username, email, contra, fechaRegistro, rol, fechaNac, pais, codigoConf, fechaExp)
-      VALUES (?, ?, ?, ?, ?, CURRENT_DATE, 'Bronce', ?, ?, ?,?)
+      INSERT INTO usuarionoAutenticado (nombre, apellido, username, email, contra, fechaRegistro, rol, fechaNac, pais, codigoConf, fechaExp, cantPosts)
+      VALUES (?, ?, ?, ?, ?, CURRENT_DATE, 'Bronce', ?, ?, ?, ?, 0)
     `;
 
     connection.query(query, [nombre, apellido, username, email, password, fechaNac, pais, codigoVerificacion, fechaExpFormatted], (err, result) => {
