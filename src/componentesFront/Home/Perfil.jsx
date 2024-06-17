@@ -280,6 +280,9 @@ const Perfil = () => {
     if (userData.username === 'david21') {
       return 'https://images.wikidexcdn.net/mwuploads/wikidex/2/20/latest/20141014154627/Mega-Rayquaza.png';
     }
+    if (userData.username === 'Liz') {
+      return 'https://images.wikidexcdn.net/mwuploads/wikidex/0/0e/latest/20230705050814/Tepig.png';
+    }
     if (userData.username === 'michael') {
       return 'https://images.wikidexcdn.net/mwuploads/wikidex/7/77/latest/20161114210617/Necrozma.png';
     }
