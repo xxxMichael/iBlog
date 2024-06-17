@@ -581,7 +581,7 @@ body {
     width: 70px;
     margin-left: 35%;
     background-color: rgb(49, 49, 49);
-    border-radius: 35px;
+    border-radius: 15px;
   }
   .iconoBuscar {
     position: absolute;
