@@ -24,7 +24,7 @@ module.exports.almacenarPost = (req, res) => {
 
     // Update cantPost
     const queryUpdateCantPost = `
-    UPDATE usuarioAutenticado SET cantPost = cantPost + 1 WHERE username = ?
+    UPDATE usuarioAutenticado SET cantPosts = cantPosts + 1 WHERE username = ?;
     `;
 
     connection.query(queryUpdateCantPost, [dueño], (err, result) => {
@@ -38,7 +38,7 @@ module.exports.almacenarPost = (req, res) => {
 
       // Check the updated cantPost
       const querySelectCantPost = `
-      SELECT cantPost FROM usuarioAutenticado WHERE username = ?
+      SELECT cantPosts FROM usuarioAutenticado WHERE username = ?;
       `;
 
       connection.query(querySelectCantPost, [dueño], (err, results) => {
@@ -63,7 +63,7 @@ module.exports.almacenarPost = (req, res) => {
 
         if (rango) {
           const queryUpdateRango = `
-          UPDATE usuarioAutenticado SET rol = ? WHERE username = ?
+          UPDATE usuarioAutenticado SET rol = ? WHERE username = ?;
           `;
 
           connection.query(queryUpdateRango, [rango, dueño], (err, result) => {
