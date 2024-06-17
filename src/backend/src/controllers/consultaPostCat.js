@@ -9,10 +9,22 @@ module.exports.consultaPostCat = (req, res) => {
 
     if (categoriaId === '*' || (Array.isArray(categoriaId) && categoriaId.includes('*'))) {
         const query = `
-       SELECT p.idPost, p.dueño, p.titulo, p.contenido, p.fechaPublicacion, p.urlImagen, p.urlDocumento
-FROM posts p
-ORDER BY p.fechaPublicacion DESC
-LIMIT 35;
+        SELECT 
+            p.idPost, 
+            p.dueño, 
+            p.titulo, 
+            p.contenido, 
+            p.fechaPublicacion, 
+            p.urlImagen, 
+            p.urlDocumento,
+            u.urlImagenPerfil
+            FROM 
+            posts p
+            LEFT JOIN 
+            usuarioAutenticado u ON p.dueño = u.username
+            ORDER BY 
+            p.fechaPublicacion DESC
+            LIMIT 35;
         `;
         connection.query(query, (error, results) => {
             if (error) {
@@ -24,9 +36,23 @@ LIMIT 35;
     } else if (Array.isArray(categoriaId)) {
         const placeholders = categoriaId.map(() => '(p.idCategoria1 = ? OR p.idCategoria2 = ? OR p.idCategoria3 = ?)').join(' OR ');
         const query = `
-        SELECT p.idPost, p.dueño, p.titulo, p.contenido, p.fechaPublicacion, p.urlImagen, p.urlDocumento
-        FROM posts p
-        WHERE ${placeholders};
+        SELECT 
+            p.idPost, 
+            p.dueño, 
+            p.titulo, 
+            p.contenido, 
+            p.fechaPublicacion, 
+            p.urlImagen, 
+            p.urlDocumento,
+            u.urlImagenPerfil
+        FROM 
+            posts p
+        LEFT JOIN 
+            usuarioAutenticado u ON p.dueño = u.username  
+        WHERE 
+            ${placeholders}
+        ORDER BY 
+            p.fechaPublicacion DESC;
         `;
         const queryParams = [];
         categoriaId.forEach(id => {
@@ -42,9 +68,23 @@ LIMIT 35;
         });
     } else {
         const query = `
-        SELECT p.idPost, p.dueño, p.titulo, p.contenido, p.fechaPublicacion, p.urlImagen, p.urlDocumento
-        FROM posts p
-        WHERE p.idCategoria1 = ? OR p.idCategoria2 = ? OR p.idCategoria3 = ?;
+        SELECT 
+            p.idPost, 
+            p.dueño, 
+            p.titulo, 
+            p.contenido, 
+            p.fechaPublicacion, 
+            p.urlImagen, 
+            p.urlDocumento,
+            u.urlImagenPerfil 
+        FROM 
+            posts p
+        LEFT JOIN 
+            usuarioAutenticado u ON p.dueño = u.username
+        WHERE 
+            p.idCategoria1 = ? OR p.idCategoria2 = ? OR p.idCategoria3 = ?
+        ORDER BY 
+            p.fechaPublicacion DESC;
         `;
         connection.query(query, [categoriaId, categoriaId, categoriaId], (error, results) => {
             if (error) {

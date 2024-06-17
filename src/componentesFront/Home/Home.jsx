@@ -231,23 +231,6 @@ const Home = () => {
     setIsCategorias(!isCategorias);
   };
 
-  const obtenerImagenUser = async (dueño) => {
-    try {
-      const response = await fetch(`https://${host}/obtenerImagenPerfil?dueño=${dueño}`);
-      if (!response.ok) {
-        throw new Error('Error al obtener la URL de imagen de perfil');
-      }
-      const data = await response.json();
-      if (data.error) {
-        throw new Error(data.error);
-      }
-      return data.urlImagenPerfil;
-    } catch (error) {
-      console.error('Error:', error);
-      return null;
-    }
-  }
-
   return (
     <>
       <div className="contedorPrincipal">
@@ -337,7 +320,7 @@ const Home = () => {
                     <div className="headerPost">
                       <img
                         className="miniatura"
-                        src={obtenerImagenUser(post.dueño)}
+                        src={post.urlImagenPerfil}
                       />
 
                       <label className="label-container">

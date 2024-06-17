@@ -4,10 +4,25 @@ module.exports.BuscarPostsNombre = (req, res) => {
     const nombre = req.query.nombre;
 
     const query = `
-        SELECT * FROM posts
-        WHERE titulo LIKE ? OR SOUNDEX(titulo) = SOUNDEX(?)
-        ORDER BY fechaPublicacion DESC
-        LIMIT 20
+    SELECT 
+        p.idPost, 
+        p.dueño, 
+        p.titulo, 
+        p.contenido, 
+        p.fechaPublicacion, 
+        p.urlImagen, 
+        p.urlDocumento,
+        u.urlImagenPerfil  -- Agregamos la columna urlImagenPerfil de la tabla usuarios
+    FROM 
+        posts p
+    LEFT JOIN 
+        usuarioAutenticado u ON p.dueño = u.username  -- LEFT JOIN con la tabla usuarios
+    WHERE 
+        p.idCategoria1 = ? OR p.idCategoria2 = ? OR p.idCategoria3 = ?
+    ORDER BY 
+        p.fechaPublicacion DESC
+    LIMIT 
+        35;
     `;
 
     connection.query(query, [`%${nombre}%`, nombre], (error, results) => {
