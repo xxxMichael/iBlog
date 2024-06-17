@@ -137,7 +137,7 @@ const AdmPosts = () => {
     return (
         <>
             <div className="contPosts">
-                <Link className='btnHome' to='/perfil'> ⌂ </Link>
+            <Link className='btnHome' to='/perfil'> ⌂ </Link>
                 <label className="tituloMP"> MIS POSTS</label>
                 {showForm && (
                     <FormularioE onClose={handleClick} infor={datos} />

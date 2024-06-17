@@ -21,6 +21,7 @@ const PostByUser = () => {
   const formatearTiempoTranscurrido = (fecha) => {
     const fechaPasada = new Date(fecha);
     const fechaActual = new Date();
+    fechaActual.setHours(fechaActual.getHours() - 5);
 
     if (fechaPasada > fechaActual) {
       return "Fecha futura";

@@ -292,6 +292,7 @@ const EstilosContainer=()=> {
         color: white;
         left: 1%;
         padding: 5px 10px;
+        text-decoration: none;
         font-size: 15px;
 
       }

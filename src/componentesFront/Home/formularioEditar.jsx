@@ -171,10 +171,10 @@ function FormularioEditar({ onClose, infor }) {
         }
     };
     return (
-        <div className='contenidoMayor'>
+        <div className='contenidoMayor-ed'>
             <div className="contenidoP">
-                <div className="form1">
-                    <div className='contenedorImg' id='fileInput'>
+                <div className="form1-ed">
+                    <div className='contenedorImg-ed' id='fileInput'>
                         {!image && <p className="textImg">Haz clic para seleccionar una imagen</p>}
                         {image && <img src={image} alt="Imagen seleccionada" style={{ width: '100%', height: '100%' }} />}
                         <input
