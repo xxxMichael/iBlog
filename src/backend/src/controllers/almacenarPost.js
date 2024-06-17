@@ -23,11 +23,11 @@ module.exports.almacenarPost = (req, res) => {
     console.log('Post inserted successfully:', result);
 
     // Update cantPost
-    const queryUpdate = `
+    const queryUpdateCantPost = `
     UPDATE usuarioAutenticado SET cantPost = cantPost + 1 WHERE username = ?
     `;
 
-    connection.query(queryUpdate, [dueño], (err, result) => {
+    connection.query(queryUpdateCantPost, [dueño], (err, result) => {
       if (err) {
         console.error('Error updating cantPost:', err);
         res.status(500).json({ success: false, message: 'Error al actualizar cantPost' });
@@ -35,7 +35,51 @@ module.exports.almacenarPost = (req, res) => {
       }
 
       console.log('cantPost updated successfully:', result);
-      res.status(200).json({ success: true, message: 'Post agregado y cantPost actualizado correctamente' });
+
+      // Check the updated cantPost
+      const querySelectCantPost = `
+      SELECT cantPost FROM usuarioAutenticado WHERE username = ?
+      `;
+
+      connection.query(querySelectCantPost, [dueño], (err, results) => {
+        if (err) {
+          console.error('Error fetching cantPost:', err);
+          res.status(500).json({ success: false, message: 'Error al obtener cantPost' });
+          return;
+        }
+
+        const cantPost = results[0].cantPost;
+        let rango = '';
+
+        if (cantPost > 50) {
+          rango = 'Diamante';
+        } else if (cantPost > 25) {
+          rango = 'Oro';
+        } else if (cantPost > 10) {
+          rango = 'Plata';
+        } else {
+          rango = 'Bronce';
+        }
+
+        if (rango) {
+          const queryUpdateRango = `
+          UPDATE usuarioAutenticado SET rol = ? WHERE username = ?
+          `;
+
+          connection.query(queryUpdateRango, [rango, dueño], (err, result) => {
+            if (err) {
+              console.error('Error updating rango:', err);
+              res.status(500).json({ success: false, message: 'Error al actualizar rango' });
+              return;
+            }
+
+            console.log('rango updated successfully:', result);
+            res.status(200).json({ success: true, message: 'Post agregado, cantPost y rango actualizados correctamente' });
+          });
+        } else {
+          res.status(200).json({ success: true, message: 'Post agregado y cantPost actualizado correctamente' });
+        }
+      });
     });
   });
 };

@@ -15,18 +15,18 @@ module.exports.eliminarPost = (req, res) => {
     connection.query(queryDelete, [id], (err, result) => {
         if (err) {
             console.error('Error al eliminar post:', err);
-            res.status(500).json({ success: false, message: 'Error al Eliminar post' });
+            res.status(500).json({ success: false, message: 'Error al eliminar post' });
             return;
         }
 
         console.log('Post y comentarios eliminados con éxito:', result);
 
         // Update cantPost
-        const queryUpdate = `
+        const queryUpdateCantPost = `
         UPDATE usuarioAutenticado SET cantPost = cantPost - 1 WHERE username = ?;
         `;
 
-        connection.query(queryUpdate, [dueño], (err, result) => {
+        connection.query(queryUpdateCantPost, [dueño], (err, result) => {
             if (err) {
                 console.error('Error al actualizar cantPost:', err);
                 res.status(500).json({ success: false, message: 'Error al actualizar cantPost' });
@@ -34,7 +34,47 @@ module.exports.eliminarPost = (req, res) => {
             }
 
             console.log('cantPost actualizado con éxito:', result);
-            res.status(200).json({ success: true, message: 'Post eliminado y cantPost actualizado correctamente' });
+
+            // Check the updated cantPost
+            const querySelectCantPost = `
+            SELECT cantPost FROM usuarioAutenticado WHERE username = ?
+            `;
+
+            connection.query(querySelectCantPost, [dueño], (err, results) => {
+                if (err) {
+                    console.error('Error al obtener cantPost:', err);
+                    res.status(500).json({ success: false, message: 'Error al obtener cantPost' });
+                    return;
+                }
+
+                const cantPost = results[0].cantPost;
+                let rango = '';
+
+                if (cantPost > 50) {
+                    rango = 'Diamante';
+                } else if (cantPost > 25) {
+                    rango = 'Oro';
+                } else if (cantPost > 10) {
+                    rango = 'Plata';
+                } else {
+                    rango = 'Bronce'; // Assuming the default rank is Bronce for <= 10 posts
+                }
+
+                const queryUpdateRango = `
+                UPDATE usuarioAutenticado SET rango = ? WHERE username = ?
+                `;
+
+                connection.query(queryUpdateRango, [rango, dueño], (err, result) => {
+                    if (err) {
+                        console.error('Error al actualizar rango:', err);
+                        res.status(500).json({ success: false, message: 'Error al actualizar rango' });
+                        return;
+                    }
+
+                    console.log('rango actualizado con éxito:', result);
+                    res.status(200).json({ success: true, message: 'Post eliminado, cantPost y rango actualizados correctamente' });
+                });
+            });
         });
     });
 };
