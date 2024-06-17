@@ -48,7 +48,7 @@ function Formulario({ onClose }) {
             setDueño(decodedToken.username);
         }
     }, []);
-    
+
     useEffect(() => {
         const fetchCategorias = async () => {
             try {
@@ -83,7 +83,7 @@ function Formulario({ onClose }) {
 
     const cambiarArchivoCompleto = (e) => {
         const file = e.target.files[0];
-        const maxSize = 10 * 1024 * 1024; // Tamaño máximo en bytes (5 MB)
+        const maxSize = 5 * 1024 * 1024; // Tamaño máximo en bytes (5 MB)
         const input = e.target;
 
         if (file) {
@@ -95,7 +95,7 @@ function Formulario({ onClose }) {
             }
 
             if (file.size > maxSize) {
-                alert('El archivo debe ser menor de 10 MB');
+                alert('El archivo debe ser menor de 5 MB');
                 input.value = ''; // Limpiar el input de archivo
                 return;
             }
@@ -116,7 +116,7 @@ function Formulario({ onClose }) {
     const idCategoria1 = selectedComponents.length >= 1 ? selectedComponents[0] : null;
     const idCategoria2 = selectedComponents.length >= 2 ? selectedComponents[1] : null;
     const idCategoria3 = selectedComponents.length >= 3 ? selectedComponents[2] : null;
-    
+
     const enviarPost = async (e) => {
         e.preventDefault();
         if (tit.trim() === '') {
@@ -212,15 +212,23 @@ function Formulario({ onClose }) {
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         console.log(file);
-        if (file && (file.type === 'image/jpeg') || (file.type === 'image/jpg') || (file.type === 'image/png')) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setImage(reader.result);
-                setArchivo(file);
-            };
-            reader.readAsDataURL(file);
+        const maxSize = 2 * 1024 * 1024; // 2 MB en bytes
+        if (file && ((file.type === 'image/jpeg') || (file.type === 'image/jpg') || (file.type === 'image/png'))) {
+            if (file.size <= maxSize) {
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    setImage(reader.result);
+                    setArchivo(file);
+                };
+                reader.readAsDataURL(file);
+            } else {
+                alert('La imagen seleccionada es demasiado grande. Por favor, elige una imagen menor a 2 MB.');
+            }
+        } else {
+            alert('Formato de archivo no válido. Solo se permiten imágenes JPEG, JPG y PNG.');
         }
     };
+
     const vaciarCampos = () => {
         setTit('');
         setContent('');

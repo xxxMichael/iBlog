@@ -34,7 +34,10 @@ class FileUploadService {
 
     return multer({
       storage: storage,
-      fileFilter: fileFilter
+      fileFilter: fileFilter,
+      limits: {
+        fileSize: 2 * 1024 * 1024, // 2 MB limite de tamaño
+      }
     }).single('file');
   }
 
@@ -78,7 +81,10 @@ class FileUploadService {
 
     return multer({
       storage: storage,
-      fileFilter: fileFilter
+      fileFilter: fileFilter,
+      limits: {
+        fileSize: 5 * 1024 * 1024, // 5 MB limite de tamaño
+      }
     }).single('file');
   }
 
