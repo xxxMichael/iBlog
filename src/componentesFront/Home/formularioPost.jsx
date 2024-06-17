@@ -200,6 +200,7 @@ function Formulario({ onClose }) {
             if (responsePost.ok) {
                 alert('Se agregó correctamente el nuevo post');
                 onClose();
+                
                 window.location.reload();
             } else {
                 console.error('Error al almacenar el post:', responsePost.statusText);
