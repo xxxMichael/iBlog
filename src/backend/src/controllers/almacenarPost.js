@@ -48,7 +48,7 @@ module.exports.almacenarPost = (req, res) => {
           return;
         }
 
-        const cantPost = results[0].cantPost;
+        const cantPost = results[0].cantPosts;
         let rango = '';
 
         if (cantPost > 50) {
