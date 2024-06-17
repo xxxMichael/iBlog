@@ -96,13 +96,19 @@ const PostByUser = () => {
     return <p>Cargando información del usuario...</p>;
   }
 
+  const navegarPrincipio = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // Opcional: animación suave
+    });
+  }
   return (
     <div>
       {!userInfo ? (
         <p>Cargando información del usuario...</p>
       ) : (
         <div>
-          <Link className="label-container" to={"/"}>Regresar a Home</Link>
+          <Link className="label-container-Home" to={"/"}>Regresar a Home</Link>
           <h2
             style={{ color: "white", textAlign: "center", lineHeight: "1.5" }}
           >
@@ -183,6 +189,9 @@ const PostByUser = () => {
           ) : (
             <p className="mensajePostsVaciosL">ESTE USUARIO NO TIENE POSTS</p>
           )}
+          <button onClick={navegarPrincipio} className="btn-regresar-Principio">
+            Regresar al Principio
+          </button>
         </div>
       )}
     </div>

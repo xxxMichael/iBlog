@@ -132,6 +132,12 @@ const AdmPosts = () => {
         }
     };
 
+    const navegarPrincipio = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth", // Opcional: animación suave
+        });
+    }
 
 
     return (
@@ -175,6 +181,9 @@ const AdmPosts = () => {
                 ) : (
                     <p className="mensajePostsVacios">No hay posts disponibles.</p>
                 )}
+                <button onClick={navegarPrincipio} className="btn-regresar-Principio">
+                    Regresar al Principio
+                </button>
             </div>
         </>
     );

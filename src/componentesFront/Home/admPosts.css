@@ -228,7 +228,7 @@
     background-color: rgb(11, 86, 91);
     color: white;
     border-radius: 50%;
-    position: fixed;
+    position: absolute;
     width: 50px;
     height: 50px;
     margin-left: 55%;
