@@ -42,7 +42,6 @@ body {
   justify-content: flex-start; /* Asegura que los elementos se alineen al principio por defecto */
 
   margin-top: calc(10px + 50px);
-  border: 1px solid #178288;
   width: 25%;
   height: 74%;
   border-radius: 5%;

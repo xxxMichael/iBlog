@@ -42,7 +42,7 @@ const UserCard = () => {
     window.location.reload();
   };
   return (
-    <div className="card" style={{ width: "18rem" }}>
+    <div className="card">
       <img
         src={getRoleImage(userInfo.rol)}
         className="card-img-top"

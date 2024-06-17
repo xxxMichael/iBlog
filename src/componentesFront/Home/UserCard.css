@@ -1,10 +1,11 @@
 .card {
-  padding: 20px;
-  position: absolute;
-  width: 99%;
+  padding: 40px;
+  position: relative;
+  width: 100%;
+  border: 1px solid #178288;
   margin-top: 1%;
   margin-left: 5%;
-  min-height: 350px;
+  min-height: auto;
   border-radius: 15px;
   background: rgb(14, 17, 19);
   transition: 0.05s;

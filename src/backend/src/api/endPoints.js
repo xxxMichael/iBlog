@@ -31,6 +31,7 @@ const S3Service = require("../controllers/eliminarImagen");
 const { eliminarPost } = require('../controllers/eliminarPosts');
 const { infUser } = require('../controllers/infUser');
 const { consultarPostUsername } = require('../controllers/consultarPostUsername');
+const { obtenerUrlImagenPerfil } = require('../controllers/obtPostUsuario');
 
 const {interesesUsuario } = require('../controllers/interesesUsuario ');
 const fileUploadService = new FileUploadService();
@@ -45,6 +46,7 @@ router.get('/consultarPostUsername', consultarPostUsername);
 
 router.post('/guardarCambios', guardarCambios);
 router.get('/consultarpostsUsuario', consultarpostsUsuario);
+router.get('/obtenerImagenPerfil', obtenerUrlImagenPerfil);
 router.post('/infUser', infUser);
 router.post('/interesesUsuario', interesesUsuario);
 router.get('/consultarpostsall', consultarpostsall);
