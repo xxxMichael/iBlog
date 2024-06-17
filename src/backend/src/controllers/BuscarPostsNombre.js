@@ -12,11 +12,11 @@ module.exports.BuscarPostsNombre = (req, res) => {
         p.fechaPublicacion, 
         p.urlImagen, 
         p.urlDocumento,
-        u.urlImagenPerfil  -- Agregamos la columna urlImagenPerfil de la tabla usuarios
+        u.urlImagenPerfil  
     FROM 
         posts p
     LEFT JOIN 
-        usuarioAutenticado u ON p.dueño = u.username  -- LEFT JOIN con la tabla usuarios
+        usuarioAutenticado u ON p.dueño = u.username  
     WHERE 
         p.idCategoria1 = ? OR p.idCategoria2 = ? OR p.idCategoria3 = ?
     ORDER BY 
