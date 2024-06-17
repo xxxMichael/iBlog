@@ -218,9 +218,9 @@ const EstilosContainer=()=> {
       .profile-picture {
         position: relative;
         margin-top: -50px;
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        border-radius: 25%;
         overflow: hidden;
         margin-bottom: -13px;
       }
@@ -420,12 +420,6 @@ const EstilosContainer=()=> {
 
         .user-profile {
           padding: 10px;
-        }
-
-        .profile-picture {
-          width: 80px;
-          height: 80px;
-          margin-top: -40px;
         }
 
         .user-info {

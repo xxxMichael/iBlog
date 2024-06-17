@@ -275,6 +275,30 @@ const Perfil = () => {
     setModalType("country"); // Establece el tipo de modal como 'country'
     setModalOpen(true); // Abre la ventana modal
   };
+
+  const imagenRangoPokemon = () => {
+    if (userData.username === 'david21') {
+      return 'https://images.wikidexcdn.net/mwuploads/wikidex/2/20/latest/20141014154627/Mega-Rayquaza.png';
+    }
+    if (userData.username === 'michael') {
+      return 'https://images.wikidexcdn.net/mwuploads/wikidex/7/77/latest/20161114210617/Necrozma.png';
+    }
+    if (userData.username === 'Kevin') {
+      return 'https://images.wikidexcdn.net/mwuploads/wikidex/1/16/latest/20220313073057/Eternatus.png';
+    }
+    if (userData.rol === 'Diamante') {
+      return 'https://images.wikidexcdn.net/mwuploads/wikidex/8/88/latest/20150301123501/Mega-Charizard_X.png';
+    }
+    if (userData.rol === 'Oro') {
+      return 'https://images.wikidexcdn.net/mwuploads/wikidex/9/95/latest/20160817212623/Charizard.png';
+    }
+    if (userData.rol === 'Plata') {
+      return 'https://images.wikidexcdn.net/mwuploads/wikidex/f/fb/latest/20200411222755/Charmeleon.png';
+    }
+    if (userData.rol === 'Bronce') {
+      return 'https://images.wikidexcdn.net/mwuploads/wikidex/5/56/latest/20200307023245/Charmander.png';
+    }
+  }
   return (
     <>
       <EstilosContainer />
@@ -302,7 +326,7 @@ const Perfil = () => {
 
             <div className="profile-picture">
               <img
-                src="https://images.wikidexcdn.net/mwuploads/wikidex/thumb/f/fb/latest/20200411222755/Charmeleon.png/800px-Charmeleon.png"
+                src={imagenRangoPokemon()}
                 alt="profile"
               />
             </div>
@@ -362,8 +386,8 @@ const Perfil = () => {
                   {modalType === "name"
                     ? "Editar Nombre"
                     : modalType === "dateOfBirth"
-                    ? "Editar Fecha de Nacimiento"
-                    : "Editar País"}
+                      ? "Editar Fecha de Nacimiento"
+                      : "Editar País"}
                 </h2>
                 <form onSubmit={handleSubmit}>
                   {modalType === "name" ? (
@@ -443,8 +467,8 @@ const Perfil = () => {
                 <h2>Sus Intereses</h2>
                 <form onSubmit={handleSubmitInterests}>
                   <div>
-                  <InteresesPerfil username={userData.username} />
-                  
+                    <InteresesPerfil username={userData.username} />
+
                   </div>
                   <button
                     type="button"
