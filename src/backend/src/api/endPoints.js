@@ -31,8 +31,7 @@ const S3Service = require("../controllers/eliminarImagen");
 const { eliminarPost } = require('../controllers/eliminarPosts');
 const { infUser } = require('../controllers/infUser');
 const { consultarPostUsername } = require('../controllers/consultarPostUsername');
-const { obtenerUrlImagenPerfil } = require('../controllers/obtPostUsuario');
-
+const { obtenerUrlImagenPerfil } = require('../controllers/obtenerImagenPerfil');
 const {interesesUsuario } = require('../controllers/interesesUsuario ');
 const fileUploadService = new FileUploadService();
 const actualizarImagen = new ActualizarImagen();
