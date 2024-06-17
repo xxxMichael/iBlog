@@ -72,16 +72,6 @@ const SeleccionarIntereses = ({ onHide }) => {
       if (!response.ok) {
         throw new Error("Error al guardar intereses");
       }
-
-      const data = await response.json();
-      console.log("Intereses guardados exitosamente:", data);
-
-      setExito(true);
-      setTimeout(() => {
-        onHide(); // Ocultar el componente después de 2 segundos
-      }, 1000);
-
-      // Si se guardaron correctamente los intereses, hacer fetch a infUser para obtener el token
       fetch(`https://${host}/infUser`, {
         method: "POST",
         headers: {
@@ -105,6 +95,16 @@ const SeleccionarIntereses = ({ onHide }) => {
     } catch (error) {
       console.error("Error al procesar la solicitud:", error.message);
     }
+
+    const data = await response.json();
+    console.log("Intereses guardados exitosamente:", data);
+
+    setExito(true);
+    setTimeout(() => {
+      onHide(); // Ocultar el componente después de 2 segundos
+    }, 1000);
+
+    // Si se guardaron correctamente los intereses, hacer fetch a infUser para obtener el token
   }
 
   const handleGuardarClick = () => {
