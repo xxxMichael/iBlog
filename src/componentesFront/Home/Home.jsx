@@ -41,7 +41,7 @@ const Home = () => {
   const [showForm1, setShowForm1] = useState(false);
   const [searchDisabled, setSearchDisabled] = useState(false);
   const [selectedPostId, setSelectedPostId] = useState(null);
-  const [currentUser, setCurrentUser] = useState(null); // Definir el estado currentUser y su función setter setCurrentUser
+  const [currentUser, setCurrentUser] = useState(null); 
   const [showInterests, setShowInterests] = useState(false);
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [categoriaActual, setCategoriaActual] = useState(""); // Estado para el nombre de la categoría actual
@@ -375,7 +375,7 @@ const Home = () => {
                 </div>
               ))
             ) : (
-              <p className="mensajePostsVacios">
+              <p className="mensajePostsVaciosL">
                 NO HAY POSTS EN ESTA CATEGORIA
               </p>
             )}

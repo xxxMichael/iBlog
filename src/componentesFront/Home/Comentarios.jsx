@@ -89,6 +89,7 @@ const Comentarios = ({ idPost, currentUser }) => {
     const fechaPasada = new Date(fecha);
     const fechaActual = new Date();
     fechaActual.setHours(fechaActual.getHours() - 5);
+
     if (fechaPasada > fechaActual) {
       return 'Fecha futura';
     }
@@ -130,8 +131,8 @@ const Comentarios = ({ idPost, currentUser }) => {
           )}
           <p
             className={`usuario-Comento ${currentUser === comentario.autor && !tokenExpired
-                ? "usuario-con-boton"
-                : ""
+              ? "usuario-con-boton"
+              : ""
               }`}
           >
             <strong>

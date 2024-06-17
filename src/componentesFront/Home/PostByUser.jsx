@@ -22,7 +22,6 @@ const PostByUser = () => {
     const fechaPasada = new Date(fecha);
     const fechaActual = new Date();
     fechaActual.setHours(fechaActual.getHours() - 5);
-
     if (fechaPasada > fechaActual) {
       return "Fecha futura";
     }
@@ -119,9 +118,9 @@ const PostByUser = () => {
 
           {posts.length > 0 ? (
             posts.map((post) => (
-              <div key={post.idPost} className="postP">
+              <div key={post.idPost} className="postP-User">
                 <div className="card-post">
-                  <div className="headerPost">
+                  <div className="headerPost-User">
                     <img
                       className="miniatura"
                       src="https://iblog-archivos.s3.sa-east-1.amazonaws.com/complementosPrincipal/logoApp1.png"
@@ -133,7 +132,7 @@ const PostByUser = () => {
                     </label>
                   </div>
                   {post.urlImagen && (
-                    <div className="card-image-post">
+                    <div className="card-image-post-User">
                       <img
                         className="img-Post"
                         src={post.urlImagen}
@@ -141,9 +140,9 @@ const PostByUser = () => {
                       />
                     </div>
                   )}
-                  <p className="card-title-post">{post.titulo}</p>
-                  <p className="card-body-post">{post.contenido}</p>
-                  <div className="contBtnPost">
+                  <p className="card-title-post-User">{post.titulo}</p>
+                  <p className="card-body-post-User">{post.contenido}</p>
+                  <div className="contBtnPost-User">
                     <button
                       className="bookmarkBtn"
                       onClick={() =>
@@ -182,7 +181,7 @@ const PostByUser = () => {
               </div>
             ))
           ) : (
-            <p className="mensajePostsVacios">NO HAY POSTS EN ESTA CATEGORÍA</p>
+            <p className="mensajePostsVaciosL">ESTE USUARIO NO TIENE POSTS</p>
           )}
         </div>
       )}

@@ -50,8 +50,6 @@ body {
   color: black;
   top: 5%;
   right: 5%;
-
-
 }
 .contIzquierdo {
   border-right: 1px solid rgb(62, 65, 66);
@@ -112,7 +110,7 @@ body {
   font-size: 15px;
 }
 .btnInicioSesion {
-  background-color:  #178288;
+  background-color: #178288;
   color: white;
   display: flex;
   justify-content: center;
@@ -184,13 +182,27 @@ body {
   border-bottom: 1px solid rgb(62, 65, 66);
 }
 .postP {
+  border-bottom: 1px solid rgb(62, 65, 66);
+  border-top: 1px solid rgb(62, 65, 66);
   background-color: rgb(14, 17, 19);
   width: 95%;
   left: 3%;
   position: relative;
   align-items: center;
   justify-content: center;
-  display: flez;
+  border-bottom: 1px solid rgb(62, 65, 66);
+  border-top: 1px solid rgb(62, 65, 66);
+}
+.postP-User {
+  border-bottom: 1px solid rgb(62, 65, 66);
+  border-top: 1px solid rgb(62, 65, 66);
+  background-color: rgb(14, 17, 19);
+  width: 50%;
+  margin-left: 21%;
+  left: 3%;
+  position: relative;
+  align-items: center;
+  justify-content: center;
   border-bottom: 1px solid rgb(62, 65, 66);
   border-top: 1px solid rgb(62, 65, 66);
 }
@@ -217,12 +229,29 @@ body {
   color: #b2eccf;
   margin: 15px 0 0 10px;
 }
-
+.card-title-post-User {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #b2eccf;
+  width: 100%;
+  margin: 15px 0 0 10px;
+}
 .card-image-post {
   min-height: 25vh;
   max-height: 63vh;
   min-width: 500px;
   max-width: 560px;
+  background-color: #313131;
+  border-radius: 15px;
+  background: #313131;
+  overflow: hidden;
+  position: relative;
+}
+.card-image-post-User {
+  min-height: 25vh;
+  max-height: 63vh;
+  min-width: 500px;
+  max-width: 100%;
   background-color: #313131;
   border-radius: 15px;
   background: #313131;
@@ -246,6 +275,14 @@ body {
   margin-bottom: 2%;
   text-align: justify;
 }
+.card-body-post-User {
+  margin: 13px 0 0 10px;
+  color: rgb(184, 184, 184);
+  font-size: 20px;
+  width: 100%;
+  margin-bottom: 2%;
+  text-align: justify;
+}
 
 .footer {
   margin: 28px 0 0 18px;
@@ -265,6 +302,19 @@ body {
   border-radius: 100%;
 }
 .headerPost label {
+  padding-left: 10px;
+  font-size: 1.1rem;
+  color: white;
+}
+.headerPost-User {
+  margin-bottom: 2%;
+  display: flex;
+  align-items: center;
+}
+.headerPost-User img {
+  border-radius: 100%;
+}
+.headerPost-User label {
   padding-left: 10px;
   font-size: 1.1rem;
   color: white;
@@ -334,6 +384,15 @@ body {
   color: #cccccc;
   cursor: not-allowed;
 }
+.mensajePostsVaciosL {
+  margin-top: 10%;
+  margin-left: 20%;
+  width: 60%;
+  padding: 25px;
+  color: white;
+  text-align: center;
+  border: 1px solid white;
+}
 .mensajePostsVacios {
   margin-top: 10%;
   margin-left: 35%;
@@ -350,7 +409,7 @@ body {
   border: none;
   background-color: transparent;
 }
-.label-container  {
+.label-container {
   color: white; /* Hereda el color del texto del contenedor */
   cursor: pointer; /* Cambia el cursor al pasar el mouse */
 }
@@ -371,9 +430,14 @@ body {
   background-color: #b2eccf;
   fill: white;
 }
-.contBtnPost{
+.contBtnPost {
   display: flex;
   margin-bottom: 10px;
+}
+.contBtnPost-User {
+  display: flex;
+  margin-bottom: 10px;
+  margin-left: 25%;
 }
 .Btn-descarga {
   background-color: rgb(66, 66, 66);
@@ -514,10 +578,9 @@ body {
     top: 80px;
     z-index: 1;
   }
-  
-  .categoriaAct{
-    display: none;
 
+  .categoriaAct {
+    display: none;
   }
   .contIzquierdo {
     position: relative;
@@ -555,6 +618,19 @@ body {
     margin-left: 0%;
   }
   .card-image-post {
+    margin-left: 0%;
+    min-height: 150px;
+    max-height: 280px;
+    max-width: 320px;
+    min-width: 320px;
+    background-color: #313131;
+    border-radius: 15px;
+    background: #313131;
+    overflow: hidden;
+    position: relative;
+  }
+  .card-image-post-User {
+    margin-left: 0%;
     min-height: 150px;
     max-height: 280px;
     max-width: 320px;
@@ -567,6 +643,14 @@ body {
   }
 
   .card-image-post img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+  .card-image-post-User img {
     max-width: 100%;
     max-height: 100%;
     width: auto;
@@ -610,5 +694,24 @@ body {
   }
   .cont-categorias-des h2 {
     color: white;
+  }
+  .headerPost-User img {
+    margin-left: 0%;
+  }
+  .card-title-post-User {
+    padding-left: 0%;
+  }
+  .card-body-post-User {
+    width: 90%;
+    padding-left: 0%;
+  }
+  .contBtnPost-User {
+    margin-left: 0%;
+  }
+  .postP-User {
+    background-color: rgb(14, 17, 19);
+    width: 100%;
+    left: 0%;
+    margin-left: 0%;
   }
 }
