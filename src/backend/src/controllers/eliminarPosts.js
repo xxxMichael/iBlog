@@ -21,40 +21,40 @@ module.exports.eliminarPost = (req, res) => {
 
         console.log('Post y comentarios eliminados con éxito:', result);
 
-        // Update cantPost
+        // Update cantPosts
         const queryUpdateCantPost = `
         UPDATE usuarioAutenticado SET cantPosts = cantPosts - 1 WHERE username = ?;
         `;
 
         connection.query(queryUpdateCantPost, [dueño], (err, result) => {
             if (err) {
-                console.error('Error al actualizar cantPost:', err);
-                res.status(500).json({ success: false, message: 'Error al actualizar cantPost' });
+                console.error('Error al actualizar cantPosts:', err);
+                res.status(500).json({ success: false, message: 'Error al actualizar cantPosts' });
                 return;
             }
 
-            console.log('cantPost actualizado con éxito:', result);
+            console.log('cantPosts actualizado con éxito:', result);
 
-            // Check the updated cantPost
+            // Check the updated cantPosts
             const querySelectCantPost = `
             SELECT cantPosts FROM usuarioAutenticado WHERE username = ?
             `;
 
             connection.query(querySelectCantPost, [dueño], (err, results) => {
                 if (err) {
-                    console.error('Error al obtener cantPost:', err);
-                    res.status(500).json({ success: false, message: 'Error al obtener cantPost' });
+                    console.error('Error al obtener cantPosts:', err);
+                    res.status(500).json({ success: false, message: 'Error al obtener cantPosts' });
                     return;
                 }
 
-                const cantPost = results[0].cantPost;
+                const cantPosts = results[0].cantPosts;
                 let rango = '';
 
-                if (cantPost > 50) {
+                if (cantPosts > 50) {
                     rango = 'Diamante';
-                } else if (cantPost > 25) {
+                } else if (cantPosts > 25) {
                     rango = 'Oro';
-                } else if (cantPost > 10) {
+                } else if (cantPosts > 10) {
                     rango = 'Plata';
                 } else {
                     rango = 'Bronce'; // Assuming the default rank is Bronce for <= 10 posts
@@ -72,7 +72,7 @@ module.exports.eliminarPost = (req, res) => {
                     }
 
                     console.log('rango actualizado con éxito:', result);
-                    res.status(200).json({ success: true, message: 'Post eliminado, cantPost y rango actualizados correctamente' });
+                    res.status(200).json({ success: true, message: 'Post eliminado, cantPosts y rango actualizados correctamente' });
                 });
             });
         });

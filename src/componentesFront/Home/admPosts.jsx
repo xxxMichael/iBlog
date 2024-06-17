@@ -119,7 +119,7 @@ const AdmPosts = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ id: post.idPost , dueño: post.dueño}),
+                body: JSON.stringify({ id: post.idPost, dueño: post.dueño }),
             });
             if (response.ok) {
                 alert('Se eliminó correctamente el post');
@@ -137,7 +137,7 @@ const AdmPosts = () => {
     return (
         <>
             <div className="contPosts">
-            <Link className='btnHome' to='/perfil'> ⌂ </Link>
+                <Link className='btnHome' to='/perfil'> ⌂ </Link>
                 <label className="tituloMP"> MIS POSTS</label>
                 {showForm && (
                     <FormularioE onClose={handleClick} infor={datos} />
