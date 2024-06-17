@@ -9,10 +9,10 @@ module.exports.consultaPostCat = (req, res) => {
 
     if (categoriaId === '*' || (Array.isArray(categoriaId) && categoriaId.includes('*'))) {
         const query = `
-        SELECT p.idPost, p.dueño, p.titulo, p.contenido, p.fechaPublicacion, p.urlImagen, p.urlDocumento
-        FROM posts p
-        ORDER BY RAND()
-        LIMIT 30;
+       SELECT p.idPost, p.dueño, p.titulo, p.contenido, p.fechaPublicacion, p.urlImagen, p.urlDocumento
+FROM posts p
+ORDER BY p.fechaPublicacion DESC
+LIMIT 35;
         `;
         connection.query(query, (error, results) => {
             if (error) {
