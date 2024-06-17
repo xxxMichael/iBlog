@@ -83,7 +83,7 @@ function Formulario({ onClose }) {
 
     const cambiarArchivoCompleto = (e) => {
         const file = e.target.files[0];
-        const maxSize = 5 * 1024 * 1024; // Tamaño máximo en bytes (5 MB)
+        const maxSize = 1 * 1024 * 1024; // Tamaño máximo en bytes (5 MB)
         const input = e.target;
 
         if (file) {
@@ -95,7 +95,7 @@ function Formulario({ onClose }) {
             }
 
             if (file.size > maxSize) {
-                alert('El archivo debe ser menor de 5 MB');
+                alert('El archivo debe ser menor de 1 MB');
                 input.value = ''; // Limpiar el input de archivo
                 return;
             }
@@ -212,7 +212,7 @@ function Formulario({ onClose }) {
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         console.log(file);
-        const maxSize = 2 * 1024 * 1024; // 2 MB en bytes
+        const maxSize = 1 * 1024 * 1024; // 2 MB en bytes
         if (file && ((file.type === 'image/jpeg') || (file.type === 'image/jpg') || (file.type === 'image/png'))) {
             if (file.size <= maxSize) {
                 const reader = new FileReader();
@@ -222,7 +222,7 @@ function Formulario({ onClose }) {
                 };
                 reader.readAsDataURL(file);
             } else {
-                alert('La imagen seleccionada es demasiado grande. Por favor, elige una imagen menor a 2 MB.');
+                alert('La imagen seleccionada es demasiado grande. Por favor, elige una imagen menor a 1 MB.');
             }
         } else {
             alert('Formato de archivo no válido. Solo se permiten imágenes JPEG, JPG y PNG.');

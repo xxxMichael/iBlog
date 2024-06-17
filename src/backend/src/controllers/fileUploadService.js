@@ -36,7 +36,7 @@ class FileUploadService {
       storage: storage,
       fileFilter: fileFilter,
       limits: {
-        fileSize: 2 * 1024 * 1024, // 2 MB limite de tamaño
+        fileSize: 1 * 1024 * 1024, // 2 MB limite de tamaño
       }
     }).single('file');
   }
@@ -83,7 +83,7 @@ class FileUploadService {
       storage: storage,
       fileFilter: fileFilter,
       limits: {
-        fileSize: 5 * 1024 * 1024, // 5 MB limite de tamaño
+        fileSize: 1 * 1024 * 1024, // 5 MB limite de tamaño
       }
     }).single('file');
   }
