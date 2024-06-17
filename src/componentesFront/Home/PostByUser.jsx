@@ -117,7 +117,7 @@ const PostByUser = () => {
             <span style={{ fontSize: "0.8em" }}>
               Rango: {userInfo.rol}
               <br />
-              País: {userInfo.pais}
+              País: {userInfo.pais} <br/>
               <Flag code={paisCodigo} height="30" />
             </span>
           </h2>
