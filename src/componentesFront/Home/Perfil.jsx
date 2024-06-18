@@ -7,8 +7,7 @@ import axios from "axios";
 import { host } from "./Home";
 import { decodificar } from "../Home/Home"; // Importa la función decodificar desde el componente Home
 import { useNavigate } from "react-router-dom";
-import InteresesPerfil from './interesesPerfil'; // Importar el componente InteresesPerfil
-
+import InteresesPerfil from "./interesesPerfil"; // Importar el componente InteresesPerfil
 
 const Perfil = () => {
   const navigate = useNavigate();
@@ -282,10 +281,10 @@ const Perfil = () => {
     setModalOpen(true); // Abre la ventana modal
   };
   const getFileNameFromUrl = (url) => {
-    const path = url.split('/').pop();
-    const fileName = path.split('?')[0];
+    const path = url.split("/").pop();
+    const fileName = path.split("?")[0];
     return fileName;
-  }
+  };
 
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
@@ -295,39 +294,47 @@ const Perfil = () => {
       return;
     }
 
-    const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+    const validTypes = ["image/jpeg", "image/jpg", "image/png", "image/gif"];
 
     if (!validTypes.includes(file.type)) {
-      alert('Por favor, selecciona un archivo de imagen válido (JPEG, JPG, PNG, GIF).');
+      alert(
+        "Por favor, selecciona un archivo de imagen válido (JPEG, JPG, PNG, GIF)."
+      );
       return;
     }
 
     if (file.size > maxSize) {
-      alert('La imagen seleccionada es demasiado grande. Por favor, elige una imagen menor a 1 MB.');
+      alert(
+        "La imagen seleccionada es demasiado grande. Por favor, elige una imagen menor a 1 MB."
+      );
       return;
     }
 
     try {
       let formData = new FormData();
-      formData.append('file', file);
+      formData.append("file", file);
 
       let responseImagen;
 
       if (userData.urlImagenPerfil) {
         const fileName = getFileNameFromUrl(userData.urlImagenPerfil);
-        formData.append('fileName', fileName);
+        formData.append("fileName", fileName);
 
-        responseImagen = await axios.post(`https://${host}/actualizarI`, formData, {
-          headers: { 'Content-Type': 'multipart/form-data' },
-        });
+        responseImagen = await axios.post(
+          `https://${host}/actualizarI`,
+          formData,
+          {
+            headers: { "Content-Type": "multipart/form-data" },
+          }
+        );
       } else {
         responseImagen = await axios.post(`https://${host}/subida`, formData, {
-          headers: { 'Content-Type': 'multipart/form-data' },
+          headers: { "Content-Type": "multipart/form-data" },
         });
       }
 
       if (responseImagen.status !== 200) {
-        console.error('Error al subir la imagen:', responseImagen.statusText);
+        console.error("Error al subir la imagen:", responseImagen.statusText);
         return;
       }
 
@@ -338,27 +345,30 @@ const Perfil = () => {
           urlImagen: nuevaUrlImagenPerfil,
         };
 
-        const responsePost = await fetch(`https://${host}/actualizarFotoPerfil`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),
-        });
+        const responsePost = await fetch(
+          `https://${host}/actualizarFotoPerfil`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }
+        );
 
         if (!responsePost.ok) {
-          console.error('Error al actualizar imagen:', responsePost.statusText);
+          console.error("Error al actualizar imagen:", responsePost.statusText);
           return;
         }
 
-        alert('Se actualizó la foto de perfil');
+        alert("Se actualizó la foto de perfil");
       } else {
-        alert('Éxito al cambiar imagen');
+        alert("Éxito al cambiar imagen");
       }
 
       window.location.reload();
     } catch (error) {
-      console.error('Error al cambiar imagen:', error);
+      console.error("Error al cambiar imagen:", error);
     }
   };
 
@@ -388,13 +398,21 @@ const Perfil = () => {
             </button>
             <div className="profile-picture">
               <img
-                src={userData.urlImagenPerfil + '?${new Date().getTime()}'} 
+                src={userData.urlImagenPerfil + "?${new Date().getTime()}"}
                 alt="profile"
               />
               <input
                 type="file"
                 accept="image/jpeg, image/png"
-                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0, cursor: 'pointer' }}
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  opacity: 0,
+                  cursor: "pointer",
+                }}
                 onChange={handleImageChange}
               />
             </div>
@@ -426,6 +444,15 @@ const Perfil = () => {
                 <span className="info-label">Rango: </span>
                 <span className="info-value">{userData.rol}</span>
               </div>
+              
+              <div style={{ position: "absolute", bottom: "5%", right: "5%" }}>
+              <button
+              className="edit-button edit-contrasena"
+              onClick={handleInterestsEdit}
+            >
+              Clave
+            </button>
+              </div>
               <div className="info-item">
                 <span className="info-label">País: </span>
                 <span className="info-value">
@@ -454,8 +481,8 @@ const Perfil = () => {
                   {modalType === "name"
                     ? "Editar Nombre"
                     : modalType === "dateOfBirth"
-                      ? "Editar Fecha de Nacimiento"
-                      : "Editar País"}
+                    ? "Editar Fecha de Nacimiento"
+                    : "Editar País"}
                 </h2>
                 <form onSubmit={handleSubmit}>
                   {modalType === "name" ? (
@@ -536,7 +563,6 @@ const Perfil = () => {
                 <form onSubmit={handleSubmitInterests}>
                   <div>
                     <InteresesPerfil username={userData.username} />
-
                   </div>
                   <button
                     type="button"

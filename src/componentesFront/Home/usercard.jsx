@@ -34,6 +34,9 @@ const UserCard = () => {
     if (userInfo.username === 'michael') {
       return 'https://images.wikidexcdn.net/mwuploads/wikidex/7/77/latest/20161114210617/Necrozma.png';
     }
+    if (userInfo.username === 'melaAlban') {
+      return 'https://images.wikidexcdn.net/mwuploads/wikidex/4/4e/latest/20191009134017/Ponyta_de_Galar.png';
+    }
     switch (rol.toLowerCase()) {
       case "bronce":
         return 'https://images.wikidexcdn.net/mwuploads/wikidex/5/56/latest/20200307023245/Charmander.png';
