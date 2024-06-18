@@ -12,7 +12,15 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import { host } from '../Home/Home';
 
-const Login = ({onClose}) => {
+function generateRandomNumbersString() {
+  const num1 = Math.floor(Math.random() * 9) + 1; // Genera un número aleatorio entre 1 y 9
+  const num2 = Math.floor(Math.random() * 9) + 1; // Genera un número aleatorio entre 1 y 9
+  const num3 = Math.floor(Math.random() * 9) + 1; // Genera un número aleatorio entre 1 y 9
+
+  return `${num1}${num2}${num3}`;
+}
+
+const Login = ({ onClose }) => {
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
@@ -105,12 +113,9 @@ const Login = ({onClose}) => {
         });
         return;
       }
-
       const result = await response.json();
-      console.log(result.token);
-
       if (result.token) {
-        localStorage.setItem("token", result.token);
+        localStorage.setItem("token", generateRandomNumbersString() + result.token);
         setLoginSuccessful(true);
         //navigate("/");
         window.location.reload();
@@ -162,7 +167,6 @@ const Login = ({onClose}) => {
   const handleRecuperarContralick = () => {
     setShowRecuperarContra(true); // Mostrar el componente de recuperación de contraseña
   };
-
 
   return (
     <>
