@@ -51,15 +51,14 @@ const PostByUser = () => {
   const handleComentariosClick = (postId, currentUser) => {
     console.log(currentUser);
     setSelectedPostId(postId);
-    setCurrentUser(currentUser); 
+    setCurrentUser(currentUser);
   };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-     const decodedToken=  decodificar(token);
+      const decodedToken = decodificar(token);
       setCurrentUser(decodedToken.username);
-
     }
     // Función para obtener información del usuario
     const fetchUserInfo = async () => {
@@ -113,18 +112,28 @@ const PostByUser = () => {
           <Link className="label-container-Home" to={"/"}>
             Regresar a Home
           </Link>
-          <h2 className="tituloUserr"
-            style={{ color: "white", textAlign: "center", lineHeight: "1.5" }}
-          >
-            Posts de {userInfo.nombre} {userInfo.apellido}
-            <br />
-            <span style={{ fontSize: "0.8em" }}>
-              Rango: {userInfo.rol}
+          <div className="inff">
+            <h2
+              className="tituloUserr"
+              style={{ color: "white", textAlign: "center", lineHeight: "1.5" }}
+            >
+              Posts de {userInfo.nombre} {userInfo.apellido}
               <br />
-              País: {userInfo.pais} <br />
-              <Flag code={paisCodigo} height="30" />
-            </span>
-          </h2>
+              <span style={{ fontSize: "0.8em" }}>
+                Rango: {userInfo.rol}
+                <br />
+                País: {userInfo.pais} <br />
+                <Flag code={paisCodigo} height="30" />
+              </span>
+              <div className="profile-picture">
+                <img
+                  className="profile-picture"
+                  src={userInfo.urlImagenPerfil + "?${new Date().getTime()}"}
+                  alt="profile"
+                />
+              </div>
+            </h2>
+          </div>
 
           {posts.length > 0 ? (
             posts.map((post) => (
@@ -194,8 +203,7 @@ const PostByUser = () => {
             <p className="mensajePostsVaciosL">ESTE USUARIO NO TIENE POSTS</p>
           )}
           <button onClick={navegarPrincipio} className="btn-regresar-Principio">
-            Regresar al Principio
-          </button>
+          ⬆          </button>
         </div>
       )}
     </div>

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { decodificar } from "../Home/Home"; // Importa la función decodificar desde el componente Home
-import './Comentarios.css';
-import { format } from 'date-fns';
-import { host } from './Home';
+import "./Comentarios.css";
+import { format } from "date-fns";
+import { host } from "./Home";
+import { Link } from "react-router-dom";
 
 const Comentarios = ({ idPost, currentUser }) => {
   const [comentarios, setComentarios] = useState([]);
@@ -49,18 +50,18 @@ const Comentarios = ({ idPost, currentUser }) => {
     const fechaHora = new Date();
     console.log(fechaHora);
     const año = fechaHora.getFullYear();
-    const mes = (fechaHora.getMonth() + 1).toString().padStart(2, '0'); // Los meses van de 0 a 11, por lo que sumamos 1
-    const dia = fechaHora.getDate().toString().padStart(2, '0');
-    const horas = fechaHora.getHours().toString().padStart(2, '0');
-    const minutos = fechaHora.getMinutes().toString().padStart(2, '0');
-    const segundos = fechaHora.getSeconds().toString().padStart(2, '0');
+    const mes = (fechaHora.getMonth() + 1).toString().padStart(2, "0"); // Los meses van de 0 a 11, por lo que sumamos 1
+    const dia = fechaHora.getDate().toString().padStart(2, "0");
+    const horas = fechaHora.getHours().toString().padStart(2, "0");
+    const minutos = fechaHora.getMinutes().toString().padStart(2, "0");
+    const segundos = fechaHora.getSeconds().toString().padStart(2, "0");
     const fechaFormateada = `${año}-${mes}-${dia} ${horas}:${minutos}:${segundos}`;
     try {
       await axios.post(`https://${host}/agregarComentario`, {
         idPost,
         contenido: newComentario,
         autor: currentUser,
-        fecha: fechaFormateada
+        fecha: fechaFormateada,
       });
       setNewComentario("");
       const updatedComentarios = await axios.get(
@@ -91,7 +92,7 @@ const Comentarios = ({ idPost, currentUser }) => {
     fechaActual.setHours(fechaActual.getHours() - 5);
 
     if (fechaPasada > fechaActual) {
-      return 'Fecha futura';
+      return "Fecha futura";
     }
 
     const diferenciaEnMilisegundos = fechaActual - fechaPasada;
@@ -103,17 +104,17 @@ const Comentarios = ({ idPost, currentUser }) => {
     const años = Math.floor(meses / 12);
 
     if (años > 0) {
-      return `hace ${años === 1 ? '1 año' : `${años} años`}`;
+      return `hace ${años === 1 ? "1 año" : `${años} años`}`;
     } else if (meses > 0) {
-      return `hace ${meses === 1 ? '1 mes' : `${meses} meses`}`;
+      return `hace ${meses === 1 ? "1 mes" : `${meses} meses`}`;
     } else if (dias > 0) {
-      return `hace ${dias === 1 ? '1 día' : `${dias} días`}`;
+      return `hace ${dias === 1 ? "1 día" : `${dias} días`}`;
     } else if (horas > 0) {
-      return `hace ${horas === 1 ? '1 hora' : `${horas} horas`}`;
+      return `hace ${horas === 1 ? "1 hora" : `${horas} horas`}`;
     } else if (minutos > 0) {
-      return `hace ${minutos === 1 ? '1 minuto' : `${minutos} minutos`}`;
+      return `hace ${minutos === 1 ? "1 minuto" : `${minutos} minutos`}`;
     } else {
-      return `hace ${segundos === 1 ? '1 segundo' : `${segundos} segundos`}`;
+      return `hace ${segundos === 1 ? "1 segundo" : `${segundos} segundos`}`;
     }
   };
 
@@ -125,19 +126,28 @@ const Comentarios = ({ idPost, currentUser }) => {
           {currentUser === comentario.autor && !tokenExpired && (
             <button
               onClick={() => handleDeleteComentario(comentario.idComentario)}
-              className="btn-eliminar-comentario">
+              className="btn-eliminar-comentario"
+            >
               Eliminar
             </button>
           )}
           <p
-            className={`usuario-Comento ${currentUser === comentario.autor && !tokenExpired
-              ? "usuario-con-boton"
-              : ""
-              }`}
+            className={`usuario-Comento ${
+              currentUser === comentario.autor && !tokenExpired
+                ? "usuario-con-boton"
+                : ""
+            }`}
           >
             <strong>
-              @{comentario.autor} •{" "}
-              {formatearTiempoTranscurrido(new Date(comentario.fechaComentario))}
+            <Link
+                          className="label-container"
+                          to={`/postByUser/${comentario.autor}`}
+                        >
+                          @{comentario.autor}
+                        </Link> •{" "}
+              {formatearTiempoTranscurrido(
+                new Date(comentario.fechaComentario)
+              )}
             </strong>
           </p>
           <p className="contenido-comentario">{comentario.contenido}</p>
@@ -152,7 +162,9 @@ const Comentarios = ({ idPost, currentUser }) => {
             onChange={(e) => setNewComentario(e.target.value)}
             placeholder="Escribe un comentario"
           />
-          <button className="btn-comentar" onClick={handleAddComentario}>Comentar</button>
+          <button className="btn-comentar" onClick={handleAddComentario}>
+            Comentar
+          </button>
         </div>
       ) : (
         <p className="mensajeNoSession">

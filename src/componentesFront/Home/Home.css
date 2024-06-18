@@ -1,10 +1,25 @@
 body {
   background-color: rgb(14, 17, 19);
 }
+
 .contenedorPrincipal {
   display: flex;
-  height: 100vh; /* Establece la altura al 100% del viewport */
+  height: 100vh;
+  /* Establece la altura al 100% del viewport */
 }
+
+.profile-picture {
+  position: relative;
+  align-items: center;
+  width: 200px;
+  height: 200px;
+  border-radius: 10%;
+  overflow: hidden;
+  margin-top: 10px;
+  margin-left: 10%;
+}
+
+
 .barra-navegacion-home {
   border-bottom: 1px solid rgb(62, 65, 66);
   background: transparent;
@@ -19,27 +34,44 @@ body {
   z-index: 1;
   align-items: center;
 }
+
 .logo-container {
-  margin-left: 10px; /* Un poco de margen a la izquierda */
+  margin-left: 10px;
+  /* Un poco de margen a la izquierda */
+}
+
+.tituloUserr {
+  text-align: center;
+  align-items: center;
+  position: fixed;
+  right: 12px;
 }
 
 .logo-container img {
-  margin-top: 0; /* Sin margen arriba */
+  margin-top: 0;
+  /* Sin margen arriba */
 }
+
 .categoriaAct {
   display: flex;
-  justify-content: center; /* Centra horizontalmente */
-  align-items: center; /* Centra verticalmente */
-  margin-top: auto; /* Empuja el elemento hacia la parte inferior */
+  justify-content: center;
+  /* Centra horizontalmente */
+  align-items: center;
+  /* Centra verticalmente */
+  margin-top: auto;
+  /* Empuja el elemento hacia la parte inferior */
   color: white;
-  flex-shrink: 0; /* Previene que se reduzca de tamaño */
-  height: auto; /* Ajusta este valor según sea necesario */
+  flex-shrink: 0;
+  /* Previene que se reduzca de tamaño */
+  height: auto;
+  /* Ajusta este valor según sea necesario */
 }
 
 .contDerecho {
   flex-direction: column;
   display: flex;
-  justify-content: flex-start; /* Asegura que los elementos se alineen al principio por defecto */
+  justify-content: flex-start;
+  /* Asegura que los elementos se alineen al principio por defecto */
   margin-top: calc(10px + 50px);
   width: 25%;
   height: 74%;
@@ -49,6 +81,7 @@ body {
   top: 5%;
   right: 5%;
 }
+
 .contIzquierdo {
   border-right: 1px solid rgb(62, 65, 66);
   margin-top: calc(10px + 70px);
@@ -68,45 +101,59 @@ body {
   overflow-y: auto;
   scrollbar-color: rgb(14, 17, 19) rgb(14, 17, 19);
 }
+
 .contIzquierdo:hover {
   scrollbar-color: rgb(62, 65, 66) rgb(14, 17, 19);
 }
+
 .contIzquierdo li {
   margin-top: 25px;
   cursor: pointer;
 }
+
 .contCentral {
-  flex: 0 0 auto; /* El elemento ocupará todo el espacio restante */
-  background-color: rgb(14, 17, 19); /* Color de fondo del contenido central */
+  flex: 0 0 auto;
+  /* El elemento ocupará todo el espacio restante */
+  background-color: rgb(14, 17, 19);
+  /* Color de fondo del contenido central */
   width: 50%;
-  overflow-y: auto; /* Habilita el scroll vertical cuando el contenido es más largo que el contenedor */
+  overflow-y: auto;
+  /* Habilita el scroll vertical cuando el contenido es más largo que el contenedor */
   height: 100%;
   margin-left: 20%;
 }
+
 .cont {
-  display: flex; /* Establece el contenedor como un contenedor flex */
+  display: flex;
+  /* Establece el contenedor como un contenedor flex */
 }
+
 .buscador {
   position: relative;
   flex: 1;
   display: flex;
   align-items: center;
 }
+
 .iconoBuscar {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   margin-left: 25%;
-  left: 15px; /* Ajusta la distancia del icono al borde izquierdo del contenedor */
+  left: 15px;
+  /* Ajusta la distancia del icono al borde izquierdo del contenedor */
 }
+
 .inputB {
-  padding-left: 35px; /* Ajusta el padding izquierdo para dejar espacio para el icono */
+  padding-left: 35px;
+  /* Ajusta el padding izquierdo para dejar espacio para el icono */
   height: 35px;
   width: 42%;
   border-radius: 20px;
   margin-left: 25%;
   font-size: 15px;
 }
+
 .btnInicioSesion {
   background-color: #178288;
   color: white;
@@ -130,48 +177,61 @@ body {
   margin-bottom: 5%;
   text-decoration: none;
   border-radius: 10px;
-  display: flex; /* Para alinear el icono y el texto */
-  align-items: center; /* Centra verticalmente los elementos */
+  display: flex;
+  /* Para alinear el icono y el texto */
+  align-items: center;
+  /* Centra verticalmente los elementos */
 }
+
 .btnNav:hover {
   background-color: rgb(24, 28, 31);
 }
+
 .icon {
   padding-right: 7%;
 }
+
 .contNav {
   display: flex;
   position: relative;
-  flex-direction: column; /* Organiza los elementos verticalmente */
+  flex-direction: column;
+  /* Organiza los elementos verticalmente */
   margin-top: 6%;
   border-bottom: 1px solid rgb(62, 65, 66);
   width: 80%;
 }
+
 .tituloDerecho {
   color: rgb(139, 162, 173);
 }
+
 .contenidoD {
   display: flex;
   font-size: 15px;
   position: relative;
-  flex-direction: column; /* Organiza los elementos verticalmente */
+  flex-direction: column;
+  /* Organiza los elementos verticalmente */
   margin-top: 3%;
   margin-left: 2%;
   width: 80%;
 }
+
 .contenedorImagen {
   margin-top: 8%;
   color: white;
   display: flex;
 }
+
 .contenedorImagen label {
   margin-left: 8%;
   color: white;
   margin-top: 5%;
 }
+
 .contenedorImagen img {
   border-radius: 100%;
 }
+
 .contenedorPer {
   background-color: rgb(14, 17, 19);
   position: relative;
@@ -179,6 +239,7 @@ body {
   margin-right: 10px;
   border-bottom: 1px solid rgb(62, 65, 66);
 }
+
 .postP {
   border-bottom: 1px solid rgb(62, 65, 66);
   border-top: 1px solid rgb(62, 65, 66);
@@ -191,6 +252,7 @@ body {
   border-bottom: 1px solid rgb(62, 65, 66);
   border-top: 1px solid rgb(62, 65, 66);
 }
+
 .postP-User {
   border-bottom: 1px solid rgb(62, 65, 66);
   border-top: 1px solid rgb(62, 65, 66);
@@ -204,6 +266,7 @@ body {
   border-bottom: 1px solid rgb(62, 65, 66);
   border-top: 1px solid rgb(62, 65, 66);
 }
+
 .card-post {
   padding: 20px;
   margin-top: 20px;
@@ -227,6 +290,7 @@ body {
   color: #b2eccf;
   margin: 15px 0 0 10px;
 }
+
 .card-title-post-User {
   font-size: 2rem;
   font-weight: 600;
@@ -234,6 +298,7 @@ body {
   width: 100%;
   margin: 15px 0 0 10px;
 }
+
 .card-image-post {
   min-height: auto;
   max-height: auto;
@@ -248,6 +313,7 @@ body {
   justify-content: center;
   align-items: center;
 }
+
 .card-image-post-User {
   min-height: auto;
   max-height: auto;
@@ -262,6 +328,7 @@ body {
   justify-content: center;
   align-items: center;
 }
+
 .card-image-post-User img {
   max-width: 100%;
   max-height: 100%;
@@ -287,6 +354,7 @@ body {
   margin-bottom: 2%;
   text-align: justify;
 }
+
 .card-body-post-User {
   margin: 13px 0 0 10px;
   color: rgb(184, 184, 184);
@@ -305,32 +373,39 @@ body {
 .by-name {
   font-weight: 700;
 }
+
 .headerPost {
   margin-bottom: 2%;
   display: flex;
   align-items: center;
 }
+
 .headerPost img {
   border-radius: 100%;
 }
+
 .headerPost label {
   padding-left: 10px;
   font-size: 1.1rem;
   color: white;
 }
+
 .headerPost-User {
   margin-bottom: 2%;
   display: flex;
   align-items: center;
 }
+
 .headerPost-User img {
   border-radius: 100%;
 }
+
 .headerPost-User label {
   padding-left: 10px;
   font-size: 1.1rem;
   color: white;
 }
+
 .btnCerrarSesion {
   margin-top: 100%;
 }
@@ -338,11 +413,15 @@ body {
 *::-webkit-scrollbar {
   width: 12px;
 }
+
 *::-webkit-scrollbar-thumb {
-  background-color: rgb(104, 104, 104); /* Color del thumb */
+  background-color: rgb(104, 104, 104);
+  /* Color del thumb */
 }
+
 *::-webkit-scrollbar-track {
-  background-color: rgb(66, 66, 66); /* Color del track */
+  background-color: rgb(66, 66, 66);
+  /* Color del track */
 }
 
 .logo-image {
@@ -353,20 +432,29 @@ body {
   background-position: center;
   background-repeat: no-repeat;
 }
+
 .miniatura {
   width: 50px;
   height: 50px;
   border: 1px solid black;
-  background-size: cover; /* Ajusta la imagen para que cubra todo el elemento */
-  background-position: center; /* Centra la imagen */
+  background-size: cover;
+  /* Ajusta la imagen para que cubra todo el elemento */
+  background-position: center;
+  /* Centra la imagen */
 }
+
 .logo-app {
   background-image: url("images/logoApp1.png");
-  width: 100%; /* Ajusta esto según tus necesidades */
-  height: 100%; /* Ajusta esto según tus necesidades */
-  background-size: cover; /* Ajusta la imagen para que cubra todo el elemento */
-  background-position: center; /* Centra la imagen */
-  display: block; /* Asegura que se comporte como un bloque */
+  width: 100%;
+  /* Ajusta esto según tus necesidades */
+  height: 100%;
+  /* Ajusta esto según tus necesidades */
+  background-size: cover;
+  /* Ajusta la imagen para que cubra todo el elemento */
+  background-position: center;
+  /* Centra la imagen */
+  display: block;
+  /* Asegura que se comporte como un bloque */
   margin-top: 50px;
 }
 
@@ -385,6 +473,7 @@ body {
   background-color: transparent;
   cursor: pointer;
 }
+
 .btns-Categorias:hover {
   background-color: #03e8f451;
   color: #fff;
@@ -396,6 +485,7 @@ body {
   color: #cccccc;
   cursor: not-allowed;
 }
+
 .mensajePostsVaciosL {
   margin-top: 10%;
   margin-left: 20%;
@@ -405,6 +495,7 @@ body {
   text-align: center;
   border: 1px solid white;
 }
+
 .mensajePostsVacios {
   margin-top: 10%;
   margin-left: 35%;
@@ -414,19 +505,26 @@ body {
   text-align: center;
   border: 1px solid white;
 }
+
 .contCategorias h2 {
   margin-left: 10%;
 }
+
 .bookmarkBtn {
   border: none;
   background-color: transparent;
 }
+
 .label-container {
-  color: white; /* Hereda el color del texto del contenedor */
-  cursor: pointer; /* Cambia el cursor al pasar el mouse */
+  color: white;
+  /* Hereda el color del texto del contenedor */
+  cursor: pointer;
+  /* Cambia el cursor al pasar el mouse */
 }
+
 .label-container-Home {
-  color: white; /* Hereda el color del texto del contenedor */
+  color: white;
+  /* Hereda el color del texto del contenedor */
   text-decoration: none;
   padding: 20px;
   align-items: center;
@@ -434,6 +532,7 @@ body {
   background-color: #007bff;
   cursor: pointer;
 }
+
 .IconContainer {
   width: 30px;
   height: 30px;
@@ -447,19 +546,25 @@ body {
   z-index: 2;
   transition-duration: 0.3s;
 }
+
 .IconContainer:hover {
   background-color: #b2eccf;
   fill: white;
 }
+
 .contBtnPost {
   display: flex;
   margin-bottom: 10px;
 }
+
 .contBtnPost-User {
   display: flex;
   margin-bottom: 10px;
 }
+
 .btn-regresar-Principio {
+  left: 50%;
+  transform: translateX(100%); /* Ajusta la posición para centrarlo */
   position: fixed;
   bottom: 20px;
   margin-bottom: 20px;
@@ -470,7 +575,10 @@ body {
   border: none;
   padding: 10px 20px;
   cursor: pointer;
+  border-radius: 20px; /* Esto hace que los bordes sean redondeados */
 }
+
+
 .Btn-descarga {
   background-color: rgb(66, 66, 66);
   transition-duration: 0.3s;
@@ -549,6 +657,7 @@ body {
   fill: black;
   animation: slide-in-top 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
+
 .logo-empresa {
   width: 150px;
   background-color: rgba(255, 255, 255, 0.774);
@@ -581,12 +690,14 @@ body {
     width: 100%;
     margin-left: -5%;
   }
+
   .logo-empresa {
     width: 70px;
     margin-left: 35%;
     background-color: rgb(49, 49, 49);
     border-radius: 15px;
   }
+
   .iconoBuscar {
     position: absolute;
     top: 50%;
@@ -602,9 +713,11 @@ body {
     height: 50%;
     padding: 2px;
   }
+
   .cont {
     flex-direction: column;
   }
+
   .contDerecho {
     margin-top: 0;
     border: none;
@@ -627,13 +740,16 @@ body {
   .categoriaAct {
     display: none;
   }
+
   .contIzquierdo {
     position: relative;
   }
+
   .contIzquierdo,
   .contDerecho {
     width: 100%;
   }
+
   .barra-navegacion-home {
     border-bottom: 1px solid rgb(62, 65, 66);
     background: transparent;
@@ -646,6 +762,7 @@ body {
     z-index: 1;
     align-items: center;
   }
+
   .postP {
     background-color: rgb(14, 17, 19);
     width: 100%;
@@ -655,13 +772,16 @@ body {
     border-bottom: 1px solid rgb(62, 65, 66);
     border-top: 1px solid rgb(62, 65, 66);
   }
+
   .contCentral {
     flex: 0 0 auto;
     width: 100%;
-    overflow-y: auto; /* Habilita el scroll vertical cuando el contenido es más largo que el contenedor */
+    overflow-y: auto;
+    /* Habilita el scroll vertical cuando el contenido es más largo que el contenedor */
     height: 100%;
     margin-left: 0%;
   }
+
   .card-image-post {
     margin-left: 0%;
     min-height: auto;
@@ -674,6 +794,7 @@ body {
     overflow: hidden;
     position: relative;
   }
+
   .card-image-post-User {
     margin-left: 0%;
     min-height: auto;
@@ -695,6 +816,7 @@ body {
     display: block;
     object-fit: cover;
   }
+
   .card-image-post-User img {
     max-width: 100%;
     max-height: 100%;
@@ -703,8 +825,10 @@ body {
     display: block;
     object-fit: cover;
   }
+
   .btn-menu-categorias {
-    /* Modo de escritura vertical, de derecha a izquierda */ /* Orientación de texto mixto para adaptarse mejor a diferentes navegadores */
+    /* Modo de escritura vertical, de derecha a izquierda */
+    /* Orientación de texto mixto para adaptarse mejor a diferentes navegadores */
     background-color: rgb(11, 86, 91);
     width: 8%;
     color: white;
@@ -714,16 +838,20 @@ body {
     margin-left: 0;
     border-radius: 5px;
     cursor: pointer;
-    position: fixed; /* Posicionar fijo para que se sobreponga */
+    position: fixed;
+    /* Posicionar fijo para que se sobreponga */
     left: 0px;
-    top: 50%; /* Punto de transformación para que el botón gire desde la esquina inferior izquierda */
+    top: 50%;
+    /* Punto de transformación para que el botón gire desde la esquina inferior izquierda */
     z-index: 1001;
     transition: left 0.3s ease;
   }
+
   .btn-menu-categorias.active {
     left: 70%;
     transform: rotate(180deg);
   }
+
   .cont-categorias-des {
     padding: 10px;
     width: 70%;
@@ -737,28 +865,35 @@ body {
     z-index: 1000;
     transition: left 0.3s ease;
   }
+
   .cont-categorias-des h2 {
     color: white;
   }
+
   .headerPost-User img {
     margin-left: 0%;
   }
+
   .card-title-post-User {
     padding-left: 0%;
   }
+
   .card-body-post-User {
     width: 90%;
     padding-left: 0%;
   }
+
   .contBtnPost-User {
     margin-left: 0%;
   }
+
   .postP-User {
     background-color: rgb(14, 17, 19);
     width: 100%;
     left: 0%;
     margin-left: 0%;
   }
+
   .btn-regresar-Principio {
     margin-left: 22%;
   }
