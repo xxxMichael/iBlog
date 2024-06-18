@@ -131,7 +131,7 @@ function Formulario({ onClose }) {
       alert("Ingrese un titulo");
       return;
     }
-    
+
     if (content.trim() === "") {
       alert("Ingrese contenido");
       return;
@@ -219,14 +219,9 @@ function Formulario({ onClose }) {
         body: JSON.stringify(data),
       });
 
-      const dato = await responsePost.json();
 
       if (responsePost.ok) {
-        if (dato.success) {
-          const token = dato.token;
-          localStorage.setItem("token", token);
-        }
-        alert("Se agregó correctamente el nuevo post");
+        alert('Se agregó correctamente el nuevo post');
         onClose();
         window.location.reload();
       } else {
