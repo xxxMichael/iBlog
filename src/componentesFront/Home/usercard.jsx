@@ -9,7 +9,6 @@ const UserCard = () => {
     username: "invitado",
     rol: "invitado",
   });
-
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -25,16 +24,27 @@ const UserCard = () => {
   }, []);
 
   const getRoleImage = (rol) => {
-    if (!rol) return "https://iblog-archivos.s3.sa-east-1.amazonaws.com/complementosPrincipal/invitado.gif";
+    if (!rol) return 'https://images.wikidexcdn.net/mwuploads/wikidex/0/0e/latest/20230705050814/Tepig.png';
+    if (userInfo.username === 'david21') {
+      return 'https://images.wikidexcdn.net/mwuploads/wikidex/2/20/latest/20141014154627/Mega-Rayquaza.png';
+    }
+    if (userInfo.username === 'Kevin') {
+      return 'https://images.wikidexcdn.net/mwuploads/wikidex/1/16/latest/20220313073057/Eternatus.png';
+    }
+    if (userInfo.username === 'michael') {
+      return 'https://images.wikidexcdn.net/mwuploads/wikidex/7/77/latest/20161114210617/Necrozma.png';
+    }
     switch (rol.toLowerCase()) {
-      case "bronce":
-        return "https://iblog-archivos.s3.sa-east-1.amazonaws.com/complementosPrincipal/bronce.gif";
-      case "plata":
-        return "https://iblog-archivos.s3.sa-east-1.amazonaws.com/complementosPrincipal/plata.gif";
-      case "oro":
-        return "https://iblog-archivos.s3.sa-east-1.amazonaws.com/complementosPrincipal/oro.gif";
+      case "Bronce":
+        return 'https://images.wikidexcdn.net/mwuploads/wikidex/5/56/latest/20200307023245/Charmander.png';
+      case "Plata":
+        return 'https://images.wikidexcdn.net/mwuploads/wikidex/f/fb/latest/20200411222755/Charmeleon.png';
+      case "Oro":
+        return 'https://images.wikidexcdn.net/mwuploads/wikidex/9/95/latest/20160817212623/Charizard.png';
+      case "Diamante":
+        return 'https://images.wikidexcdn.net/mwuploads/wikidex/8/88/latest/20150301123501/Mega-Charizard_X.png';
       default:
-        return "https://iblog-archivos.s3.sa-east-1.amazonaws.com/complementosPrincipal/invitado.gif";
+        return 'https://images.wikidexcdn.net/mwuploads/wikidex/0/0e/latest/20230705050814/Tepig.png';
     }
   };
   const handleLogout = () => {

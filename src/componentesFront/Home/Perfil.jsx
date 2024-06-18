@@ -362,34 +362,6 @@ const Perfil = () => {
     }
   };
 
-
-
-  const imagenRangoPokemon = () => {
-    if (userData.username === 'david21') {
-      return 'https://images.wikidexcdn.net/mwuploads/wikidex/2/20/latest/20141014154627/Mega-Rayquaza.png';
-    }
-    if (userData.username === 'Liz') {
-      return 'https://images.wikidexcdn.net/mwuploads/wikidex/0/0e/latest/20230705050814/Tepig.png';
-    }
-    if (userData.username === 'michael') {
-      return 'https://images.wikidexcdn.net/mwuploads/wikidex/7/77/latest/20161114210617/Necrozma.png';
-    }
-    if (userData.username === 'Kevin') {
-      return 'https://images.wikidexcdn.net/mwuploads/wikidex/1/16/latest/20220313073057/Eternatus.png';
-    }
-    if (userData.rol === 'Diamante') {
-      return 'https://images.wikidexcdn.net/mwuploads/wikidex/8/88/latest/20150301123501/Mega-Charizard_X.png';
-    }
-    if (userData.rol === 'Oro') {
-      return 'https://images.wikidexcdn.net/mwuploads/wikidex/9/95/latest/20160817212623/Charizard.png';
-    }
-    if (userData.rol === 'Plata') {
-      return 'https://images.wikidexcdn.net/mwuploads/wikidex/f/fb/latest/20200411222755/Charmeleon.png';
-    }
-    if (userData.rol === 'Bronce') {
-      return 'https://images.wikidexcdn.net/mwuploads/wikidex/5/56/latest/20200307023245/Charmander.png';
-    }
-  }
   return (
     <>
       <EstilosContainer />

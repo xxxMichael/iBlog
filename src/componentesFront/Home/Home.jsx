@@ -229,7 +229,7 @@ const Home = () => {
   const clickCategorias = () => {
     setIsCategorias(!isCategorias);
   };
-
+  
   return (
     <>
       <div className="contedorPrincipal">
