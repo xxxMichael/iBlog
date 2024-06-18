@@ -22,6 +22,7 @@ const Perfil = () => {
     fechaNac: "",
     pais: "",
     email: "",
+    urlImagenPerfil: "",
   });
   const validateName = (name) => {
     // Verificar si solo contiene letras
@@ -220,6 +221,7 @@ const Perfil = () => {
           let fechaRegistro = "N/A";
           let fechanac = "N/A";
           let paisCodigo = "N/A";
+          let urlImagenPerfil = "";
 
           if (response.data.fechaRegistro) {
             fechaRegistro = new Date(response.data.fechaRegistro)
@@ -237,12 +239,17 @@ const Perfil = () => {
             // Extraer las dos últimas letras del país
             paisCodigo = response.data.pais.slice(-2).toUpperCase();
           }
+          if (response.data.urlImagenPerfil) {
+            // Extraer las dos últimas letras del país
+            urlImagenPerfil = response.data.urlImagenPerfil;
+          }
 
           setUserData({
             ...response.data,
             fechaRegistro: fechaRegistro,
             fechaNac: fechanac,
             pais: paisCodigo,
+            urlImagenPerfil: urlImagenPerfil,
           });
         } else {
           // Manejar el caso en que no haya un token en el almacenamiento local
@@ -275,6 +282,10 @@ const Perfil = () => {
     setModalType("country"); // Establece el tipo de modal como 'country'
     setModalOpen(true); // Abre la ventana modal
   };
+
+  const imagenPerfil = async() => {
+
+  }
 
   const imagenRangoPokemon = () => {
     if (userData.username === 'david21') {
@@ -329,7 +340,7 @@ const Perfil = () => {
 
             <div className="profile-picture">
               <img
-                src={imagenRangoPokemon()}
+                src={userData.urlImagenPerfil}
                 alt="profile"
               />
             </div>
