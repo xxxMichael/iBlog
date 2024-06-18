@@ -73,31 +73,8 @@ module.exports.almacenarPost = (req, res) => {
               return;
             }
 
-            if (result.affectedRows === 0) {
-              // No se actualizaron filas, usuario no encontrado
-              res.status(404).json({ success: false, message: 'Usuario no encontrado' });
-              return;
-            }
-
-            // Si la actualización fue exitosa, obtener los detalles del usuario
-            const queryGetUser = `
-              SELECT username, rol, categoria1, categoria2, categoria3 FROM usuarioAutenticado WHERE username = ?;
-            `;
-
-            connection.query(queryGetUser, [dueño], (err, rows) => {
-              if (err) {
-                console.error('Error fetching updated user details:', err);
-                res.status(500).json({ success: false, message: 'Error al obtener detalles del usuario actualizado' });
-                return;
-              }
-
-              if (rows.length === 0) {
-                res.status(404).json({ success: false, message: 'Usuario no encontrado después de la actualización' });
-                return;
-              }
-
-
-            });
+            console.log('rango updated successfully:', result);
+            res.status(200).json({ success: true, message: 'Post agregado, cantPost y rango actualizados correctamente' });
           });
         } else {
           res.status(200).json({ success: true, message: 'Post agregado y cantPost actualizado correctamente' });
