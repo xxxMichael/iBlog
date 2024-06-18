@@ -150,33 +150,42 @@ const AdmPosts = () => {
                 )}
                 {postU.length > 0 ? (
                     postU.map((post) => (
-                        <div key={post.idPost} className="postUsuario">
-                            <article className="card-ed-post">
-                                <div className="card-img-ed-post">
-                                    {post.urlImagen ? (
-                                        <div className="card-imgs pv delete">
-                                            <img className="img-Post" src={post.urlImagen + '?${new Date().getTime()}'} alt="imagen del Post" />
-                                        </div>
-                                    ) : (
-                                        <div className="card-imgs pv delete">
-                                            <img className="img-Post" src={'https://iblog-archivos.s3.sa-east-1.amazonaws.com/complementosPrincipal/no-hay-foto.jpeg'} alt="imagen del Post" />
-                                        </div>
-                                    )}
-                                </div>
+                        <div key={post.idPost} className="book">
+                            <div className="card-ed-post">
                                 <div className="project-info">
-                                    <div className="flex-ed-post">
-                                        <div className="project-title-ed-post">{post.titulo}</div>
-                                    </div>
                                     <span className="lighter-ed-post"
                                     >{post.contenido}.</span
                                     >
+                                </div>
+                                <div className="cont-Categorias">
+                                    {post.categoria1} <br />
+                                    {post.categoria2} <br />
+                                    {post.categoria3} <br />
                                 </div>
                                 <div className='cont-Btns-ed-posts'>
                                     <button className="btn-ed-post" onClick={() => editarPost(post)} > EDITAR </button>
                                     <button className="btn-elim-post" onClick={() => eliminarPost(post)}> BORRAR </button>
                                 </div>
-                            </article>
+                            </div>
+                            <div className="cover">
+                                <div className="card-ed-post">
+                                    <p className="titulo-post-user">{post.titulo}</p>
+                                    <div className="card-img-ed-post">
+                                        {post.urlImagen ? (
+                                            <div className="card-imgs pv delete">
+                                                <img className="img-Post" src={post.urlImagen + '?${new Date().getTime()}'} alt="imagen del Post" />
+                                            </div>
+                                        ) : (
+                                            <div className="card-imgs pv delete">
+                                                <img className="img-Post" src={'https://iblog-archivos.s3.sa-east-1.amazonaws.com/complementosPrincipal/no-hay-foto.jpeg'} alt="imagen del Post" />
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
+
                     ))
                 ) : (
                     <p className="mensajePostsVacios">No hay posts disponibles.</p>
