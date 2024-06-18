@@ -11,6 +11,7 @@ module.exports.consultarComentarios = (req, res) => {
     SELECT idComentario, idPost, contenido, autor, fechaComentario
     FROM comentarios
     WHERE idPost = ?;
+    
     `;
 
     connection.query(query, [idPost], (error, results) => {
