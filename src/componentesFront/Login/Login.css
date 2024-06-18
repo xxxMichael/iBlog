@@ -588,7 +588,7 @@ GoogleLogin {
   font-weight: 300;
   letter-spacing: 5px;
   text-transform: uppercase;
-  color: black;
+  color: rgb(117, 84, 84);
   cursor: pointer;
   background-color: rgb(34, 33, 33);
   border: none;
@@ -618,7 +618,7 @@ GoogleLogin {
 .btnregistroG.enabled:hover {
   box-shadow: 0 0 110px #fff;
   background-color: rgba(255, 255, 255, 0.4);
-  color: #111;
+  color: #9a8a8a;
   font-weight: 500;
 }
 .btnregistroG.disabled:focus,
