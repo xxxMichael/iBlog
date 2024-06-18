@@ -127,6 +127,8 @@ function Formulario({ onClose }) {
 
   const enviarPost = async (e) => {
     e.preventDefault();
+
+    // Validaciones de entrada
     if (tit.trim() === "") {
       alert("Ingrese un titulo");
       return;
@@ -145,6 +147,8 @@ function Formulario({ onClose }) {
     try {
       let urlImagen = "";
       let urlDocumento = "";
+
+      // Subida de imagen
       if (archivo) {
         const formData = new FormData();
         formData.append("file", archivo);
@@ -164,6 +168,8 @@ function Formulario({ onClose }) {
           return;
         }
       }
+
+      // Subida de archivo completo
       if (archivoCompleto) {
         const formDatas = new FormData();
         formDatas.append("file", archivoCompleto);
@@ -179,14 +185,12 @@ function Formulario({ onClose }) {
         if (responseArchivo.status === 200) {
           urlDocumento = responseArchivo.data.urlDocumento;
         } else {
-          console.error(
-            "Error al subir el Archivo:",
-            responseArchivo.statusText
-          );
+          console.error("Error al subir el Archivo:", responseArchivo.statusText);
           return;
         }
       }
 
+      // Formateo de la fecha y hora actual
       const fechaHora = new Date();
       const año = fechaHora.getFullYear();
       const mes = (fechaHora.getMonth() + 1).toString().padStart(2, "0");
@@ -208,6 +212,7 @@ function Formulario({ onClose }) {
         idCategoria3: idCategoria3,
       };
 
+      // Envío del post
       const responsePost = await fetch(`https://${host}/almacenarPost`, {
         method: "POST",
         headers: {
@@ -215,25 +220,27 @@ function Formulario({ onClose }) {
         },
         body: JSON.stringify(data),
       });
+
       const dato = await responsePost.json();
 
       if (responsePost.ok) {
-        if (data.success) {
+        if (dato.success) {
           const token = dato.token;
-
           localStorage.setItem("token", token);
         }
         alert("Se agregó correctamente el nuevo post");
         onClose();
-
         window.location.reload();
       } else {
         console.error("Error al almacenar el post:", responsePost.statusText);
+        alert("Error al almacenar el post: " + responsePost.statusText);
       }
     } catch (error) {
       console.error("Error en el proceso:", error);
+      alert("Error en el proceso: " + error.message);
     }
   };
+
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];

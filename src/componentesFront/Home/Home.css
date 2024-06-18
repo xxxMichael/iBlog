@@ -245,6 +245,9 @@ body {
   background: #313131;
   overflow: hidden;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .card-image-post-User {
   min-height: auto;
@@ -256,6 +259,9 @@ body {
   background: #313131;
   overflow: hidden;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .card-image-post-User img {
   max-width: 100%;
