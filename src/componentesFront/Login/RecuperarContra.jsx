@@ -309,7 +309,6 @@ const RecuperarContra = ({ handleBackToLoginClick }) => {
     </div>
   );
 };
-
 const styles = {
   modal: {
     display: "flex",
@@ -325,6 +324,7 @@ const styles = {
     width: "400px",
     boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
     textAlign: "center",
+    marginTop: "-50px", // Ajusta este valor según sea necesario
   },
   form: {
     display: "flex",
