@@ -27,7 +27,7 @@ const Categorias = ({ onCategoriaClick,setCategoriasEnHome  }) => {
             {categorias.map((categoria) => (
                 <li key={categoria.id}>
                     <button className='btns-Categorias' onClick={() => onCategoriaClick(categoria.id)}>
-                    {categoria.nombre}
+                        {categoria.nombre}
                     </button>
                 </li>
             ))}
@@ -36,3 +36,4 @@ const Categorias = ({ onCategoriaClick,setCategoriasEnHome  }) => {
 };
 
 export default Categorias;
+
