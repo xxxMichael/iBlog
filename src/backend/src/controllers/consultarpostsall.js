@@ -5,7 +5,6 @@ module.exports.consultarpostsall = (req, res) => {
     const query = `
         SELECT * FROM posts
         ORDER BY fechaPublicacion DESC
-        LIMIT 20
     `;
 
     connection.query(query, (error, results) => {

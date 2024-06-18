@@ -49,15 +49,17 @@ const PostByUser = () => {
     }
   };
   const handleComentariosClick = (postId, currentUser) => {
+    console.log(currentUser);
     setSelectedPostId(postId);
-    setCurrentUser(currentUser); // Agregar esta línea para establecer currentUser antes de mostrar los comentarios
+    setCurrentUser(currentUser); 
   };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      decodificar(token);
-      const username = token.username;
+     const decodedToken=  decodificar(token);
+      setCurrentUser(decodedToken.username);
+
     }
     // Función para obtener información del usuario
     const fetchUserInfo = async () => {
@@ -101,15 +103,17 @@ const PostByUser = () => {
       top: 0,
       behavior: "smooth", // Opcional: animación suave
     });
-  }
+  };
   return (
     <div>
       {!userInfo ? (
         <p>Cargando información del usuario...</p>
       ) : (
         <div>
-          <Link className="label-container-Home" to={"/"}>Regresar a Home</Link>
-          <h2
+          <Link className="label-container-Home" to={"/"}>
+            Regresar a Home
+          </Link>
+          <h2 className="tituloUserr"
             style={{ color: "white", textAlign: "center", lineHeight: "1.5" }}
           >
             Posts de {userInfo.nombre} {userInfo.apellido}
@@ -117,14 +121,14 @@ const PostByUser = () => {
             <span style={{ fontSize: "0.8em" }}>
               Rango: {userInfo.rol}
               <br />
-              País: {userInfo.pais} <br/>
+              País: {userInfo.pais} <br />
               <Flag code={paisCodigo} height="30" />
             </span>
           </h2>
 
           {posts.length > 0 ? (
             posts.map((post) => (
-              <div key={post.idPost} className="postP-User">
+              <div key={post.idPost} className="postP-User ">
                 <div className="card-post">
                   <div className="headerPost-User">
                     <img

@@ -416,7 +416,7 @@ const Perfil = () => {
             </button>
             <div className="profile-picture">
               <img
-                src={userData.urlImagenPerfil}
+                src={userData.urlImagenPerfil + '?${new Date().getTime()}'} 
                 alt="profile"
               />
               <input
