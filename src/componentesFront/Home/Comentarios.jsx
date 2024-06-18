@@ -155,7 +155,7 @@ const Comentarios = ({ idPost, currentUser }) => {
           <button className="btn-comentar" onClick={handleAddComentario}>Comentar</button>
         </div>
       ) : (
-        <p>
+        <p className="mensajeNoSession">
           {tokenExpired
             ? "Tu sesión ha expirado. Inicia sesión nuevamente para comentar"
             : "Inicia sesión para comentar"}

@@ -236,8 +236,8 @@ body {
   margin: 15px 0 0 10px;
 }
 .card-image-post {
-  min-height: 25vh;
-  max-height: 63vh;
+  min-height: auto;
+  max-height: auto;
   min-width: 500px;
   max-width: 560px;
   background-color: #313131;
@@ -247,10 +247,10 @@ body {
   position: relative;
 }
 .card-image-post-User {
-  min-height: 25vh;
-  max-height: 63vh;
-  min-width: 500px;
-  max-width: 100%;
+  min-height: auto;
+  max-height: auto;
+  min-width: auto;
+  max-width: auto;
   background-color: #313131;
   border-radius: 15px;
   background: #313131;
@@ -659,8 +659,8 @@ body {
   }
   .card-image-post {
     margin-left: 0%;
-    min-height: 150px;
-    max-height: 280px;
+    min-height: auto;
+    max-height: auto;
     max-width: 320px;
     min-width: 320px;
     background-color: #313131;
@@ -671,8 +671,8 @@ body {
   }
   .card-image-post-User {
     margin-left: 0%;
-    min-height: 150px;
-    max-height: 280px;
+    min-height: auto;
+    max-height: auto;
     max-width: 320px;
     min-width: 320px;
     background-color: #313131;

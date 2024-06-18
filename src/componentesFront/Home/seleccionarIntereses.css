@@ -8,8 +8,9 @@
   background-color: transparent;
 
 }
+
 .organizador {
-background-color: #0000003f;
+  background-color: #0000003f;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   font-size: 1.5vw;
@@ -24,7 +25,8 @@ background-color: #0000003f;
 
 .checkbox-container .tgl-btn::before,
 .checkbox-container .tgl-btn::after {
-  font-size: 0.3rem; /* Ajusta el tamaño del texto según tus necesidades */
+  font-size: 0.3rem;
+  /* Ajusta el tamaño del texto según tus necesidades */
 }
 
 .tgl-btn {
@@ -45,9 +47,19 @@ background-color: #0000003f;
 
 .seleccionar-intereses h2 {
   color: #fff;
+  /* Color del texto */
   font-family: var(--font-family-headings);
+  /* Familia de fuente */
   font-size: 1.5rem;
+  /* Tamaño de fuente */
+  text-shadow:
+  -1px -2px 0 #000,
+  2px -2px 0 #000,
+  -2px 2px 0 #000,
+  2px 2px 0 #000; /* Sombra de texto para simular borde negro */
 }
+
+
 
 .grid-container {
   display: grid;
@@ -96,9 +108,12 @@ background-color: #0000003f;
 }
 
 .checkbox-container .tgl+.tgl-btn {
-  margin-top: 0.1rem; /* Ajusta el espacio entre los checkboxes y el texto */
-  display: inline-flex; /* Utiliza flexbox para alinear el texto */
-  justify-content: center; /* Centra horizontalmente el texto */
+  margin-top: 0.1rem;
+  /* Ajusta el espacio entre los checkboxes y el texto */
+  display: inline-flex;
+  /* Utiliza flexbox para alinear el texto */
+  justify-content: center;
+  /* Centra horizontalmente el texto */
 
   outline: 0;
   display: block;
@@ -161,8 +176,10 @@ background-color: #0000003f;
   backface-visibility: hidden;
   border-radius: 4px;
 }
+
 .checkbox-container .tgl-btn {
-  text-transform: uppercase; /* Convierte el texto a mayúsculas */
+  text-transform: uppercase;
+  /* Convierte el texto a mayúsculas */
 }
 
 .checkbox-container .tgl-flip+.tgl-btn:after {
@@ -198,24 +215,34 @@ background-color: #0000003f;
 
 
 
-/*
-button {
+
+.butonGuardar {
   padding: 10px 20px;
-  border: none;
+  border: 1px solid rgba(45, 119, 135, 0.777);
   border-radius: 5px;
   background-color: var(--color-accent);
   color: var(--color-bg);
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
+  color: whitesmoke;
+   text-shadow:
+  -1px -2px 0 #000,
+  2px -2px 0 #000,
+  -2px 2px 0 #000,
+  2px 2px 0 #000; /* Sombra de texto para simular borde negro */
+  
 }
 
-button:disabled {
+.butonGuardar:disabled {
   background-color: #9a9a88;
   cursor: not-allowed;
 }
 
-*/
+.butonGuardar:hover{
+  background-color: rgba(45, 119, 135, 0.777);
+  transition: 0.3s;
+}
 
 
 /*button {
@@ -244,7 +271,7 @@ button:disabled {
   color: #cccccc;
   cursor: not-allowed;
 }*/
-  
+
 
 @import url("https://fonts.googleapis.com/css?family=Raleway:400");
 

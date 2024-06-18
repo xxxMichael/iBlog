@@ -137,6 +137,7 @@ const SeleccionarIntereses = ({ onHide }) => {
           ))}
         </div>
         <button
+        className="butonGuardar"
           onClick={handleGuardarClick}
           disabled={selectedIntereses.length !== 3}
         >

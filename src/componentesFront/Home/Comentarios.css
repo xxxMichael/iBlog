@@ -4,7 +4,9 @@
   padding: 10px;
   border-radius: 15px;
 }
-
+.mensajeNoSession{
+  color: white;
+}
 .contenedor-comentarios h4 {
   color: white;
   margin-top: 2px;
