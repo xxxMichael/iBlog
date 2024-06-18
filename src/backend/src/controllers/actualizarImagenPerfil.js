@@ -9,7 +9,7 @@ module.exports.actualizarImagenPerfil = (req, res) => {
     Update usuarioAutenticado set urlImagenPerfil=? where username = ?;
     `;
 
-    connection.query(query, [dueño,urlImagen], (err, result) => {
+    connection.query(query, [urlImagen,dueño], (err, result) => {
         if (err) {
             console.error('Error al actualizar post:', err);
             res.status(500).json({ success: false, message: 'Error al Actualizar url foto perfil' });

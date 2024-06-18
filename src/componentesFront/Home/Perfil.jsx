@@ -286,69 +286,83 @@ const Perfil = () => {
     const fileName = path.split('?')[0];
     return fileName;
   }
+
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
-    console.log(file);
-    console.log(userData.urlImagenPerfil);
-    if (userData.urlImagenPerfil != null) {
-      if (file && (file.type === 'image/jpeg') || (file.type === 'image/jpg') || (file.type === 'image/png') || (file.type === 'image/gif')) {
+    const maxSize = 1 * 1024 * 1024; // 1 MB en bytes
+
+    if (!file) {
+      return;
+    }
+
+    const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+
+    if (!validTypes.includes(file.type)) {
+      alert('Por favor, selecciona un archivo de imagen válido (JPEG, JPG, PNG, GIF).');
+      return;
+    }
+
+    if (file.size > maxSize) {
+      alert('La imagen seleccionada es demasiado grande. Por favor, elige una imagen menor a 1 MB.');
+      return;
+    }
+
+    try {
+      let formData = new FormData();
+      formData.append('file', file);
+
+      let responseImagen;
+
+      if (userData.urlImagenPerfil) {
         const fileName = getFileNameFromUrl(userData.urlImagenPerfil);
-        const formData = new FormData();
-        formData.append('file', file);
         formData.append('fileName', fileName);
 
-        const responseImagen = await axios.post(`https://${host}/actualizarI`, formData, {
+        responseImagen = await axios.post(`https://${host}/actualizarI`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
-
-        if (responseImagen.status === 200) {
-          console.log('Exito al cambiar imagen');
-        } else {
-          console.error('Error al cambiar imagen:', responseImagen.statusText);
-          return;
-        }
-      }
-    } else {
-      if (file && (file.type === 'image/jpeg') || (file.type === 'image/jpg') || (file.type === 'image/png') || (file.type === 'image/gif')) {
-        const formData = new FormData();
-        formData.append('file', file);
-        const responseImagen = await axios.post(`https://${host}/subida`, formData, {
+      } else {
+        responseImagen = await axios.post(`https://${host}/subida`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
+      }
 
-        if (responseImagen.status === 200) {
-          const nuevaUrlImagenPerfil = responseImagen.data.urlImagen;
-          const data = {
-            dueño: userData.username,
-            urlImagen: nuevaUrlImagenPerfil,
-          };
+      if (responseImagen.status !== 200) {
+        console.error('Error al subir la imagen:', responseImagen.statusText);
+        return;
+      }
 
-          const responsePost = await fetch(`https://${host}/actualizarFotoPerfil`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-          });
+      if (!userData.urlImagenPerfil) {
+        const nuevaUrlImagenPerfil = responseImagen.data.urlImagen;
+        const data = {
+          dueño: userData.username,
+          urlImagen: nuevaUrlImagenPerfil,
+        };
 
-          if (responsePost.ok) {
-            alert('Se actualizo la foto de perfil');
-            setUserData((prevUserData) => ({
-              ...prevUserData,
-              urlImagenPerfil: nuevaUrlImagenPerfil,
-            }));
-            window.location.reload();
-          } else {
-            console.error('Error al actualizar imagen:', responsePost.statusText);
-          }
-        } else {
-          console.error('Error al actualizar la imagen:', responseImagen.statusText);
+        const responsePost = await fetch(`https://${host}/actualizarFotoPerfil`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+
+        if (!responsePost.ok) {
+          console.error('Error al actualizar imagen:', responsePost.statusText);
           return;
         }
+
+        alert('Se actualizó la foto de perfil');
+      } else {
+        alert('Éxito al cambiar imagen');
       }
+
+      window.location.reload();
+    } catch (error) {
+      console.error('Error al cambiar imagen:', error);
     }
-    window.location.reload();
   };
+
+
 
   const imagenRangoPokemon = () => {
     if (userData.username === 'david21') {
