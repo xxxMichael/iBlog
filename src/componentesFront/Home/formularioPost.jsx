@@ -127,12 +127,11 @@ function Formulario({ onClose }) {
 
   const enviarPost = async (e) => {
     e.preventDefault();
-    
     if (tit.trim() === "") {
       alert("Ingrese un titulo");
       return;
     }
-
+    
     if (content.trim() === "") {
       alert("Ingrese contenido");
       return;

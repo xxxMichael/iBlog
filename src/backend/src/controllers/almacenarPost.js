@@ -63,8 +63,8 @@ module.exports.almacenarPost = (req, res) => {
 
         if (rango) {
           const queryUpdateRango = `
-  UPDATE usuarioAutenticado SET rol = ? WHERE username = ?;
-`;
+            UPDATE usuarioAutenticado SET rol = ? WHERE username = ?;
+          `;
 
           connection.query(queryUpdateRango, [rango, dueño], (err, result) => {
             if (err) {
@@ -81,8 +81,8 @@ module.exports.almacenarPost = (req, res) => {
 
             // Si la actualización fue exitosa, obtener los detalles del usuario
             const queryGetUser = `
-    SELECT username, rol, categoria1, categoria2, categoria3 FROM usuarioAutenticado WHERE username = ?;
-  `;
+              SELECT username, rol, categoria1, categoria2, categoria3 FROM usuarioAutenticado WHERE username = ?;
+            `;
 
             connection.query(queryGetUser, [dueño], (err, rows) => {
               if (err) {
@@ -95,9 +95,12 @@ module.exports.almacenarPost = (req, res) => {
                 res.status(404).json({ success: false, message: 'Usuario no encontrado después de la actualización' });
                 return;
               }
-              res.status(200).json({ success: true, message: 'Post agregado y cantPost actualizado correctamente' });
+
+
             });
           });
+        } else {
+          res.status(200).json({ success: true, message: 'Post agregado y cantPost actualizado correctamente' });
         }
       });
     });
