@@ -213,8 +213,7 @@ const Perfil = () => {
       try {
         if (token) {
           const decodedToken = decodificar(token); // Decodificar el token
-          const username = decodedToken.username; // Obtener el nombre de usuario del token
-          console.log(username);
+          const username = decodedToken.username;
           const response = await axios.get(
             `https://${host}/consultarUser?username=${username}`
           );
@@ -282,10 +281,74 @@ const Perfil = () => {
     setModalType("country"); // Establece el tipo de modal como 'country'
     setModalOpen(true); // Abre la ventana modal
   };
-
-  const imagenPerfil = async() => {
-
+  const getFileNameFromUrl = (url) => {
+    const path = url.split('/').pop();
+    const fileName = path.split('?')[0];
+    return fileName;
   }
+  const handleImageChange = async (e) => {
+    const file = e.target.files[0];
+    console.log(file);
+    console.log(userData.urlImagenPerfil);
+    if (userData.urlImagenPerfil != null) {
+      if (file && (file.type === 'image/jpeg') || (file.type === 'image/jpg') || (file.type === 'image/png') || (file.type === 'image/gif')) {
+        const fileName = getFileNameFromUrl(userData.urlImagenPerfil);
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('fileName', fileName);
+
+        const responseImagen = await axios.post(`https://${host}/actualizarI`, formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        });
+
+        if (responseImagen.status === 200) {
+          console.log('Exito al cambiar imagen');
+        } else {
+          console.error('Error al cambiar imagen:', responseImagen.statusText);
+          return;
+        }
+      }
+    } else {
+      if (file && (file.type === 'image/jpeg') || (file.type === 'image/jpg') || (file.type === 'image/png') || (file.type === 'image/gif')) {
+        const formData = new FormData();
+        formData.append('file', file);
+        const responseImagen = await axios.post(`https://${host}/subida`, formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        });
+
+        if (responseImagen.status === 200) {
+          const nuevaUrlImagenPerfil = responseImagen.data.urlImagen;
+          const data = {
+            dueño: userData.username,
+            urlImagen: nuevaUrlImagenPerfil,
+          };
+
+          const responsePost = await fetch(`https://${host}/actualizarFotoPerfil`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+          });
+
+          if (responsePost.ok) {
+            alert('Se actualizo la foto de perfil');
+            setUserData((prevUserData) => ({
+              ...prevUserData,
+              urlImagenPerfil: nuevaUrlImagenPerfil,
+            }));
+            window.location.reload();
+          } else {
+            console.error('Error al actualizar imagen:', responsePost.statusText);
+          }
+        } else {
+          console.error('Error al actualizar la imagen:', responseImagen.statusText);
+          return;
+        }
+      }
+    }
+    window.location.reload();
+  };
 
   const imagenRangoPokemon = () => {
     if (userData.username === 'david21') {
@@ -337,11 +400,16 @@ const Perfil = () => {
             >
               Intereses
             </button>
-
             <div className="profile-picture">
               <img
                 src={userData.urlImagenPerfil}
                 alt="profile"
+              />
+              <input
+                type="file"
+                accept="image/jpeg, image/png"
+                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0, cursor: 'pointer' }}
+                onChange={handleImageChange}
               />
             </div>
             <div className="user-info">

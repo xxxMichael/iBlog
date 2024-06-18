@@ -36,6 +36,7 @@ const {interesesUsuario } = require('../controllers/interesesUsuario ');
 const fileUploadService = new FileUploadService();
 const actualizarImagen = new ActualizarImagen();
 const s3Service = new S3Service();
+const { actualizarImagenPerfil } = require('../controllers/actualizarImagenPerfil');
 
 
 
@@ -70,6 +71,7 @@ router.get('/consultarUser', consultarUser);
 router.post('/actualizarPost', editarPosts);
 router.post('/login', login);
 router.post('/eliminarPost', eliminarPost);
+router.post('/actualizarFotoPerfil', actualizarImagenPerfil);
 
 router.post('/subida', (req, res) => {
   const upload = fileUploadService.getMulterUpload();

@@ -405,6 +405,12 @@ const EstilosContainer=()=> {
         background-color: #0056b3;
         /* Color de fondo en hover */
       }
+       
+      #editar-imagen-perfil{
+        z-index: 1001;
+        margin-bottom: -25px;
+        cursor: pointer;
+      }
 
       /* Media Queries para Responsividad */
       @media (max-width: 768px) {
