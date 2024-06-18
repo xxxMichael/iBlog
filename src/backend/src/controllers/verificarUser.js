@@ -4,7 +4,7 @@ module.exports.verificarUser = (req, res) => {
     const { codigo } = req.body;
     console.log('verificar usuario');
     const selectQuery = 'SELECT * FROM usuarionoAutenticado WHERE codigoConf = ?';
-    const insertQuery = 'INSERT INTO usuarioAutenticado (nombre, apellido, username, email, contra, fechaRegistro, rol, fechaNac, pais,cantPosts,urlImagenPerfil) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,0,"https://i.pinimg.com/564x/8e/12/91/8e129152d188f56e83f754d93de0c202.jpg");
+    const insertQuery = 'INSERT INTO usuarioAutenticado (nombre, apellido, username, email, contra, fechaRegistro, rol, fechaNac, pais,cantPosts,urlImagenPerfil) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,0,"https://i.pinimg.com/564x/8e/12/91/8e129152d188f56e83f754d93de0c202.jpg");'
     const deleteQuery = 'DELETE FROM usuarionoAutenticado WHERE codigoConf = ?';
     
     connection.query(selectQuery, [codigo], (err, results) => {
