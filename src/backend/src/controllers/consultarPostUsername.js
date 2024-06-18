@@ -24,7 +24,7 @@ module.exports.consultarPostUsername = (req, res) => {
         WHERE 
             p.dueño = ?
         ORDER BY 
-            p.fechaPublicacion DESC;
+            p.fechaPublicacion DESC
     `;
 
     connection.query(query, [username], (error, results) => {

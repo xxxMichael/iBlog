@@ -129,7 +129,7 @@ const PostByUser = () => {
                   <div className="headerPost-User">
                     <img
                       className="miniatura"
-                      src="https://iblog-archivos.s3.sa-east-1.amazonaws.com/complementosPrincipal/logoApp1.png"
+                      src={post.urlImagenPerfil}
                       alt="Miniatura"
                     />
                     <label className="label-container">
