@@ -365,8 +365,10 @@ const Perfil = () => {
       } else {
         alert("Éxito al cambiar imagen");
       }
-
-      window.location.reload();
+      setTimeout(() => {
+        // Recarga la página
+        window.location.reload();
+      }, 3000);
     } catch (error) {
       console.error("Error al cambiar imagen:", error);
     }
@@ -398,7 +400,7 @@ const Perfil = () => {
             </button>
             <div className="profile-picture">
               <img
-                src={userData.urlImagenPerfil + "?${new Date().getTime()}"}
+                src={userData.urlImagenPerfil + '?${new Date().getTime()}'}
                 alt="profile"
               />
               <input
