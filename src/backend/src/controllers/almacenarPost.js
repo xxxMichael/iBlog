@@ -95,28 +95,9 @@ module.exports.almacenarPost = (req, res) => {
                 res.status(404).json({ success: false, message: 'Usuario no encontrado después de la actualización' });
                 return;
               }
-
-              const user = rows[0];
-              const token = jwt.sign({
-                username: user.username,
-                rol: user.rol,
-                categoria1: user.categoria1,
-                categoria2: user.categoria2,
-                categoria3: user.categoria3,
-              }, "stack", { expiresIn: '2d' });
-
-              console.log('rango updated successfully:', result);
-
-              res.status(200).json({
-                success: true,
-                message: 'Post agregado, cantPost y rango actualizados correctamente',
-                token: token
-              });
+              res.status(200).json({ success: true, message: 'Post agregado y cantPost actualizado correctamente' });
             });
           });
-
-        } else {
-          res.status(200).json({ success: true, message: 'Post agregado y cantPost actualizado correctamente' });
         }
       });
     });

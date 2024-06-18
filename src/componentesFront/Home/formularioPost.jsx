@@ -127,8 +127,7 @@ function Formulario({ onClose }) {
 
   const enviarPost = async (e) => {
     e.preventDefault();
-
-    // Validaciones de entrada
+    
     if (tit.trim() === "") {
       alert("Ingrese un titulo");
       return;
