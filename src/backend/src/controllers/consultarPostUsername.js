@@ -8,7 +8,7 @@ module.exports.consultarPostUsername = (req, res) => {
     }
 
     const query = `
-        SELECT 
+    SELECT 
             p.idPost, 
             p.dueño, 
             p.titulo, 
@@ -21,7 +21,8 @@ module.exports.consultarPostUsername = (req, res) => {
             posts p
         LEFT JOIN 
             usuarioAutenticado u ON p.dueño = u.username
-        WHERE p.dueño = ?;
+        WHERE 
+            p.dueño = ?
         ORDER BY 
             p.fechaPublicacion DESC;
     `;
