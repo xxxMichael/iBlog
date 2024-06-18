@@ -35,13 +35,13 @@ const UserCard = () => {
       return 'https://images.wikidexcdn.net/mwuploads/wikidex/7/77/latest/20161114210617/Necrozma.png';
     }
     switch (rol.toLowerCase()) {
-      case "Bronce":
+      case "bronce":
         return 'https://images.wikidexcdn.net/mwuploads/wikidex/5/56/latest/20200307023245/Charmander.png';
-      case "Plata":
+      case "plata":
         return 'https://images.wikidexcdn.net/mwuploads/wikidex/f/fb/latest/20200411222755/Charmeleon.png';
-      case "Oro":
+      case "oro":
         return 'https://images.wikidexcdn.net/mwuploads/wikidex/9/95/latest/20160817212623/Charizard.png';
-      case "Diamante":
+      case "diamante":
         return 'https://images.wikidexcdn.net/mwuploads/wikidex/8/88/latest/20150301123501/Mega-Charizard_X.png';
       default:
         return 'https://images.wikidexcdn.net/mwuploads/wikidex/0/0e/latest/20230705050814/Tepig.png';
