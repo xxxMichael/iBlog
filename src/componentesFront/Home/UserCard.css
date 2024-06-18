@@ -108,10 +108,13 @@
 
 @media (max-width: 1024px) {
   .card {
-    padding: 0px;
+    padding: 5px;
     width: 100%;
-    margin-top: 1%;
-    margin-left: 1%;
+    border-bottom: 1px solid rgb(62, 65, 66);
+    border: none;
+    max-height: 100%;
+    margin-top: 0%;
+    margin-left: 0%;
     border-radius: 0px;
     background: rgb(14, 17, 19);
     display: flex;
@@ -125,21 +128,23 @@
     font-size: 1rem;
     color: white;
     margin-bottom: 10%;
-    margin-top: 5px;
+    margin-top: 2%;
+    margin-left: 0.5%;
   }
   .card-body {
     display: flex;
   }
 
   .card-img-top {
-    width: 50px;
-    height: 50px;
+    width: 22%;
+    height: 100%;
   }
 
   .btnPerfil,
   .btn-cerrarS {
     margin-top: 0;
-    margin-left: 10px;
+    margin-left: 4px;
+    margin-right: 4px;
   }
 
   .btnPerfil span,
@@ -158,7 +163,8 @@
     text-align: center;
     align-items: center;
     justify-content: center;
-    margin-left: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
     margin-top: 0px;
   }
 }

@@ -40,7 +40,6 @@ body {
   flex-direction: column;
   display: flex;
   justify-content: flex-start; /* Asegura que los elementos se alineen al principio por defecto */
-
   margin-top: calc(10px + 50px);
   width: 25%;
   height: 74%;
@@ -608,7 +607,7 @@ body {
   }
   .contDerecho {
     margin-top: 0;
-    border: 1px solid rgb(235, 228, 228);
+    border: none;
     background-color: rgb(14, 17, 19);
     margin-left: 0px;
     margin-right: 0px;
