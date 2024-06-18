@@ -1,10 +1,8 @@
 const connection = require('../models/db');
 
 module.exports.consultarUser = (req, res) => {
-  // Obtener el username del token en el encabezado de autorización
   const { username } = req.query;
   console.log(username);
-  // Realizar la consulta SQL para seleccionar los datos del usuario con el username proporcionado
   const sql = `SELECT nombre,username,apellido,fechaRegistro,rol,fechaNac,pais,email,urlImagenPerfil FROM usuarioAutenticado WHERE username = ?`;
 
   connection.query(sql, [username], (error, results) => {
