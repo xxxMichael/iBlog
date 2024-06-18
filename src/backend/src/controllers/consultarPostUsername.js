@@ -8,9 +8,22 @@ module.exports.consultarPostUsername = (req, res) => {
     }
 
     const query = `
-    SELECT p.idPost, p.dueño, p.titulo, p.contenido, p.fechaPublicacion, p.urlImagen, p.urlDocumento
-    FROM posts p
-    WHERE p.dueño = ?;
+        SELECT 
+            p.idPost, 
+            p.dueño, 
+            p.titulo, 
+            p.contenido, 
+            p.fechaPublicacion, 
+            p.urlImagen, 
+            p.urlDocumento,
+            u.urlImagenPerfil 
+        FROM 
+            posts p
+        LEFT JOIN 
+            usuarioAutenticado u ON p.dueño = u.username
+        WHERE p.dueño = ?;
+        ORDER BY 
+            p.fechaPublicacion DESC;
     `;
 
     connection.query(query, [username], (error, results) => {

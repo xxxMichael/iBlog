@@ -1,6 +1,6 @@
 import "./Home.css";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { parseJwt } from "../Main/Main";
 import { Link } from "react-router-dom";
 import { FaSearch, FaHome, FaUser } from "react-icons/fa";
@@ -33,7 +33,6 @@ export function decodificar(token) {
 }
 
 export const host = "free.iblog.click";
-
 const Home = () => {
   const [userData, setUserData] = useState(null);
   const [posts, setPosts] = useState([]);
@@ -141,7 +140,6 @@ const Home = () => {
         handleCategoriaClick("*");
       }
     };
-
     checkTokenValidity();
   }, []);
   const setCategoriasEnHome = (categoriasData) => {
@@ -227,6 +225,7 @@ const Home = () => {
     return () => mediaQuery.removeListener(handleResize);
   }, []);
   const [isCategorias, setIsCategorias] = useState(false);
+
   const clickCategorias = () => {
     setIsCategorias(!isCategorias);
   };
@@ -253,7 +252,7 @@ const Home = () => {
           </Link>
         </div>
         <div className="cont">
-          {isMobile && !showForm && !showForm1 ? (
+          {isMobile && !showForm && !showForm1 && !showInterests ? (
             <div className={`overlay ${isCategorias ? "show" : ""}`}>
               <button
                 onClick={clickCategorias}
