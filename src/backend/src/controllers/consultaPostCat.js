@@ -23,8 +23,7 @@ module.exports.consultaPostCat = (req, res) => {
             LEFT JOIN 
             usuarioAutenticado u ON p.dueño = u.username
             ORDER BY 
-            p.fechaPublicacion DESC
-            LIMIT 35;
+            p.fechaPublicacion DESC;
         `;
         connection.query(query, (error, results) => {
             if (error) {
