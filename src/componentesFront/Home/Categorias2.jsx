@@ -18,7 +18,21 @@ const ComponentChecklist = ({ componentList, onSelectedCountChange, onSelectedCo
                 console.log(id);
             } else {
                 event.target.checked = false;
-                alert("Solo puedes elegir tres componentes");
+
+                toast.error("Solo puedes elegir tres componentes", {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    style: {
+                      background: "#272528",
+                      color: "#ffffff",
+                      boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                    },
+                  });
             }
         } else {
             setSelectedComponentIds(selectedComponentIds.filter(selectedId => selectedId !== id));
