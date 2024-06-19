@@ -49,7 +49,6 @@ const PostByUser = () => {
     }
   };
   const handleComentariosClick = (postId, currentUser) => {
-    console.log(currentUser);
     setSelectedPostId(postId);
     setCurrentUser(currentUser);
   };
@@ -76,7 +75,6 @@ const PostByUser = () => {
         console.error("Error al obtener la información del usuario:", error);
       }
     };
-    console.log(paisCodigo);
 
     const fetchUserPosts = async () => {
       try {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './categorias.css';
-
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from 'react-toastify';
 const ComponentChecklist = ({ componentList, initialSelected, onSelectedCountChange, onSelectedComponentsChange }) => {
     const [selectedComponentIds, setSelectedComponentIds] = useState([]);
     const [cargaI, setCargaI] = useState(false);
@@ -36,7 +37,22 @@ const ComponentChecklist = ({ componentList, initialSelected, onSelectedCountCha
 
         if (isChecked && selectedComponentIds.length >= 3) {
             event.target.checked = false;
-            alert("Solo puedes elegir tres componentes");
+            toast.error("Solo puedes elegir tres componentes", {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                style: {
+                  background: "#272528",
+                  color: "#ffffff",
+                  boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                  height: "100px",
+                  fontSize: "20px",
+                },
+              });
             return;
         }
 
@@ -65,6 +81,8 @@ const ComponentChecklist = ({ componentList, initialSelected, onSelectedCountCha
                     <label htmlFor={component.id}>{component.nombre}</label>
                 </div>
             ))}
+                        <ToastContainer />
+
         </div>
     );
 };

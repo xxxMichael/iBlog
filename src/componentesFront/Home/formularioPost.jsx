@@ -226,7 +226,10 @@ function Formulario({ onClose }) {
         if (responseArchivo.status === 200) {
           urlDocumento = responseArchivo.data.urlDocumento;
         } else {
-          console.error("Error al subir el Archivo:", responseArchivo.statusText);
+          console.error(
+            "Error al subir el Archivo:",
+            responseArchivo.statusText
+          );
           return;
         }
       }
@@ -262,7 +265,6 @@ function Formulario({ onClose }) {
         body: JSON.stringify(data),
       });
 
-
       if (responsePost.ok) {
         toast.success("Se agregó correctamente el nuevo post", {
           position: "top-right",
@@ -278,10 +280,11 @@ function Formulario({ onClose }) {
             boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
           },
         });
-       
+
         setTimeout(() => {
           window.location.reload();
-        }, 700);      } else {
+        }, 700);
+      } else {
         console.error("Error al almacenar el post:", responsePost.statusText);
         alert("Error al almacenar el post: " + responsePost.statusText);
       }
@@ -290,7 +293,6 @@ function Formulario({ onClose }) {
       alert("Error en el proceso: " + error.message);
     }
   };
-
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -310,14 +312,37 @@ function Formulario({ onClose }) {
         };
         reader.readAsDataURL(file);
       } else {
-        alert(
-          "La imagen seleccionada es demasiado grande. Por favor, elige una imagen menor a 1 MB."
-        );
+        toast.error("Ingrese una imagen menor a 1 MB", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          style: {
+            background: "#272528",
+            color: "#ffffff",
+            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+          },
+        });
       }
     } else {
-      alert(
-        "Formato de archivo no válido. Solo se permiten imágenes JPEG, JPG y PNG."
-      );
+      toast.error("Formato de archivo no válido. Solo se permiten imágenes JPEG, JPG y PNG.", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          background: "#272528",
+          color: "#ffffff",
+          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+        },
+      });
+     
     }
   };
 
@@ -435,7 +460,7 @@ function Formulario({ onClose }) {
         </div>
       </div>
       <ToastContainer />
-      </div>
+    </div>
   );
 }
 

@@ -15,7 +15,8 @@ import UserCard from "./usercard.jsx";
 import SeleccionarIntereses from "./seleccionarIntereses.jsx"; // Asegúrate de importar el componente
 import InvitadoPosts from "./InvitadosPost.jsx"; // Importa el componente
 import BuscadorPosts from "./BuscadorPosts.jsx";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export function decodificar(token) {
   const base64Url = token.split(".")[1];
   const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
@@ -112,7 +113,20 @@ const Home = () => {
         const currentTime = Date.now() / 1000; // Obtiene el tiempo actual en segundos
         if (decodedToken.exp < currentTime) {
           // El token ha expirado
-          alert("Tu sesión ha expirado. Por favor inicia sesión de nuevo.");
+          toast.error("Tu sesión ha expirado. Por favor inicia sesión de nuevo.", {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            style: {
+              background: "#272528",
+              color: "#ffffff",
+              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+            },
+          });
           window.location.reload();
           localStorage.removeItem("token");
         } else {
@@ -415,6 +429,8 @@ const Home = () => {
             </div>
           </div>
         )}
+              <ToastContainer />
+
       </div >
       <style>{`
         .cerrar-formulario {
