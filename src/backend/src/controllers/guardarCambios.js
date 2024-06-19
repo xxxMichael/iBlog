@@ -32,13 +32,13 @@ module.exports.guardarCambios = async (req, res) => {
       `;
       queryParams = [pais, username];
     } else if (modalType === 'password') {
-      const { contra, confirmPassword } = data;
-       query = `
-    UPDATE usuarioautenticado
-    SET contra = ?
-    WHERE username = ?;
-    `;
-      queryParams = [contra, confirmPassword, username];
+      const { contra } = data;
+      query = `
+        UPDATE usuarioautenticado
+        SET contra = ?
+        WHERE username = ?;
+      `;
+      queryParams = [contra, username];
     } else {
       throw new Error('Tipo de modal no soportado.');
     }

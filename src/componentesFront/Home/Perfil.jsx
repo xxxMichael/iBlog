@@ -8,7 +8,8 @@ import { host } from "./Home";
 import { decodificar } from "../Home/Home"; // Importa la función decodificar desde el componente Home
 import { useNavigate } from "react-router-dom";
 import InteresesPerfil from "./interesesPerfil"; // Importar el componente InteresesPerfil
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Perfil = () => {
   const navigate = useNavigate();
 
@@ -67,7 +68,7 @@ const Perfil = () => {
 
     return true;
   };
-
+  const notify = () => toast("Wow so easy!");
   const [modalOpen, setModalOpen] = useState(false);
   const [modalType, setModalType] = useState("");
   const [newName, setNewName] = useState("");
@@ -86,38 +87,114 @@ const Perfil = () => {
     let data = {};
     console.log(newPassword, confirmPassword);
     if (modalType === "name") {
+      if (!validateName(newName) || !validateName(newLastName)) {
+        {
+          notify;
+        }
+        toast.error("Nombre y/o Apellido inválido(s).", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          style: {
+            background: "#272528",
+            color: "#ffffff",
+            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+          },
+        });
+        // console.error("");
+        return;
+      }
       data = {
         nombre: newName,
         apellido: newLastName,
       };
-      if (!validateName(newName) || !validateName(newLastName)) {
-        console.error("Nombre y/o Apellido inválido(s).");
-        return;
-      }
     } else if (modalType === "dateOfBirth") {
       data = {
         fechaNac: newDateOfBirth,
       };
       if (!validateDateOfBirth(newDateOfBirth)) {
+        toast.error("Fecha de nacimiento inválida", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          style: {
+            background: "#272528",
+            color: "#ffffff",
+            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+          },
+        });
         console.error("Fecha de nacimiento inválida.");
 
         return;
       }
     } else if (modalType === "country") {
       if (!validateCountry(newCountry)) {
-        console.error("Por favor, seleccione un país válido.");
+        toast.error("Por favor, seleccione un país válido", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          style: {
+            background: "#272528",
+            color: "#ffffff",
+            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+          },
+        });
         return;
       }
       data = {
         pais: newCountry,
       };
     } else if (modalType === "password") {
-      if (isValidPassword && newPassword == confirmPassword) {
-        data = {
-          contra: newPassword,
-          confirmPassword: confirmPassword,
-        };
+      if (newPassword == confirmPassword) {
+        if (isValidPassword) {
+          data = {
+            contra: newPassword,
+          
+          };
+        } else {
+          toast.error("No ingrese caracteres especiales", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            style: {
+              background: "#272528",
+              color: "#ffffff",
+              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+            },
+          });
+          return;
+        }
       } else {
+        toast.error("Las contraseñas deben ser las mismas", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          style: {
+            background: "#272528",
+            color: "#ffffff",
+            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+          },
+        });
         return;
       }
     }
@@ -153,7 +230,21 @@ const Perfil = () => {
 
       setModalOpen(false); // Cierra la ventana modal después de enviar el formulario
     } catch (error) {
-      console.error("Error al enviar los datos:", error);
+      toast.error("Error al enviar los datos", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          background: "#272528",
+          color: "#ffffff",
+          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+        },
+      });
+     // console.error("Error al enviar los datos:", error);
     }
   };
   const [interestsModalOpen, setInterestsModalOpen] = useState(false);
@@ -628,6 +719,7 @@ const Perfil = () => {
             </div>
           )}
         </div>
+        <ToastContainer />
       </div>
     </>
   );
