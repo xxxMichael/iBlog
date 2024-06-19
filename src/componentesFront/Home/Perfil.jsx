@@ -74,11 +74,17 @@ const Perfil = () => {
   const [newLastName, setNewLastName] = useState("");
   const [newDateOfBirth, setNewDateOfBirth] = useState("");
   const [newCountry, setNewCountry] = useState("");
-
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const isValidPassword = (password) => {
+    // Expresión regular que solo permite letras y números
+    const regex = /^[a-zA-Z0-9]*$/;
+    return regex.test(password);
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     let data = {};
-
+    console.log(newPassword, confirmPassword);
     if (modalType === "name") {
       data = {
         nombre: newName,
@@ -98,11 +104,20 @@ const Perfil = () => {
         return;
       }
     } else if (modalType === "country") {
+      if (!validateCountry(newCountry)) {
+        console.error("Por favor, seleccione un país válido.");
+        return;
+      }
       data = {
         pais: newCountry,
       };
-      if (!validateCountry(newCountry)) {
-        console.error("Por favor, seleccione un país válido.");
+    } else if (modalType === "password") {
+      if (isValidPassword && newPassword == confirmPassword) {
+        data = {
+          contra: newPassword,
+          confirmPassword: confirmPassword,
+        };
+      } else {
         return;
       }
     }
@@ -185,7 +200,13 @@ const Perfil = () => {
       console.error("Error al enviar los datos de intereses:", error);
     }
   };
-
+  const handlePasswordChange = (e) => {
+    const value = e.target.value;
+    const regex = /^[a-zA-Z0-9]*$/;
+    if (regex.test(value)) {
+      setNewPassword(value);
+    }
+  };
   const handleInterestsEdit = () => {
     const token = localStorage.getItem("token");
 
@@ -278,6 +299,10 @@ const Perfil = () => {
   const handleEditCountry = () => {
     setNewCountry(userData.pais); // Establece el valor actual del país en el estado newCountry
     setModalType("country"); // Establece el tipo de modal como 'country'
+    setModalOpen(true); // Abre la ventana modal
+  };
+  const handleEditPassword = () => {
+    setModalType("password"); // Establece el tipo de modal como 'country'
     setModalOpen(true); // Abre la ventana modal
   };
   const getFileNameFromUrl = (url) => {
@@ -399,8 +424,8 @@ const Perfil = () => {
               Intereses
             </button>
             <div className="profile-picture">
-              <img 
-                src={userData.urlImagenPerfil + '?${new Date().getTime()}'}
+              <img
+                src={userData.urlImagenPerfil + "?${new Date().getTime()}"}
                 alt="profile"
               />
               <input
@@ -446,14 +471,14 @@ const Perfil = () => {
                 <span className="info-label">Rango: </span>
                 <span className="info-value">{userData.rol}</span>
               </div>
-              
+
               <div style={{ position: "absolute", bottom: "5%", right: "5%" }}>
-              <button
-              className="edit-button edit-contrasena"
-              onClick={handleInterestsEdit}
-            >
-              Clave
-            </button>
+                <button
+                  className="edit-button edit-contrasena"
+                  onClick={handleEditPassword}
+                >
+                  Clave
+                </button>
               </div>
               <div className="info-item">
                 <span className="info-label">País: </span>
@@ -484,7 +509,9 @@ const Perfil = () => {
                     ? "Editar Nombre"
                     : modalType === "dateOfBirth"
                     ? "Editar Fecha de Nacimiento"
-                    : "Editar País"}
+                    : modalType === "country"
+                    ? "Editar País"
+                    : "Editar Contraseña"}
                 </h2>
                 <form onSubmit={handleSubmit}>
                   {modalType === "name" ? (
@@ -495,6 +522,7 @@ const Perfil = () => {
                           type="text"
                           value={newName}
                           onChange={(e) => setNewName(e.target.value)}
+                          maxLength={20}
                         />
                       </label>
                       <label>
@@ -502,6 +530,7 @@ const Perfil = () => {
                         <input
                           type="text"
                           value={newLastName}
+                          maxLength={20}
                           onChange={(e) => setNewLastName(e.target.value)}
                         />
                       </label>
@@ -515,12 +544,12 @@ const Perfil = () => {
                         onChange={(e) => setNewDateOfBirth(e.target.value)}
                       />
                     </label>
-                  ) : (
+                  ) : modalType === "country" ? (
                     <label>
                       Nuevo País:
                       <select
                         id="country"
-                        nameclass="select"
+                        name="country"
                         value={newCountry}
                         onChange={(e) => setNewCountry(e.target.value)}
                         required
@@ -549,6 +578,27 @@ const Perfil = () => {
                         <option value="Venezuela VE">Venezuela</option>
                       </select>
                     </label>
+                  ) : (
+                    <>
+                      <label>
+                        Contraseña:
+                        <input
+                          type="password"
+                          onChange={(e) => setNewPassword(e.target.value)}
+                          maxLength={20}
+                          minLength={6}
+                        />
+                      </label>
+                      <label>
+                        Verificación de Contraseña:
+                        <input
+                          type="password"
+                          onChange={(e) => setConfirmPassword(e.target.value)}
+                          maxLength={20}
+                          minLength={6}
+                        />
+                      </label>
+                    </>
                   )}
                   <button type="submit">Guardar</button>
                   <button type="button" onClick={() => setModalOpen(false)}>
@@ -558,6 +608,7 @@ const Perfil = () => {
               </div>
             </div>
           )}
+
           {interestsModalOpen && (
             <div className="modal">
               <div className="modal-content">
