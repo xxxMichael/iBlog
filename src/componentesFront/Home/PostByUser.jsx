@@ -112,9 +112,11 @@ const PostByUser = () => {
           <Link className="label-container-Home" to={"/"}>
             Regresar a Home
           </Link>
-          <div className="inff">
+          <div className="contDerecho ">
+
+          <div className="card cont-byuser">
             <h2
-              className="tituloUserr"
+              className="card-title"
               style={{ color: "white", textAlign: "center", lineHeight: "1.5" }}
             >
               Posts de {userInfo.nombre} {userInfo.apellido}
@@ -125,14 +127,15 @@ const PostByUser = () => {
                 País: {userInfo.pais} <br />
                 <Flag code={paisCodigo} height="30" />
               </span>
-              <div className="profile-picture">
+              
                 <img
-                  className="profile-picture"
+                  className="card-img-top"
                   src={userInfo.urlImagenPerfil + "?${new Date().getTime()}"}
                   alt="profile"
                 />
-              </div>
+       
             </h2>
+          </div>
           </div>
 
           {posts.length > 0 ? (

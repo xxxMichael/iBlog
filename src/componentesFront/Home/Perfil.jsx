@@ -216,6 +216,21 @@ const Perfil = () => {
 
       if (!response.ok) {
         throw new Error("Error en la solicitud");
+      }else{
+        toast.success("Informacion Actualizada", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          style: {
+            background: "#272528",
+              color: "#ffffff",
+              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+          },
+      });
       }
 
       const result = await response.json();
@@ -563,14 +578,7 @@ const Perfil = () => {
                 <span className="info-value">{userData.rol}</span>
               </div>
 
-              <div style={{ position: "absolute", bottom: "5%", right: "5%" }}>
-                <button
-                  className="edit-button edit-contrasena"
-                  onClick={handleEditPassword}
-                >
-                  Clave
-                </button>
-              </div>
+            
               <div className="info-item">
                 <span className="info-label">País: </span>
                 <span className="info-value">
@@ -584,13 +592,22 @@ const Perfil = () => {
                 <span className="info-label">Email: </span>
                 <span className="info-value">{userData.email}</span>
               </div>
-              <div style={{ position: "absolute", bottom: "5%", right: "5%" }}>
+           
+            </div>
+            <div style={{ position: "absolute", bottom: "4%", right: "5%" }}>
                 {/* Enlace a la página principal */}
                 <Link to="/" className="backHome">
                   Home
                 </Link>
               </div>
-            </div>
+              <div style={{ position: "absolute", bottom: "13%", right: "98%" }}>
+                <button
+                  className="edit-button edit-contrasena"
+                  onClick={handleEditPassword}
+                >
+                  Clave
+                </button>
+              </div>
           </div>
           {modalOpen && (
             <div className="modal">

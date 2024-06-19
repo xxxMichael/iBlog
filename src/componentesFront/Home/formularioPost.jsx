@@ -4,6 +4,8 @@ import { ComponentChecklist } from "./Categorias2.jsx";
 import axios from "axios";
 import { parseJwt } from "../Main/Main";
 import { host } from "./Home";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export function decodificar(token) {
   const base64Url = token.split(".")[1];
@@ -128,17 +130,58 @@ function Formulario({ onClose }) {
   const enviarPost = async (e) => {
     e.preventDefault();
     if (tit.trim() === "") {
-      alert("Ingrese un titulo");
+      toast.error("Ingrese titulo", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          background: "#272528",
+          color: "#ffffff",
+          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+        },
+      });
       return;
     }
 
     if (content.trim() === "") {
-      alert("Ingrese contenido");
+      toast.error("Ingrese contenido", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          background: "#272528",
+          color: "#ffffff",
+          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+        },
+      });
+
       return;
     }
 
     if (selectedCount === 0) {
-      alert("Selecciona al menos una categoria");
+      toast.error("Selecciona al menos una categoria", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          background: "#272528",
+          color: "#ffffff",
+          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+        },
+      });
+
       return;
     }
 
@@ -221,10 +264,24 @@ function Formulario({ onClose }) {
 
 
       if (responsePost.ok) {
-        alert('Se agregó correctamente el nuevo post');
-        onClose();
-        window.location.reload();
-      } else {
+        toast.success("Se agregó correctamente el nuevo post", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          style: {
+            background: "#272528",
+            color: "#ffffff",
+            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+          },
+        });
+       
+        setTimeout(() => {
+          window.location.reload();
+        }, 700);      } else {
         console.error("Error al almacenar el post:", responsePost.statusText);
         alert("Error al almacenar el post: " + responsePost.statusText);
       }
@@ -377,7 +434,8 @@ function Formulario({ onClose }) {
           </div>
         </div>
       </div>
-    </div>
+      <ToastContainer />
+      </div>
   );
 }
 

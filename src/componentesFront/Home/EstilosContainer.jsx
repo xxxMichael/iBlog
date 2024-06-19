@@ -401,27 +401,8 @@ const EstilosContainer = () => {
         /* Transición suave para el hover */
       }
 
-         .edit-button.edit-contrasena {
-        padding: 5px 10px;
-        font-size: 15px;
-
-        position: absolute;
-        margin-top: -30px;
-        margin-left: -716px;
-              background-color: #007bff;
-        color : white;
-        display: inline-block;
-        /* Color de fondo */
-        border-radius: 5px;
-        /* Bordes redondeados */
-        text-decoration: none;
-        /* Quitar subrayado */
-        /* Tamaño de la fuente */
-        font-weight: bold;
-        /* Negrita */
-        transition: background-color 0.3s ease;
-        /* Transición suave para el hover */
-      }
+         
+ 
 
 
       /* Cambiar el color de fondo cuando el ratón está sobre el enlace */
@@ -429,7 +410,7 @@ const EstilosContainer = () => {
         background-color: #0056b3;
         /* Color de fondo en hover */
       }
-       
+        
       #editar-imagen-perfil{
         z-index: 1001;
         margin-bottom: -25px;
@@ -482,7 +463,7 @@ const EstilosContainer = () => {
         .user-profile {
           width: 100%;
           padding: 0.5em;
-          height: 95%;
+          height: 100%;
         }
       }
 
@@ -526,14 +507,29 @@ const EstilosContainer = () => {
 
         /* Media Query para pantallas de móviles */
         @media (max-width: 480px) {
-          
+                           
+
+                           .edit-button.edit-contrasena {
+            color:white;
+            padding: 6px 12px;
+            font-size: x-small;
+            position: relative;
+            /* Hacer la posición absoluta para poder moverlo */
+            top: 60px;
+            /* Ajusta la distancia desde la parte inferior */
+            left: -115%;
+            /* Centrando horizontalmente */
+            transform: translateX(230%);
+            /* Centrando horizontalmente */
+            
+          }
           .backHome {
             color:white;
             padding: 6px 12px;
             font-size: x-small;
             position: relative;
             /* Hacer la posición absoluta para poder moverlo */
-            bottom: 10px;
+            bottom: -15px;
             /* Ajusta la distancia desde la parte inferior */
             left: 50%;
             /* Centrando horizontalmente */
@@ -542,22 +538,7 @@ const EstilosContainer = () => {
             margin-right: 247px;
             
           }
-                     .edit-button.edit-contrasena {
-          color:white;
-            padding: 6px 12px;
-            font-size: x-small;
-            position: relative;
-            /* Hacer la posición absoluta para poder moverlo */
-            bottom: 100px;
-            top:-12px;
-            /* Ajusta la distancia desde la parte inferior */
-            left: 50%;
-            /* Centrando horizontalmente */
-            transform: translateX(320%);
-            /* Centrando horizontalmente */
-            margin-right: 247px;
-
-          }
+                 
 }
 
       `}
