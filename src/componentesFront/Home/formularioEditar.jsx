@@ -38,6 +38,7 @@ function FormularioEditar({ onClose, infor }) {
   const [selectedCount, setSelectedCount] = useState(0);
   const [archivo, setArchivo] = useState(null);
   const [cambioI, setCambioI] = useState(false);
+  const [hayImagen, setHayImagen] = useState(false);
   useEffect(() => {
     if (infor.length > 0) {
       setTitulo(infor[0]);
@@ -48,6 +49,9 @@ function FormularioEditar({ onClose, infor }) {
       setCategoria3(infor[5]);
       setImage(infor[2] + "?${new Date().getTime()}"); // Asumiendo que urlImagen es la URL de la imagen
       setID(infor[6]);
+      if (infor[2]) {
+        setHayImagen(true);
+      }
     }
   }, [infor]);
   useEffect(() => {
@@ -139,25 +143,47 @@ function FormularioEditar({ onClose, infor }) {
     }
 
     try {
-      if (cambioI && archivo) {
-        const fileName = getFileNameFromUrl(urlImagen);
-        const formData = new FormData();
-        formData.append("file", archivo);
-        formData.append("fileName", fileName);
+      if (hayImagen) {
+        if (cambioI && archivo) {
+          const fileName = getFileNameFromUrl(urlImagen);
+          const formData = new FormData();
+          formData.append("file", archivo);
+          formData.append("fileName", fileName);
 
-        const responseImagen = await axios.post(
-          `https://${host}/actualizarI`,
-          formData,
-          {
-            headers: { "Content-Type": "multipart/form-data" },
+          const responseImagen = await axios.post(
+            `https://${host}/actualizarI`,
+            formData,
+            {
+              headers: { "Content-Type": "multipart/form-data" },
+            }
+          );
+
+          if (responseImagen.status === 200) {
+            console.log("Exito al cambiar imagen");
+          } else {
+            console.error("Error al cambiar imagen:", responseImagen.statusText);
+            return;
           }
-        );
+        }
+      } else {
+        if (archivo) {
+          const formData = new FormData();
+          formData.append("file", archivo);
 
-        if (responseImagen.status === 200) {
-          console.log("Exito al cambiar imagen");
-        } else {
-          console.error("Error al cambiar imagen:", responseImagen.statusText);
-          return;
+          const responseImagen = await axios.post(
+            `https://${host}/subidaNueva`,
+            formData,
+            {
+              headers: { "Content-Type": "multipart/form-data" },
+            }
+          );
+
+          if (responseImagen.status === 200) {
+            setUrlImagen(responseImagen.data.urlImagen);
+          } else {
+            console.error("Error al cambiar imagen:", responseImagen.statusText);
+            return;
+          }
         }
       }
 
@@ -167,6 +193,7 @@ function FormularioEditar({ onClose, infor }) {
         idCategoria1: idcat1,
         idCategoria2: idcat2,
         idCategoria3: idcat3,
+        urlImagen: urlImagen,
         id: id,
       };
 
