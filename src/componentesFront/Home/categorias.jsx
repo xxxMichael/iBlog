@@ -8,8 +8,10 @@ const Categorias = ({ onCategoriaClick,setCategoriasEnHome  }) => {
 
     useEffect(() => {
         const fetchCategorias = async () => {
+         
+         ///awedasd
             try {
-                
+              
                 const response = await axios.get(`https://${host}/consultarCatego`);
                 setCategorias(response.data);
                 if (setCategoriasEnHome && typeof setCategoriasEnHome === 'function') {
