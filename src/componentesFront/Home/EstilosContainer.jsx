@@ -1,9 +1,10 @@
-
 import React from "react";
 
-const EstilosContainer=()=> {
-  return (<style> {
-      `
+const EstilosContainer = () => {
+  return (
+    <style>
+      {" "}
+      {`
       
       @import url('https://fonts.googleapis.com/css2?family=Libre+Barcode+128+Text&display=swap');
       @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
@@ -381,12 +382,12 @@ const EstilosContainer=()=> {
 
       .backHome {
         position: absolute;
-        margin-top: -35px;
+        margin-top: -26px;
         margin-left: -40px;
               background-color: #007bff;
         color : white;
         display: inline-block;
-        padding: 10px 10px;
+        padding: 5px 10px;
         /* Color de fondo */
         border-radius: 5px;
         /* Bordes redondeados */
@@ -400,12 +401,16 @@ const EstilosContainer=()=> {
         /* Transición suave para el hover */
       }
 
+         
+ 
+
+
       /* Cambiar el color de fondo cuando el ratón está sobre el enlace */
       .backHome:hover {
         background-color: #0056b3;
         /* Color de fondo en hover */
       }
-       
+        
       #editar-imagen-perfil{
         z-index: 1001;
         margin-bottom: -25px;
@@ -458,7 +463,7 @@ const EstilosContainer=()=> {
         .user-profile {
           width: 100%;
           padding: 0.5em;
-          height: 95%;
+          height: 100%;
         }
       }
 
@@ -467,12 +472,6 @@ const EstilosContainer=()=> {
           width: 90%;
           padding: 0.5em;
           height:60%;
-        }
-
-        .profile-picture {
-          width: 60px;
-          height: 60px;
-          margin-top: -30px;
         }
 
         .username {
@@ -494,6 +493,12 @@ const EstilosContainer=()=> {
 
         /* Media Query para pantallas de tablet */
         @media (max-width: 768px) {
+                 .edit-button.edit-contrasena {
+                  padding: 8px 16px;
+            font-size: small;
+
+  }
+
           .backHome {
             padding: 8px 16px;
             font-size: small;
@@ -502,22 +507,38 @@ const EstilosContainer=()=> {
 
         /* Media Query para pantallas de móviles */
         @media (max-width: 480px) {
-          
+                           
+
+                           .edit-button.edit-contrasena {
+            color:white;
+            padding: 6px 12px;
+            font-size: x-small;
+            position: relative;
+            /* Hacer la posición absoluta para poder moverlo */
+            top: 60px;
+            /* Ajusta la distancia desde la parte inferior */
+            left: -115%;
+            /* Centrando horizontalmente */
+            transform: translateX(230%);
+            /* Centrando horizontalmente */
+            
+          }
           .backHome {
             color:white;
             padding: 6px 12px;
             font-size: x-small;
             position: relative;
             /* Hacer la posición absoluta para poder moverlo */
-            bottom: 10px;
+            bottom: -15px;
             /* Ajusta la distancia desde la parte inferior */
             left: 50%;
             /* Centrando horizontalmente */
-            transform: translateX(-50%);
+            transform: translateX(230%);
             /* Centrando horizontalmente */
             margin-right: 247px;
             
-  }
+          }
+                 
 }
 
       `}

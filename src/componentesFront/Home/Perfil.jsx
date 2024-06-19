@@ -7,9 +7,9 @@ import axios from "axios";
 import { host } from "./Home";
 import { decodificar } from "../Home/Home"; // Importa la función decodificar desde el componente Home
 import { useNavigate } from "react-router-dom";
-import InteresesPerfil from './interesesPerfil'; // Importar el componente InteresesPerfil
-
-
+import InteresesPerfil from "./interesesPerfil"; // Importar el componente InteresesPerfil
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Perfil = () => {
   const navigate = useNavigate();
 
@@ -68,42 +68,133 @@ const Perfil = () => {
 
     return true;
   };
-
+  const notify = () => toast("Wow so easy!");
   const [modalOpen, setModalOpen] = useState(false);
   const [modalType, setModalType] = useState("");
   const [newName, setNewName] = useState("");
   const [newLastName, setNewLastName] = useState("");
   const [newDateOfBirth, setNewDateOfBirth] = useState("");
   const [newCountry, setNewCountry] = useState("");
-
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const isValidPassword = (password) => {
+    // Expresión regular que solo permite letras y números
+    const regex = /^[a-zA-Z0-9]*$/;
+    return regex.test(password);
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     let data = {};
-
+    console.log(newPassword, confirmPassword);
     if (modalType === "name") {
+      if (!validateName(newName) || !validateName(newLastName)) {
+        {
+          notify;
+        }
+        toast.error("Nombre y/o Apellido inválido(s).", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          style: {
+            background: "#272528",
+            color: "#ffffff",
+            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+          },
+        });
+        // console.error("");
+        return;
+      }
       data = {
         nombre: newName,
         apellido: newLastName,
       };
-      if (!validateName(newName) || !validateName(newLastName)) {
-        console.error("Nombre y/o Apellido inválido(s).");
-        return;
-      }
     } else if (modalType === "dateOfBirth") {
       data = {
         fechaNac: newDateOfBirth,
       };
       if (!validateDateOfBirth(newDateOfBirth)) {
+        toast.error("Fecha de nacimiento inválida", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          style: {
+            background: "#272528",
+            color: "#ffffff",
+            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+          },
+        });
         console.error("Fecha de nacimiento inválida.");
 
         return;
       }
     } else if (modalType === "country") {
+      if (!validateCountry(newCountry)) {
+        toast.error("Por favor, seleccione un país válido", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          style: {
+            background: "#272528",
+            color: "#ffffff",
+            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+          },
+        });
+        return;
+      }
       data = {
         pais: newCountry,
       };
-      if (!validateCountry(newCountry)) {
-        console.error("Por favor, seleccione un país válido.");
+    } else if (modalType === "password") {
+      if (newPassword == confirmPassword) {
+        if (isValidPassword) {
+          data = {
+            contra: newPassword,
+          
+          };
+        } else {
+          toast.error("No ingrese caracteres especiales", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            style: {
+              background: "#272528",
+              color: "#ffffff",
+              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+            },
+          });
+          return;
+        }
+      } else {
+        toast.error("Las contraseñas deben ser las mismas", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          style: {
+            background: "#272528",
+            color: "#ffffff",
+            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+          },
+        });
         return;
       }
     }
@@ -125,6 +216,21 @@ const Perfil = () => {
 
       if (!response.ok) {
         throw new Error("Error en la solicitud");
+      }else{
+        toast.success("Informacion Actualizada", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          style: {
+            background: "#272528",
+              color: "#ffffff",
+              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+          },
+      });
       }
 
       const result = await response.json();
@@ -139,7 +245,21 @@ const Perfil = () => {
 
       setModalOpen(false); // Cierra la ventana modal después de enviar el formulario
     } catch (error) {
-      console.error("Error al enviar los datos:", error);
+      toast.error("Error al enviar los datos", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          background: "#272528",
+          color: "#ffffff",
+          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+        },
+      });
+     // console.error("Error al enviar los datos:", error);
     }
   };
   const [interestsModalOpen, setInterestsModalOpen] = useState(false);
@@ -186,7 +306,13 @@ const Perfil = () => {
       console.error("Error al enviar los datos de intereses:", error);
     }
   };
-
+  const handlePasswordChange = (e) => {
+    const value = e.target.value;
+    const regex = /^[a-zA-Z0-9]*$/;
+    if (regex.test(value)) {
+      setNewPassword(value);
+    }
+  };
   const handleInterestsEdit = () => {
     const token = localStorage.getItem("token");
 
@@ -281,11 +407,15 @@ const Perfil = () => {
     setModalType("country"); // Establece el tipo de modal como 'country'
     setModalOpen(true); // Abre la ventana modal
   };
+  const handleEditPassword = () => {
+    setModalType("password"); // Establece el tipo de modal como 'country'
+    setModalOpen(true); // Abre la ventana modal
+  };
   const getFileNameFromUrl = (url) => {
-    const path = url.split('/').pop();
-    const fileName = path.split('?')[0];
+    const path = url.split("/").pop();
+    const fileName = path.split("?")[0];
     return fileName;
-  }
+  };
 
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
@@ -295,39 +425,47 @@ const Perfil = () => {
       return;
     }
 
-    const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+    const validTypes = ["image/jpeg", "image/jpg", "image/png", "image/gif"];
 
     if (!validTypes.includes(file.type)) {
-      alert('Por favor, selecciona un archivo de imagen válido (JPEG, JPG, PNG, GIF).');
+      alert(
+        "Por favor, selecciona un archivo de imagen válido (JPEG, JPG, PNG, GIF)."
+      );
       return;
     }
 
     if (file.size > maxSize) {
-      alert('La imagen seleccionada es demasiado grande. Por favor, elige una imagen menor a 1 MB.');
+      alert(
+        "La imagen seleccionada es demasiado grande. Por favor, elige una imagen menor a 1 MB."
+      );
       return;
     }
 
     try {
       let formData = new FormData();
-      formData.append('file', file);
+      formData.append("file", file);
 
       let responseImagen;
 
       if (userData.urlImagenPerfil) {
         const fileName = getFileNameFromUrl(userData.urlImagenPerfil);
-        formData.append('fileName', fileName);
+        formData.append("fileName", fileName);
 
-        responseImagen = await axios.post(`https://${host}/actualizarI`, formData, {
-          headers: { 'Content-Type': 'multipart/form-data' },
-        });
+        responseImagen = await axios.post(
+          `https://${host}/actualizarI`,
+          formData,
+          {
+            headers: { "Content-Type": "multipart/form-data" },
+          }
+        );
       } else {
         responseImagen = await axios.post(`https://${host}/subida`, formData, {
-          headers: { 'Content-Type': 'multipart/form-data' },
+          headers: { "Content-Type": "multipart/form-data" },
         });
       }
 
       if (responseImagen.status !== 200) {
-        console.error('Error al subir la imagen:', responseImagen.statusText);
+        console.error("Error al subir la imagen:", responseImagen.statusText);
         return;
       }
 
@@ -338,29 +476,32 @@ const Perfil = () => {
           urlImagen: nuevaUrlImagenPerfil,
         };
 
-        const responsePost = await fetch(`https://${host}/actualizarFotoPerfil`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),
-        });
+        const responsePost = await fetch(
+          `https://${host}/actualizarFotoPerfil`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }
+        );
 
         if (!responsePost.ok) {
-          console.error('Error al actualizar imagen:', responsePost.statusText);
+          console.error("Error al actualizar imagen:", responsePost.statusText);
           return;
         }
 
-        alert('Se actualizó la foto de perfil');
+        alert("Se actualizó la foto de perfil");
       } else {
-        alert('Éxito al cambiar imagen');
+        alert("Éxito al cambiar imagen");
       }
       setTimeout(() => {
         // Recarga la página
         window.location.reload();
       }, 3000);
     } catch (error) {
-      console.error('Error al cambiar imagen:', error);
+      console.error("Error al cambiar imagen:", error);
     }
   };
 
@@ -390,13 +531,21 @@ const Perfil = () => {
             </button>
             <div className="profile-picture">
               <img
-                src={userData.urlImagenPerfil + '?${new Date().getTime()}'}
+                src={userData.urlImagenPerfil + "?${new Date().getTime()}"}
                 alt="profile"
               />
               <input
                 type="file"
                 accept="image/jpeg, image/png"
-                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0, cursor: 'pointer' }}
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  opacity: 0,
+                  cursor: "pointer",
+                }}
                 onChange={handleImageChange}
               />
             </div>
@@ -428,6 +577,8 @@ const Perfil = () => {
                 <span className="info-label">Rango: </span>
                 <span className="info-value">{userData.rol}</span>
               </div>
+
+            
               <div className="info-item">
                 <span className="info-label">País: </span>
                 <span className="info-value">
@@ -441,13 +592,22 @@ const Perfil = () => {
                 <span className="info-label">Email: </span>
                 <span className="info-value">{userData.email}</span>
               </div>
-              <div style={{ position: "absolute", bottom: "5%", right: "5%" }}>
+           
+            </div>
+            <div style={{ position: "absolute", bottom: "4%", right: "5%" }}>
                 {/* Enlace a la página principal */}
                 <Link to="/" className="backHome">
                   Home
                 </Link>
               </div>
-            </div>
+              <div style={{ position: "absolute", bottom: "13%", right: "98%" }}>
+                <button
+                  className="edit-button edit-contrasena"
+                  onClick={handleEditPassword}
+                >
+                  Clave
+                </button>
+              </div>
           </div>
           {modalOpen && (
             <div className="modal">
@@ -456,8 +616,10 @@ const Perfil = () => {
                   {modalType === "name"
                     ? "Editar Nombre"
                     : modalType === "dateOfBirth"
-                      ? "Editar Fecha de Nacimiento"
-                      : "Editar País"}
+                    ? "Editar Fecha de Nacimiento"
+                    : modalType === "country"
+                    ? "Editar País"
+                    : "Editar Contraseña"}
                 </h2>
                 <form onSubmit={handleSubmit}>
                   {modalType === "name" ? (
@@ -468,6 +630,7 @@ const Perfil = () => {
                           type="text"
                           value={newName}
                           onChange={(e) => setNewName(e.target.value)}
+                          maxLength={20}
                         />
                       </label>
                       <label>
@@ -475,6 +638,7 @@ const Perfil = () => {
                         <input
                           type="text"
                           value={newLastName}
+                          maxLength={20}
                           onChange={(e) => setNewLastName(e.target.value)}
                         />
                       </label>
@@ -488,12 +652,12 @@ const Perfil = () => {
                         onChange={(e) => setNewDateOfBirth(e.target.value)}
                       />
                     </label>
-                  ) : (
+                  ) : modalType === "country" ? (
                     <label>
                       Nuevo País:
                       <select
                         id="country"
-                        nameclass="select"
+                        name="country"
                         value={newCountry}
                         onChange={(e) => setNewCountry(e.target.value)}
                         required
@@ -522,6 +686,27 @@ const Perfil = () => {
                         <option value="Venezuela VE">Venezuela</option>
                       </select>
                     </label>
+                  ) : (
+                    <>
+                      <label>
+                        Contraseña:
+                        <input
+                          type="password"
+                          onChange={(e) => setNewPassword(e.target.value)}
+                          maxLength={20}
+                          minLength={6}
+                        />
+                      </label>
+                      <label>
+                        Verificación de Contraseña:
+                        <input
+                          type="password"
+                          onChange={(e) => setConfirmPassword(e.target.value)}
+                          maxLength={20}
+                          minLength={6}
+                        />
+                      </label>
+                    </>
                   )}
                   <button type="submit">Guardar</button>
                   <button type="button" onClick={() => setModalOpen(false)}>
@@ -531,6 +716,7 @@ const Perfil = () => {
               </div>
             </div>
           )}
+
           {interestsModalOpen && (
             <div className="modal">
               <div className="modal-content">
@@ -538,7 +724,6 @@ const Perfil = () => {
                 <form onSubmit={handleSubmitInterests}>
                   <div>
                     <InteresesPerfil username={userData.username} />
-
                   </div>
                   <button
                     type="button"
@@ -551,6 +736,7 @@ const Perfil = () => {
             </div>
           )}
         </div>
+        <ToastContainer />
       </div>
     </>
   );
