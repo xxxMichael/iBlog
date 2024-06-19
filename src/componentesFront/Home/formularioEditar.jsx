@@ -4,6 +4,9 @@ import { ComponentChecklist } from "./Categorias3.jsx";
 import axios from "axios";
 import { parseJwt } from "../Main/Main";
 import { host } from "./Home";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 export function decodificar(token) {
   const base64Url = token.split(".")[1];
@@ -296,6 +299,8 @@ function FormularioEditar({ onClose, infor }) {
           </div>
         </div>
       </div>
+      <ToastContainer />
+
     </div>
   );
 }
