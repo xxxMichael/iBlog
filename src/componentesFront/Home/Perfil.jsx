@@ -399,7 +399,7 @@ const Perfil = () => {
               Intereses
             </button>
             <div className="profile-picture">
-              <img className="profile-picture"
+              <img 
                 src={userData.urlImagenPerfil + '?${new Date().getTime()}'}
                 alt="profile"
               />

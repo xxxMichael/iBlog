@@ -493,12 +493,6 @@ const EstilosContainer = () => {
           height:60%;
         }
 
-        .profile-picture {
-          width: 60px;
-          height: 60px;
-          margin-top: -30px;
-        }
-
         .username {
           font-size: x-large;
         }

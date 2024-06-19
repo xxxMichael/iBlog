@@ -8,16 +8,7 @@ body {
   /* Establece la altura al 100% del viewport */
 }
 
-.profile-picture {
-  position: relative;
-  align-items: center;
-  width: 200px;
-  height: 200px;
-  border-radius: 10%;
-  overflow: hidden;
-  margin-top: 10px;
-  margin-left: 10%;
-}
+
 
 
 .barra-navegacion-home {
