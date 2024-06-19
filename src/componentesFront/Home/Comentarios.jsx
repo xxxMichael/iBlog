@@ -161,6 +161,8 @@ const Comentarios = ({ idPost, currentUser }) => {
             value={newComentario}
             onChange={(e) => setNewComentario(e.target.value)}
             placeholder="Escribe un comentario"
+            maxLength={50}
+
           />
           <button className="btn-comentar" onClick={handleAddComentario}>
             Comentar

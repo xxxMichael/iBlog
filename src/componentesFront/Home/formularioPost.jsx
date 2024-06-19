@@ -328,9 +328,21 @@ function Formulario({ onClose }) {
         });
       }
     } else {
-      alert(
-        "Formato de archivo no válido. Solo se permiten imágenes JPEG, JPG y PNG."
-      );
+      toast.error("Formato de archivo no válido. Solo se permiten imágenes JPEG, JPG y PNG.", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          background: "#272528",
+          color: "#ffffff",
+          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+        },
+      });
+     
     }
   };
 
