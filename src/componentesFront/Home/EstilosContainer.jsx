@@ -304,6 +304,11 @@ const EstilosContainer = () => {
         font-size: 15px;
 
       }
+  .edit-button.edit-contrasena {
+        padding: 5px 10px;
+        font-size: 15px;
+
+      }
 
       .modal {
         position: fixed;
@@ -510,6 +515,7 @@ const EstilosContainer = () => {
                            
 
                            .edit-button.edit-contrasena {
+
             color:white;
             padding: 6px 12px;
             font-size: x-small;
