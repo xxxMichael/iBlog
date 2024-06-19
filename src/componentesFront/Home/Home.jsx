@@ -333,7 +333,7 @@ const Home = () => {
                     <div className="headerPost">
                       <img
                         className="miniatura"
-                        src={post.urlImagenPerfil}
+                        src={post.urlImagenPerfil + "?${new Date().getTime()}"}
                       />
 
                       <label className="label-container">

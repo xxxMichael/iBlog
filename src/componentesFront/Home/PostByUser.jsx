@@ -155,7 +155,7 @@ const PostByUser = () => {
                     <div className="card-image-post-User">
                       <img
                         className="img-Post"
-                        src={post.urlImagen}
+                        src={post.urlImagen + "?${new Date().getTime()}"}
                         alt="Imagen del Post"
                       />
                     </div>
