@@ -129,7 +129,7 @@ const AdmPosts = () => {
                 toast.error('Eliminado correctamente');
                 setTimeout(() => {
                     window.location.reload();
-                }, 3000);
+                }, 1500);
             } else {
                 toast.error('ERROR AL ELIMINAR'); // Mensaje de éxito al eliminar
                 console.error('Error al eliminar post:', response.statusText);
