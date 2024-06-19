@@ -120,7 +120,7 @@ const Comentarios = ({ idPost, currentUser }) => {
 
   return (
     <div className="contenedor-comentarios">
-      <h4>COMENTARIOS</h4>
+      <h4 className="lato-bold-italic">COMENTARIOS</h4>
       {comentarios.map((comentario) => (
         <div key={comentario.idComentario} className="comentario">
           {currentUser === comentario.autor && !tokenExpired && (
@@ -150,7 +150,7 @@ const Comentarios = ({ idPost, currentUser }) => {
               )}
             </strong>
           </p>
-          <p className="contenido-comentario">{comentario.contenido}</p>
+          <p className="contenido-comentario lato-bold">{comentario.contenido}</p>
         </div>
       ))}
       {isAuthenticated && !tokenExpired ? (
@@ -169,7 +169,7 @@ const Comentarios = ({ idPost, currentUser }) => {
           </button>
         </div>
       ) : (
-        <p className="mensajeNoSession">
+        <p className="mensajeNoSession lato-thin">
           {tokenExpired
             ? "Tu sesión ha expirado. Inicia sesión nuevamente para comentar"
             : "Inicia sesión para comentar"}

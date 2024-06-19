@@ -356,7 +356,7 @@ const Home = () => {
                       </div>
                     )}
                     <p className="card-title-post">{post.titulo}</p>
-                    <p className="card-body-post">{post.contenido}</p>
+                    <p className="card-body-post  lato-thin">{post.contenido}</p>
                     <div className="contBtnPost">
                       <button
                         className="bookmarkBtn"
