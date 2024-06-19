@@ -110,7 +110,7 @@ const PostByUser = () => {
           <Link className="label-container-Home" to={"/"}>
             Regresar a Home
           </Link>
-          <div className="contDerecho ">
+          <div className="contDerecho alter-inv">
 
             <div className="card cont-byuser">
               <h2
@@ -161,7 +161,7 @@ const PostByUser = () => {
                     </div>
                   )}
                   <p className="card-title-post-User">{post.titulo}</p>
-                  <p className="card-body-post-User">{post.contenido}</p>
+                  <p className="card-body-post-User lato-thin">{post.contenido}</p>
                   <div className="contBtnPost-User">
                     <button
                       className="bookmarkBtn"

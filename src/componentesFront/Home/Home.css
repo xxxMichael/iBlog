@@ -345,7 +345,7 @@ body {
 }
 .lato-thin {
   font-family: "Lato", sans-serif;
-  font-weight: 100;
+  font-weight:100;
   font-style: normal;
 }
 
@@ -499,7 +499,7 @@ color: white;
 .card-body-post  {
 
   margin: 13px 0 0 10px;
-  color: rgb(184, 184, 184);
+  color: rgb(232, 232, 232);
   font-size: 16px;
   margin-bottom: 2%;
   text-align: justify;
@@ -1062,5 +1062,8 @@ color: white;
 
   .btn-regresar-Principio {
     margin-left: 22%;
+  }
+ .alter-inv{
+display: none;
   }
 }
