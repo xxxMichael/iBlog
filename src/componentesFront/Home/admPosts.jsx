@@ -5,6 +5,10 @@ import { host } from "./Home";
 import { decodificar } from "./Home";
 import '../Home/admPosts.css';
 import FormularioE from "./formularioEditar.jsx";
+import { confirmAlert } from 'react-confirm-alert'; // Asegúrate de importar solo lo que necesitas
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from 'react-toastify';
 const AdmPosts = () => {
     const [postU, setPostU] = useState([]);
     const [showForm, setShowForm] = useState(false);
@@ -52,84 +56,104 @@ const AdmPosts = () => {
         const fileName = path.split('?')[0];
         return fileName;
     }
-    const eliminarPost = async (post) => {
-        if (post.urlImagen) {
-            if (post.urlDocumento) {
-                const nombreI = getFileNameFromUrl(post.urlImagen);
-                await axios.post(`https://${host}/eliminarI`, { nombreI }, {
-                    headers: { 'Content-Type': 'application/json' },
-                })
-                    .then(async function (response) {
-                        console.log(response);
-
-                        if (response.status === 200) {
-                            console.log('Éxito al eliminar imagen');
-                        } else {
-                            console.log("Error al eliminar imagen");
-                        }
-                    })
-                    .catch(function (error) {
-                        console.error('Error:', error);
-                    });
-                const nombreA = getFileNameFromUrl(post.urlDocumento);
-                await axios.post(`https://${host}/eliminarA`, { nombreA }, {
-                    headers: { 'Content-Type': 'application/json' },
-                })
-                    .then(async function (response) {
-                        console.log(response);
-
-                        if (response.status === 200) {
-                            console.log('Éxito al eliminar archivo');
-                            await eliminarPostSinImagen(post);
-                        } else {
-                            console.log("Error al eliminar archivo");
-                        }
-                    })
-                    .catch(function (error) {
-                        console.error('Error:', error);
-                    });
-            } else {
-                const nombreI = getFileNameFromUrl(post.urlImagen);
-                await axios.post(`https://${host}/eliminarI`, { nombreI }, {
-                    headers: { 'Content-Type': 'application/json' },
-                })
-                    .then(async function (response) {
-                        console.log(response);
-
-                        if (response.status === 200) {
-                            console.log('Éxito al eliminar imagen');
-                            await eliminarPostSinImagen(post);
-                        } else {
-                            console.log("Error al eliminar imagen");
-                        }
-                    })
-                    .catch(function (error) {
-                        console.error('Error:', error);
-                    });
-            }
-        } else {
-            await eliminarPostSinImagen(post);
-        }
+    const handleDelete = () => {
+        toast.error('Eliminado correctamente'); // Mensaje de éxito al eliminar
     };
 
-    const eliminarPostSinImagen = async (post) => {
-        try {
-            const response = await fetch(`https://${host}/eliminarPost`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
+    const eliminarPost = async (post) => {
+        confirmAlert({
+            title: 'Confirm to delete',
+            message: 'Are you sure you want to delete this item?',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => {
+                        handleDelete(); // Mostrar notificación de éxito
+                    },
                 },
-                body: JSON.stringify({ id: post.idPost, dueño: post.dueño }),
-            });
-            if (response.ok) {
-                alert('Se eliminó correctamente el post');
-                window.location.reload();
-            } else {
-                console.error('Error al eliminar post:', response.statusText);
-            }
-        } catch (error) {
-            console.error('Error:', error);
-        }
+                {
+                    label: 'No',
+                    onClick: () => console.log('Canceled')
+                }
+            ]
+        });
+        //     if (post.urlImagen) {
+        //         if (post.urlDocumento) {
+        //             const nombreI = getFileNameFromUrl(post.urlImagen);
+        //             await axios.post(`https://${host}/eliminarI`, { nombreI }, {
+        //                 headers: { 'Content-Type': 'application/json' },
+        //             })
+        //                 .then(async function (response) {
+        //                     console.log(response);
+
+        //                     if (response.status === 200) {
+        //                         console.log('Éxito al eliminar imagen');
+        //                     } else {
+        //                         console.log("Error al eliminar imagen");
+        //                     }
+        //                 })
+        //                 .catch(function (error) {
+        //                     console.error('Error:', error);
+        //                 });
+        //             const nombreA = getFileNameFromUrl(post.urlDocumento);
+        //             await axios.post(`https://${host}/eliminarA`, { nombreA }, {
+        //                 headers: { 'Content-Type': 'application/json' },
+        //             })
+        //                 .then(async function (response) {
+        //                     console.log(response);
+
+        //                     if (response.status === 200) {
+        //                         console.log('Éxito al eliminar archivo');
+        //                         await eliminarPostSinImagen(post);
+        //                     } else {
+        //                         console.log("Error al eliminar archivo");
+        //                     }
+        //                 })
+        //                 .catch(function (error) {
+        //                     console.error('Error:', error);
+        //                 });
+        //         } else {
+        //             const nombreI = getFileNameFromUrl(post.urlImagen);
+        //             await axios.post(`https://${host}/eliminarI`, { nombreI }, {
+        //                 headers: { 'Content-Type': 'application/json' },
+        //             })
+        //                 .then(async function (response) {
+        //                     console.log(response);
+
+        //                     if (response.status === 200) {
+        //                         console.log('Éxito al eliminar imagen');
+        //                         await eliminarPostSinImagen(post);
+        //                     } else {
+        //                         console.log("Error al eliminar imagen");
+        //                     }
+        //                 })
+        //                 .catch(function (error) {
+        //                     console.error('Error:', error);
+        //                 });
+        //         }
+        //     } else {
+        //         await eliminarPostSinImagen(post);
+        //     }
+        // };
+
+        // const eliminarPostSinImagen = async (post) => {
+        //     try {
+        //         const response = await fetch(`https://${host}/eliminarPost`, {
+        //             method: 'POST',
+        //             headers: {
+        //                 'Content-Type': 'application/json',
+        //             },
+        //             body: JSON.stringify({ id: post.idPost, dueño: post.dueño }),
+        //         });
+        //         if (response.ok) {
+        //             alert('Se eliminó correctamente el post');
+        //             window.location.reload();
+        //         } else {
+        //             console.error('Error al eliminar post:', response.statusText);
+        //         }
+        //     } catch (error) {
+        //         console.error('Error:', error);
+        //     }
     };
 
     const navegarPrincipio = () => {
@@ -191,9 +215,9 @@ const AdmPosts = () => {
                     <p className="mensajePostsVacios">No hay posts disponibles.</p>
                 )}
                 <button onClick={navegarPrincipio} className="btn-regresar-Principio">
-                    Regresar al Principio
-                </button>
+                    ⬆          </button>
             </div>
+            <ToastContainer />
         </>
     );
 };

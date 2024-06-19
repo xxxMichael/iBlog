@@ -103,6 +103,8 @@ const Perfil = () => {
             background: "#272528",
             color: "#ffffff",
             boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+            height: "100px",
+            fontSize: "20px",
           },
         });
         // console.error("");
@@ -129,6 +131,8 @@ const Perfil = () => {
             background: "#272528",
             color: "#ffffff",
             boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+            height: "100px",
+            fontSize: "20px",
           },
         });
         console.error("Fecha de nacimiento inválida.");
@@ -149,6 +153,8 @@ const Perfil = () => {
             background: "#272528",
             color: "#ffffff",
             boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+            height: "100px",
+            fontSize: "20px",
           },
         });
         return;
@@ -161,7 +167,7 @@ const Perfil = () => {
         if (isValidPassword) {
           data = {
             contra: newPassword,
-          
+
           };
         } else {
           toast.error("No ingrese caracteres especiales", {
@@ -176,6 +182,8 @@ const Perfil = () => {
               background: "#272528",
               color: "#ffffff",
               boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+              height: "100px",
+              fontSize: "20px",
             },
           });
           return;
@@ -193,6 +201,8 @@ const Perfil = () => {
             background: "#272528",
             color: "#ffffff",
             boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+            height: "100px",
+            fontSize: "20px",
           },
         });
         return;
@@ -216,7 +226,7 @@ const Perfil = () => {
 
       if (!response.ok) {
         throw new Error("Error en la solicitud");
-      }else{
+      } else {
         toast.success("Informacion Actualizada", {
           position: "top-right",
           autoClose: 3000,
@@ -227,10 +237,12 @@ const Perfil = () => {
           progress: undefined,
           style: {
             background: "#272528",
-              color: "#ffffff",
-              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+            color: "#ffffff",
+            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+            height: "100px",
+            fontSize: "20px",
           },
-      });
+        });
       }
 
       const result = await response.json();
@@ -257,9 +269,11 @@ const Perfil = () => {
           background: "#272528",
           color: "#ffffff",
           boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+          height: "100px",
+          fontSize: "20px",
         },
       });
-     // console.error("Error al enviar los datos:", error);
+      // console.error("Error al enviar los datos:", error);
     }
   };
   const [interestsModalOpen, setInterestsModalOpen] = useState(false);
@@ -578,7 +592,7 @@ const Perfil = () => {
                 <span className="info-value">{userData.rol}</span>
               </div>
 
-            
+
               <div className="info-item">
                 <span className="info-label">País: </span>
                 <span className="info-value">
@@ -592,22 +606,22 @@ const Perfil = () => {
                 <span className="info-label">Email: </span>
                 <span className="info-value">{userData.email}</span>
               </div>
-           
+
             </div>
             <div style={{ position: "absolute", bottom: "4%", right: "5%" }}>
-                {/* Enlace a la página principal */}
-                <Link to="/" className="backHome">
-                  Home
-                </Link>
-              </div>
-              <div style={{ position: "absolute", bottom: "13%", right: "98%" }}>
-                <button
-                  className="edit-button edit-contrasena"
-                  onClick={handleEditPassword}
-                >
-                  Clave
-                </button>
-              </div>
+              {/* Enlace a la página principal */}
+              <Link to="/" className="backHome">
+                Home
+              </Link>
+            </div>
+            <div style={{ position: "absolute", bottom: "13%", right: "98%" }}>
+              <button
+                className="edit-button edit-contrasena"
+                onClick={handleEditPassword}
+              >
+                Clave
+              </button>
+            </div>
           </div>
           {modalOpen && (
             <div className="modal">
@@ -616,10 +630,10 @@ const Perfil = () => {
                   {modalType === "name"
                     ? "Editar Nombre"
                     : modalType === "dateOfBirth"
-                    ? "Editar Fecha de Nacimiento"
-                    : modalType === "country"
-                    ? "Editar País"
-                    : "Editar Contraseña"}
+                      ? "Editar Fecha de Nacimiento"
+                      : modalType === "country"
+                        ? "Editar País"
+                        : "Editar Contraseña"}
                 </h2>
                 <form onSubmit={handleSubmit}>
                   {modalType === "name" ? (

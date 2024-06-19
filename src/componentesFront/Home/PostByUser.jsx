@@ -114,28 +114,28 @@ const PostByUser = () => {
           </Link>
           <div className="contDerecho ">
 
-          <div className="card cont-byuser">
-            <h2
-              className="card-title"
-              style={{ color: "white", textAlign: "center", lineHeight: "1.5" }}
-            >
-              Posts de {userInfo.nombre} {userInfo.apellido}
-              <br />
-              <span style={{ fontSize: "0.8em" }}>
-                Rango: {userInfo.rol}
+            <div className="card cont-byuser">
+              <h2
+                className="card-title"
+                style={{ color: "white", textAlign: "center", lineHeight: "1.5" }}
+              >
+                Posts de {userInfo.nombre} {userInfo.apellido}
                 <br />
-                País: {userInfo.pais} <br />
-                <Flag code={paisCodigo} height="30" />
-              </span>
-              
+                <span style={{ fontSize: "0.8em" }}>
+                  Rango: {userInfo.rol}
+                  <br />
+                  País: {userInfo.pais} <br />
+                  <Flag code={paisCodigo} height="30" />
+                </span>
+
                 <img
                   className="card-img-top"
                   src={userInfo.urlImagenPerfil + "?${new Date().getTime()}"}
                   alt="profile"
                 />
-       
-            </h2>
-          </div>
+
+              </h2>
+            </div>
           </div>
 
           {posts.length > 0 ? (
@@ -206,7 +206,7 @@ const PostByUser = () => {
             <p className="mensajePostsVaciosL">ESTE USUARIO NO TIENE POSTS</p>
           )}
           <button onClick={navegarPrincipio} className="btn-regresar-Principio">
-          ⬆          </button>
+            ⬆          </button>
         </div>
       )}
     </div>
