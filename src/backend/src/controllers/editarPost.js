@@ -1,17 +1,17 @@
 const connection = require('../models/db');
 
 module.exports.editarPosts = (req, res) => {
-    const { titulo, contenido, idCategoria1, idCategoria2, idCategoria3, urlImagen, id } = req.body;
+    const {titulo, contenido, idCategoria1, idCategoria2, idCategoria3,id} = req.body;
     console.log(id);
     console.log(idCategoria1);
     console.log(idCategoria2);
     console.log(idCategoria3);
 
     const query = `
-    Update posts set titulo=?, contenido=?, idCategoria1=?, idCategoria2=?, idCategoria3=?, urlImagen=? where idPost = ?;
+    Update posts set titulo=?, contenido=?, idCategoria1=?, idCategoria2=?, idCategoria3=? where idPost = ?;
     `;
 
-    connection.query(query, [titulo, contenido, idCategoria1, idCategoria2, idCategoria3, urlImagen, id], (err, result) => {
+    connection.query(query, [titulo, contenido, idCategoria1, idCategoria2, idCategoria3, id], (err, result) => {
         if (err) {
             console.error('Error al actualizar post:', err);
             res.status(500).json({ success: false, message: 'Error al Insertar post' });
