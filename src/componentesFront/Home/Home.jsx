@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { parseJwt } from "../Main/Main";
 import { Link } from "react-router-dom";
 import { FaSearch, FaHome, FaUser } from "react-icons/fa";
-import Categorias from "./Categorias.jsx";
+import Categorias from "./categorias.jsx";
 import axios from "axios";
 import LoginForm from "../Login/Login.jsx";
 import Formulario from "./formularioPost.jsx";
