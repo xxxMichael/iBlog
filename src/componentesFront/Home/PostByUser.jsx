@@ -161,7 +161,7 @@ const PostByUser = () => {
                     </div>
                   )}
                   <p className="card-title-post-User">{post.titulo}</p>
-                  <p className="card-body-post-User lato-thin">{post.contenido}</p>
+                  <p className="card-body-post-User lato-light">{post.contenido}</p>
                   <div className="contBtnPost-User">
                     <button
                       className="bookmarkBtn"
