@@ -34,7 +34,7 @@ module.exports.guardarCambios = async (req, res) => {
     } else if (modalType === 'password') {
       const { contra } = data;
       query = `
-        UPDATE usuarioautenticado
+        UPDATE usuarioAutenticado
         SET contra = ?
         WHERE username = ?;
       `;
