@@ -1,5 +1,6 @@
 body {
   background-color: rgb(14, 17, 19);
+  font-family: "IBM Plex Sans", sans-serif;
 }
 
 .contenedorPrincipal {
@@ -8,12 +9,11 @@ body {
   /* Establece la altura al 100% del viewport */
 }
 
-.cont-byuser{
-  top:-35px;
+.cont-byuser {
+  top: -35px;
   border-color: #313131;
-  right:-40px;
+  right: -40px;
 }
-
 
 .barra-navegacion-home {
   border-bottom: 1px solid rgb(62, 65, 66);
@@ -284,6 +284,7 @@ body {
   font-weight: 600;
   color: #b2eccf;
   margin: 15px 0 0 10px;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .card-title-post-User {
@@ -292,6 +293,7 @@ body {
   color: #b2eccf;
   width: 100%;
   margin: 15px 0 0 10px;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .card-image-post {
@@ -345,7 +347,7 @@ body {
 .card-body-post {
   margin: 13px 0 0 10px;
   color: rgb(184, 184, 184);
-  font-size: 20px;
+  font-size: 16px;
   margin-bottom: 2%;
   text-align: justify;
 }
@@ -459,6 +461,7 @@ body {
   color: #03e8f4cd;
   font-size: 15px;
   text-decoration: none;
+  font-family: "Oswald", sans-serif;
   text-transform: uppercase;
   overflow: hidden;
   transition: 0.5s;
@@ -512,9 +515,8 @@ body {
 
 .label-container {
   color: white;
-  /* Hereda el color del texto del contenedor */
   cursor: pointer;
-  /* Cambia el cursor al pasar el mouse */
+  font-family: "Playfair Display", serif;
 }
 
 .label-container-Home {
@@ -572,7 +574,6 @@ body {
   cursor: pointer;
   border-radius: 20px; /* Esto hace que los bordes sean redondeados */
 }
-
 
 .Btn-descarga {
   background-color: rgb(66, 66, 66);
@@ -806,7 +807,7 @@ body {
     overflow: hidden;
     position: relative;
   }
- 
+
   .card-image-post-User {
     margin-left: 0%;
     min-height: auto;
@@ -819,7 +820,7 @@ body {
     overflow: hidden;
     position: relative;
   }
-  
+
   .card-image-post img {
     max-width: 100%;
     max-height: 100%;

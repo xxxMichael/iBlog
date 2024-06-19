@@ -466,7 +466,7 @@ body {
 
 .fecha,
 select {
-  width: 85%; /* Asegura que ocupen todo el ancho del contenedor */
+  width: 100%; /* Asegura que ocupen todo el ancho del contenedor */
   cursor: pointer;
 }
 

@@ -16,10 +16,17 @@
 .contenido-comentario {
   position: relative;
   margin-top: 5px;
+  color: rgb(121, 117, 117);
+}
+.label-container{
+color: rgb(255, 255, 255);
 }
 .btn-eliminar-comentario {
   margin-left: 88%;
   width: 15%;
+}
+#usuario-coment{
+color: rgb(28, 161, 171);
 }
 
 .text-new-comment {

@@ -132,19 +132,19 @@ const Comentarios = ({ idPost, currentUser }) => {
             </button>
           )}
           <p
-            className={`usuario-Comento ${
-              currentUser === comentario.autor && !tokenExpired
+            className={`usuario-Comento ${currentUser === comentario.autor && !tokenExpired
                 ? "usuario-con-boton"
                 : ""
-            }`}
+              }`}
           >
             <strong>
-            <Link
-                          className="label-container"
-                          to={`/postByUser/${comentario.autor}`}
-                        >
-                          @{comentario.autor}
-                        </Link> •{" "}
+              <Link
+                className="label-container"
+                id='usuario-coment'
+                to={`/postByUser/${comentario.autor}`}
+              >
+                @{comentario.autor}
+              </Link> •{" "}
               {formatearTiempoTranscurrido(
                 new Date(comentario.fechaComentario)
               )}
