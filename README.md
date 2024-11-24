@@ -25,6 +25,13 @@ El proyecto fue desarrollado utilizando React, Vite y CSS para el diseño y la i
 - Los usuarios pueden comentar en publicaciones de otros usuarios, con la opción de editar o eliminar sus propios comentarios.
 ![WhatsApp Image 2024-11-24 at 11 02 31 AM](https://github.com/user-attachments/assets/d8716571-aee8-445a-9e77-2dffb433bddf)
 
+## Funcionalidad Responsive
+
+- La plataforma está completamente optimizada para dispositivos móviles, garantizando una experiencia de usuario fluida tanto en smartphones como en tablets.
+- El diseño se adapta automáticamente al tamaño de la pantalla, asegurando que los usuarios puedan interactuar con las publicaciones, comentar y gestionar su perfil sin problemas en cualquier dispositivo.
+- El uso de tecnologías como CSS Flexbox y Grid permite un layout flexible que mejora la visualización de los contenidos y la navegación en pantallas pequeñas.
+![77c61853-7060-4de7-b859-70f638ec4e50](https://github.com/user-attachments/assets/40a1d25d-a60e-4af0-99c2-16ae33834ea8)
+
 ### **GESTIÓN DE POSTS**
 - Los usuarios pueden crear, editar y eliminar publicaciones propias.
 - Las publicaciones pueden incluir imágenes y texto, y son visibles para otros usuarios registrados.
